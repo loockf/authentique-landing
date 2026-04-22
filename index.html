@@ -501,57 +501,154 @@ nav {
   color: var(--gray);
 }
 
-/* VIDEO */
-.section-video {
-  padding: 80px 24px;
-  text-align: center;
+/* SCREENS SECTION */
+.section-screens {
+  padding: 80px 24px 120px;
 }
 
-.section-video h2 {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(32px, 4vw, 48px);
-  margin-bottom: 48px;
-}
-
-.video-wrapper {
-  max-width: 800px;
+.screens-inner {
+  max-width: 1100px;
   margin: 0 auto;
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 40px 80px rgba(0,0,0,0.5);
-  border: 1px solid rgba(255,255,255,0.06);
-  background: var(--dark);
-  aspect-ratio: 16/9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.video-placeholder {
-  display: flex;
-  flex-direction: column;
+.screens-header {
+  text-align: center;
+  margin-bottom: 100px;
+}
+
+.screens-header h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(36px, 4vw, 56px);
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.screens-header h2 em {
+  font-style: italic;
+  color: var(--green);
+}
+
+.screens-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
   align-items: center;
-  gap: 16px;
+  margin-bottom: 120px;
+}
+
+.screens-row--reverse {
+  direction: rtl;
+}
+
+.screens-row--reverse > * {
+  direction: ltr;
+}
+
+.screen-col--text h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(24px, 3vw, 36px);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.screen-col--text h3 em {
+  color: var(--green);
+  font-style: italic;
+}
+
+.screen-col--text p {
   color: var(--gray);
+  font-size: 17px;
+  line-height: 1.7;
 }
 
-.video-play {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: rgba(25,211,130,0.15);
-  border: 1px solid rgba(25,211,130,0.3);
+.screen-col--phones {
   display: flex;
-  align-items: center;
+  gap: 20px;
+  align-items: flex-end;
   justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s;
 }
 
-.video-play:hover {
-  background: rgba(25,211,130,0.25);
-  transform: scale(1.05);
+/* iPHONE 17 PRO MAX MOCKUP */
+.iphone {
+  flex: 1;
+  max-width: 200px;
 }
+
+.iphone--featured {
+  transform: translateY(-24px);
+}
+
+.iphone-frame {
+  border-radius: 44px;
+  padding: 10px;
+  position: relative;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.12);
+}
+
+.iphone--dark .iphone-frame {
+  background: #1c1c1e;
+}
+
+.iphone--light .iphone-frame {
+  background: #e8e8ed;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(0,0,0,0.08);
+}
+
+.iphone-dynamic-island {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 26px;
+  border-radius: 20px;
+  z-index: 3;
+}
+
+.iphone--dark .iphone-dynamic-island {
+  background: #000;
+}
+
+.iphone--light .iphone-dynamic-island {
+  background: #1c1c1e;
+}
+
+.iphone-screen {
+  border-radius: 36px;
+  overflow: hidden;
+  aspect-ratio: 9/19.5;
+  position: relative;
+}
+
+.iphone--dark .iphone-screen {
+  background: #0c0f14;
+}
+
+.iphone--light .iphone-screen {
+  background: #f5f5f5;
+}
+
+.iphone-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .screens-row {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    margin-bottom: 80px;
+  }
+  .screens-row--reverse { direction: ltr; }
+  .iphone { max-width: 160px; }
+  .iphone--featured { transform: translateY(-16px); }
+}
+
+/* VIDEO (supprimée) */
+.section-video { display: none; }
 
 /* PHILOSOPHY */
 .section-philosophy {
@@ -831,12 +928,6 @@ footer {
         <path d="M5 12h14M12 5l7 7-7 7"/>
       </svg>
     </a>
-    <a href="#video" class="btn-secondary" data-i18n="hero_watch">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/>
-      </svg>
-      Voir la vidéo
-    </a>
   </div>
   <p class="hero-counter" data-i18n="hero_counter">
     Rejoins les premiers à découvrir <span>Authentique</span>
@@ -985,18 +1076,118 @@ footer {
   </div>
 </section>
 
-<!-- VIDEO -->
-<section class="section-video" id="video">
-  <h2 class="reveal" data-i18n="video_title">Vois Authentique en action</h2>
-  <div class="video-wrapper reveal" style="transition-delay: 0.1s">
-    <div class="video-placeholder">
-      <div class="video-play">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="#19d382">
-          <polygon points="5 3 19 12 5 21 5 3"/>
-        </svg>
-      </div>
-      <p style="font-size: 14px" data-i18n="video_placeholder">Vidéo de présentation</p>
+<!-- SCREENSHOTS -->
+<section class="section-screens">
+  <div class="screens-inner">
+    <div class="screens-header reveal">
+      <p class="section-label" data-i18n="screens_label">L'app en images</p>
+      <h2 data-i18n="screens_title">Vois la différence <em>par toi-même</em>.</h2>
     </div>
+
+    <!-- ROW 1 -->
+    <div class="screens-row reveal">
+      <div class="screen-col screen-col--text">
+        <h3 data-i18n="s1_title">Zéro publicité dans ton fil</h3>
+        <p data-i18n="s1_desc">Authentique masque automatiquement tous les posts sponsorisés, suggestions algorithmiques et reposts non désirés.</p>
+      </div>
+      <div class="screen-col screen-col--phones">
+        <div class="iphone iphone--dark">
+          <div class="iphone-frame">
+            <div class="iphone-dynamic-island"></div>
+            <div class="iphone-screen">
+              <img src="images/feed.jpg" alt="Fil d'actualité filtré" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="iphone iphone--light iphone--featured">
+          <div class="iphone-frame">
+            <div class="iphone-dynamic-island"></div>
+            <div class="iphone-screen">
+              <img src="images/feed-light.jpg" alt="Fil d'actualité filtré light" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 2 -->
+    <div class="screens-row screens-row--reverse reveal">
+      <div class="screen-col screen-col--phones">
+        <div class="iphone iphone--light">
+          <div class="iphone-frame">
+            <div class="iphone-dynamic-island"></div>
+            <div class="iphone-screen">
+              <img src="images/recherche-light.jpg" alt="Onglet Recherche" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="iphone iphone--dark iphone--featured">
+          <div class="iphone-frame">
+            <div class="iphone-dynamic-island"></div>
+            <div class="iphone-screen">
+              <img src="images/recherche-dark.jpg" alt="Onglet Recherche dark" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="screen-col screen-col--text">
+        <h3 data-i18n="s2_title">Onglet Recherche épuré</h3>
+        <p data-i18n="s2_desc">La grille de suggestions algorithmiques disparaît. Seule la barre de recherche reste — pour que tu cherches ce que TU veux trouver.</p>
+      </div>
+    </div>
+
+    <!-- ROW 3 -->
+    <div class="screens-row reveal">
+      <div class="screen-col screen-col--text">
+        <h3 data-i18n="s3_title">Reels et stories protégés</h3>
+        <p data-i18n="s3_desc">L'onglet Reels affiche un message honnête. Les stories sponsorisées sont bloquées. Tu ne vois que ce qui vient vraiment de tes amis.</p>
+      </div>
+      <div class="screen-col screen-col--phones">
+        <div class="iphone iphone--dark">
+          <div class="iphone-frame">
+            <div class="iphone-dynamic-island"></div>
+            <div class="iphone-screen">
+              <img src="images/reels-dark.jpg" alt="Overlay Reels" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="iphone iphone--light iphone--featured">
+          <div class="iphone-frame">
+            <div class="iphone-dynamic-island"></div>
+            <div class="iphone-screen">
+              <img src="images/stories-light.jpg" alt="Stories protégées" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 4 — PARAMETRES -->
+    <div class="screens-row screens-row--center reveal">
+      <div class="screen-col screen-col--text screen-col--center">
+        <h3 data-i18n="s4_title">Tu contrôles tout</h3>
+        <p data-i18n="s4_desc">Chaque filtre est configurable depuis l'écran Paramètres. Active ou désactive ce que tu veux, quand tu veux.</p>
+      </div>
+      <div class="screen-col screen-col--phones screen-col--phones-center">
+        <div class="iphone iphone--light">
+          <div class="iphone-frame">
+            <div class="iphone-dynamic-island"></div>
+            <div class="iphone-screen">
+              <img src="images/parametres-light.jpg" alt="Paramètres Authentique" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="iphone iphone--dark iphone--featured">
+          <div class="iphone-frame">
+            <div class="iphone-dynamic-island"></div>
+            <div class="iphone-screen">
+              <img src="images/parametres-dark.jpg" alt="Paramètres Authentique dark" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1076,7 +1267,7 @@ const translations = {
     f1_title: "Zéro publicité",
     f1_desc: "Les publications sponsorisées et bandeaux publicitaires disparaissent automatiquement de ton fil.",
     f2_title: "Juste tes amis",
-    f2_desc: "Les suggestions "Pour vous" et comptes algorithmiques sont filtrés. Tu ne vois que les gens que tu suis.",
+    f2_desc: 'Les suggestions \u00abPour vous\u00bb et comptes algorithmiques sont filtr\u00e9s. Tu ne vois que les gens que tu suis.',
     f3_title: "Recherche propre",
     f3_desc: "L'onglet Recherche n'affiche que la barre de recherche. La grille de suggestions algorithmiques disparaît.",
     f4_title: "Reels bloqués",
@@ -1085,8 +1276,16 @@ const translations = {
     f5_desc: "Les stories sponsorisées sont bloquées avec un overlay clair. Tu ne vois que les stories de tes amis.",
     f6_title: "Mode nuit",
     f6_desc: "Authentique suit automatiquement le mode sombre d'Instagram. Tes yeux te remercieront.",
-    video_title: "Vois Authentique en action",
-    video_placeholder: "Vidéo de présentation",
+    screens_label: "L'app en images",
+    screens_title: "Vois la différence <em>par toi-même</em>.",
+    s1_title: "Zéro publicité dans ton fil",
+    s1_desc: "Authentique masque automatiquement tous les posts sponsorisés, suggestions algorithmiques et reposts non désirés.",
+    s2_title: "Onglet Recherche épuré",
+    s2_desc: "La grille de suggestions algorithmiques disparaît. Seule la barre de recherche reste — pour que tu cherches ce que TU veux trouver.",
+    s3_title: "Reels et stories protégés",
+    s3_desc: "L'onglet Reels affiche un message honnête. Les stories sponsorisées sont bloquées. Tu ne vois que ce qui vient vraiment de tes amis.",
+    s4_title: "Tu contrôles tout",
+    s4_desc: "Chaque filtre est configurable depuis l'écran Paramètres. Active ou désactive ce que tu veux, quand tu veux.",
     philosophy_quote: '"Les réseaux sociaux devraient te connecter à tes amis, pas t\'<em>en éloigner</em>."',
     philosophy_text: "Authentique ne collecte aucune donnée. Aucun serveur. Aucun tracking. Juste une fenêtre filtrée sur Instagram, tel qu'il aurait toujours dû être.",
     waitlist_label: "Liste d'attente",
@@ -1131,8 +1330,16 @@ const translations = {
     f5_desc: "Sponsored stories are blocked with a clear overlay. You only see stories from your friends.",
     f6_title: "Dark mode",
     f6_desc: "Authentique automatically follows Instagram's dark mode. Your eyes will thank you.",
-    video_title: "See Authentique in action",
-    video_placeholder: "Presentation video",
+    screens_label: "The app in images",
+    screens_title: "See the difference <em>for yourself</em>.",
+    s1_title: "Zero ads in your feed",
+    s1_desc: "Authentique automatically hides all sponsored posts, algorithmic suggestions and unwanted reposts.",
+    s2_title: "Clean Search tab",
+    s2_desc: "The algorithmic suggestion grid disappears. Only the search bar remains — so you search what YOU want to find.",
+    s3_title: "Reels and stories protected",
+    s3_desc: "The Reels tab shows an honest message. Sponsored stories are blocked. You only see what truly comes from your friends.",
+    s4_title: "You control everything",
+    s4_desc: "Every filter is configurable from the Settings screen. Enable or disable what you want, when you want.",
     philosophy_quote: '"Social media should connect you to your friends, not <em>push you away</em> from them."',
     philosophy_text: "Authentique collects no data. No server. No tracking. Just a filtered window into Instagram, as it should always have been.",
     waitlist_label: "Waitlist",
@@ -1168,7 +1375,7 @@ const translations = {
     f1_title: "Cero publicidad",
     f1_desc: "Las publicaciones patrocinadas y banners publicitarios desaparecen automáticamente.",
     f2_title: "Solo tus amigos",
-    f2_desc: 'Las sugerencias "Para ti" y cuentas algorítmicas se filtran. Solo ves a las personas que sigues.',
+    f2_desc: 'Las sugerencias \u00abPara ti\u00bb y cuentas algor\u00edtmicas se filtran. Solo ves a las personas que sigues.',
     f3_title: "Búsqueda limpia",
     f3_desc: "La pestaña Búsqueda solo muestra la barra de búsqueda. La cuadrícula de sugerencias desaparece.",
     f4_title: "Reels bloqueados",
@@ -1177,8 +1384,16 @@ const translations = {
     f5_desc: "Las stories patrocinadas se bloquean con una superposición clara. Solo ves stories de tus amigos.",
     f6_title: "Modo oscuro",
     f6_desc: "Authentique sigue automáticamente el modo oscuro de Instagram.",
-    video_title: "Mira Authentique en acción",
-    video_placeholder: "Video de presentación",
+    screens_label: "La app en imágenes",
+    screens_title: "Ve la diferencia <em>por ti mismo</em>.",
+    s1_title: "Cero publicidad en tu feed",
+    s1_desc: "Authentique oculta automáticamente todos los posts patrocinados, sugerencias algorítmicas y reposts no deseados.",
+    s2_title: "Pestaña Búsqueda limpia",
+    s2_desc: "La cuadrícula de sugerencias algorítmicas desaparece. Solo queda la barra de búsqueda.",
+    s3_title: "Reels e historias protegidas",
+    s3_desc: "La pestaña Reels muestra un mensaje honesto. Las historias patrocinadas están bloqueadas.",
+    s4_title: "Tú controlas todo",
+    s4_desc: "Cada filtro es configurable desde la pantalla de Ajustes. Activa o desactiva lo que quieras.",
     philosophy_quote: '"Las redes sociales deberían conectarte con tus amigos, no <em>alejarte</em> de ellos."',
     philosophy_text: "Authentique no recopila ningún dato. Sin servidor. Sin seguimiento. Solo una ventana filtrada a Instagram, como siempre debió haber sido.",
     waitlist_label: "Lista de espera",
@@ -1223,8 +1438,16 @@ const translations = {
     f5_desc: "Спонсированные истории блокируются. Ты видишь только истории друзей.",
     f6_title: "Тёмная тема",
     f6_desc: "Authentique автоматически следует тёмной теме Instagram.",
-    video_title: "Посмотри Authentique в действии",
-    video_placeholder: "Презентационное видео",
+    screens_label: "Приложение в картинках",
+    screens_title: "Увидь разницу <em>сам</em>.",
+    s1_title: "Ноль рекламы в ленте",
+    s1_desc: "Authentique автоматически скрывает все спонсированные посты, алгоритмические рекомендации и нежелательные репосты.",
+    s2_title: "Чистая вкладка Поиск",
+    s2_desc: "Сетка алгоритмических рекомендаций исчезает. Остаётся только строка поиска.",
+    s3_title: "Reels и истории защищены",
+    s3_desc: "Вкладка Reels показывает честное сообщение. Спонсированные истории заблокированы.",
+    s4_title: "Ты контролируешь всё",
+    s4_desc: "Каждый фильтр настраивается в экране Настроек. Включай или выключай что хочешь.",
     philosophy_quote: '"Социальные сети должны соединять тебя с друзьями, а не <em>отдалять</em> от них."',
     philosophy_text: "Authentique не собирает данных. Никаких серверов. Никакой слежки. Только отфильтрованное окно в Instagram, каким он всегда должен был быть.",
     waitlist_label: "Лист ожидания",
@@ -1264,9 +1487,16 @@ const observer = new IntersectionObserver((entries) => {
       observer.unobserve(e.target);
     }
   });
-}, { threshold: 0.1 });
+}, { threshold: 0, rootMargin: '0px 0px -50px 0px' });
 
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+document.querySelectorAll('.reveal').forEach(el => {
+  observer.observe(el);
+  // Reveal immédiatement si déjà dans le viewport
+  const rect = el.getBoundingClientRect();
+  if (rect.top < window.innerHeight) {
+    el.classList.add('visible');
+  }
+});
 
 // WAITLIST FORM
 document.querySelector('.waitlist-btn').addEventListener('click', () => {
