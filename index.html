@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Authentique — Juste tes amis. Rien d'autre.</title>
+<meta name="description" content="Authentique te permet de consulter Instagram différemment — uniquement le contenu que tu as choisi de voir, sans publicité ni contenu imposé par l'algorithme.">
+<meta property="og:title" content="Authentique — Juste tes amis. Rien d'autre.">
+<meta property="og:description" content="Instagram, sans l'algorithme. Sans les pubs. Sans le bruit.">
+<meta property="og:url" content="https://get-authentique.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #19d382;
+  --green-light: #adf5d8;
+  --green-dark: #0aaa8e;
+  --black: #080b0f;
+  --dark: #0c0f14;
+  --gray: #8a9099;
+  --light-gray: #f0f0ec;
+  --white: #ffffff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 24px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, rgba(8,11,15,0.95) 0%, transparent 100%);
+  backdrop-filter: blur(8px);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.nav-arch {
+  width: 28px;
+  height: 28px;
+}
+
+.nav-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px;
+  color: var(--white);
+  letter-spacing: 0.3px;
+}
+
+.nav-cta {
+  background: var(--green);
+  color: var(--black);
+  border: none;
+  padding: 10px 24px;
+  border-radius: 100px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.nav-cta:hover {
+  background: var(--green-light);
+  transform: translateY(-1px);
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 30%, rgba(25,211,130,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(25,211,130,0.1);
+  border: 1px solid rgba(25,211,130,0.2);
+  color: var(--green);
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  margin-bottom: 40px;
+  animation: fadeUp 0.8s ease both;
+}
+
+.hero-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 2s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.hero-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(48px, 8vw, 96px);
+  line-height: 1.05;
+  letter-spacing: -1px;
+  max-width: 900px;
+  animation: fadeUp 0.8s ease 0.1s both;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--green);
+}
+
+.hero-sub {
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--gray);
+  max-width: 560px;
+  margin: 28px auto 0;
+  line-height: 1.7;
+  animation: fadeUp 0.8s ease 0.2s both;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 48px;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: fadeUp 0.8s ease 0.3s both;
+}
+
+.btn-primary {
+  background: var(--green);
+  color: var(--black);
+  border: none;
+  padding: 16px 36px;
+  border-radius: 100px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary:hover {
+  background: var(--green-light);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(25,211,130,0.25);
+}
+
+.btn-secondary {
+  color: var(--gray);
+  font-size: 15px;
+  text-decoration: none;
+  transition: color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-secondary:hover { color: var(--white); }
+
+.hero-counter {
+  margin-top: 64px;
+  font-size: 13px;
+  color: var(--gray);
+  animation: fadeUp 0.8s ease 0.4s both;
+}
+
+.hero-counter span {
+  color: var(--green);
+  font-weight: 500;
+}
+
+/* ARCH HERO */
+.hero-arch-container {
+  margin-top: 80px;
+  position: relative;
+  animation: fadeUp 0.8s ease 0.35s both;
+}
+
+/* PROBLEM SECTION */
+.section-problem {
+  padding: 120px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 24px;
+}
+
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.problem-text h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(36px, 4vw, 52px);
+  line-height: 1.15;
+  margin-bottom: 24px;
+}
+
+.problem-text h2 em {
+  font-style: italic;
+  color: var(--green);
+}
+
+.problem-text p {
+  color: var(--gray);
+  font-size: 18px;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.problem-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.stat-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+}
+
+.stat-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(25,211,130,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stat-content strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.stat-content span {
+  font-size: 13px;
+  color: var(--gray);
+}
+
+/* PHONE MOCKUP */
+.phone-mockup {
+  position: relative;
+  width: 280px;
+  margin: 0 auto;
+}
+
+.phone-frame {
+  background: #1a1a1a;
+  border-radius: 48px;
+  padding: 12px;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.1);
+  position: relative;
+}
+
+.phone-screen {
+  border-radius: 38px;
+  overflow: hidden;
+  aspect-ratio: 9/19.5;
+  background: var(--dark);
+  position: relative;
+}
+
+.phone-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.phone-screen-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 40px 24px;
+  text-align: center;
+}
+
+.phone-notch {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 34px;
+  background: #1a1a1a;
+  border-radius: 0 0 20px 20px;
+  z-index: 2;
+}
+
+/* FEATURES */
+.section-features {
+  padding: 120px 24px;
+  background: rgba(255,255,255,0.02);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.features-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.features-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.features-header h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(36px, 4vw, 56px);
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.features-header h2 em {
+  font-style: italic;
+  color: var(--green);
+}
+
+.features-header p {
+  color: var(--gray);
+  font-size: 18px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.feature-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 24px;
+  padding: 32px;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(25,211,130,0.2);
+  transform: translateY(-4px);
+}
+
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(25,211,130,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.feature-card h3 {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.feature-card p {
+  font-size: 14px;
+  color: var(--gray);
+  line-height: 1.6;
+}
+
+/* SCREENSHOTS */
+.section-screenshots {
+  padding: 120px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.screenshots-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.screenshots-header h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(36px, 4vw, 56px);
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.screenshots-row {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.screenshot-item {
+  flex: 1;
+  min-width: 200px;
+  max-width: 240px;
+}
+
+.screenshot-item.featured {
+  transform: translateY(-20px);
+}
+
+.screenshot-frame {
+  background: #1a1a1a;
+  border-radius: 36px;
+  padding: 8px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.08);
+}
+
+.screenshot-screen {
+  border-radius: 30px;
+  overflow: hidden;
+  aspect-ratio: 9/19.5;
+  background: var(--dark);
+}
+
+.screenshot-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.screenshot-label {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--gray);
+}
+
+/* VIDEO */
+.section-video {
+  padding: 80px 24px;
+  text-align: center;
+}
+
+.section-video h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(32px, 4vw, 48px);
+  margin-bottom: 48px;
+}
+
+.video-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.06);
+  background: var(--dark);
+  aspect-ratio: 16/9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  color: var(--gray);
+}
+
+.video-play {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(25,211,130,0.15);
+  border: 1px solid rgba(25,211,130,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.video-play:hover {
+  background: rgba(25,211,130,0.25);
+  transform: scale(1.05);
+}
+
+/* PHILOSOPHY */
+.section-philosophy {
+  padding: 120px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.philosophy-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(25,211,130,0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.philosophy-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.philosophy-arch {
+  margin: 0 auto 48px;
+  width: 60px;
+  height: 60px;
+}
+
+.philosophy-inner blockquote {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.2;
+  font-style: italic;
+  color: var(--white);
+  margin-bottom: 32px;
+}
+
+.philosophy-inner blockquote em {
+  color: var(--green);
+  font-style: italic;
+}
+
+.philosophy-inner p {
+  color: var(--gray);
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+/* WAITLIST */
+.section-waitlist {
+  padding: 120px 24px;
+  background: linear-gradient(135deg, rgba(25,211,130,0.08) 0%, transparent 60%);
+  border-top: 1px solid rgba(25,211,130,0.1);
+}
+
+.waitlist-inner {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.waitlist-inner h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.waitlist-inner h2 em {
+  font-style: italic;
+  color: var(--green);
+}
+
+.waitlist-inner p {
+  color: var(--gray);
+  font-size: 18px;
+  margin-bottom: 48px;
+  line-height: 1.6;
+}
+
+.waitlist-form {
+  display: flex;
+  gap: 12px;
+  max-width: 480px;
+  margin: 0 auto 24px;
+}
+
+.waitlist-input {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 100px;
+  padding: 14px 24px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  color: var(--white);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.waitlist-input::placeholder { color: var(--gray); }
+.waitlist-input:focus { border-color: rgba(25,211,130,0.4); }
+
+.waitlist-btn {
+  background: var(--green);
+  color: var(--black);
+  border: none;
+  padding: 14px 28px;
+  border-radius: 100px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.waitlist-btn:hover {
+  background: var(--green-light);
+  transform: translateY(-1px);
+}
+
+.waitlist-note {
+  font-size: 13px;
+  color: var(--gray);
+}
+
+.waitlist-note a {
+  color: var(--green);
+  text-decoration: none;
+}
+
+/* FOOTER */
+footer {
+  padding: 48px 24px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1100px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.footer-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 18px;
+  color: var(--white);
+}
+
+.footer-links {
+  display: flex;
+  gap: 32px;
+}
+
+.footer-links a {
+  color: var(--gray);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover { color: var(--white); }
+
+.footer-copy {
+  font-size: 13px;
+  color: var(--gray);
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  nav { padding: 16px 24px; }
+  .problem-grid { grid-template-columns: 1fr; gap: 48px; }
+  .features-grid { grid-template-columns: 1fr; }
+  .screenshots-row { gap: 16px; }
+  .screenshot-item { min-width: 150px; }
+  .screenshot-item.featured { transform: none; }
+  .waitlist-form { flex-direction: column; }
+  footer { flex-direction: column; text-align: center; }
+  .footer-links { justify-content: center; }
+}
+
+/* LANG SWITCHER */
+.lang-switcher {
+  display: flex;
+  gap: 8px;
+  margin-right: 16px;
+}
+
+.lang-btn {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--gray);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.lang-btn.active, .lang-btn:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <svg class="nav-arch" viewBox="0 0 200 200" fill="none">
+      <path d="M 28,178 L 52,88 Q 66,38 100,38 Q 134,38 148,88 L 172,178"
+        stroke="#19d382" stroke-width="30" stroke-linecap="round" fill="none"/>
+    </svg>
+    <span class="nav-name">Authentique</span>
+  </a>
+  <div class="nav-right">
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('fr')">FR</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('es')">ES</button>
+      <button class="lang-btn" onclick="setLang('ru')">RU</button>
+    </div>
+    <a href="#waitlist" class="nav-cta" data-i18n="nav_cta">Rejoindre la liste</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-tag">
+    <div class="hero-dot"></div>
+    <span data-i18n="hero_tag">Bientôt disponible sur iOS</span>
+  </div>
+  <h1 class="hero-title" data-i18n="hero_title">
+    Instagram, sans le <em>bruit</em>.
+  </h1>
+  <p class="hero-sub" data-i18n="hero_sub">
+    Authentique te permet de consulter Instagram différemment — uniquement le contenu que tu as choisi de voir, sans publicité ni contenu imposé par l'algorithme.
+  </p>
+  <div class="hero-actions">
+    <a href="#waitlist" class="btn-primary" data-i18n="hero_cta">
+      Rejoindre la liste d'attente
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </a>
+    <a href="#video" class="btn-secondary" data-i18n="hero_watch">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/>
+      </svg>
+      Voir la vidéo
+    </a>
+  </div>
+  <p class="hero-counter" data-i18n="hero_counter">
+    Rejoins les premiers à découvrir <span>Authentique</span>
+  </p>
+</section>
+
+<!-- PROBLEM -->
+<section class="section-problem">
+  <div class="problem-grid">
+    <div class="problem-text reveal">
+      <p class="section-label" data-i18n="problem_label">Le problème</p>
+      <h2 data-i18n="problem_title">Instagram décide ce que tu <em>vois</em>.</h2>
+      <p data-i18n="problem_p1">Publicités, suggestions algorithmiques, Reels imposés, reposts non désirés... Ton fil d'actualité ne te montre plus vraiment tes amis.</p>
+      <p data-i18n="problem_p2">Meta optimise pour que tu restes le plus longtemps possible. Pas pour que tu voies ce qui compte vraiment.</p>
+      <div class="problem-stats">
+        <div class="stat-item">
+          <div class="stat-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <strong data-i18n="stat1_title">Publications sponsorisées masquées</strong>
+            <span data-i18n="stat1_desc">Plus aucune pub dans ton fil d'actualité</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="23" y1="11" x2="17" y2="11"/>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <strong data-i18n="stat2_title">Suggestions algorithmiques supprimées</strong>
+            <span data-i18n="stat2_desc">Uniquement les comptes que tu suis vraiment</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="2">
+              <polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+              <line x1="1" y1="5" x2="16" y2="19"/>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <strong data-i18n="stat3_title">Reels algorithmiques bloqués</strong>
+            <span data-i18n="stat3_desc">L'onglet Reels, c'est le territoire de Meta</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal" style="transition-delay: 0.15s">
+      <div class="phone-mockup">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="phone-screen-placeholder">
+              <svg width="40" height="44" viewBox="0 0 200 200" fill="none">
+                <path d="M 28,178 L 52,88 Q 66,38 100,38 Q 134,38 148,88 L 172,178"
+                  stroke="#19d382" stroke-width="30" stroke-linecap="round" fill="none"/>
+              </svg>
+              <div style="font-size:13px; color: #8a9099; line-height:1.5; text-align:center">
+                <strong style="color:#fff; display:block; margin-bottom:4px">Rien à voir.</strong>
+                Et c'est exactement ce qu'on voulait.
+              </div>
+              <div style="font-size:11px; color:#19d382; margin-top:8px">13 éléments masqués</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section-features">
+  <div class="features-inner">
+    <div class="features-header reveal">
+      <p class="section-label" data-i18n="features_label">Ce qu'Authentique fait</p>
+      <h2 data-i18n="features_title">Conçu pour te <em>libérer</em>.</h2>
+      <p data-i18n="features_sub">Chaque fonctionnalité a été pensée pour te redonner le contrôle de ton expérience Instagram.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+          </svg>
+        </div>
+        <h3 data-i18n="f1_title">Zéro publicité</h3>
+        <p data-i18n="f1_desc">Les publications sponsorisées et bandeaux publicitaires disparaissent automatiquement de ton fil.</p>
+      </div>
+      <div class="feature-card reveal" style="transition-delay: 0.1s">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <h3 data-i18n="f2_title">Juste tes amis</h3>
+        <p data-i18n="f2_desc">Les suggestions "Pour vous" et comptes algorithmiques sont filtrés. Tu ne vois que les gens que tu suis.</p>
+      </div>
+      <div class="feature-card reveal" style="transition-delay: 0.2s">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="2">
+            <search-x/><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            <line x1="18" y1="18" x2="22" y2="22"/>
+          </svg>
+        </div>
+        <h3 data-i18n="f3_title">Recherche propre</h3>
+        <p data-i18n="f3_desc">L'onglet Recherche n'affiche que la barre de recherche. La grille de suggestions algorithmiques disparaît.</p>
+      </div>
+      <div class="feature-card reveal" style="transition-delay: 0.05s">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="2">
+            <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
+            <line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/>
+            <line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/>
+            <line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/>
+            <line x1="17" y1="7" x2="22" y2="7"/>
+          </svg>
+        </div>
+        <h3 data-i18n="f4_title">Reels bloqués</h3>
+        <p data-i18n="f4_desc">L'onglet Reels est remplacé par un message honnête. Les Reels de tes amis restent visibles dans ton fil.</p>
+      </div>
+      <div class="feature-card reveal" style="transition-delay: 0.15s">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h3 data-i18n="f5_title">Stories protégées</h3>
+        <p data-i18n="f5_desc">Les stories sponsorisées sont bloquées avec un overlay clair. Tu ne vois que les stories de tes amis.</p>
+      </div>
+      <div class="feature-card reveal" style="transition-delay: 0.25s">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="2">
+            <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+            <path d="M12 8v4l3 3"/>
+          </svg>
+        </div>
+        <h3 data-i18n="f6_title">Mode nuit</h3>
+        <p data-i18n="f6_desc">Authentique suit automatiquement le mode sombre d'Instagram. Tes yeux te remercieront.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section class="section-video" id="video">
+  <h2 class="reveal" data-i18n="video_title">Vois Authentique en action</h2>
+  <div class="video-wrapper reveal" style="transition-delay: 0.1s">
+    <div class="video-placeholder">
+      <div class="video-play">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#19d382">
+          <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg>
+      </div>
+      <p style="font-size: 14px" data-i18n="video_placeholder">Vidéo de présentation</p>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="section-philosophy">
+  <div class="philosophy-bg"></div>
+  <div class="philosophy-inner reveal">
+    <div class="philosophy-arch">
+      <svg viewBox="0 0 200 200" fill="none" width="60" height="60">
+        <path d="M 28,178 L 52,88 Q 66,38 100,38 Q 134,38 148,88 L 172,178"
+          stroke="#19d382" stroke-width="30" stroke-linecap="round" fill="none"/>
+      </svg>
+    </div>
+    <blockquote data-i18n="philosophy_quote">
+      "Les réseaux sociaux devraient te connecter à tes amis, pas t'<em>en éloigner</em>."
+    </blockquote>
+    <p data-i18n="philosophy_text">Authentique ne collecte aucune donnée. Aucun serveur. Aucun tracking. Juste une fenêtre filtrée sur Instagram, tel qu'il aurait toujours dû être.</p>
+  </div>
+</section>
+
+<!-- WAITLIST -->
+<section class="section-waitlist" id="waitlist">
+  <div class="waitlist-inner">
+    <p class="section-label" data-i18n="waitlist_label">Liste d'attente</p>
+    <h2 class="reveal" data-i18n="waitlist_title">Prêt à retrouver tes <em>amis</em> ?</h2>
+    <p class="reveal" data-i18n="waitlist_sub">Laisse ton email pour être parmi les premiers à accéder à Authentique. Aucun spam, promis.</p>
+    <div class="waitlist-form reveal">
+      <input type="email" class="waitlist-input" placeholder="ton@email.com" data-i18n-placeholder="waitlist_placeholder">
+      <button class="waitlist-btn" data-i18n="waitlist_btn">Rejoindre</button>
+    </div>
+    <p class="waitlist-note reveal" data-i18n="waitlist_note">
+      Tu as des questions ? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">
+    <svg width="22" height="22" viewBox="0 0 200 200" fill="none">
+      <path d="M 28,178 L 52,88 Q 66,38 100,38 Q 134,38 148,88 L 172,178"
+        stroke="#19d382" stroke-width="30" stroke-linecap="round" fill="none"/>
+    </svg>
+    <span class="footer-name">Authentique</span>
+  </a>
+  <div class="footer-links">
+    <a href="mailto:hello@get-authentique.com" data-i18n="footer_contact">Contact</a>
+    <a href="#" data-i18n="footer_survey">Questionnaire</a>
+  </div>
+  <p class="footer-copy">© 2026 Luca Fernandez — Sozo Prod</p>
+</footer>
+
+<script>
+// TRANSLATIONS
+const translations = {
+  fr: {
+    nav_cta: "Rejoindre la liste",
+    hero_tag: "Bientôt disponible sur iOS",
+    hero_title: "Instagram, sans le <em>bruit</em>.",
+    hero_sub: "Authentique te permet de consulter Instagram différemment — uniquement le contenu que tu as choisi de voir, sans publicité ni contenu imposé par l'algorithme.",
+    hero_cta: "Rejoindre la liste d'attente",
+    hero_watch: "Voir la vidéo",
+    hero_counter: "Rejoins les premiers à découvrir <span>Authentique</span>",
+    problem_label: "Le problème",
+    problem_title: "Instagram décide ce que tu <em>vois</em>.",
+    problem_p1: "Publicités, suggestions algorithmiques, Reels imposés, reposts non désirés... Ton fil d'actualité ne te montre plus vraiment tes amis.",
+    problem_p2: "Meta optimise pour que tu restes le plus longtemps possible. Pas pour que tu voies ce qui compte vraiment.",
+    stat1_title: "Publications sponsorisées masquées",
+    stat1_desc: "Plus aucune pub dans ton fil d'actualité",
+    stat2_title: "Suggestions algorithmiques supprimées",
+    stat2_desc: "Uniquement les comptes que tu suis vraiment",
+    stat3_title: "Reels algorithmiques bloqués",
+    stat3_desc: "L'onglet Reels, c'est le territoire de Meta",
+    features_label: "Ce qu'Authentique fait",
+    features_title: "Conçu pour te <em>libérer</em>.",
+    features_sub: "Chaque fonctionnalité a été pensée pour te redonner le contrôle de ton expérience Instagram.",
+    f1_title: "Zéro publicité",
+    f1_desc: "Les publications sponsorisées et bandeaux publicitaires disparaissent automatiquement de ton fil.",
+    f2_title: "Juste tes amis",
+    f2_desc: "Les suggestions "Pour vous" et comptes algorithmiques sont filtrés. Tu ne vois que les gens que tu suis.",
+    f3_title: "Recherche propre",
+    f3_desc: "L'onglet Recherche n'affiche que la barre de recherche. La grille de suggestions algorithmiques disparaît.",
+    f4_title: "Reels bloqués",
+    f4_desc: "L'onglet Reels est remplacé par un message honnête. Les Reels de tes amis restent visibles dans ton fil.",
+    f5_title: "Stories protégées",
+    f5_desc: "Les stories sponsorisées sont bloquées avec un overlay clair. Tu ne vois que les stories de tes amis.",
+    f6_title: "Mode nuit",
+    f6_desc: "Authentique suit automatiquement le mode sombre d'Instagram. Tes yeux te remercieront.",
+    video_title: "Vois Authentique en action",
+    video_placeholder: "Vidéo de présentation",
+    philosophy_quote: '"Les réseaux sociaux devraient te connecter à tes amis, pas t\'<em>en éloigner</em>."',
+    philosophy_text: "Authentique ne collecte aucune donnée. Aucun serveur. Aucun tracking. Juste une fenêtre filtrée sur Instagram, tel qu'il aurait toujours dû être.",
+    waitlist_label: "Liste d'attente",
+    waitlist_title: "Prêt à retrouver tes <em>amis</em> ?",
+    waitlist_sub: "Laisse ton email pour être parmi les premiers à accéder à Authentique. Aucun spam, promis.",
+    waitlist_placeholder: "ton@email.com",
+    waitlist_btn: "Rejoindre",
+    waitlist_note: 'Tu as des questions ? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
+    footer_contact: "Contact",
+    footer_survey: "Questionnaire",
+  },
+  en: {
+    nav_cta: "Join the waitlist",
+    hero_tag: "Coming soon on iOS",
+    hero_title: "Instagram, without the <em>noise</em>.",
+    hero_sub: "Authentique lets you use Instagram differently — only the content you chose to see, without ads or algorithm-imposed content.",
+    hero_cta: "Join the waitlist",
+    hero_watch: "Watch the video",
+    hero_counter: "Be among the first to discover <span>Authentique</span>",
+    problem_label: "The problem",
+    problem_title: "Instagram decides what you <em>see</em>.",
+    problem_p1: "Ads, algorithmic suggestions, imposed Reels, unwanted reposts... Your feed no longer really shows you your friends.",
+    problem_p2: "Meta optimizes for keeping you as long as possible. Not for showing you what truly matters.",
+    stat1_title: "Sponsored posts hidden",
+    stat1_desc: "No more ads in your feed",
+    stat2_title: "Algorithmic suggestions removed",
+    stat2_desc: "Only the accounts you actually follow",
+    stat3_title: "Algorithmic Reels blocked",
+    stat3_desc: "The Reels tab is Meta's territory",
+    features_label: "What Authentique does",
+    features_title: "Designed to <em>free</em> you.",
+    features_sub: "Every feature was designed to give you back control of your Instagram experience.",
+    f1_title: "Zero ads",
+    f1_desc: "Sponsored posts and ad banners disappear automatically from your feed.",
+    f2_title: "Just your friends",
+    f2_desc: '"For you" suggestions and algorithmic accounts are filtered. You only see people you follow.',
+    f3_title: "Clean search",
+    f3_desc: "The Search tab only shows the search bar. The algorithmic suggestion grid disappears.",
+    f4_title: "Reels blocked",
+    f4_desc: "The Reels tab is replaced with an honest message. Your friends' Reels remain visible in your feed.",
+    f5_title: "Stories protected",
+    f5_desc: "Sponsored stories are blocked with a clear overlay. You only see stories from your friends.",
+    f6_title: "Dark mode",
+    f6_desc: "Authentique automatically follows Instagram's dark mode. Your eyes will thank you.",
+    video_title: "See Authentique in action",
+    video_placeholder: "Presentation video",
+    philosophy_quote: '"Social media should connect you to your friends, not <em>push you away</em> from them."',
+    philosophy_text: "Authentique collects no data. No server. No tracking. Just a filtered window into Instagram, as it should always have been.",
+    waitlist_label: "Waitlist",
+    waitlist_title: "Ready to find your <em>friends</em> again?",
+    waitlist_sub: "Leave your email to be among the first to access Authentique. No spam, promised.",
+    waitlist_placeholder: "your@email.com",
+    waitlist_btn: "Join",
+    waitlist_note: 'Any questions? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
+    footer_contact: "Contact",
+    footer_survey: "Survey",
+  },
+  es: {
+    nav_cta: "Unirse a la lista",
+    hero_tag: "Próximamente en iOS",
+    hero_title: "Instagram, sin el <em>ruido</em>.",
+    hero_sub: "Authentique te permite usar Instagram de manera diferente — solo el contenido que elegiste ver, sin publicidad ni contenido impuesto por el algoritmo.",
+    hero_cta: "Unirse a la lista de espera",
+    hero_watch: "Ver el video",
+    hero_counter: "Sé de los primeros en descubrir <span>Authentique</span>",
+    problem_label: "El problema",
+    problem_title: "Instagram decide lo que <em>ves</em>.",
+    problem_p1: "Anuncios, sugerencias algorítmicas, Reels impuestos, reposts no deseados... Tu feed ya no te muestra realmente a tus amigos.",
+    problem_p2: "Meta optimiza para mantenerte el mayor tiempo posible. No para mostrarte lo que realmente importa.",
+    stat1_title: "Publicaciones patrocinadas ocultas",
+    stat1_desc: "Sin más anuncios en tu feed",
+    stat2_title: "Sugerencias algorítmicas eliminadas",
+    stat2_desc: "Solo las cuentas que realmente sigues",
+    stat3_title: "Reels algorítmicos bloqueados",
+    stat3_desc: "La pestaña Reels es territorio de Meta",
+    features_label: "Lo que hace Authentique",
+    features_title: "Diseñado para <em>liberarte</em>.",
+    features_sub: "Cada función fue diseñada para darte de vuelta el control de tu experiencia en Instagram.",
+    f1_title: "Cero publicidad",
+    f1_desc: "Las publicaciones patrocinadas y banners publicitarios desaparecen automáticamente.",
+    f2_title: "Solo tus amigos",
+    f2_desc: 'Las sugerencias "Para ti" y cuentas algorítmicas se filtran. Solo ves a las personas que sigues.',
+    f3_title: "Búsqueda limpia",
+    f3_desc: "La pestaña Búsqueda solo muestra la barra de búsqueda. La cuadrícula de sugerencias desaparece.",
+    f4_title: "Reels bloqueados",
+    f4_desc: "La pestaña Reels se reemplaza con un mensaje honesto. Los Reels de tus amigos siguen visibles.",
+    f5_title: "Stories protegidas",
+    f5_desc: "Las stories patrocinadas se bloquean con una superposición clara. Solo ves stories de tus amigos.",
+    f6_title: "Modo oscuro",
+    f6_desc: "Authentique sigue automáticamente el modo oscuro de Instagram.",
+    video_title: "Mira Authentique en acción",
+    video_placeholder: "Video de presentación",
+    philosophy_quote: '"Las redes sociales deberían conectarte con tus amigos, no <em>alejarte</em> de ellos."',
+    philosophy_text: "Authentique no recopila ningún dato. Sin servidor. Sin seguimiento. Solo una ventana filtrada a Instagram, como siempre debió haber sido.",
+    waitlist_label: "Lista de espera",
+    waitlist_title: "¿Listo para reencontrar a tus <em>amigos</em>?",
+    waitlist_sub: "Deja tu email para ser de los primeros en acceder a Authentique. Sin spam, prometido.",
+    waitlist_placeholder: "tu@email.com",
+    waitlist_btn: "Unirse",
+    waitlist_note: '¿Preguntas? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
+    footer_contact: "Contacto",
+    footer_survey: "Encuesta",
+  },
+  ru: {
+    nav_cta: "Присоединиться",
+    hero_tag: "Скоро на iOS",
+    hero_title: "Instagram без <em>шума</em>.",
+    hero_sub: "Authentique позволяет использовать Instagram по-другому — только контент, который ты выбрал, без рекламы и алгоритмически навязанного контента.",
+    hero_cta: "Присоединиться к листу ожидания",
+    hero_watch: "Смотреть видео",
+    hero_counter: "Будь среди первых, кто откроет для себя <span>Authentique</span>",
+    problem_label: "Проблема",
+    problem_title: "Instagram решает, что ты <em>видишь</em>.",
+    problem_p1: "Реклама, алгоритмические рекомендации, навязанные Reels, нежелательные репосты... Твоя лента больше не показывает тебе настоящих друзей.",
+    problem_p2: "Meta оптимизирует, чтобы удержать тебя как можно дольше. Не для того, чтобы ты видел то, что действительно важно.",
+    stat1_title: "Спонсированные посты скрыты",
+    stat1_desc: "Больше никакой рекламы в ленте",
+    stat2_title: "Алгоритмические рекомендации удалены",
+    stat2_desc: "Только аккаунты, на которые ты подписан",
+    stat3_title: "Алгоритмические Reels заблокированы",
+    stat3_desc: "Вкладка Reels — территория Meta",
+    features_label: "Что делает Authentique",
+    features_title: "Создан, чтобы <em>освободить</em> тебя.",
+    features_sub: "Каждая функция разработана для того, чтобы вернуть тебе контроль над Instagram.",
+    f1_title: "Ноль рекламы",
+    f1_desc: "Спонсированные посты и рекламные баннеры автоматически исчезают из ленты.",
+    f2_title: "Только твои друзья",
+    f2_desc: 'Рекомендации "Для вас" и алгоритмические аккаунты фильтруются.',
+    f3_title: "Чистый поиск",
+    f3_desc: "Вкладка Поиск показывает только строку поиска. Сетка рекомендаций исчезает.",
+    f4_title: "Reels заблокированы",
+    f4_desc: "Вкладка Reels заменяется честным сообщением. Reels твоих друзей остаются в ленте.",
+    f5_title: "Истории защищены",
+    f5_desc: "Спонсированные истории блокируются. Ты видишь только истории друзей.",
+    f6_title: "Тёмная тема",
+    f6_desc: "Authentique автоматически следует тёмной теме Instagram.",
+    video_title: "Посмотри Authentique в действии",
+    video_placeholder: "Презентационное видео",
+    philosophy_quote: '"Социальные сети должны соединять тебя с друзьями, а не <em>отдалять</em> от них."',
+    philosophy_text: "Authentique не собирает данных. Никаких серверов. Никакой слежки. Только отфильтрованное окно в Instagram, каким он всегда должен был быть.",
+    waitlist_label: "Лист ожидания",
+    waitlist_title: "Готов снова найти своих <em>друзей</em>?",
+    waitlist_sub: "Оставь email, чтобы получить доступ к Authentique первым. Никакого спама.",
+    waitlist_placeholder: "твой@email.com",
+    waitlist_btn: "Присоединиться",
+    waitlist_note: 'Вопросы? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
+    footer_contact: "Контакт",
+    footer_survey: "Анкета",
+  }
+};
+
+let currentLang = 'fr';
+
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent === lang.toUpperCase());
+  });
+  const t = translations[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key]) el.innerHTML = t[key];
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (t[key]) el.placeholder = t[key];
+  });
+}
+
+// SCROLL REVEAL
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// WAITLIST FORM
+document.querySelector('.waitlist-btn').addEventListener('click', () => {
+  const input = document.querySelector('.waitlist-input');
+  const email = input.value.trim();
+  if (!email || !email.includes('@')) {
+    input.style.borderColor = 'rgba(255,80,80,0.5)';
+    setTimeout(() => input.style.borderColor = '', 2000);
+    return;
+  }
+  document.querySelector('.waitlist-form').innerHTML =
+    '<p style="color:#19d382; font-size:16px; font-weight:500">✓ ' +
+    (currentLang === 'fr' ? 'Tu es sur la liste !' :
+     currentLang === 'en' ? "You're on the list!" :
+     currentLang === 'es' ? '¡Estás en la lista!' :
+     'Ты в списке!') + '</p>';
+});
+</script>
+</body>
+</html>
