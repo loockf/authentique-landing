@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Authentique — Questionnaire</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Google Sans', Roboto, Arial, sans-serif;
+      background: #f0ebf8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 16px 80px;
+    }
+
+    /* Barre violette Google Forms en haut */
+    .gf-header-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 56px;
+      background: #673ab7;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      z-index: 100;
+    }
+    .gf-header-bar svg { opacity: 0.9; }
+
+    .gf-card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+      width: 100%;
+      max-width: 640px;
+      overflow: hidden;
+      margin-top: 72px;
+    }
+
+    /* Bande violette en haut de la card principale */
+    .gf-card-top-bar {
+      height: 10px;
+      background: #673ab7;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .gf-card-body {
+      padding: 24px;
+    }
+
+    .gf-title {
+      font-size: 26px;
+      font-weight: 400;
+      color: #202124;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .gf-description {
+      font-size: 14px;
+      color: #5f6368;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .gf-divider {
+      border: none;
+      border-top: 1px solid #e0e0e0;
+      margin: 16px 0 24px;
+    }
+
+    .gf-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #202124;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .gf-label .required { color: #d93025; font-size: 13px; }
+
+    /* Boutons langue */
+    .lang-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .lang-btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 4px;
+      background: #fff;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+      font-family: inherit;
+    }
+    .lang-btn:hover {
+      border-color: #673ab7;
+      background: #f9f5ff;
+      box-shadow: 0 1px 4px rgba(103,58,183,0.15);
+    }
+    .lang-btn:active {
+      background: #f0ebf8;
+    }
+
+    .lang-flag {
+      font-size: 24px;
+      line-height: 1;
+      min-width: 32px;
+      text-align: center;
+    }
+
+    .lang-info { display: flex; flex-direction: column; }
+
+    .lang-name {
+      font-size: 15px;
+      font-weight: 500;
+      color: #202124;
+    }
+
+    .lang-native {
+      font-size: 13px;
+      color: #5f6368;
+      margin-top: 1px;
+    }
+
+    /* Logo arche Authentique */
+    .auth-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .auth-logo-text {
+      font-size: 13px;
+      color: #5f6368;
+      font-weight: 400;
+    }
+
+    .gf-footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 12px;
+      color: #80868b;
+      line-height: 1.6;
+    }
+    .gf-footer a { color: #673ab7; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Barre Google Forms -->
+  <div class="gf-header-bar">
+    <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
+      <path d="M30 4H12C9.8 4 8 5.8 8 8v32c0 2.2 1.8 4 4 4h24c2.2 0 4-1.8 4-4V18L30 4z" fill="#fff" opacity="0.9"/>
+      <path d="M30 4v14h14L30 4z" fill="#fff" opacity="0.5"/>
+      <rect x="14" y="24" width="20" height="2" rx="1" fill="#673ab7"/>
+      <rect x="14" y="30" width="20" height="2" rx="1" fill="#673ab7"/>
+      <rect x="14" y="36" width="12" height="2" rx="1" fill="#673ab7"/>
+    </svg>
+  </div>
+
+  <!-- Card principale -->
+  <div class="gf-card">
+    <div class="gf-card-top-bar"></div>
+    <div class="gf-card-body">
+
+      <div class="auth-logo">
+        <svg viewBox="0 0 200 200" width="20" height="22" aria-hidden="true">
+          <path d="M 28,178 L 52,88 Q 66,38 100,38 Q 134,38 148,88 L 172,178"
+            fill="none" stroke="#19d382" stroke-width="14"
+            stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="auth-logo-text">Authentique — Questionnaire</span>
+      </div>
+
+      <h1 class="gf-title">Choisissez votre langue<br><span style="font-size:18px;color:#5f6368;">Choose your language</span></h1>
+
+      <hr class="gf-divider">
+
+      <div class="gf-label">
+        Sélectionnez la langue du questionnaire
+        <span class="required">*</span>
+      </div>
+
+      <div class="lang-grid">
+        <a class="lang-btn" href="https://forms.gle/VJ7Bv8TQYAgJS1kY7" target="_blank">
+          <span class="lang-flag">🇫🇷</span>
+          <div class="lang-info">
+            <span class="lang-name">Français</span>
+            <span class="lang-native">French</span>
+          </div>
+        </a>
+        <a class="lang-btn" href="https://forms.gle/kxiDcJpw2DRxx9sv5" target="_blank">
+          <span class="lang-flag">🇬🇧</span>
+          <div class="lang-info">
+            <span class="lang-name">English</span>
+            <span class="lang-native">Anglais</span>
+          </div>
+        </a>
+        <a class="lang-btn" href="https://forms.gle/3g7AUGihTWnq8Z8GA" target="_blank">
+          <span class="lang-flag">🇪🇸</span>
+          <div class="lang-info">
+            <span class="lang-name">Español</span>
+            <span class="lang-native">Espagnol</span>
+          </div>
+        </a>
+        <a class="lang-btn" href="https://forms.gle/jYeFbx2CoMFGpNSD9" target="_blank">
+          <span class="lang-flag">🇮🇹</span>
+          <div class="lang-info">
+            <span class="lang-name">Italiano</span>
+            <span class="lang-native">Italien</span>
+          </div>
+        </a>
+        <a class="lang-btn" href="https://forms.gle/qc4qDbA6PY64omKa9" target="_blank">
+          <span class="lang-flag">🇷🇺</span>
+          <div class="lang-info">
+            <span class="lang-name">Русский</span>
+            <span class="lang-native">Russe</span>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="gf-footer">
+    Ce formulaire est anonyme.<br>
+    Aucune donnée personnelle n'est collectée sans ton accord.
+  </div>
+
+</body>
+</html>
+
+
+<!--
+=============================================================
+  TRADUCTIONS DU QUESTIONNAIRE AUTHENTIQUE
+  À copier-coller dans Google Forms pour chaque langue
+=============================================================
+
+══════════════════════════════════════════════════
+  🇬🇧 ENGLISH VERSION
+══════════════════════════════════════════════════
+
+FORM TITLE: Your Instagram habits
+
+DESCRIPTION:
+Thank you for taking 3 minutes to answer this questionnaire.
+Your answers help us build an app that truly meets your needs.
+No personal data is collected without your consent.
+
+SECTION 1 — Your Instagram habits
+
+Q1. How often do you use Instagram?
+- Several times a day
+- Once a day
+- A few times a week
+- Rarely
+
+Q2. How much time do you spend on Instagram per day on average?
+- Less than 15 minutes
+- Between 15 and 30 minutes
+- Between 30 minutes and 1 hour
+- More than 1 hour
+
+Q3. What type of content do you primarily look for on Instagram? (Multiple answers possible)
+- Posts from my friends and family
+- Updates from accounts I follow
+- Entertainment content (Reels, trends)
+- Inspiration (travel, food, fashion, sport...)
+- Other:
+
+SECTION 2 — Your relationship with ads and the algorithm
+
+Q4. Out of 10 posts you see in your feed, how many do you think come from your actual friends or accounts you genuinely follow?
+- 0 to 2
+- 3 to 5
+- 6 to 8
+- 9 to 10
+
+Q5. How do you feel about ads on Instagram?
+[Scale: Doesn't bother me at all → Completely unbearable]
+
+Q6. Have you ever felt that Instagram was showing you content to keep you on the app as long as possible, even if it wasn't what you were looking for?
+- Yes, all the time
+- Yes, sometimes
+- Rarely
+- No, never
+
+Q7. In a few words, what bothers you most about your current Instagram experience?
+[Open text]
+
+SECTION TITLE: The Authentique solution
+
+SECTION DESCRIPTION:
+Authentique isn't an app that blocks everything. It's an app that lets you choose.
+Want to keep Reels but remove ads? Done. Want to filter everything? Also possible.
+Every setting is a choice — yours.
+
+Q8. Does this concept match something you've already felt as a need?
+- Yes, this is exactly what I needed
+- Yes, I had already thought about this
+- Maybe, I hadn't thought about it
+- No, it doesn't suit me
+
+Q9. If such an app existed, would you use it?
+- Yes, without hesitation
+- Probably yes
+- I don't know
+- Probably not
+- No
+
+Q10. Which features would seem most important to you? (Rank from 1 to 5 — 1 = least important, 5 = most important)
+- Remove ads
+- Only see posts from my friends
+- Block algorithmic suggestions
+- Hide unsolicited Reels
+- Hide sponsored stories
+
+Q11. Are there other social networks where you'd feel the same need? (Multiple answers possible)
+- Facebook
+- Twitter/X
+- LinkedIn
+- No other
+- Other:
+
+Q12. Are you a parent?
+- Yes
+- No (if no, skip to question 16)
+
+Q13. If yes — Does your child use Instagram?
+- Yes, with their own account
+- Yes, they sometimes use my phone
+- No, they don't use Instagram
+
+Q14. Do you feel confident about the content your child is exposed to on Instagram?
+[Scale: Not confident at all → Completely confident]
+
+Q15. Would a version of Authentique with parental controls (PIN request, time limits, access only to approved friends...) interest you?
+- Yes, this is exactly what I need
+- Yes, why not
+- I don't know
+- No
+
+Q16. Do you have any comments, suggestions or questions about the concept?
+[Open text]
+
+SECTION TITLE: Stay in touch
+
+SECTION DESCRIPTION:
+This section is 100% optional. Your information will never be shared or sold.
+
+Q17. Do you want to be notified when the app is available?
+- Yes
+- No thanks
+
+Q18. How old are you?
+- Under 18
+- 18 - 25
+- 26 - 35
+- 36 - 45
+- Over 45
+
+Q19. What country do you live in?
+[Short answer]
+
+
+══════════════════════════════════════════════════
+  🇪🇸 ESPAÑOL VERSION
+══════════════════════════════════════════════════
+
+FORM TITLE: Tus hábitos en Instagram
+
+DESCRIPTION:
+Gracias por tomarte 3 minutos para responder este cuestionario.
+Tus respuestas nos ayudan a crear una app que realmente se adapte a tus necesidades.
+No se recopilan datos personales sin tu consentimiento.
+
+SECCIÓN 1 — Tus hábitos en Instagram
+
+P1. ¿Con qué frecuencia usas Instagram?
+- Varias veces al día
+- Una vez al día
+- Algunas veces a la semana
+- Raramente
+
+P2. ¿Cuánto tiempo pasas de media en Instagram al día?
+- Menos de 15 minutos
+- Entre 15 y 30 minutos
+- Entre 30 minutos y 1 hora
+- Más de 1 hora
+
+P3. ¿Qué tipo de contenido buscas principalmente en Instagram? (Varias respuestas posibles)
+- Publicaciones de mis amigos y familia
+- Novedades de cuentas que sigo
+- Contenido de entretenimiento (Reels, tendencias)
+- Inspiración (viajes, cocina, moda, deporte...)
+- Otro:
+
+SECCIÓN 2 — Tu relación con los anuncios y el algoritmo
+
+P4. De cada 10 publicaciones que ves en tu feed, ¿cuántas crees que provienen de tus amigos reales o de cuentas que realmente sigues?
+- 0 a 2
+- 3 a 5
+- 6 a 8
+- 9 a 10
+
+P5. ¿Cómo te sientes frente a los anuncios en Instagram?
+[Escala: No me molesta en absoluto → Completamente insoportable]
+
+P6. ¿Has sentido alguna vez que Instagram te mostraba contenido para mantenerte el mayor tiempo posible en la app, aunque no fuera lo que buscabas?
+- Sí, todo el tiempo
+- Sí, a veces
+- Raramente
+- No, nunca
+
+P7. En pocas palabras, ¿qué es lo que más te molesta de tu experiencia actual en Instagram?
+[Texto libre]
+
+TÍTULO DE SECCIÓN: La solución Authentique
+
+DESCRIPCIÓN DE SECCIÓN:
+Authentique no es una app que bloquea todo. Es una app que te deja elegir.
+¿Quieres mantener los Reels pero eliminar los anuncios? Es posible. ¿Quieres filtrarlo todo? También. Cada ajuste es una elección: la tuya.
+
+P8. ¿Este concepto corresponde a algo que ya has sentido como una necesidad?
+- Sí, es exactamente lo que necesitaba
+- Sí, ya lo había pensado
+- Quizás, no había reflexionado sobre ello
+- No, no me corresponde
+
+P9. Si existiera tal app, ¿la usarías?
+- Sí, sin dudarlo
+- Probablemente sí
+- No lo sé
+- Probablemente no
+- No
+
+P10. ¿Qué funcionalidades te parecerían más importantes? (Clasifica del 1 al 5 — 1 = menos importante, 5 = más importante)
+- Eliminar los anuncios
+- Ver solo publicaciones de mis amigos
+- Bloquear sugerencias algorítmicas
+- Ocultar Reels no solicitados
+- Ocultar stories patrocinadas
+
+P11. ¿Hay otras redes sociales donde sentirías la misma necesidad? (Varias respuestas posibles)
+- Facebook
+- Twitter/X
+- LinkedIn
+- Ninguna otra
+- Otra:
+
+P12. ¿Eres padre/madre?
+- Sí
+- No (si no, pasa directamente a la pregunta 16)
+
+P13. Si es así — ¿Tu hijo/a usa Instagram?
+- Sí, con su propia cuenta
+- Sí, a veces usa mi teléfono
+- No, no usa Instagram
+
+P14. ¿Te sientes tranquilo/a con el contenido al que tu hijo/a está expuesto/a en Instagram?
+[Escala: Nada tranquilo/a → Completamente tranquilo/a]
+
+P15. ¿Te interesaría una versión de Authentique con control parental (solicitud de PIN, límite de tiempo, acceso solo a amigos aprobados...)?
+- Sí, es exactamente lo que necesito
+- Sí, ¿por qué no?
+- No lo sé
+- No
+
+P16. ¿Tienes comentarios, sugerencias o preguntas sobre el concepto?
+[Texto libre]
+
+TÍTULO DE SECCIÓN: Mantente en contacto
+
+DESCRIPCIÓN DE SECCIÓN:
+Esta sección es 100% opcional. Tu información nunca será compartida ni vendida.
+
+P17. ¿Quieres ser notificado/a cuando la app esté disponible?
+- Sí
+- No, gracias
+
+P18. ¿Cuántos años tienes?
+- Menos de 18 años
+- 18 - 25 años
+- 26 - 35 años
+- 36 - 45 años
+- Más de 45 años
+
+P19. ¿En qué país vives?
+[Respuesta corta]
+
+
+══════════════════════════════════════════════════
+  🇮🇹 ITALIANO VERSION
+══════════════════════════════════════════════════
+
+FORM TITLE: Le tue abitudini su Instagram
+
+DESCRIPTION:
+Grazie per dedicare 3 minuti a rispondere a questo questionario.
+Le tue risposte ci aiutano a creare un'app che soddisfi davvero le tue esigenze.
+Nessun dato personale viene raccolto senza il tuo consenso.
+
+SEZIONE 1 — Le tue abitudini su Instagram
+
+D1. Con quale frequenza usi Instagram?
+- Più volte al giorno
+- Una volta al giorno
+- Qualche volta a settimana
+- Raramente
+
+D2. Quanto tempo trascorri in media su Instagram al giorno?
+- Meno di 15 minuti
+- Tra 15 e 30 minuti
+- Tra 30 minuti e 1 ora
+- Più di 1 ora
+
+D3. Che tipo di contenuto cerchi principalmente su Instagram? (Più risposte possibili)
+- Post dei miei amici e familiari
+- Aggiornamenti di account che seguo
+- Contenuto di intrattenimento (Reels, tendenze)
+- Ispirazione (viaggi, cucina, moda, sport...)
+- Altro:
+
+SEZIONE 2 — Il tuo rapporto con la pubblicità e l'algoritmo
+
+D4. Su 10 post che vedi nel tuo feed, quanti pensi provengano dai tuoi veri amici o da account che segui davvero?
+- Da 0 a 2
+- Da 3 a 5
+- Da 6 a 8
+- Da 9 a 10
+
+D5. Come ti senti rispetto alle pubblicità su Instagram?
+[Scala: Non mi disturba affatto → Completamente insopportabile]
+
+D6. Hai mai avuto la sensazione che Instagram ti mostrasse contenuti per tenerti sull'app il più a lungo possibile, anche se non era ciò che cercavi?
+- Sì, sempre
+- Sì, a volte
+- Raramente
+- No, mai
+
+D7. In poche parole, cosa ti disturba di più della tua attuale esperienza su Instagram?
+[Testo libero]
+
+TITOLO SEZIONE: La soluzione Authentique
+
+DESCRIZIONE SEZIONE:
+Authentique non è un'app che blocca tutto. È un'app che ti lascia scegliere.
+Vuoi tenere i Reels ma rimuovere le pubblicità? È possibile. Vuoi filtrare tutto? Anche. Ogni impostazione è una scelta: la tua.
+
+D8. Questo concetto corrisponde a qualcosa che hai già sentito come un bisogno?
+- Sì, è esattamente ciò di cui avevo bisogno
+- Sì, ci avevo già pensato
+- Forse, non ci avevo riflettuto
+- No, non fa per me
+
+D9. Se esistesse un'app del genere, la useresti?
+- Sì, senza esitare
+- Probabilmente sì
+- Non so
+- Probabilmente no
+- No
+
+D10. Quali funzionalità ti sembrerebbero più importanti? (Classifica da 1 a 5 — 1 = meno importante, 5 = più importante)
+- Rimuovere le pubblicità
+- Vedere solo i post dei miei amici
+- Bloccare i suggerimenti algoritmici
+- Nascondere i Reels non richiesti
+- Nascondere le storie sponsorizzate
+
+D11. Ci sono altri social network dove sentiresti lo stesso bisogno? (Più risposte possibili)
+- Facebook
+- Twitter/X
+- LinkedIn
+- Nessun altro
+- Altro:
+
+D12. Sei genitore?
+- Sì
+- No (se no, vai direttamente alla domanda 16)
+
+D13. Se sì — Tuo figlio/a usa Instagram?
+- Sì, con il proprio account
+- Sì, a volte usa il mio telefono
+- No, non usa Instagram
+
+D14. Ti senti tranquillo/a riguardo ai contenuti a cui tuo figlio/a è esposto/a su Instagram?
+[Scala: Per niente tranquillo/a → Completamente tranquillo/a]
+
+D15. Una versione di Authentique con controllo genitoriale (richiesta PIN, limiti di tempo, accesso solo ad amici approvati...) ti interesserebbe?
+- Sì, è esattamente ciò di cui ho bisogno
+- Sì, perché no
+- Non so
+- No
+
+D16. Hai commenti, suggerimenti o domande sul concetto?
+[Testo libero]
+
+TITOLO SEZIONE: Resta in contatto
+
+DESCRIZIONE SEZIONE:
+Questa sezione è 100% facoltativa. Le tue informazioni non saranno mai condivise né vendute.
+
+D17. Vuoi essere avvisato/a quando l'app sarà disponibile?
+- Sì
+- No grazie
+
+D18. Quanti anni hai?
+- Meno di 18 anni
+- 18 - 25 anni
+- 26 - 35 anni
+- 36 - 45 anni
+- Più di 45 anni
+
+D19. In quale paese vivi?
+[Risposta breve]
+
+
+══════════════════════════════════════════════════
+  🇷🇺 РУССКИЙ VERSION
+══════════════════════════════════════════════════
+
+FORM TITLE: Ваши привычки в Instagram
+
+DESCRIPTION:
+Спасибо, что уделили 3 минуты для заполнения этого опросника.
+Ваши ответы помогут нам создать приложение, которое действительно отвечает вашим потребностям.
+Никакие личные данные не собираются без вашего согласия.
+
+РАЗДЕЛ 1 — Ваши привычки в Instagram
+
+В1. Как часто вы используете Instagram?
+- Несколько раз в день
+- Один раз в день
+- Несколько раз в неделю
+- Редко
+
+В2. Сколько времени в среднем вы проводите в Instagram в день?
+- Менее 15 минут
+- От 15 до 30 минут
+- От 30 минут до 1 часа
+- Более 1 часа
+
+В3. Какой контент вы ищете в Instagram в первую очередь? (Возможно несколько ответов)
+- Публикации моих друзей и семьи
+- Новости аккаунтов, на которые я подписан(а)
+- Развлекательный контент (Reels, тренды)
+- Вдохновение (путешествия, кулинария, мода, спорт...)
+- Другое:
+
+РАЗДЕЛ 2 — Ваше отношение к рекламе и алгоритму
+
+В4. Из 10 публикаций в вашей ленте, сколько, по вашему мнению, приходит от ваших настоящих друзей или аккаунтов, на которые вы действительно подписаны?
+- От 0 до 2
+- От 3 до 5
+- От 6 до 8
+- От 9 до 10
+
+В5. Как вы относитесь к рекламе в Instagram?
+[Шкала: Совсем не беспокоит → Абсолютно невыносимо]
+
+В6. Вам когда-нибудь казалось, что Instagram показывает вам контент, чтобы удержать вас в приложении как можно дольше, даже если это не то, что вы искали?
+- Да, всегда
+- Да, иногда
+- Редко
+- Нет, никогда
+
+В7. Несколькими словами, что вас больше всего раздражает в вашем нынешнем опыте использования Instagram?
+[Свободный текст]
+
+НАЗВАНИЕ РАЗДЕЛА: Решение Authentique
+
+ОПИСАНИЕ РАЗДЕЛА:
+Authentique — это не приложение, которое всё блокирует. Это приложение, которое позволяет вам выбирать.
+Хотите сохранить Reels, но убрать рекламу? Возможно. Хотите отфильтровать всё? Тоже возможно.
+Каждая настройка — это ваш выбор.
+
+В8. Соответствует ли эта концепция тому, что вы уже чувствовали как потребность?
+- Да, это именно то, что мне нужно
+- Да, я уже думал(а) об этом
+- Возможно, я не задумывался(ась) об этом
+- Нет, мне это не подходит
+
+В9. Если бы такое приложение существовало, вы бы им пользовались?
+- Да, без колебаний
+- Вероятно, да
+- Не знаю
+- Вероятно, нет
+- Нет
+
+В10. Какие функции казались бы вам наиболее важными? (Расставьте от 1 до 5 — 1 = наименее важно, 5 = наиболее важно)
+- Удалить рекламу
+- Видеть только публикации моих друзей
+- Блокировать алгоритмические рекомендации
+- Скрыть незапрошенные Reels
+- Скрыть спонсируемые истории
+
+В11. Есть ли другие социальные сети, где вы испытывали бы ту же потребность? (Возможно несколько ответов)
+- Facebook
+- Twitter/X
+- LinkedIn
+- Никакая другая
+- Другое:
+
+В12. Вы родитель?
+- Да
+- Нет (если нет, перейдите сразу к вопросу 16)
+
+В13. Если да — Ваш ребёнок пользуется Instagram?
+- Да, с собственным аккаунтом
+- Да, иногда использует мой телефон
+- Нет, не использует Instagram
+
+В14. Уверены ли вы в контенте, которому подвергается ваш ребёнок в Instagram?
+[Шкала: Совсем не уверен(а) → Полностью уверен(а)]
+
+В15. Вас бы заинтересовала версия Authentique с родительским контролем (запрос PIN, ограничение времени, доступ только к одобренным друзьям...)?
+- Да, это именно то, что мне нужно
+- Да, почему нет
+- Не знаю
+- Нет
+
+В16. Есть ли у вас комментарии, предложения или вопросы по концепции?
+[Свободный текст]
+
+НАЗВАНИЕ РАЗДЕЛА: Оставайтесь на связи
+
+ОПИСАНИЕ РАЗДЕЛА:
+Этот раздел является 100% необязательным. Ваша информация никогда не будет передана или продана.
+
+В17. Хотите ли вы получить уведомление, когда приложение будет доступно?
+- Да
+- Нет, спасибо
+
+В18. Сколько вам лет?
+- Менее 18 лет
+- 18 - 25 лет
+- 26 - 35 лет
+- 36 - 45 лет
+- Более 45 лет
+
+В19. В какой стране вы живёте?
+[Краткий ответ]
+
+=============================================================
+  NOTES D'INTÉGRATION
+=============================================================
+
+1. Créer 4 nouveaux formulaires Google Forms (EN, ES, IT, RU)
+2. Remplacer LIEN_FORMULAIRE_FR / EN / ES / IT / RU
+   dans le fichier HTML par les vrais liens Google Forms
+3. Déployer le fichier HTML sur get-authentique.com/questionnaire
+   via le repo Vercel (authentique-landing)
+4. Partager uniquement : get-authentique.com/questionnaire
+
+=============================================================
+-->
