@@ -1238,10 +1238,23 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
     'linear-gradient(135deg, #ff9d6c 0%, #e63a17 100%)',
     'linear-gradient(135deg, #fbe0d6 0%, #f1a896 100%)',
   ];
-  const SPONSOR_LABELS = [
-    'Sponsorisé','Suggéré pour vous','Acheter','Pour vous',
-    'Partenariat rémunéré','Acheter maintenant'
-  ];
+
+  // Labels traduits par langue. Detection a l'init via <html lang> ou
+  // navigator.language, fallback FR. Les 5 langues couvertes
+  // s'alignent avec le switcher de langues de la page.
+  const SCROLL_LABELS = {
+    fr: ['Sponsorisé','Suggéré pour vous','Acheter','Pour vous','Partenariat rémunéré','Acheter maintenant'],
+    en: ['Sponsored','Suggested for you','Shop now','For you','Paid partnership','Buy now'],
+    es: ['Patrocinado','Sugerido para ti','Comprar','Para ti','Colaboración pagada','Comprar ahora'],
+    it: ['Sponsorizzato','Suggerito per te','Acquista','Per te','Partnership pagata','Acquista ora'],
+    ru: ['Реклама','Рекомендуем','Купить','Для вас','Платное партнёрство','Купить сейчас'],
+  };
+  const SCROLL_LANG = (
+    document.documentElement.getAttribute('lang') ||
+    navigator.language ||
+    'fr'
+  ).substring(0, 2).toLowerCase();
+  const SPONSOR_LABELS = SCROLL_LABELS[SCROLL_LANG] || SCROLL_LABELS.fr;
   // Posts neutres : couleur uniforme #2d2d2d
   const NEUTRAL_BG = '#2d2d2d';
   // Videos neutres : conserve le 2-tons gris fonce
