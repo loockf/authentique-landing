@@ -49,6 +49,10 @@ Lire ce fichier avant chaque modif pour éviter les ré-explorations inutiles.
 - `.features-header` — header (label + h2)
 - `.features-grid` — grille 6 cartes
 - `.feature-card` — encadré blanc (les 6 features)
+- `.feature-toggle` / `.feature-toggle label` / `.feature-toggle input` / `.feature-switch` — toggle ON/OFF en haut de chaque carte (style identique à l'app : 48×28 px, vert #19d382 ON, gris #e0e0e0 OFF, cercle blanc qui glisse 20 px)
+- `.card-body` — wrapper position:relative pour le swap content/on
+- `.card-content` — contenu OFF (icon + titre + desc)
+- `.card-on` — overlay absolu, message court vert #19d382 affiché quand toggle ON (pure CSS via `:has(input:checked)`)
 - `.feature-icon` — wrapper SVG en haut de carte (utilise `url(#authGrad)`)
 - Features data-i18n : `f1_title..f6_title`, `f1_desc..f6_desc`
   - f1 = Masquer les posts sponsorisés

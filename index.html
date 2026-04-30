@@ -462,11 +462,14 @@ section { padding: 120px 24px; }
   gap: 24px;
 }
 .feature-card {
+  position: relative;
   background: var(--white);
   border: 1px solid var(--border);
   border-radius: 20px;
   padding: 32px;
   transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
 }
 .feature-card:hover {
   transform: translateY(-4px);
@@ -481,6 +484,71 @@ section { padding: 120px 24px; }
 }
 .feature-card h3 { font-size: 22px; margin-bottom: 10px; color: var(--text); }
 .feature-card p { color: var(--text-soft); font-size: 15px; line-height: 1.55; }
+
+/* Toggle ON/OFF en haut de chaque feature-card. Pur CSS via :has(). */
+.feature-toggle {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+.feature-toggle label {
+  display: inline-block;
+  position: relative;
+  width: 48px;
+  height: 28px;
+  cursor: pointer;
+}
+.feature-toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.feature-switch {
+  position: absolute;
+  inset: 0;
+  background: #e0e0e0;
+  border-radius: 14px;
+  transition: background 0.25s ease;
+}
+.feature-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 24px;
+  height: 24px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  transition: transform 0.25s ease;
+}
+.feature-toggle input:checked + .feature-switch { background: #19d382; }
+.feature-toggle input:checked + .feature-switch::after { transform: translateX(20px); }
+
+/* Conteneur du contenu OFF/ON. card-on overlay absolu pour fade
+   croise sans saut de hauteur. */
+.card-body { position: relative; flex: 1; }
+.card-content { transition: opacity 0.25s ease; opacity: 1; }
+.card-on {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #19d382;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  padding: 0 8px;
+}
+.feature-card:has(input:checked) .card-content { opacity: 0; }
+.feature-card:has(input:checked) .card-on { opacity: 1; }
 
 /* SCREENSHOTS */
 .section-screens { padding: 120px 24px 80px; }
@@ -879,65 +947,101 @@ footer {
     </div>
     <div class="features-grid">
       <div class="feature-card reveal">
-        <div class="feature-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
-          </svg>
+        <div class="feature-toggle"><label><input type="checkbox" aria-label="Activer cette fonctionnalité"><span class="feature-switch"></span></label></div>
+        <div class="card-body">
+          <div class="card-content">
+            <div class="feature-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+              </svg>
+            </div>
+            <h3 data-i18n="f1_title">Masquer les posts sponsorisés</h3>
+            <p data-i18n="f1_desc">Les publications sponsorisées et bandeaux publicitaires disparaissent automatiquement de ton fil.</p>
+          </div>
+          <div class="card-on">Pour un fil plus authentique.</div>
         </div>
-        <h3 data-i18n="f1_title">Masquer les posts sponsorisés</h3>
-        <p data-i18n="f1_desc">Les publications sponsorisées et bandeaux publicitaires disparaissent automatiquement de ton fil.</p>
       </div>
       <div class="feature-card reveal" style="transition-delay: 0.08s">
-        <div class="feature-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-          </svg>
+        <div class="feature-toggle"><label><input type="checkbox" aria-label="Activer cette fonctionnalité"><span class="feature-switch"></span></label></div>
+        <div class="card-body">
+          <div class="card-content">
+            <div class="feature-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <h3 data-i18n="f2_title">Masquer les suggestions de comptes</h3>
+            <p data-i18n="f2_desc">Les suggestions "Pour vous" et comptes algorithmiques sont filtrés. Tu ne vois que les gens que tu suis.</p>
+          </div>
+          <div class="card-on">Pour mieux profiter de tes amis.</div>
         </div>
-        <h3 data-i18n="f2_title">Masquer les suggestions de comptes</h3>
-        <p data-i18n="f2_desc">Les suggestions "Pour vous" et comptes algorithmiques sont filtrés. Tu ne vois que les gens que tu suis.</p>
       </div>
       <div class="feature-card reveal" style="transition-delay: 0.16s">
-        <div class="feature-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2">
-            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-          </svg>
+        <div class="feature-toggle"><label><input type="checkbox" aria-label="Activer cette fonctionnalité"><span class="feature-switch"></span></label></div>
+        <div class="card-body">
+          <div class="card-content">
+            <div class="feature-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </div>
+            <h3 data-i18n="f3_title">Section Recherche épurée</h3>
+            <p data-i18n="f3_desc">L'onglet Recherche n'affiche que la barre de recherche. La grille de suggestions algorithmiques disparaît.</p>
+          </div>
+          <div class="card-on">Pour se concentrer sur l'essentiel.</div>
         </div>
-        <h3 data-i18n="f3_title">Section Recherche épurée</h3>
-        <p data-i18n="f3_desc">L'onglet Recherche n'affiche que la barre de recherche. La grille de suggestions algorithmiques disparaît.</p>
       </div>
       <div class="feature-card reveal" style="transition-delay: 0.04s">
-        <div class="feature-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2">
-            <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
-            <line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/>
-            <line x1="2" y1="12" x2="22" y2="12"/>
-          </svg>
+        <div class="feature-toggle"><label><input type="checkbox" aria-label="Activer cette fonctionnalité"><span class="feature-switch"></span></label></div>
+        <div class="card-body">
+          <div class="card-content">
+            <div class="feature-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2">
+                <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
+                <line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+              </svg>
+            </div>
+            <h3 data-i18n="f4_title">Masquer les Reels</h3>
+            <p data-i18n="f4_desc">L'onglet Reels est remplacé par un message honnête. Les Reels de tes amis restent visibles dans ton fil.</p>
+          </div>
+          <div class="card-on">Pour éviter les distractions.</div>
         </div>
-        <h3 data-i18n="f4_title">Masquer les Reels</h3>
-        <p data-i18n="f4_desc">L'onglet Reels est remplacé par un message honnête. Les Reels de tes amis restent visibles dans ton fil.</p>
       </div>
       <div class="feature-card reveal" style="transition-delay: 0.12s">
-        <div class="feature-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          </svg>
+        <div class="feature-toggle"><label><input type="checkbox" aria-label="Activer cette fonctionnalité"><span class="feature-switch"></span></label></div>
+        <div class="card-body">
+          <div class="card-content">
+            <div class="feature-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <h3 data-i18n="f5_title">Masquer les stories sponsorisées</h3>
+            <p data-i18n="f5_desc">Les stories sponsorisées sont bloquées avec un overlay clair. Tu ne vois que les stories de tes amis.</p>
+          </div>
+          <div class="card-on">Pour des stories vraiment choisies.</div>
         </div>
-        <h3 data-i18n="f5_title">Masquer les stories sponsorisées</h3>
-        <p data-i18n="f5_desc">Les stories sponsorisées sont bloquées avec un overlay clair. Tu ne vois que les stories de tes amis.</p>
       </div>
       <div class="feature-card reveal" style="transition-delay: 0.2s">
-        <div class="feature-icon">
-          <!-- Icone "scroll bloque" : fleche vers le bas qui bute
-               sur une ligne horizontale (= barriere de stop). -->
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="4" x2="12" y2="14"/>
-            <polyline points="7 10 12 14 17 10"/>
-            <line x1="4" y1="20" x2="20" y2="20"/>
-          </svg>
+        <div class="feature-toggle"><label><input type="checkbox" aria-label="Activer cette fonctionnalité"><span class="feature-switch"></span></label></div>
+        <div class="card-body">
+          <div class="card-content">
+            <div class="feature-icon">
+              <!-- Icone "scroll bloque" : fleche vers le bas qui bute
+                   sur une ligne horizontale (= barriere de stop). -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="4" x2="12" y2="14"/>
+                <polyline points="7 10 12 14 17 10"/>
+                <line x1="4" y1="20" x2="20" y2="20"/>
+              </svg>
+            </div>
+            <h3 data-i18n="f6_title">Bloquer le scroll infini</h3>
+            <p data-i18n="f6_desc">Bloque le scroll vers les Reels suivants lors de la lecture d'un Reel dans les DM, dans l'onglet Recherche et dans l'onglet Reels.</p>
+          </div>
+          <div class="card-on">Pour reprendre le contrôle de ton temps.</div>
         </div>
-        <h3 data-i18n="f6_title">Bloquer le scroll infini</h3>
-        <p data-i18n="f6_desc">Bloque le scroll vers les Reels suivants lors de la lecture d'un Reel dans les DM, dans l'onglet Recherche et dans l'onglet Reels.</p>
       </div>
     </div>
   </div>
