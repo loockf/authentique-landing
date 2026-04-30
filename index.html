@@ -33,7 +33,11 @@
    color: var(--green) pour les contextes ou background-clip:text
    n'est pas supporte. */
 .authentique-gradient-text,
-.hero-title-accent {
+.hero-title-accent,
+em,
+.section-label,
+.hero-counter span,
+.waitlist-note a {
   color: var(--green);
   background: var(--auth-grad);
   -webkit-background-clip: text;
@@ -114,14 +118,14 @@ nav {
 .lang-btn.active { color: var(--text); }
 .lang-btn:hover { color: var(--green); }
 .nav-cta {
-  background: var(--green);
+  background: var(--auth-grad);
   color: var(--white);
   padding: 11px 22px;
   border-radius: 50px;
   font: 500 14px/1 -apple-system, sans-serif;
-  transition: background 0.2s, transform 0.2s;
+  transition: filter 0.2s, transform 0.2s;
 }
-.nav-cta:hover { background: var(--green-dark); transform: translateY(-1px); }
+.nav-cta:hover { filter: brightness(0.94); transform: translateY(-1px); }
 
 /* HERO */
 .hero {
@@ -565,16 +569,16 @@ section { padding: 120px 24px; }
 }
 .waitlist-input::placeholder { color: var(--text-mute); }
 .waitlist-btn {
-  background: var(--green);
+  background: var(--auth-grad);
   color: var(--white);
   border: none;
   padding: 14px 28px;
   border-radius: 50px;
   font: 500 15px/1 -apple-system, sans-serif;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: filter 0.2s;
 }
-.waitlist-btn:hover { background: var(--green-dark); }
+.waitlist-btn:hover { filter: brightness(0.94); }
 .waitlist-note {
   margin-top: 20px;
   font-size: 14px;
@@ -750,7 +754,7 @@ footer {
       <div class="problem-pains">
         <div class="pain-card">
           <div class="pain-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M3 11l18-5v12L3 13z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>
             </svg>
           </div>
@@ -758,7 +762,7 @@ footer {
         </div>
         <div class="pain-card">
           <div class="pain-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <rect x="4" y="6" width="16" height="14" rx="2"/><circle cx="9" cy="11" r="1.2"/><circle cx="15" cy="11" r="1.2"/>
               <path d="M9 16h6"/><path d="M9 4l-1 2"/><path d="M15 4l1 2"/>
             </svg>
@@ -767,7 +771,7 @@ footer {
         </div>
         <div class="pain-card">
           <div class="pain-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>
             </svg>
           </div>
@@ -775,7 +779,7 @@ footer {
         </div>
         <div class="pain-card">
           <div class="pain-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 6h4"/><path d="M12 18v.01"/>
             </svg>
           </div>
@@ -783,7 +787,7 @@ footer {
         </div>
         <div class="pain-card">
           <div class="pain-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
             </svg>
           </div>
@@ -791,7 +795,7 @@ footer {
         </div>
         <div class="pain-card">
           <div class="pain-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/>
               <circle cx="12" cy="12" r="3"/>
             </svg>
@@ -826,7 +830,7 @@ footer {
     <div class="features-grid">
       <div class="feature-card reveal">
         <div class="feature-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2">
             <circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
           </svg>
         </div>
@@ -835,7 +839,7 @@ footer {
       </div>
       <div class="feature-card reveal" style="transition-delay: 0.08s">
         <div class="feature-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2">
             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
             <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
           </svg>
@@ -845,7 +849,7 @@ footer {
       </div>
       <div class="feature-card reveal" style="transition-delay: 0.16s">
         <div class="feature-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2">
             <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
           </svg>
         </div>
@@ -854,7 +858,7 @@ footer {
       </div>
       <div class="feature-card reveal" style="transition-delay: 0.04s">
         <div class="feature-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2">
             <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
             <line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/>
             <line x1="2" y1="12" x2="22" y2="12"/>
@@ -865,7 +869,7 @@ footer {
       </div>
       <div class="feature-card reveal" style="transition-delay: 0.12s">
         <div class="feature-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
           </svg>
         </div>
@@ -874,7 +878,7 @@ footer {
       </div>
       <div class="feature-card reveal" style="transition-delay: 0.2s">
         <div class="feature-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2">
             <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
           </svg>
         </div>
@@ -991,7 +995,7 @@ footer {
     <blockquote data-i18n="philosophy_quote">
       "Les réseaux sociaux devraient te connecter à tes amis, pas t'<em>en éloigner</em>."
     </blockquote>
-    <p data-i18n="philosophy_text"><span class="gv" style="color:var(--green)">Authentique</span> ne collecte aucune donnée. Aucun serveur. Aucun tracking. Juste une fenêtre filtrée sur Instagram, tel qu'il aurait toujours dû être.</p>
+    <p data-i18n="philosophy_text">Authentique ne collecte aucune donnée. Aucun serveur. Aucun tracking. Juste une fenêtre filtrée sur Instagram, tel qu'il aurait toujours dû être.</p>
   </div>
 </section>
 
@@ -1000,7 +1004,7 @@ footer {
   <div class="waitlist-inner">
     <p class="section-label" data-i18n="waitlist_label">Liste d'attente</p>
     <h2 class="reveal" data-i18n="waitlist_title">Prêt à retrouver tes <em>amis</em> ?</h2>
-    <p class="reveal" data-i18n="waitlist_sub">Laisse ton email pour être parmi les premiers à accéder à <span class="gv" style="color:var(--green)">Authentique</span>. Aucun spam, promis.</p>
+    <p class="reveal" data-i18n="waitlist_sub">Laisse ton email pour être parmi les premiers à accéder à Authentique. Aucun spam, promis.</p>
     <div class="waitlist-form reveal">
       <input type="email" class="waitlist-input" placeholder="ton@email.com" data-i18n-placeholder="waitlist_placeholder">
       <button class="waitlist-btn" data-i18n="waitlist_btn">Rejoindre</button>
@@ -1073,10 +1077,10 @@ const translations = {
     s4_title: "Tu contrôles tout",
     s4_desc: "Chaque filtre est configurable depuis l'écran Paramètres. Active ou désactive ce que tu veux, quand tu veux.",
     philosophy_quote: '"Les réseaux sociaux devraient te connecter à tes amis, pas t\'<em>en éloigner</em>."',
-    philosophy_text: '<span class="gv" style="color:var(--green)">Authentique</span> ne collecte aucune donnée. Aucun serveur. Aucun tracking. Juste une fenêtre filtrée sur Instagram, tel qu\'il aurait toujours dû être.',
+    philosophy_text: 'Authentique ne collecte aucune donnée. Aucun serveur. Aucun tracking. Juste une fenêtre filtrée sur Instagram, tel qu\'il aurait toujours dû être.',
     waitlist_label: "Liste d'attente",
     waitlist_title: "Prêt à retrouver tes <em>amis</em> ?",
-    waitlist_sub: 'Laisse ton email pour être parmi les premiers à accéder à <span class="gv" style="color:var(--green)">Authentique</span>. Aucun spam, promis.',
+    waitlist_sub: 'Laisse ton email pour être parmi les premiers à accéder à Authentique. Aucun spam, promis.',
     waitlist_placeholder: "ton@email.com",
     waitlist_btn: "Rejoindre",
     waitlist_note: 'Tu as des questions ? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
@@ -1125,10 +1129,10 @@ const translations = {
     s4_title: "You control everything",
     s4_desc: "Every filter is configurable from the Settings screen. Enable or disable what you want, when you want.",
     philosophy_quote: '"Social media should connect you to your friends, not <em>push you away</em> from them."',
-    philosophy_text: '<span class="gv" style="color:var(--green)">Authentique</span> collects no data. No server. No tracking. Just a filtered window into Instagram, as it should always have been.',
+    philosophy_text: 'Authentique collects no data. No server. No tracking. Just a filtered window into Instagram, as it should always have been.',
     waitlist_label: "Waitlist",
     waitlist_title: "Ready to find your <em>friends</em> again?",
-    waitlist_sub: 'Leave your email to be among the first to access <span class="gv" style="color:var(--green)">Authentique</span>. No spam, promised.',
+    waitlist_sub: 'Leave your email to be among the first to access Authentique. No spam, promised.',
     waitlist_placeholder: "your@email.com",
     waitlist_btn: "Join",
     waitlist_note: 'Any questions? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
@@ -1177,10 +1181,10 @@ const translations = {
     s4_title: "Tú controlas todo",
     s4_desc: "Cada filtro es configurable desde la pantalla de Ajustes. Activa o desactiva lo que quieras.",
     philosophy_quote: '"Las redes sociales deberían conectarte con tus amigos, no <em>alejarte</em> de ellos."',
-    philosophy_text: '<span class="gv" style="color:var(--green)">Authentique</span> no recopila ningún dato. Sin servidor. Sin seguimiento. Solo una ventana filtrada a Instagram, como siempre debió haber sido.',
+    philosophy_text: 'Authentique no recopila ningún dato. Sin servidor. Sin seguimiento. Solo una ventana filtrada a Instagram, como siempre debió haber sido.',
     waitlist_label: "Lista de espera",
     waitlist_title: "¿Listo para reencontrar a tus <em>amigos</em>?",
-    waitlist_sub: 'Deja tu email para ser de los primeros en acceder a <span class="gv" style="color:var(--green)">Authentique</span>. Sin spam, prometido.',
+    waitlist_sub: 'Deja tu email para ser de los primeros en acceder a Authentique. Sin spam, prometido.',
     waitlist_placeholder: "tu@email.com",
     waitlist_btn: "Unirse",
     waitlist_note: '¿Preguntas? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
@@ -1229,10 +1233,10 @@ const translations = {
     s4_title: "Ты контролируешь всё",
     s4_desc: "Каждый фильтр настраивается в экране Настроек. Включай или выключай что хочешь.",
     philosophy_quote: '"Социальные сети должны соединять тебя с друзьями, а не <em>отдалять</em> от них."',
-    philosophy_text: '<span class="gv" style="color:var(--green)">Authentique</span> не собирает данных. Никаких серверов. Никакой слежки. Только отфильтрованное окно в Instagram, каким он всегда должен был быть.',
+    philosophy_text: 'Authentique не собирает данных. Никаких серверов. Никакой слежки. Только отфильтрованное окно в Instagram, каким он всегда должен был быть.',
     waitlist_label: "Лист ожидания",
     waitlist_title: "Готов снова найти своих <em>друзей</em>?",
-    waitlist_sub: 'Оставь email, чтобы получить доступ к <span class="gv" style="color:var(--green)">Authentique</span> первым. Никакого спама.',
+    waitlist_sub: 'Оставь email, чтобы получить доступ к Authentique первым. Никакого спама.',
     waitlist_placeholder: "твой@email.com",
     waitlist_btn: "Присоединиться",
     waitlist_note: 'Вопросы? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
