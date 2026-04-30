@@ -353,10 +353,10 @@ section { padding: 120px 24px; }
   position: absolute;
   top: 8px;
   left: 8px;
-  font: 500 14px/1 -apple-system, sans-serif;
+  font: 500 16px/1 -apple-system, sans-serif;
   color: #fff;
-  background: rgba(0,0,0,0.35);
-  padding: 4px 10px;
+  background: rgba(0,0,0,0.30);
+  padding: 5px 12px;
   border-radius: 3px;
   letter-spacing: 0.2px;
 }
@@ -1233,9 +1233,16 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
 
 // === Phone mockup : feed simule avec 3 types de cards + scroll saccade ===
 (function () {
-  // Couleurs sponsor — palette restreinte avec variantes claires/foncees
-  const SPONSOR_COLORS = ['#FF5297','#FFD1A8','#FFF1DF','#4C86AB','#243B53'];
-  const LIGHT_COLORS = new Set(['#FFD1A8','#FFF1DF']);
+  // 6 degrades pour les posts sponsorises. Chaque entree = {grad, light}
+  // ou light=true signifie label en texte sombre (degrade clair).
+  const SPONSOR_GRADS = [
+    { grad: 'linear-gradient(90deg, #c1272d 0%, #2d1b4e 100%)', light: false },
+    { grad: 'linear-gradient(90deg, #ffb088 0%, #ee6a2c 100%)', light: false },
+    { grad: 'linear-gradient(90deg, #f8c5c5 0%, #d94560 100%)', light: true  },
+    { grad: 'linear-gradient(90deg, #f4a8b8 0%, #c73e5e 100%)', light: true  },
+    { grad: 'linear-gradient(90deg, #ff9d6c 0%, #e63a17 100%)', light: false },
+    { grad: 'linear-gradient(90deg, #fbe0d6 0%, #f1a896 100%)', light: true  },
+  ];
   const SPONSOR_LABELS = [
     'Sponsorisé','Suggéré pour vous','Acheter','Pour vous',
     'Partenariat rémunéré','Acheter maintenant'
@@ -1304,18 +1311,19 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
     return m;
   }
 
-  function makeSponsorCard(prevColor, prevLabel) {
-    let color = pick(SPONSOR_COLORS);
-    while (color === prevColor) color = pick(SPONSOR_COLORS);
+  function makeSponsorCard(prevGrad, prevLabel) {
+    let g = pick(SPONSOR_GRADS);
+    while (g.grad === prevGrad) g = pick(SPONSOR_GRADS);
     let label = pick(SPONSOR_LABELS);
     while (label === prevLabel) label = pick(SPONSOR_LABELS);
     const card = document.createElement('div');
     card.className = 'feed-card';
     card.appendChild(makeHeader());
-    const media = makeMedia(color, rand(160, 280));
+    const media = makeMedia('', rand(160, 280));
+    media.style.background = g.grad;
     const lab = document.createElement('span');
     lab.className = 'feed-label';
-    if (LIGHT_COLORS.has(color)) lab.classList.add('feed-label--light');
+    if (g.light) lab.classList.add('feed-label--light');
     lab.textContent = label;
     media.appendChild(lab);
     // ~40% des sponso ont une icone play centree
@@ -1327,7 +1335,7 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
     }
     card.appendChild(media);
     card.appendChild(makeActionsBar());
-    card._color = color;
+    card._grad = g.grad;
     card._label = label;
     return card;
   }
@@ -1336,8 +1344,18 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
     const card = document.createElement('div');
     card.className = 'feed-card';
     card.appendChild(makeHeader());
-    const media = makeMedia(NEUTRAL_BG, rand(180, 220));
-    // Plus d'icone play sur les posts neutres (uniquement sur sponso).
+    // Posts neutres avec icone play : hauteur forcee a la valeur
+    // minimale de la grille (180px) pour rester compact ; sinon
+    // hauteur aleatoire dans la fourchette habituelle.
+    const hasPlay = Math.random() < 0.3;
+    const height = hasPlay ? 180 : rand(180, 220);
+    const media = makeMedia(NEUTRAL_BG, height);
+    if (hasPlay) {
+      const play = document.createElement('div');
+      play.className = 'feed-play';
+      play.innerHTML = PLAY_SVG;
+      media.appendChild(play);
+    }
     card.appendChild(media);
     card.appendChild(makeActionsBar());
     return card;
@@ -1361,40 +1379,50 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
   if (!track) return;
 
   const seq = buildSequence();
-  let prevColor = '', prevLabel = '';
+  let prevGrad = '', prevLabel = '';
   seq.forEach(type => {
     let card;
     if (type === 2) {
-      card = makeSponsorCard(prevColor, prevLabel);
-      prevColor = card._color; prevLabel = card._label;
+      card = makeSponsorCard(prevGrad, prevLabel);
+      prevGrad = card._grad; prevLabel = card._label;
     } else if (type === 3) {
       card = makeVideoCard();
-      prevColor = ''; prevLabel = '';
+      prevGrad = ''; prevLabel = '';
     } else {
       card = makeNeutralCard();
-      prevColor = ''; prevLabel = '';
+      prevGrad = ''; prevLabel = '';
     }
     track.appendChild(card);
   });
 
-  // Scroll saccade facon coup de doigt :
-  //  - vitesse initiale 8 px/frame
-  //  - decelere en (1 - t)^2 sur 60 frames
-  //  - reset des que v < 1.5 (nouveau coup, plus rythme)
+  // Scroll saccade :
+  //  - vitesse initiale 18 px/frame
+  //  - deceleration douce en (1 - t)^2 sur 120 frames
+  //  - quand v < 0.5 → pause de 600ms avant de relancer un coup
   //  - cards qui sortent par le haut sont remises en bas (DOM move)
-  const KICK_VELOCITY = 8;
-  const KICK_DURATION = 60;
-  const MIN_VELOCITY = 1.5;
+  const KICK_VELOCITY = 18;
+  const KICK_DURATION = 120;
+  const MIN_VELOCITY = 0.5;
+  const PAUSE_MS = 600;
   const GAP = 20;
   let scrollY = 0;
   let frame = 0;
+  let pauseUntil = 0;
 
   function tick() {
+    const now = performance.now();
+    if (now < pauseUntil) {
+      // Pause entre 2 coups : on ne scrolle pas mais on reste vivant.
+      requestAnimationFrame(tick);
+      return;
+    }
     const t = frame / KICK_DURATION;
     let velocity = KICK_VELOCITY * Math.pow(Math.max(0, 1 - t), 2);
     if (velocity < MIN_VELOCITY) {
+      pauseUntil = now + PAUSE_MS;
       frame = 0;
-      velocity = KICK_VELOCITY;
+      requestAnimationFrame(tick);
+      return;
     }
     scrollY += velocity;
     frame++;
