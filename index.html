@@ -314,7 +314,7 @@ section { padding: 120px 24px; }
 .phone-feed-track {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 20px;
   background: #1a1a1a;
   will-change: transform;
 }
@@ -328,16 +328,41 @@ section { padding: 120px 24px; }
   width: 100%;
   position: relative;
 }
+.feed-header {
+  background: #1a1a1a;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+.feed-header-avatar {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ffffff;
+  flex-shrink: 0;
+}
+.feed-header-name {
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.7);
+  margin-left: 8px;
+  flex-shrink: 0;
+}
 .feed-label {
   position: absolute;
   top: 8px;
   left: 8px;
-  font: 500 13px/1 -apple-system, sans-serif;
+  font: 500 14px/1 -apple-system, sans-serif;
   color: #fff;
   background: rgba(0,0,0,0.35);
-  padding: 3px 8px;
+  padding: 4px 10px;
   border-radius: 3px;
   letter-spacing: 0.2px;
+}
+.feed-label--light {
+  color: #333;
+  background: rgba(0,0,0,0.15);
 }
 .feed-play {
   position: absolute;
@@ -1208,12 +1233,9 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
 
 // === Phone mockup : feed simule avec 3 types de cards + scroll saccade ===
 (function () {
-  // Couleurs sponsor — aucun vert, palette IG dark mode friendly
-  const SPONSOR_COLORS = [
-    '#f4a261','#e76f51','#e9c46a','#457b9d','#e63946',
-    '#6d6875','#b5838d','#f72585',
-    '#e07850','#c45c8a','#7c6fcd','#d4a843','#5b8fcc','#c45050'
-  ];
+  // Couleurs sponsor — palette restreinte avec variantes claires/foncees
+  const SPONSOR_COLORS = ['#FF5297','#FFD1A8','#FFF1DF','#4C86AB','#243B53'];
+  const LIGHT_COLORS = new Set(['#FFD1A8','#FFF1DF']);
   const SPONSOR_LABELS = [
     'Sponsorisé','Suggéré pour vous','Acheter','Pour vous',
     'Partenariat rémunéré','Acheter maintenant'
@@ -1246,6 +1268,21 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
     return seq;
   }
 
+  // Header IG (avatar cercle + barre nom de compte simulee).
+  // Width du nom aleatoire entre 60-120px pour varier visuellement.
+  function makeHeader() {
+    const h = document.createElement('div');
+    h.className = 'feed-header';
+    const av = document.createElement('span');
+    av.className = 'feed-header-avatar';
+    const nm = document.createElement('span');
+    nm.className = 'feed-header-name';
+    nm.style.width = rand(60, 120) + 'px';
+    h.appendChild(av);
+    h.appendChild(nm);
+    return h;
+  }
+
   // Barre d'actions IG sous le media (heart/comment/repost/send)
   // avec compteurs aleatoires.
   function makeActionsBar() {
@@ -1274,11 +1311,20 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
     while (label === prevLabel) label = pick(SPONSOR_LABELS);
     const card = document.createElement('div');
     card.className = 'feed-card';
+    card.appendChild(makeHeader());
     const media = makeMedia(color, rand(160, 280));
     const lab = document.createElement('span');
     lab.className = 'feed-label';
+    if (LIGHT_COLORS.has(color)) lab.classList.add('feed-label--light');
     lab.textContent = label;
     media.appendChild(lab);
+    // ~40% des sponso ont une icone play centree
+    if (Math.random() < 0.4) {
+      const play = document.createElement('div');
+      play.className = 'feed-play';
+      play.innerHTML = PLAY_SVG;
+      media.appendChild(play);
+    }
     card.appendChild(media);
     card.appendChild(makeActionsBar());
     card._color = color;
@@ -1289,13 +1335,9 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
   function makeNeutralCard() {
     const card = document.createElement('div');
     card.className = 'feed-card';
+    card.appendChild(makeHeader());
     const media = makeMedia(NEUTRAL_BG, rand(180, 220));
-    if (Math.random() < 0.3) {
-      const play = document.createElement('div');
-      play.className = 'feed-play';
-      play.innerHTML = PLAY_SVG;
-      media.appendChild(play);
-    }
+    // Plus d'icone play sur les posts neutres (uniquement sur sponso).
     card.appendChild(media);
     card.appendChild(makeActionsBar());
     return card;
@@ -1304,6 +1346,7 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
   function makeVideoCard() {
     const card = document.createElement('div');
     card.className = 'feed-card';
+    card.appendChild(makeHeader());
     const media = makeMedia(VIDEO_BG, rand(280, 340));
     const play = document.createElement('div');
     play.className = 'feed-play';
@@ -1342,7 +1385,7 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
   const KICK_VELOCITY = 8;
   const KICK_DURATION = 60;
   const MIN_VELOCITY = 1.5;
-  const GAP = 12;
+  const GAP = 20;
   let scrollY = 0;
   let frame = 0;
 
