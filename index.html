@@ -273,7 +273,7 @@ section { padding: 120px 24px; }
 }
 .phone-screen {
   width: 100%; height: 100%;
-  background: #0c0f14;
+  background: #1a1a1a;
   border-radius: 28px;
   overflow: hidden;
   position: relative;
@@ -286,8 +286,8 @@ section { padding: 120px 24px; }
 .phone-feed-track {
   display: flex;
   flex-direction: column;
-  gap: 2px; /* separateur blanc */
-  background: #ffffff; /* visible dans le gap */
+  gap: 12px;
+  background: #1a1a1a;
   will-change: transform;
 }
 .feed-card {
@@ -296,11 +296,15 @@ section { padding: 120px 24px; }
   position: relative;
   overflow: hidden;
 }
+.feed-card-media {
+  width: 100%;
+  position: relative;
+}
 .feed-label {
   position: absolute;
   top: 8px;
   left: 8px;
-  font: 500 11px/1 -apple-system, sans-serif;
+  font: 500 13px/1 -apple-system, sans-serif;
   color: #fff;
   background: rgba(0,0,0,0.35);
   padding: 3px 8px;
@@ -320,6 +324,30 @@ section { padding: 120px 24px; }
   height: 24px;
   fill: rgba(255,255,255,0.85);
   filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+}
+.feed-actions {
+  background: #1a1a1a;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 10px;
+}
+.feed-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #fff;
+  font: 500 11px/1 -apple-system, sans-serif;
+}
+.feed-action svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 /* FEATURES */
@@ -1149,33 +1177,63 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
 
 // === Phone mockup : feed simule avec 3 types de cards + scroll saccade ===
 (function () {
+  // Couleurs sponsor — aucun vert, palette IG dark mode friendly
   const SPONSOR_COLORS = [
     '#f4a261','#e76f51','#e9c46a','#457b9d','#e63946',
-    '#6d6875','#b5838d','#f72585','#264653','#a8dadc'
+    '#6d6875','#b5838d','#f72585',
+    '#e07850','#c45c8a','#7c6fcd','#d4a843','#5b8fcc','#c45050'
   ];
   const SPONSOR_LABELS = [
     'Sponsorisé','Suggéré pour vous','Acheter','Pour vous',
     'Partenariat rémunéré','Acheter maintenant'
   ];
-  const NEUTRAL_BGS = ['#e8e4df','#ddd9d3','#ede9e3'];
-  const VIDEO_BGS = ['#c8c4bf','#b8b4af'];
+  // Posts neutres : couleur uniforme #2d2d2d
+  const NEUTRAL_BG = '#2d2d2d';
+  // Videos neutres : conserve le 2-tons gris fonce
+  const VIDEO_BG = '#2d2d2d';
   const PLAY_SVG = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+
+  // 4 icones d'actions IG (heart, comment, share, send) en SVG
+  // <line> / <path>. stroke=white pose en CSS.
+  const ICON_HEART = '<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>';
+  const ICON_COMMENT = '<svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>';
+  const ICON_REPOST = '<svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>';
+  const ICON_SEND = '<svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
 
   function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
   function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
-  // Construit une sequence de 15 types ou les neutres (1 et 3) sont
-  // espaces de 3+ positions et alternes pour ne jamais avoir 2 cards
-  // grises consecutives. Le reste = type 2 (sponsorise / colore).
+  // Sequence de 15 types : 4 neutres aux positions [2,6,10,13],
+  // alternant post (type 1) et video (type 3) pour ne jamais avoir
+  // 2 cards neutres consecutives. Reste = sponsor (type 2).
   function buildSequence() {
     const seq = new Array(15).fill(2);
-    // 4 emplacements neutres bien espaces : ratio ~73% sponsor / 13% post / 13% video
     const slots = [2, 6, 10, 13];
-    const types = [1, 3, 1, 3]; // alterne post / video
-    // Shuffle types pour varier l'ordre entre passes
+    const types = [1, 3, 1, 3];
     if (Math.random() > 0.5) types.reverse();
     slots.forEach((s, i) => { seq[s] = types[i]; });
     return seq;
+  }
+
+  // Barre d'actions IG sous le media (heart/comment/repost/send)
+  // avec compteurs aleatoires.
+  function makeActionsBar() {
+    const bar = document.createElement('div');
+    bar.className = 'feed-actions';
+    bar.innerHTML =
+      '<span class="feed-action">' + ICON_HEART   + '<span>' + rand(15, 150) + '</span></span>' +
+      '<span class="feed-action">' + ICON_COMMENT + '<span>' + rand(5, 80)   + '</span></span>' +
+      '<span class="feed-action">' + ICON_REPOST  + '<span>' + rand(1, 15)   + '</span></span>' +
+      '<span class="feed-action">' + ICON_SEND    + '<span>' + rand(1, 30)   + '</span></span>';
+    return bar;
+  }
+
+  function makeMedia(bg, height) {
+    const m = document.createElement('div');
+    m.className = 'feed-card-media';
+    m.style.background = bg;
+    m.style.height = height + 'px';
+    return m;
   }
 
   function makeSponsorCard(prevColor, prevLabel) {
@@ -1185,12 +1243,13 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
     while (label === prevLabel) label = pick(SPONSOR_LABELS);
     const card = document.createElement('div');
     card.className = 'feed-card';
-    card.style.background = color;
-    card.style.height = rand(160, 280) + 'px';
+    const media = makeMedia(color, rand(160, 280));
     const lab = document.createElement('span');
     lab.className = 'feed-label';
     lab.textContent = label;
-    card.appendChild(lab);
+    media.appendChild(lab);
+    card.appendChild(media);
+    card.appendChild(makeActionsBar());
     card._color = color;
     card._label = label;
     return card;
@@ -1199,26 +1258,28 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
   function makeNeutralCard() {
     const card = document.createElement('div');
     card.className = 'feed-card';
-    card.style.background = pick(NEUTRAL_BGS);
-    card.style.height = rand(180, 220) + 'px';
+    const media = makeMedia(NEUTRAL_BG, rand(180, 220));
     if (Math.random() < 0.3) {
       const play = document.createElement('div');
       play.className = 'feed-play';
       play.innerHTML = PLAY_SVG;
-      card.appendChild(play);
+      media.appendChild(play);
     }
+    card.appendChild(media);
+    card.appendChild(makeActionsBar());
     return card;
   }
 
   function makeVideoCard() {
     const card = document.createElement('div');
     card.className = 'feed-card';
-    card.style.background = pick(VIDEO_BGS);
-    card.style.height = rand(280, 340) + 'px';
+    const media = makeMedia(VIDEO_BG, rand(280, 340));
     const play = document.createElement('div');
     play.className = 'feed-play';
     play.innerHTML = PLAY_SVG;
-    card.appendChild(play);
+    media.appendChild(play);
+    card.appendChild(media);
+    card.appendChild(makeActionsBar());
     return card;
   }
 
@@ -1243,14 +1304,14 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
   });
 
   // Scroll saccade facon coup de doigt :
-  //  - vitesse initiale 4 px/frame
+  //  - vitesse initiale 8 px/frame
   //  - decelere en (1 - t)^2 sur 60 frames
-  //  - reset des que v < 0.8 (nouveau coup)
+  //  - reset des que v < 1.5 (nouveau coup, plus rythme)
   //  - cards qui sortent par le haut sont remises en bas (DOM move)
-  const KICK_VELOCITY = 4;
+  const KICK_VELOCITY = 8;
   const KICK_DURATION = 60;
-  const MIN_VELOCITY = 0.8;
-  const GAP = 2;
+  const MIN_VELOCITY = 1.5;
+  const GAP = 12;
   let scrollY = 0;
   let frame = 0;
 
