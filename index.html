@@ -236,6 +236,11 @@ nav {
   color: var(--text-mute);
 }
 .hero-counter span { color: var(--green); font-size: 18px; }
+.hero-tagline {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #888;
+}
 
 /* SECTIONS */
 section { padding: 120px 24px; }
@@ -684,15 +689,19 @@ footer {
     </div>
   </div>
   <div class="hero-actions">
-    <a href="#waitlist" class="btn-primary" data-i18n="hero_cta">
-      Rejoindre la liste d'attente
+    <a href="#" class="btn-primary" data-i18n="hero_cta">
+      <!-- Mini K Kickstarter (stylise simple) -->
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M5 4h3.5v6.5L13 4h4.2l-5.4 8 5.7 8h-4.4L8.5 13.4V20H5z"/>
+      </svg>
+      Soutenir sur Kickstarter
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
         <path d="M5 12h14M12 5l7 7-7 7"/>
       </svg>
     </a>
   </div>
-  <p class="hero-counter" data-i18n="hero_counter">
-    Rejoins les premiers à découvrir <span>Authentique</span>
+  <p class="hero-tagline" data-i18n="hero_tagline">
+    Sois parmi les premiers à découvrir Authentique.
   </p>
 </section>
 
@@ -991,8 +1000,8 @@ const translations = {
     nav_cta: "Rejoindre la liste",
     hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Ton Instagram, tes <span class="hero-title-accent">choix</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
-    hero_cta: "Rejoindre la liste d'attente",
-    hero_counter: "Rejoins les premiers à découvrir <span>Authentique</span>",
+    hero_cta: "Soutenir sur Kickstarter",
+    hero_tagline: "Sois parmi les premiers à découvrir Authentique.",
     problem_label: "Le problème",
     problem_title: "Instagram décide ce que tu <em>vois</em>.",
     problem_p2: "Meta optimise pour que tu restes le plus longtemps possible. Pas pour que tu voies ce qui compte vraiment.",
@@ -1043,8 +1052,8 @@ const translations = {
     nav_cta: "Join the waitlist",
     hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Your Instagram, your <span class="hero-title-accent">choices</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
-    hero_cta: "Join the waitlist",
-    hero_counter: "Be among the first to discover <span>Authentique</span>",
+    hero_cta: "Back on Kickstarter",
+    hero_tagline: "Be among the first to discover Authentique.",
     problem_label: "The problem",
     problem_title: "Instagram decides what you <em>see</em>.",
     problem_p2: "Meta optimizes for keeping you as long as possible. Not for showing you what truly matters.",
@@ -1095,8 +1104,8 @@ const translations = {
     nav_cta: "Unirse a la lista",
     hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Tu Instagram, tus <span class="hero-title-accent">elecciones</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
-    hero_cta: "Unirse a la lista de espera",
-    hero_counter: "Sé de los primeros en descubrir <span>Authentique</span>",
+    hero_cta: "Apoyar en Kickstarter",
+    hero_tagline: "Sé de los primeros en descubrir Authentique.",
     problem_label: "El problema",
     problem_title: "Instagram decide lo que <em>ves</em>.",
     problem_p2: "Meta optimiza para mantenerte el mayor tiempo posible. No para mostrarte lo que realmente importa.",
@@ -1147,8 +1156,8 @@ const translations = {
     nav_cta: "Присоединиться",
     hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Твой Instagram, твои <span class="hero-title-accent">правила</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
-    hero_cta: "Присоединиться к листу ожидания",
-    hero_counter: "Будь среди первых, кто откроет для себя <span>Authentique</span>",
+    hero_cta: "Поддержать на Kickstarter",
+    hero_tagline: "Будь среди первых, кто откроет Authentique.",
     problem_label: "Проблема",
     problem_title: "Instagram решает, что ты <em>видишь</em>.",
     problem_p2: "Meta оптимизирует, чтобы удержать тебя как можно дольше. Не для того, чтобы ты видел то, что действительно важно.",
