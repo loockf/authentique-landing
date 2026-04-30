@@ -71,11 +71,19 @@ Lire ce fichier avant chaque modif pour éviter les ré-explorations inutiles.
 - `.philosophy-inner` — wrapper centré
 - `.philosophy-arch` — logo arche
 
-### Section CTA finale (`section.section-cta#cta`, ligne ~1023)
+### Section CTA finale (`section.section-cta#cta`, ligne ~1003)
 - `.cta-inner` — wrapper centré
 - `.cta-thanks` — phrase de remerciement
 - `.cta-action` — wrapper du bouton Kickstarter
 - `.cta-contact` — ligne « Tu as des questions ? hello@... »
+
+### Section FAQ (`section.section-faq#faq`, ligne ~1024)
+- `.faq-inner` — wrapper centré (max-width 760px)
+- `.faq-list` — liste verticale d'items
+- `.faq-item` — `<details>` avec fond blanc + radius 12px + flèche rotative
+- `.faq-item summary` — la question (couleur #141414)
+- `.faq-item p` — la réponse (couleur #555)
+- Flèche : pseudo-element `::after` (border-right + border-bottom rotatés), tourne via `[open]`
 
 ### Footer (`<footer>`, ligne 1039)
 - `.footer-logo` / `.footer-name` — logo + nom Authentique
@@ -162,7 +170,8 @@ Wrapper JS auto sur le mot « Authentique » : `wrapAuthentiqueOccurrences()` (D
 | 5 | Screens (« L'app en images ») | `section.section-screens` | — |
 | 6 | Philosophie | `section.section-philosophy` | — |
 | 7 | CTA finale | `section.section-cta` | `#cta` |
-| 8 | Footer | `<footer>` | — |
+| 8 | FAQ | `section.section-faq` | `#faq` |
+| 9 | Footer | `<footer>` | — |
 
 ### Navigation interne
 - Lien retour haut : `<a href="#">` (logo nav + footer)
@@ -183,7 +192,8 @@ Wrapper JS auto sur le mot « Authentique » : `wrapAuthentiqueOccurrences()` (D
 
 ## 6. Fichiers du repo
 
-- `index.html` — fichier principal (~1636 lignes, ~170 KB avec font base64)
+- `index.html` — fichier principal
+- `mentions-legales.html` — page CGU + politique de confidentialité + mentions légales
 - `questionnaire/index.html` — page questionnaire séparée
 - `images/` — screenshots iPhone (feed, recherche, reels, stories, parametres × light/dark)
 - `LANDING.md` — ce fichier (contexte persistant)

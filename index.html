@@ -600,6 +600,60 @@ footer {
 .footer-links a:hover { color: var(--green); }
 .footer-copy { font-size: 13px; color: var(--text-mute); }
 
+/* FAQ */
+.section-faq {
+  background: var(--white);
+  padding: 120px 24px;
+}
+.faq-inner { max-width: 760px; margin: 0 auto; }
+.faq-inner .section-label { display: block; text-align: center; }
+.faq-inner h2 {
+  margin-bottom: 48px;
+  text-align: center;
+  font-size: clamp(30px, 4.5vw, 48px);
+}
+.faq-list { display: flex; flex-direction: column; gap: 12px; }
+.faq-item {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+.faq-item:hover { box-shadow: 0 6px 20px rgba(20,20,20,0.04); }
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 18px 24px;
+  font: 500 16px/1.4 -apple-system, sans-serif;
+  color: #141414;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::marker { content: ''; }
+.faq-item summary::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #888;
+  border-bottom: 2px solid #888;
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  margin-top: -4px;
+}
+.faq-item[open] summary::after { transform: rotate(225deg); margin-top: 2px; }
+.faq-item p {
+  padding: 0 24px 20px;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #555;
+}
+
 /* REVEAL */
 .reveal {
   opacity: 0;
@@ -1021,6 +1075,40 @@ footer {
   </div>
 </section>
 
+<!-- FAQ -->
+<section class="section-faq" id="faq">
+  <div class="faq-inner">
+    <p class="section-label">FAQ</p>
+    <h2 class="reveal">Questions fréquentes</h2>
+    <div class="faq-list">
+      <details class="faq-item reveal">
+        <summary>Comment fonctionne Authentique ?</summary>
+        <p>Authentique est un navigateur web qui affiche Instagram.com en filtrant le contenu que tu ne veux pas voir. Aucune modification de l'app Instagram, aucun accès à ton compte — juste une fenêtre filtrée sur le web.</p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Est-ce gratuit ?</summary>
+        <p>Oui, Authentique est et restera totalement gratuit sur l'App Store. Notre modèle repose sur le soutien volontaire via Kickstarter.</p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Comment est financé le projet ?</summary>
+        <p>Authentique est un projet indépendant développé par une seule personne. Nous lançons une campagne Kickstarter pour financer le développement et le maintien de l'app. Chaque soutien compte.</p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Mes données sont-elles collectées ?</summary>
+        <p>Non. Authentique ne collecte aucune donnée personnelle. Aucun serveur, aucun tracking. Tu utilises Instagram directement — on filtre juste l'affichage.</p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Sur quels appareils est disponible Authentique ?</summary>
+        <p>Authentique sera disponible d'abord sur iOS, puis sur Android. Rejoins la liste d'attente pour être notifié du lancement.</p>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Est-ce que ça respecte les conditions d'utilisation d'Instagram ?</summary>
+        <p>Authentique fonctionne comme un navigateur web (comme Safari ou Chrome). Nous n'accédons pas à l'API privée d'Instagram ni ne modifions l'application. Notre approche est similaire à celle d'autres navigateurs spécialisés disponibles sur l'App Store.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <a href="#" class="footer-logo">
@@ -1034,9 +1122,9 @@ footer {
   </a>
   <div class="footer-links">
     <a href="mailto:hello@get-authentique.com" data-i18n="footer_contact">Contact</a>
-    <a href="/questionnaire/" data-i18n="footer_survey">Questionnaire</a>
+    <a href="/mentions-legales.html" data-i18n="footer_legal">Mentions légales</a>
   </div>
-  <p class="footer-copy">© 2026 Luca Fernandez — Sozo Prod</p>
+  <p class="footer-copy">© 2026 Authentique</p>
 </footer>
 
 <script>
@@ -1088,7 +1176,7 @@ const translations = {
     cta_thanks: "Merci pour ton intérêt et ton soutien. Chaque contribution nous aide à construire l'app que Instagram aurait dû être.",
     cta_contact: 'Tu as des questions ? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
     footer_contact: "Contact",
-    footer_survey: "Questionnaire",
+    footer_legal: "Mentions légales",
   },
   en: {
     nav_cta: "Back on Kickstarter",
@@ -1137,7 +1225,7 @@ const translations = {
     cta_thanks: "Thank you for your interest and support. Every contribution helps us build the app Instagram should have been.",
     cta_contact: 'Any questions? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
     footer_contact: "Contact",
-    footer_survey: "Survey",
+    footer_legal: "Legal notice",
   },
   es: {
     nav_cta: "Apoyar en Kickstarter",
@@ -1186,7 +1274,7 @@ const translations = {
     cta_thanks: "Gracias por tu interés y tu apoyo. Cada contribución nos ayuda a construir la app que Instagram debería haber sido.",
     cta_contact: '¿Preguntas? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
     footer_contact: "Contacto",
-    footer_survey: "Encuesta",
+    footer_legal: "Aviso legal",
   },
   ru: {
     nav_cta: "Поддержать на Kickstarter",
@@ -1235,7 +1323,7 @@ const translations = {
     cta_thanks: "Спасибо за интерес и поддержку. Каждый вклад помогает нам создать приложение, которым должен был быть Instagram.",
     cta_contact: 'Вопросы? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
     footer_contact: "Контакт",
-    footer_survey: "Анкета",
+    footer_legal: "Правовая информация",
   }
 };
 

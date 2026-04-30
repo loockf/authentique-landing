@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentions légales — Authentique</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath d='M 28,178 L 52,88 Q 66,38 100,38 Q 134,38 148,88 L 172,178' stroke='%2319d382' stroke-width='30' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+<style>
+:root {
+  --bg: #f0f0ec;
+  --white: #ffffff;
+  --text: #141414;
+  --text-soft: #555;
+  --text-mute: #888;
+  --border: rgba(20,20,20,0.08);
+  --green: #19d382;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font: 400 16px/1.6 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--green); text-decoration: underline; }
+a:hover { text-decoration: none; }
+
+nav {
+  position: sticky;
+  top: 0;
+  background: rgba(240,240,236,0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  z-index: 10;
+}
+.nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-soft);
+  text-decoration: none;
+  font-size: 14px;
+}
+.nav-back:hover { color: var(--green); }
+.nav-back svg {
+  width: 14px;
+  height: 14px;
+}
+.nav-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--text);
+}
+.nav-logo svg { width: 22px; height: 24px; }
+.nav-logo span {
+  font-size: 16px;
+  color: var(--green);
+}
+
+main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 60px 24px 100px;
+}
+h1 {
+  font-size: clamp(32px, 5vw, 48px);
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+.subtitle {
+  color: var(--text-mute);
+  font-size: 14px;
+  margin-bottom: 48px;
+}
+h2 {
+  margin-top: 48px;
+  margin-bottom: 16px;
+  font-size: 22px;
+  letter-spacing: -0.3px;
+}
+h3 {
+  margin-top: 24px;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 600;
+}
+p { margin-bottom: 14px; color: var(--text-soft); }
+ul {
+  margin: 0 0 14px 24px;
+  color: var(--text-soft);
+}
+li { margin-bottom: 6px; }
+strong { color: var(--text); font-weight: 600; }
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 24px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-mute);
+}
+footer a { margin: 0 12px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-back" aria-label="Retour à l'accueil">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      Retour
+    </a>
+    <a href="/" class="nav-logo">
+      <svg viewBox="0 0 200 200" fill="none">
+        <path d="M 28,178 L 52,88 Q 66,38 100,38 Q 134,38 148,88 L 172,178"
+          stroke="#19d382" stroke-width="30" stroke-linecap="round" fill="none"/>
+      </svg>
+      <span>Authentique</span>
+    </a>
+  </div>
+</nav>
+
+<main>
+  <h1>Mentions légales</h1>
+  <p class="subtitle">Dernière mise à jour : 30 avril 2026</p>
+
+  <h2>1. Éditeur du site</h2>
+  <p>
+    Le site <strong>get-authentique.com</strong> et l'application <strong>Authentique</strong> sont édités par :
+  </p>
+  <ul>
+    <li><strong>Authentique</strong> — projet indépendant</li>
+    <li>Contact : <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a></li>
+  </ul>
+
+  <h2>2. Hébergement</h2>
+  <p>
+    Le site est hébergé par :
+  </p>
+  <ul>
+    <li><strong>Vercel Inc.</strong></li>
+    <li>440 N Barranca Ave #4133, Covina, CA 91723, États-Unis</li>
+    <li><a href="https://vercel.com" target="_blank" rel="noopener">vercel.com</a></li>
+  </ul>
+
+  <h2>3. Propriété intellectuelle</h2>
+  <p>
+    L'ensemble du contenu présent sur ce site (textes, images, logos, code, design) est la propriété exclusive d'Authentique, sauf mention contraire. Toute reproduction, distribution ou exploitation sans autorisation écrite préalable est interdite.
+  </p>
+  <p>
+    Les marques <em>Instagram</em>, <em>Meta</em> et autres marques tierces citées sur ce site appartiennent à leurs propriétaires respectifs. Authentique n'est ni affilié ni sponsorisé par ces entités.
+  </p>
+
+  <h2>4. Conditions générales d'utilisation</h2>
+
+  <h3>4.1 Nature du service</h3>
+  <p>
+    Authentique est une application de navigation web qui affiche les sites <em>Instagram.com</em> et <em>Facebook.com</em> tout en filtrant côté client le contenu choisi par l'utilisateur (publicités, suggestions algorithmiques, stories sponsorisées, etc.).
+  </p>
+  <p>
+    Authentique <strong>ne se connecte pas</strong> à votre compte Instagram. L'authentification s'effectue directement entre vous et Meta via leur interface web officielle, dans une WebView fournie par votre système d'exploitation.
+  </p>
+
+  <h3>4.2 Utilisation acceptable</h3>
+  <p>
+    Vous vous engagez à utiliser Authentique conformément aux conditions d'utilisation d'Instagram et de Meta. Authentique ne contourne aucune mesure de sécurité ni n'accède à des API privées.
+  </p>
+
+  <h3>4.3 Limitation de responsabilité</h3>
+  <p>
+    Authentique est fourni « tel quel », sans garantie d'aucune sorte. L'éditeur ne peut être tenu responsable de tout dysfonctionnement résultant de modifications apportées par Meta à ses interfaces web, ni d'éventuelles pertes liées à l'utilisation de l'application.
+  </p>
+
+  <h2>5. Politique de confidentialité</h2>
+
+  <h3>5.1 Aucune collecte de données</h3>
+  <p>
+    Authentique <strong>ne collecte aucune donnée personnelle</strong>. L'application ne dispose d'aucun serveur, d'aucune base de données et n'utilise aucun outil d'analytique ou de tracking.
+  </p>
+
+  <h3>5.2 Stockage local</h3>
+  <p>
+    Vos préférences de filtrage et la position du bouton flottant sont stockées <strong>localement</strong> sur votre appareil via les mécanismes de stockage natifs (AsyncStorage). Aucune de ces données ne quitte votre téléphone.
+  </p>
+
+  <h3>5.3 Cookies et données Instagram</h3>
+  <p>
+    Les cookies, sessions et données de navigation Instagram sont gérés directement par la WebView de votre système d'exploitation, comme pour n'importe quel navigateur. Authentique n'a pas accès à ces données.
+  </p>
+
+  <h3>5.4 Vos droits</h3>
+  <p>
+    Comme aucune donnée personnelle n'est collectée, les droits RGPD (accès, rectification, suppression, portabilité) ne s'appliquent pas à Authentique. Pour les données détenues par Meta concernant votre compte Instagram, veuillez vous référer à la <a href="https://privacycenter.instagram.com" target="_blank" rel="noopener">politique de confidentialité d'Instagram</a>.
+  </p>
+
+  <h2>6. Contact</h2>
+  <p>
+    Pour toute question relative aux présentes mentions légales, à la protection des données ou au fonctionnement du service :
+  </p>
+  <p>
+    <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>
+  </p>
+
+  <h2>7. Droit applicable</h2>
+  <p>
+    Les présentes mentions légales sont régies par le droit français. Tout litige relatif à leur interprétation ou à leur exécution sera soumis aux tribunaux français compétents.
+  </p>
+</main>
+
+<footer>
+  <a href="/">Accueil</a>
+  <a href="mailto:hello@get-authentique.com">Contact</a>
+  <p style="margin-top: 12px;">© 2026 Authentique</p>
+</footer>
+
+</body>
+</html>
