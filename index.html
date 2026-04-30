@@ -197,14 +197,15 @@ nav {
   display: block;
   white-space: nowrap;
 }
-/* Ligne 2 : police systeme au lieu de GrosVentre. font-size ajuste
-   au runtime par fitHeroTitle() pour matcher la largeur de la
-   ligne 1 (mesuree apres font load + recalculee a chaque resize
-   et changement de langue). */
+/* Ligne 2 : police systeme au lieu de GrosVentre. font-size base
+   a 65% du parent (h1 = clamp(48px, 9vw, 96px)) pour que le texte
+   soit deja a peu pres a la bonne largeur — fitHeroTitle() ajuste
+   ensuite finement par pas de 0.5px jusqu'a matcher la ligne 1. */
 .hero-title-line--regular {
   font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 500;
   letter-spacing: -1px;
+  font-size: 65%;
 }
 .hero-title-accent { color: var(--green); }
 .hero-sub {
