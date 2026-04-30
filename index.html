@@ -584,7 +584,7 @@ footer {
 }
 .footer-logo { display: flex; align-items: center; gap: 10px; }
 .footer-logo .arch-icon { width: 26px; height: 26px; }
-.footer-name { font-size: 18px; }
+.footer-name { font-size: 18px; color: var(--green); }
 .footer-links { display: flex; gap: 24px; font-size: 14px; color: var(--text-mute); }
 .footer-links a:hover { color: var(--green); }
 .footer-copy { font-size: 13px; color: var(--text-mute); }
@@ -1229,7 +1229,41 @@ function setLang(lang) {
   // La ligne 2 du titre vient d'etre re-injectee via innerHTML —
   // re-mesurer pour qu'elle matche toujours la largeur de la ligne 1.
   fitHeroTitle();
+  // Re-wrap "Authentique" en GrosVentre vert sur les textes
+  // re-injectes par les traductions (hero_tagline notamment).
+  if (typeof wrapAuthentiqueOccurrences === 'function') {
+    wrapAuthentiqueOccurrences();
+  }
 }
+
+// Parcourt le DOM et entoure chaque occurrence de "Authentique"
+// (dans des noeuds texte directs, pas deja wraped en SPAN) avec
+// un span GrosVentre + couleur verte. Skip SPAN/SCRIPT/STYLE :
+//  - SPAN : si l'occurrence est deja stylee (ex: hero-title-line
+//    pour la ligne 1 du titre, qui doit rester en #141414).
+//  - SCRIPT / STYLE : evident.
+function wrapAuthentiqueOccurrences() {
+  function walk(node) {
+    if (node.nodeType === 3) {
+      if (node.textContent.indexOf('Authentique') !== -1) {
+        var span = document.createElement('span');
+        span.innerHTML = node.textContent.replace(
+          /Authentique/g,
+          '<span style="font-family:GrosVentre,sans-serif;color:#19d382">Authentique</span>'
+        );
+        node.parentNode.replaceChild(span, node);
+      }
+    } else if (node.nodeType === 1
+      && node.tagName !== 'SCRIPT'
+      && node.tagName !== 'STYLE'
+      && node.tagName !== 'SPAN') {
+      Array.from(node.childNodes).forEach(walk);
+    }
+  }
+  walk(document.body);
+}
+
+document.addEventListener('DOMContentLoaded', wrapAuthentiqueOccurrences);
 
 // Ajuste le font-size de la 2e ligne du titre hero pour qu'elle
 // soit <= largeur de la 1ere ligne. Decremente par pas de 0.5px
