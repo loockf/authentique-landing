@@ -26,6 +26,19 @@
   --white: #ffffff;
   --border: rgba(20,20,20,0.08);
   --grad-icon: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%);
+  --auth-grad: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%);
+}
+
+/* Texte avec degrade Authentique (substitue a color: #19d382). Repli
+   color: var(--green) pour les contextes ou background-clip:text
+   n'est pas supporte. */
+.authentique-gradient-text,
+.hero-title-accent {
+  color: var(--green);
+  background: var(--auth-grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -183,7 +196,7 @@ nav {
   height: 22px;
   margin: 0;
   padding: 0;
-  fill: var(--green);
+  fill: url(#authGrad);
   flex-shrink: 0;
 }
 .hero-title {
@@ -207,7 +220,6 @@ nav {
   letter-spacing: -1px;
   font-size: 65%;
 }
-.hero-title-accent { color: var(--green); }
 .hero-sub {
   max-width: 600px;
   font-size: 18px;
@@ -220,16 +232,16 @@ nav {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--green);
+  background: var(--auth-grad);
   color: var(--white);
   padding: 16px 32px;
   border-radius: 50px;
   font: 500 16px/1 -apple-system, sans-serif;
   border: none;
   cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
+  transition: filter 0.2s, transform 0.2s;
 }
-.btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); }
+.btn-primary:hover { filter: brightness(0.94); transform: translateY(-1px); }
 .hero-counter {
   margin-top: 28px;
   font-size: 14px;
@@ -584,7 +596,14 @@ footer {
 }
 .footer-logo { display: flex; align-items: center; gap: 10px; }
 .footer-logo .arch-icon { width: 26px; height: 26px; }
-.footer-name { font-size: 18px; color: var(--green); }
+.footer-name {
+  font-size: 18px;
+  color: var(--green);
+  background: var(--auth-grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 .footer-links { display: flex; gap: 24px; font-size: 14px; color: var(--text-mute); }
 .footer-links a:hover { color: var(--green); }
 .footer-copy { font-size: 13px; color: var(--text-mute); }
@@ -619,6 +638,22 @@ footer {
 </style>
 </head>
 <body>
+
+<!-- Definition globale du degrade Authentique reutilisable dans
+     n'importe quel SVG via fill="url(#authGrad)" / stroke=...
+     Le svg width=0 height=0 reste invisible mais les <defs> sont
+     accessibles a tous les SVG du document. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="authGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#adf5d8"/>
+      <stop offset="22%" stop-color="#38eb98"/>
+      <stop offset="50%" stop-color="#19d382"/>
+      <stop offset="72%" stop-color="#10c89e"/>
+      <stop offset="100%" stop-color="#0aaa8e"/>
+    </linearGradient>
+  </defs>
+</svg>
 
 <!-- NAV -->
 <nav>
@@ -668,8 +703,8 @@ footer {
              le glyphe (bbox y centre = 13, viewport y centre = 13). -->
         <svg viewBox="0 1 24 24" aria-hidden="true">
           <!-- antennes -->
-          <line x1="7.6" y1="3.4" x2="9" y2="6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/>
-          <line x1="16.4" y1="3.4" x2="15" y2="6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+          <line x1="7.6" y1="3.4" x2="9" y2="6" stroke="url(#authGrad)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+          <line x1="16.4" y1="3.4" x2="15" y2="6" stroke="url(#authGrad)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
           <!-- tete demi-cercle -->
           <path d="M5.5 11 A6.5 6 0 0 1 18.5 11 Z"/>
           <!-- yeux (en blanc via mask non dispo, on utilise des cercles fond bg) -->
@@ -1249,7 +1284,7 @@ function wrapAuthentiqueOccurrences() {
         var span = document.createElement('span');
         span.innerHTML = node.textContent.replace(
           /Authentique/g,
-          '<span style="font-family:GrosVentre,sans-serif;color:#19d382">Authentique</span>'
+          '<span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span>'
         );
         node.parentNode.replaceChild(span, node);
       }
