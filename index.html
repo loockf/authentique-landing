@@ -125,11 +125,14 @@ nav {
 .lang-btn.active { color: var(--text); }
 .lang-btn:hover { color: var(--green); }
 .nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   background: var(--auth-grad);
   color: var(--white);
-  padding: 11px 22px;
+  padding: 9px 16px;
   border-radius: 50px;
-  font: 500 14px/1 -apple-system, sans-serif;
+  font: 500 13px/1 -apple-system, sans-serif;
   transition: filter 0.2s, transform 0.2s;
 }
 .nav-cta:hover { filter: brightness(0.94); transform: translateY(-1px); }
@@ -679,7 +682,15 @@ footer {
       <button class="lang-btn" onclick="setLang('es')">ES</button>
       <button class="lang-btn" onclick="setLang('ru')">RU</button>
     </div>
-    <a href="#waitlist" class="nav-cta" data-i18n="nav_cta">Rejoindre la liste</a>
+    <a href="#" class="nav-cta">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M5 4h3.5v6.5L13 4h4.2l-5.4 8 5.7 8h-4.4L8.5 13.4V20H5z"/>
+      </svg>
+      <span data-i18n="nav_cta">Soutenir sur Kickstarter</span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </a>
   </div>
 </nav>
 
@@ -731,13 +742,15 @@ footer {
     </div>
   </div>
   <div class="hero-actions">
-    <a href="#" class="btn-primary" data-i18n="hero_cta">
-      <!-- Mini K Kickstarter (stylise simple) -->
+    <a href="#" class="btn-primary">
+      <!-- Mini K Kickstarter (stylise simple) — sortir du data-i18n
+           pour que setLang() ne wipe pas les SVG en remplacant
+           l'innerHTML. -->
       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M5 4h3.5v6.5L13 4h4.2l-5.4 8 5.7 8h-4.4L8.5 13.4V20H5z"/>
       </svg>
-      Soutenir sur Kickstarter
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <span data-i18n="hero_cta">Soutenir sur Kickstarter</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
         <path d="M5 12h14M12 5l7 7-7 7"/>
       </svg>
     </a>
@@ -837,7 +850,7 @@ footer {
             <circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
           </svg>
         </div>
-        <h3 data-i18n="f1_title">Zéro publicité</h3>
+        <h3 data-i18n="f1_title">Masquer les posts sponsorisés</h3>
         <p data-i18n="f1_desc">Les publications sponsorisées et bandeaux publicitaires disparaissent automatiquement de ton fil.</p>
       </div>
       <div class="feature-card reveal" style="transition-delay: 0.08s">
@@ -847,7 +860,7 @@ footer {
             <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
           </svg>
         </div>
-        <h3 data-i18n="f2_title">Juste tes amis</h3>
+        <h3 data-i18n="f2_title">Masquer les suggestions de comptes</h3>
         <p data-i18n="f2_desc">Les suggestions "Pour vous" et comptes algorithmiques sont filtrés. Tu ne vois que les gens que tu suis.</p>
       </div>
       <div class="feature-card reveal" style="transition-delay: 0.16s">
@@ -856,7 +869,7 @@ footer {
             <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
           </svg>
         </div>
-        <h3 data-i18n="f3_title">Recherche propre</h3>
+        <h3 data-i18n="f3_title">Section Recherche épurée</h3>
         <p data-i18n="f3_desc">L'onglet Recherche n'affiche que la barre de recherche. La grille de suggestions algorithmiques disparaît.</p>
       </div>
       <div class="feature-card reveal" style="transition-delay: 0.04s">
@@ -867,7 +880,7 @@ footer {
             <line x1="2" y1="12" x2="22" y2="12"/>
           </svg>
         </div>
-        <h3 data-i18n="f4_title">Reels bloqués</h3>
+        <h3 data-i18n="f4_title">Masquer les Reels</h3>
         <p data-i18n="f4_desc">L'onglet Reels est remplacé par un message honnête. Les Reels de tes amis restent visibles dans ton fil.</p>
       </div>
       <div class="feature-card reveal" style="transition-delay: 0.12s">
@@ -876,17 +889,21 @@ footer {
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
           </svg>
         </div>
-        <h3 data-i18n="f5_title">Stories protégées</h3>
+        <h3 data-i18n="f5_title">Masquer les stories sponsorisées</h3>
         <p data-i18n="f5_desc">Les stories sponsorisées sont bloquées avec un overlay clair. Tu ne vois que les stories de tes amis.</p>
       </div>
       <div class="feature-card reveal" style="transition-delay: 0.2s">
         <div class="feature-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
+          <!-- Icone "scroll bloque" : fleche vers le bas qui bute
+               sur une ligne horizontale (= barriere de stop). -->
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="4" x2="12" y2="14"/>
+            <polyline points="7 10 12 14 17 10"/>
+            <line x1="4" y1="20" x2="20" y2="20"/>
           </svg>
         </div>
-        <h3 data-i18n="f6_title">Mode nuit</h3>
-        <p data-i18n="f6_desc">Authentique suit automatiquement le mode sombre d'Instagram. Tes yeux te remercieront.</p>
+        <h3 data-i18n="f6_title">Bloquer le scroll infini</h3>
+        <p data-i18n="f6_desc">Bloque le scroll vers les Reels suivants lors de la lecture d'un Reel dans les DM, dans l'onglet Recherche et dans l'onglet Reels.</p>
       </div>
     </div>
   </div>
@@ -1039,7 +1056,7 @@ footer {
 <script>
 const translations = {
   fr: {
-    nav_cta: "Rejoindre la liste",
+    nav_cta: "Soutenir sur Kickstarter",
     hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Ton Instagram, tes <span class="hero-title-accent">choix</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
     hero_cta: "Soutenir sur Kickstarter",
@@ -1057,18 +1074,18 @@ const translations = {
     features_label: "Ce qu'Authentique fait",
     features_title: "Conçu pour te <em>libérer</em>.",
     features_sub: "Chaque fonctionnalité a été pensée pour te redonner le contrôle de ton expérience Instagram.",
-    f1_title: "Zéro publicité",
+    f1_title: "Masquer les posts sponsorisés",
     f1_desc: "Les publications sponsorisées et bandeaux publicitaires disparaissent automatiquement de ton fil.",
-    f2_title: "Juste tes amis",
+    f2_title: "Masquer les suggestions de comptes",
     f2_desc: 'Les suggestions «Pour vous» et comptes algorithmiques sont filtrés. Tu ne vois que les gens que tu suis.',
-    f3_title: "Recherche propre",
+    f3_title: "Section Recherche épurée",
     f3_desc: "L'onglet Recherche n'affiche que la barre de recherche. La grille de suggestions algorithmiques disparaît.",
-    f4_title: "Reels bloqués",
+    f4_title: "Masquer les Reels",
     f4_desc: "L'onglet Reels est remplacé par un message honnête. Les Reels de tes amis restent visibles dans ton fil.",
-    f5_title: "Stories protégées",
+    f5_title: "Masquer les stories sponsorisées",
     f5_desc: "Les stories sponsorisées sont bloquées avec un overlay clair. Tu ne vois que les stories de tes amis.",
-    f6_title: "Mode nuit",
-    f6_desc: "Authentique suit automatiquement le mode sombre d'Instagram. Tes yeux te remercieront.",
+    f6_title: "Bloquer le scroll infini",
+    f6_desc: "Bloque le scroll vers les Reels suivants lors de la lecture d'un Reel dans les DM, dans l'onglet Recherche et dans l'onglet Reels.",
     screens_label: "L'app en images",
     screens_title: "Vois la différence <em>par toi-même</em>.",
     s1_title: "Zéro publicité dans ton fil",
@@ -1091,7 +1108,7 @@ const translations = {
     footer_survey: "Questionnaire",
   },
   en: {
-    nav_cta: "Join the waitlist",
+    nav_cta: "Back on Kickstarter",
     hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Your Instagram, your <span class="hero-title-accent">choices</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
     hero_cta: "Back on Kickstarter",
@@ -1109,18 +1126,18 @@ const translations = {
     features_label: "What Authentique does",
     features_title: "Designed to <em>free</em> you.",
     features_sub: "Every feature was designed to give you back control of your Instagram experience.",
-    f1_title: "Zero ads",
+    f1_title: "Hide sponsored posts",
     f1_desc: "Sponsored posts and ad banners disappear automatically from your feed.",
-    f2_title: "Just your friends",
+    f2_title: "Hide account suggestions",
     f2_desc: '"For you" suggestions and algorithmic accounts are filtered. You only see people you follow.',
-    f3_title: "Clean search",
+    f3_title: "Clean Search section",
     f3_desc: "The Search tab only shows the search bar. The algorithmic suggestion grid disappears.",
-    f4_title: "Reels blocked",
+    f4_title: "Hide Reels",
     f4_desc: "The Reels tab is replaced with an honest message. Your friends' Reels remain visible in your feed.",
-    f5_title: "Stories protected",
+    f5_title: "Hide sponsored stories",
     f5_desc: "Sponsored stories are blocked with a clear overlay. You only see stories from your friends.",
-    f6_title: "Dark mode",
-    f6_desc: "Authentique automatically follows Instagram's dark mode. Your eyes will thank you.",
+    f6_title: "Block infinite scroll",
+    f6_desc: "Blocks scrolling to the next Reels when watching a Reel in DMs, the Search tab, and the Reels tab.",
     screens_label: "The app in images",
     screens_title: "See the difference <em>for yourself</em>.",
     s1_title: "Zero ads in your feed",
@@ -1143,7 +1160,7 @@ const translations = {
     footer_survey: "Survey",
   },
   es: {
-    nav_cta: "Unirse a la lista",
+    nav_cta: "Apoyar en Kickstarter",
     hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Tu Instagram, tus <span class="hero-title-accent">elecciones</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
     hero_cta: "Apoyar en Kickstarter",
@@ -1161,18 +1178,18 @@ const translations = {
     features_label: "Lo que hace Authentique",
     features_title: "Diseñado para <em>liberarte</em>.",
     features_sub: "Cada función fue diseñada para darte de vuelta el control de tu experiencia en Instagram.",
-    f1_title: "Cero publicidad",
+    f1_title: "Ocultar posts patrocinados",
     f1_desc: "Las publicaciones patrocinadas y banners publicitarios desaparecen automáticamente.",
-    f2_title: "Solo tus amigos",
+    f2_title: "Ocultar sugerencias de cuentas",
     f2_desc: 'Las sugerencias «Para ti» y cuentas algorítmicas se filtran. Solo ves a las personas que sigues.',
-    f3_title: "Búsqueda limpia",
+    f3_title: "Sección Búsqueda depurada",
     f3_desc: "La pestaña Búsqueda solo muestra la barra de búsqueda. La cuadrícula de sugerencias desaparece.",
-    f4_title: "Reels bloqueados",
+    f4_title: "Ocultar los Reels",
     f4_desc: "La pestaña Reels se reemplaza con un mensaje honesto. Los Reels de tus amigos siguen visibles.",
-    f5_title: "Stories protegidas",
+    f5_title: "Ocultar stories patrocinadas",
     f5_desc: "Las stories patrocinadas se bloquean con una superposición clara. Solo ves stories de tus amigos.",
-    f6_title: "Modo oscuro",
-    f6_desc: "Authentique sigue automáticamente el modo oscuro de Instagram.",
+    f6_title: "Bloquear scroll infinito",
+    f6_desc: "Bloquea el scroll hacia los siguientes Reels mientras ves un Reel en los DM, la pestaña Búsqueda y la pestaña Reels.",
     screens_label: "La app en imágenes",
     screens_title: "Ve la diferencia <em>por ti mismo</em>.",
     s1_title: "Cero publicidad en tu feed",
@@ -1195,7 +1212,7 @@ const translations = {
     footer_survey: "Encuesta",
   },
   ru: {
-    nav_cta: "Присоединиться",
+    nav_cta: "Поддержать на Kickstarter",
     hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Твой Instagram, твои <span class="hero-title-accent">правила</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
     hero_cta: "Поддержать на Kickstarter",
@@ -1213,18 +1230,18 @@ const translations = {
     features_label: "Что делает Authentique",
     features_title: "Создан, чтобы <em>освободить</em> тебя.",
     features_sub: "Каждая функция разработана для того, чтобы вернуть тебе контроль над Instagram.",
-    f1_title: "Ноль рекламы",
+    f1_title: "Скрыть рекламные посты",
     f1_desc: "Спонсированные посты и рекламные баннеры автоматически исчезают из ленты.",
-    f2_title: "Только твои друзья",
+    f2_title: "Скрыть рекомендации аккаунтов",
     f2_desc: 'Рекомендации "Для вас" и алгоритмические аккаунты фильтруются.',
-    f3_title: "Чистый поиск",
+    f3_title: "Чистая вкладка Поиск",
     f3_desc: "Вкладка Поиск показывает только строку поиска. Сетка рекомендаций исчезает.",
-    f4_title: "Reels заблокированы",
+    f4_title: "Скрыть Reels",
     f4_desc: "Вкладка Reels заменяется честным сообщением. Reels твоих друзей остаются в ленте.",
-    f5_title: "Истории защищены",
+    f5_title: "Скрыть рекламные истории",
     f5_desc: "Спонсированные истории блокируются. Ты видишь только истории друзей.",
-    f6_title: "Тёмная тема",
-    f6_desc: "Authentique автоматически следует тёмной теме Instagram.",
+    f6_title: "Блокировать бесконечную ленту",
+    f6_desc: "Блокирует прокрутку к следующим Reels при просмотре Reel в DM, во вкладке Поиск и во вкладке Reels.",
     screens_label: "Приложение в картинках",
     screens_title: "Увидь разницу <em>сам</em>.",
     s1_title: "Ноль рекламы в ленте",
