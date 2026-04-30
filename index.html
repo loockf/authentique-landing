@@ -353,16 +353,12 @@ section { padding: 120px 24px; }
   position: absolute;
   top: 8px;
   left: 8px;
-  font: 500 16px/1 -apple-system, sans-serif;
+  font: 500 18px/1 -apple-system, sans-serif;
   color: #fff;
-  background: rgba(0,0,0,0.30);
-  padding: 5px 12px;
+  background: rgba(0,0,0,0.35);
+  padding: 6px 14px;
   border-radius: 3px;
   letter-spacing: 0.2px;
-}
-.feed-label--light {
-  color: #333;
-  background: rgba(0,0,0,0.15);
 }
 .feed-play {
   position: absolute;
@@ -1233,15 +1229,14 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
 
 // === Phone mockup : feed simule avec 3 types de cards + scroll saccade ===
 (function () {
-  // 6 degrades pour les posts sponsorises. Chaque entree = {grad, light}
-  // ou light=true signifie label en texte sombre (degrade clair).
+  // 5 degrades 135deg pour les posts sponsorises. Label toujours blanc
+  // (le fond rgba(0,0,0,0.35) assure la lisibilite sur les clairs).
   const SPONSOR_GRADS = [
-    { grad: 'linear-gradient(90deg, #c1272d 0%, #2d1b4e 100%)', light: false },
-    { grad: 'linear-gradient(90deg, #ffb088 0%, #ee6a2c 100%)', light: false },
-    { grad: 'linear-gradient(90deg, #f8c5c5 0%, #d94560 100%)', light: true  },
-    { grad: 'linear-gradient(90deg, #f4a8b8 0%, #c73e5e 100%)', light: true  },
-    { grad: 'linear-gradient(90deg, #ff9d6c 0%, #e63a17 100%)', light: false },
-    { grad: 'linear-gradient(90deg, #fbe0d6 0%, #f1a896 100%)', light: true  },
+    'linear-gradient(135deg, #ffb088 0%, #ee6a2c 100%)',
+    'linear-gradient(135deg, #f8c5c5 0%, #d94560 100%)',
+    'linear-gradient(135deg, #f4a8b8 0%, #c73e5e 100%)',
+    'linear-gradient(135deg, #ff9d6c 0%, #e63a17 100%)',
+    'linear-gradient(135deg, #fbe0d6 0%, #f1a896 100%)',
   ];
   const SPONSOR_LABELS = [
     'Sponsorisé','Suggéré pour vous','Acheter','Pour vous',
@@ -1312,22 +1307,21 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
   }
 
   function makeSponsorCard(prevGrad, prevLabel) {
-    let g = pick(SPONSOR_GRADS);
-    while (g.grad === prevGrad) g = pick(SPONSOR_GRADS);
+    let grad = pick(SPONSOR_GRADS);
+    while (grad === prevGrad) grad = pick(SPONSOR_GRADS);
     let label = pick(SPONSOR_LABELS);
     while (label === prevLabel) label = pick(SPONSOR_LABELS);
     const card = document.createElement('div');
     card.className = 'feed-card';
     card.appendChild(makeHeader());
     const media = makeMedia('', rand(160, 280));
-    media.style.background = g.grad;
+    media.style.background = grad;
     const lab = document.createElement('span');
     lab.className = 'feed-label';
-    if (g.light) lab.classList.add('feed-label--light');
     lab.textContent = label;
     media.appendChild(lab);
-    // ~40% des sponso ont une icone play centree
-    if (Math.random() < 0.4) {
+    // ~10% des sponso ont une icone play centree (rare).
+    if (Math.random() < 0.1) {
       const play = document.createElement('div');
       play.className = 'feed-play';
       play.innerHTML = PLAY_SVG;
@@ -1335,7 +1329,7 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
     }
     card.appendChild(media);
     card.appendChild(makeActionsBar());
-    card._grad = g.grad;
+    card._grad = grad;
     card._label = label;
     return card;
   }
@@ -1395,15 +1389,16 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
     track.appendChild(card);
   });
 
-  // Scroll saccade :
+  // Scroll quasi-continu :
   //  - vitesse initiale 18 px/frame
   //  - deceleration douce en (1 - t)^2 sur 120 frames
-  //  - quand v < 0.5 → pause de 600ms avant de relancer un coup
+  //  - quand v < 0.5 → micro-pause de 150ms (imperceptible) puis
+  //    nouveau coup. Donne l'impression que le scroll ne s'arrete jamais.
   //  - cards qui sortent par le haut sont remises en bas (DOM move)
   const KICK_VELOCITY = 18;
   const KICK_DURATION = 120;
   const MIN_VELOCITY = 0.5;
-  const PAUSE_MS = 600;
+  const PAUSE_MS = 150;
   const GAP = 20;
   let scrollY = 0;
   let frame = 0;
