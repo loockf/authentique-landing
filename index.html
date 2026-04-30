@@ -32,12 +32,19 @@
 /* Texte avec degrade Authentique (substitue a color: #19d382). Repli
    color: var(--green) pour les contextes ou background-clip:text
    n'est pas supporte. */
-.authentique-gradient-text,
+/* Texte vert plein #19d382 : la classe .authentique-gradient-text
+   est conservee (utilisee par le JS auto-wrapper) mais ne fait
+   plus de degrade — juste color. */
+.authentique-gradient-text {
+  color: var(--green);
+}
+
+/* Degrade Authentique pour mots-cles + accent dans le titre hero
+   + lien mailto. .section-label NE FIGURE PLUS ici → solid green
+   par sa propre regle plus bas. */
 .hero-title-accent,
 em,
-.section-label,
-.hero-counter span,
-.waitlist-note a {
+.hero-counter span {
   color: var(--green);
   background: var(--auth-grad);
   -webkit-background-clip: text;
@@ -603,10 +610,6 @@ footer {
 .footer-name {
   font-size: 18px;
   color: var(--green);
-  background: var(--auth-grad);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 .footer-links { display: flex; gap: 24px; font-size: 14px; color: var(--text-mute); }
 .footer-links a:hover { color: var(--green); }
@@ -754,7 +757,7 @@ footer {
       <div class="problem-pains">
         <div class="pain-card">
           <div class="pain-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M3 11l18-5v12L3 13z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>
             </svg>
           </div>
@@ -762,7 +765,7 @@ footer {
         </div>
         <div class="pain-card">
           <div class="pain-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <rect x="4" y="6" width="16" height="14" rx="2"/><circle cx="9" cy="11" r="1.2"/><circle cx="15" cy="11" r="1.2"/>
               <path d="M9 16h6"/><path d="M9 4l-1 2"/><path d="M15 4l1 2"/>
             </svg>
@@ -771,7 +774,7 @@ footer {
         </div>
         <div class="pain-card">
           <div class="pain-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>
             </svg>
           </div>
@@ -779,7 +782,7 @@ footer {
         </div>
         <div class="pain-card">
           <div class="pain-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 6h4"/><path d="M12 18v.01"/>
             </svg>
           </div>
@@ -787,7 +790,7 @@ footer {
         </div>
         <div class="pain-card">
           <div class="pain-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
             </svg>
           </div>
@@ -795,7 +798,7 @@ footer {
         </div>
         <div class="pain-card">
           <div class="pain-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#19d382" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/>
               <circle cx="12" cy="12" r="3"/>
             </svg>
