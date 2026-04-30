@@ -1306,11 +1306,24 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
     return m;
   }
 
-  function makeSponsorCard(prevGrad, prevLabel) {
-    let grad = pick(SPONSOR_GRADS);
-    while (grad === prevGrad) grad = pick(SPONSOR_GRADS);
-    let label = pick(SPONSOR_LABELS);
-    while (label === prevLabel) label = pick(SPONSOR_LABELS);
+  // Rotation independante des couleurs et labels via deux indices :
+  // pickDifferent(arr, lastIdx) renvoie un index different du dernier
+  // utilise. Garantit qu'on ne tombe jamais 2 fois de suite sur le
+  // meme element, sans correlation entre les deux dimensions.
+  function pickDifferent(arr, lastIdx) {
+    if (arr.length <= 1) return 0;
+    let i = Math.floor(Math.random() * arr.length);
+    if (i === lastIdx) i = (i + 1) % arr.length;
+    return i;
+  }
+
+  function makeSponsorCard(state) {
+    const gi = pickDifferent(SPONSOR_GRADS, state.lastGradIdx);
+    const li = pickDifferent(SPONSOR_LABELS, state.lastLabelIdx);
+    state.lastGradIdx = gi;
+    state.lastLabelIdx = li;
+    const grad = SPONSOR_GRADS[gi];
+    const label = SPONSOR_LABELS[li];
     const card = document.createElement('div');
     card.className = 'feed-card';
     card.appendChild(makeHeader());
@@ -1320,8 +1333,8 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
     lab.className = 'feed-label';
     lab.textContent = label;
     media.appendChild(lab);
-    // ~10% des sponso ont une icone play centree (rare).
-    if (Math.random() < 0.1) {
+    // 20% des sponso ont une icone play centree.
+    if (Math.random() < 0.2) {
       const play = document.createElement('div');
       play.className = 'feed-play';
       play.innerHTML = PLAY_SVG;
@@ -1329,8 +1342,6 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
     }
     card.appendChild(media);
     card.appendChild(makeActionsBar());
-    card._grad = grad;
-    card._label = label;
     return card;
   }
 
@@ -1338,10 +1349,9 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
     const card = document.createElement('div');
     card.className = 'feed-card';
     card.appendChild(makeHeader());
-    // Posts neutres avec icone play : hauteur forcee a la valeur
-    // minimale de la grille (180px) pour rester compact ; sinon
-    // hauteur aleatoire dans la fourchette habituelle.
-    const hasPlay = Math.random() < 0.3;
+    // 10% de chance d'avoir une icone play. Quand presente, hauteur
+    // forcee au minimum (180px) pour rester compact ; sinon aleatoire.
+    const hasPlay = Math.random() < 0.1;
     const height = hasPlay ? 180 : rand(180, 220);
     const media = makeMedia(NEUTRAL_BG, height);
     if (hasPlay) {
@@ -1373,18 +1383,19 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
   if (!track) return;
 
   const seq = buildSequence();
-  let prevGrad = '', prevLabel = '';
+  // State partage entre les appels successifs : memorise le dernier
+  // index de gradient et de label utilises sur les sponsors. Les
+  // cards intercalaires (neutre / video) ne touchent pas au state,
+  // donc le "non-double" porte uniquement sur les sponsors entre eux.
+  const state = { lastGradIdx: -1, lastLabelIdx: -1 };
   seq.forEach(type => {
     let card;
     if (type === 2) {
-      card = makeSponsorCard(prevGrad, prevLabel);
-      prevGrad = card._grad; prevLabel = card._label;
+      card = makeSponsorCard(state);
     } else if (type === 3) {
       card = makeVideoCard();
-      prevGrad = ''; prevLabel = '';
     } else {
       card = makeNeutralCard();
-      prevGrad = ''; prevLabel = '';
     }
     track.appendChild(card);
   });
