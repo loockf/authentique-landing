@@ -1194,6 +1194,11 @@ function setLang(lang) {
     const key = el.getAttribute('data-i18n-placeholder');
     if (t[key]) el.placeholder = t[key];
   });
+  // Mise a jour live des labels du mockup telephone (les cards
+  // existantes gardent leur layout, seul le texte est remplace).
+  if (typeof window.__authUpdateScrollLabels === 'function') {
+    window.__authUpdateScrollLabels(lang);
+  }
 }
 
 const observer = new IntersectionObserver((entries) => {
@@ -1345,6 +1350,10 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
     const lab = document.createElement('span');
     lab.className = 'feed-label';
     lab.textContent = label;
+    // data-label-idx : index dans le tableau de labels, sert au
+    // live-update via window.__authUpdateScrollLabels(lang) appele
+    // par setLang() quand l'utilisateur clique un drapeau.
+    lab.dataset.labelIdx = String(li);
     media.appendChild(lab);
     // 20% des sponso ont une icone play centree.
     if (Math.random() < 0.2) {
@@ -1458,6 +1467,19 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
+
+  // Hook live-update : setLang() appelle ce setter quand la langue
+  // change (clic sur un drapeau du switcher). On re-resout le texte
+  // de chaque label visible a partir de son data-label-idx + de la
+  // table de la nouvelle langue (fallback fr).
+  window.__authUpdateScrollLabels = function (newLang) {
+    const code = (newLang || 'fr').substring(0, 2).toLowerCase();
+    const labels = SCROLL_LABELS[code] || SCROLL_LABELS.fr;
+    track.querySelectorAll('.feed-label').forEach(function (el) {
+      const idx = parseInt(el.dataset.labelIdx, 10);
+      if (!isNaN(idx) && labels[idx]) el.textContent = labels[idx];
+    });
+  };
 })();
 </script>
 </body>
