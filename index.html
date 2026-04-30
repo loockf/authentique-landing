@@ -187,14 +187,20 @@ nav {
   flex-shrink: 0;
 }
 .hero-title {
-  max-width: 880px;
-  margin-bottom: 24px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto 24px;
   color: var(--text);
-  text-align: left;
+  text-align: center;
 }
-.hero-title-line { display: block; }
-/* Lignes 2 et 3 : police systeme au lieu de GrosVentre.
-   Heritage d'h1 → text-align:left + couleur. */
+.hero-title-line {
+  display: block;
+  white-space: nowrap;
+}
+/* Ligne 2 : police systeme au lieu de GrosVentre. font-size ajuste
+   au runtime par fitHeroTitle() pour matcher la largeur de la
+   ligne 1 (mesuree apres font load + recalculee a chaque resize
+   et changement de langue). */
 .hero-title-line--regular {
   font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 500;
@@ -1210,7 +1216,47 @@ function setLang(lang) {
   if (typeof window.__authUpdateScrollLabels === 'function') {
     window.__authUpdateScrollLabels(lang);
   }
+  // La ligne 2 du titre vient d'etre re-injectee via innerHTML —
+  // re-mesurer pour qu'elle matche toujours la largeur de la ligne 1.
+  fitHeroTitle();
 }
+
+// Ajuste le font-size de la 2e ligne du titre hero pour qu'elle
+// fasse exactement la meme largeur que la 1ere ligne ("Authentique.").
+// Mesure les bbox via getBoundingClientRect, calcule un scale, applique
+// puis ajuste une 2eme fois si besoin (font metrics + sub-pixel).
+function fitHeroTitle() {
+  var title = document.querySelector('.hero-title');
+  if (!title) return;
+  var lines = title.querySelectorAll('.hero-title-line');
+  if (lines.length < 2) return;
+  var line1 = lines[0];
+  var line2 = lines[1];
+  // Reset le font-size avant la mesure (sinon on partirait du
+  // dernier ajustement, derive a chaque appel).
+  line2.style.fontSize = '';
+  var w1 = line1.getBoundingClientRect().width;
+  var w2 = line2.getBoundingClientRect().width;
+  if (w1 <= 0 || w2 <= 0) return;
+  var fs = parseFloat(window.getComputedStyle(line2).fontSize) || 48;
+  var target = fs * (w1 / w2);
+  line2.style.fontSize = target + 'px';
+  // Une iteration de correction (les fontes peuvent reagir
+  // non-lineairement au changement de taille, ex: hinting).
+  var w2b = line2.getBoundingClientRect().width;
+  if (Math.abs(w2b - w1) > 2) {
+    line2.style.fontSize = (target * (w1 / w2b)) + 'px';
+  }
+}
+
+// Premier ajustement quand les fontes sont chargees (GrosVentre
+// surtout — sa largeur impacte la mesure de la ligne 1).
+if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
+  document.fonts.ready.then(fitHeroTitle);
+} else {
+  window.addEventListener('load', fitHeroTitle);
+}
+window.addEventListener('resize', fitHeroTitle);
 
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => {
