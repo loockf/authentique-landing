@@ -513,7 +513,7 @@ section { padding: 120px 24px; }
   box-shadow: 0 20px 40px rgba(20,20,20,0.15);
   transition: transform 0.4s;
 }
-.iphone--featured { transform: scale(1.06); z-index: 2; }
+.iphone--featured { transform: none; z-index: auto; }
 .iphone-frame { position: relative; border-radius: 26px; overflow: hidden; }
 .iphone-dynamic-island {
   position: absolute;
@@ -537,8 +537,10 @@ section { padding: 120px 24px; }
 }
 .philosophy-inner { max-width: 720px; margin: 0 auto; }
 .philosophy-arch {
-  display: inline-block;
-  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 32px;
   width: 80px; height: 80px;
 }
 .philosophy-inner blockquote {
@@ -551,50 +553,30 @@ section { padding: 120px 24px; }
 }
 .philosophy-inner p { color: var(--text-soft); font-size: 17px; max-width: 540px; margin: 0 auto; }
 
-/* WAITLIST */
-.section-waitlist {
+/* FINAL CTA */
+.section-cta {
   background: var(--bg);
   padding: 120px 24px;
   text-align: center;
 }
-.waitlist-inner { max-width: 540px; margin: 0 auto; }
-.waitlist-inner h2 { margin-bottom: 16px; }
-.waitlist-inner > p { color: var(--text-soft); font-size: 17px; margin-bottom: 36px; }
-.waitlist-form {
-  display: flex;
-  gap: 12px;
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 50px;
-  padding: 6px;
+.cta-inner { max-width: 640px; margin: 0 auto; }
+.cta-inner h2 {
+  margin-bottom: 20px;
+  font-size: clamp(30px, 4.5vw, 48px);
 }
-.waitlist-input {
-  flex: 1;
-  border: none;
-  background: transparent;
-  padding: 14px 20px;
-  font: 400 16px/1 -apple-system, sans-serif;
-  color: var(--text);
-  outline: none;
+.cta-thanks {
+  color: var(--text-soft);
+  font-size: 17px;
+  line-height: 1.55;
+  margin-bottom: 8px;
 }
-.waitlist-input::placeholder { color: var(--text-mute); }
-.waitlist-btn {
-  background: var(--auth-grad);
-  color: var(--white);
-  border: none;
-  padding: 14px 28px;
-  border-radius: 50px;
-  font: 500 15px/1 -apple-system, sans-serif;
-  cursor: pointer;
-  transition: filter 0.2s;
-}
-.waitlist-btn:hover { filter: brightness(0.94); }
-.waitlist-note {
-  margin-top: 20px;
+.cta-action { margin-top: 32px; }
+.cta-contact {
+  margin-top: 28px;
   font-size: 14px;
   color: var(--text-mute);
 }
-.waitlist-note a { color: var(--green); text-decoration: underline; }
+.cta-contact a { color: var(--green); text-decoration: underline; }
 
 /* FOOTER */
 footer {
@@ -641,8 +623,6 @@ footer {
   .screen-col--phones { flex-wrap: wrap; }
   .iphone { width: 180px; }
   .iphone--featured { transform: none; }
-  .waitlist-form { flex-direction: column; border-radius: 24px; padding: 12px; }
-  .waitlist-input, .waitlist-btn { width: 100%; }
   footer { flex-direction: column; text-align: center; }
 }
 </style>
@@ -932,7 +912,7 @@ footer {
         <div class="iphone iphone--featured">
           <div class="iphone-frame">
             <div class="iphone-dynamic-island"></div>
-            <div class="iphone-screen"><img src="images/feed-light.jpg" alt="" loading="lazy"></div>
+            <div class="iphone-screen"><img src="images/feed.jpg" alt="" loading="lazy"></div>
           </div>
         </div>
       </div>
@@ -1019,17 +999,23 @@ footer {
   </div>
 </section>
 
-<!-- WAITLIST -->
-<section class="section-waitlist" id="waitlist">
-  <div class="waitlist-inner">
-    <p class="section-label" data-i18n="waitlist_label">Liste d'attente</p>
-    <h2 class="reveal" data-i18n="waitlist_title">Prêt à retrouver tes <em>amis</em> ?</h2>
-    <p class="reveal" data-i18n="waitlist_sub">Laisse ton email pour être parmi les premiers à accéder à Authentique. Aucun spam, promis.</p>
-    <div class="waitlist-form reveal">
-      <input type="email" class="waitlist-input" placeholder="ton@email.com" data-i18n-placeholder="waitlist_placeholder">
-      <button class="waitlist-btn" data-i18n="waitlist_btn">Rejoindre</button>
+<!-- FINAL CTA -->
+<section class="section-cta" id="cta">
+  <div class="cta-inner">
+    <h2 class="reveal" data-i18n="cta_title">On construit <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span> ensemble.</h2>
+    <p class="cta-thanks reveal" data-i18n="cta_thanks">Merci pour ton intérêt et ton soutien. Chaque contribution nous aide à construire l'app que Instagram aurait dû être.</p>
+    <div class="cta-action reveal">
+      <a href="#" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M5 4h3.5v6.5L13 4h4.2l-5.4 8 5.7 8h-4.4L8.5 13.4V20H5z"/>
+        </svg>
+        <span data-i18n="hero_cta">Soutenir sur Kickstarter</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
     </div>
-    <p class="waitlist-note reveal" data-i18n="waitlist_note">
+    <p class="cta-contact reveal" data-i18n="cta_contact">
       Tu as des questions ? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>
     </p>
   </div>
@@ -1098,12 +1084,9 @@ const translations = {
     s4_desc: "Chaque filtre est configurable depuis l'écran Paramètres. Active ou désactive ce que tu veux, quand tu veux.",
     philosophy_quote: '"Les réseaux sociaux devraient te connecter à tes amis, pas t\'<em>en éloigner</em>."',
     philosophy_text: 'Authentique ne collecte aucune donnée. Aucun serveur. Aucun tracking. Juste une fenêtre filtrée sur Instagram, tel qu\'il aurait toujours dû être.',
-    waitlist_label: "Liste d'attente",
-    waitlist_title: "Prêt à retrouver tes <em>amis</em> ?",
-    waitlist_sub: 'Laisse ton email pour être parmi les premiers à accéder à Authentique. Aucun spam, promis.',
-    waitlist_placeholder: "ton@email.com",
-    waitlist_btn: "Rejoindre",
-    waitlist_note: 'Tu as des questions ? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
+    cta_title: 'On construit <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span> ensemble.',
+    cta_thanks: "Merci pour ton intérêt et ton soutien. Chaque contribution nous aide à construire l'app que Instagram aurait dû être.",
+    cta_contact: 'Tu as des questions ? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
     footer_contact: "Contact",
     footer_survey: "Questionnaire",
   },
@@ -1150,12 +1133,9 @@ const translations = {
     s4_desc: "Every filter is configurable from the Settings screen. Enable or disable what you want, when you want.",
     philosophy_quote: '"Social media should connect you to your friends, not <em>push you away</em> from them."',
     philosophy_text: 'Authentique collects no data. No server. No tracking. Just a filtered window into Instagram, as it should always have been.',
-    waitlist_label: "Waitlist",
-    waitlist_title: "Ready to find your <em>friends</em> again?",
-    waitlist_sub: 'Leave your email to be among the first to access Authentique. No spam, promised.',
-    waitlist_placeholder: "your@email.com",
-    waitlist_btn: "Join",
-    waitlist_note: 'Any questions? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
+    cta_title: 'We are building <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span> together.',
+    cta_thanks: "Thank you for your interest and support. Every contribution helps us build the app Instagram should have been.",
+    cta_contact: 'Any questions? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
     footer_contact: "Contact",
     footer_survey: "Survey",
   },
@@ -1202,12 +1182,9 @@ const translations = {
     s4_desc: "Cada filtro es configurable desde la pantalla de Ajustes. Activa o desactiva lo que quieras.",
     philosophy_quote: '"Las redes sociales deberían conectarte con tus amigos, no <em>alejarte</em> de ellos."',
     philosophy_text: 'Authentique no recopila ningún dato. Sin servidor. Sin seguimiento. Solo una ventana filtrada a Instagram, como siempre debió haber sido.',
-    waitlist_label: "Lista de espera",
-    waitlist_title: "¿Listo para reencontrar a tus <em>amigos</em>?",
-    waitlist_sub: 'Deja tu email para ser de los primeros en acceder a Authentique. Sin spam, prometido.',
-    waitlist_placeholder: "tu@email.com",
-    waitlist_btn: "Unirse",
-    waitlist_note: '¿Preguntas? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
+    cta_title: 'Construimos <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span> juntos.',
+    cta_thanks: "Gracias por tu interés y tu apoyo. Cada contribución nos ayuda a construir la app que Instagram debería haber sido.",
+    cta_contact: '¿Preguntas? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
     footer_contact: "Contacto",
     footer_survey: "Encuesta",
   },
@@ -1254,12 +1231,9 @@ const translations = {
     s4_desc: "Каждый фильтр настраивается в экране Настроек. Включай или выключай что хочешь.",
     philosophy_quote: '"Социальные сети должны соединять тебя с друзьями, а не <em>отдалять</em> от них."',
     philosophy_text: 'Authentique не собирает данных. Никаких серверов. Никакой слежки. Только отфильтрованное окно в Instagram, каким он всегда должен был быть.',
-    waitlist_label: "Лист ожидания",
-    waitlist_title: "Готов снова найти своих <em>друзей</em>?",
-    waitlist_sub: 'Оставь email, чтобы получить доступ к Authentique первым. Никакого спама.',
-    waitlist_placeholder: "твой@email.com",
-    waitlist_btn: "Присоединиться",
-    waitlist_note: 'Вопросы? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
+    cta_title: 'Мы создаём <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span> вместе.',
+    cta_thanks: "Спасибо за интерес и поддержку. Каждый вклад помогает нам создать приложение, которым должен был быть Instagram.",
+    cta_contact: 'Вопросы? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
     footer_contact: "Контакт",
     footer_survey: "Анкета",
   }
@@ -1364,22 +1338,6 @@ document.querySelectorAll('.reveal').forEach(el => {
   observer.observe(el);
   const rect = el.getBoundingClientRect();
   if (rect.top < window.innerHeight) el.classList.add('visible');
-});
-
-document.querySelector('.waitlist-btn').addEventListener('click', () => {
-  const input = document.querySelector('.waitlist-input');
-  const email = input.value.trim();
-  if (!email || !email.includes('@')) {
-    input.style.borderColor = 'rgba(255,80,80,0.5)';
-    setTimeout(() => input.style.borderColor = '', 2000);
-    return;
-  }
-  document.querySelector('.waitlist-form').innerHTML =
-    '<p style="color:#19d382; font-size:16px; font-weight:500; padding:14px">✓ ' +
-    (currentLang === 'fr' ? 'Tu es sur la liste !' :
-     currentLang === 'en' ? "You're on the list!" :
-     currentLang === 'es' ? '¡Estás en la lista!' :
-     'Ты в списке!') + '</p>';
 });
 
 // === Phone mockup : feed simule avec 3 types de cards + scroll saccade ===

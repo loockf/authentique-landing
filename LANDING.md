@@ -71,12 +71,11 @@ Lire ce fichier avant chaque modif pour éviter les ré-explorations inutiles.
 - `.philosophy-inner` — wrapper centré
 - `.philosophy-arch` — logo arche
 
-### Section Waitlist (`section.section-waitlist#waitlist`, ligne 1023)
-- `.waitlist-inner` — wrapper centré
-- `.waitlist-form` — bloc input + bouton
-- `.waitlist-input` — champ email
-- `.waitlist-btn` — bouton « Rejoindre »
-- `.waitlist-note` — note RGPD sous le formulaire
+### Section CTA finale (`section.section-cta#cta`, ligne ~1023)
+- `.cta-inner` — wrapper centré
+- `.cta-thanks` — phrase de remerciement
+- `.cta-action` — wrapper du bouton Kickstarter
+- `.cta-contact` — ligne « Tu as des questions ? hello@... »
 
 ### Footer (`<footer>`, ligne 1039)
 - `.footer-logo` / `.footer-name` — logo + nom Authentique
@@ -162,12 +161,12 @@ Wrapper JS auto sur le mot « Authentique » : `wrapAuthentiqueOccurrences()` (D
 | 4 | Features (« Conçu pour te libérer ») | `section.section-features` | — |
 | 5 | Screens (« L'app en images ») | `section.section-screens` | — |
 | 6 | Philosophie | `section.section-philosophy` | — |
-| 7 | Waitlist | `section.section-waitlist` | `#waitlist` |
+| 7 | CTA finale | `section.section-cta` | `#cta` |
 | 8 | Footer | `<footer>` | — |
 
 ### Navigation interne
 - Lien retour haut : `<a href="#">` (logo nav + footer)
-- Lien waitlist : `<a href="#waitlist">` (CTA secondaires éventuels)
+- Lien CTA finale : `<a href="#cta">` (ancre vers la section finale)
 - Lien Kickstarter : `href="#"` (placeholder, à remplacer le moment venu)
 
 ---
