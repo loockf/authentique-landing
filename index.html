@@ -273,18 +273,39 @@ section { padding: 120px 24px; }
 }
 .phone-screen {
   width: 100%; height: 100%;
-  background: #e0e0d8; /* placeholder visible si la video n'est pas encore presente */
+  background: #0c0f14;
   border-radius: 28px;
   overflow: hidden;
   position: relative;
 }
-.phone-video {
+.phone-feed {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+  padding: 12px;
+  overflow: hidden;
+}
+.phone-feed-track {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  will-change: transform;
+}
+.feed-card {
+  flex-shrink: 0;
+  height: 76px;
+  border-radius: 12px;
+  position: relative;
+}
+.feed-label {
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  font: 500 9px/1 -apple-system, sans-serif;
+  color: #fff;
+  background: rgba(0,0,0,0.3);
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.2px;
 }
 
 /* FEATURES */
@@ -628,13 +649,9 @@ footer {
         <div class="phone-frame">
           <div class="phone-notch"></div>
           <div class="phone-screen">
-            <!-- Placer votre vidéo ici : video/feed-demo.mp4
-                 (autoplay, muted, loop, playsinline ; un fallback
-                 fond #e0e0d8 s'affiche si la video est absente ou
-                 met du temps a charger). -->
-            <video class="phone-video" autoplay muted loop playsinline preload="metadata">
-              <source src="video/feed-demo.mp4" type="video/mp4">
-            </video>
+            <div class="phone-feed" aria-hidden="true">
+              <div class="phone-feed-track"><!-- cards injectees par JS --></div>
+            </div>
           </div>
         </div>
       </div>
@@ -1115,6 +1132,88 @@ document.querySelector('.waitlist-btn').addEventListener('click', () => {
      currentLang === 'es' ? '¡Estás en la lista!' :
      'Ты в списке!') + '</p>';
 });
+
+// === Phone mockup : faux feed avec scroll saccade facon coup de doigt ===
+(function () {
+  const COLORS = ['#f4a261','#e76f51','#2a9d8f','#e9c46a','#264653','#a8dadc','#457b9d','#e63946','#6d6875','#b5838d','#52b788','#f72585'];
+  const LABELS = ['Sponsorisé','Suggéré pour vous','Acheter','Sponsorisé','Pour vous','Partenariat rémunéré','Acheter maintenant','Suggéré pour vous','Sponsorisé','Découvrir','Acheter','Pour vous'];
+
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  // Pair colors (uniques) avec labels (avec doublons OK), avec garde
+  // anti-doublon adjacent pour ne pas voir 2 fois la meme etiquette
+  // de suite (varie le rythme visuel).
+  function buildPairs() {
+    for (let attempts = 0; attempts < 60; attempts++) {
+      const colors = shuffle(COLORS);
+      const labels = shuffle(LABELS);
+      let ok = true;
+      for (let i = 1; i < labels.length; i++) {
+        if (labels[i] === labels[i - 1]) { ok = false; break; }
+      }
+      if (ok) return colors.map((c, i) => ({ color: c, label: labels[i] }));
+    }
+    // Fallback : pas de garde adjacent
+    const colors = shuffle(COLORS);
+    const labels = shuffle(LABELS);
+    return colors.map((c, i) => ({ color: c, label: labels[i] }));
+  }
+
+  const track = document.querySelector('.phone-feed-track');
+  if (!track) return;
+
+  buildPairs().forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'feed-card';
+    card.style.background = p.color;
+    const label = document.createElement('span');
+    label.className = 'feed-label';
+    label.textContent = p.label;
+    card.appendChild(label);
+    track.appendChild(card);
+  });
+
+  // Scroll saccade : chaque "coup de doigt" = vitesse initiale 8px/frame,
+  // decelere en (1 - t)^2 sur 40 frames. Quand v < 0.5, nouveau coup.
+  // Recyclage : des qu'une carte sort par le haut (offset > sa hauteur),
+  // on l'append en bas et on decremente scrollY de la meme valeur.
+  const KICK_VELOCITY = 8;
+  const KICK_DURATION = 40;
+  const MIN_VELOCITY = 0.5;
+  const GAP = 8;
+  let scrollY = 0;
+  let frame = 0;
+
+  function tick() {
+    const t = frame / KICK_DURATION;
+    let velocity = KICK_VELOCITY * Math.pow(Math.max(0, 1 - t), 2);
+    if (velocity < MIN_VELOCITY) {
+      frame = 0;
+      velocity = KICK_VELOCITY;
+    }
+    scrollY += velocity;
+    frame++;
+
+    while (track.firstElementChild) {
+      const first = track.firstElementChild;
+      const firstHeight = first.offsetHeight + GAP;
+      if (scrollY < firstHeight) break;
+      scrollY -= firstHeight;
+      track.appendChild(first);
+    }
+
+    track.style.transform = 'translateY(' + (-scrollY) + 'px)';
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
 </script>
 </body>
 </html>
