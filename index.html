@@ -643,7 +643,7 @@ footer {
         stroke="#ffffff" stroke-width="30" stroke-linecap="round" fill="none"/>
     </svg>
   </span>
-  <h1 class="hero-title" data-i18n="hero_title"><span class="hero-title-line">Authentique.</span><span class="hero-title-line hero-title-line--regular">Ton Instagram, tes <span class="hero-title-accent">choix</span><span style="color:#141414">.</span></span></h1>
+  <h1 class="hero-title" data-i18n="hero_title"><span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Ton Instagram, tes <span class="hero-title-accent">choix</span><span style="color:#141414">.</span></span></h1>
   <div class="hero-platforms-wrap">
     <span class="hero-platforms-caption" data-i18n="platforms_caption">Bientôt disponible sur :</span>
     <div class="hero-platforms">
@@ -988,7 +988,7 @@ footer {
 const translations = {
   fr: {
     nav_cta: "Rejoindre la liste",
-    hero_title: '<span class="hero-title-line">Authentique.</span><span class="hero-title-line hero-title-line--regular">Ton Instagram, tes <span class="hero-title-accent">choix</span><span style="color:#141414">.</span></span>',
+    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Ton Instagram, tes <span class="hero-title-accent">choix</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
     hero_cta: "Rejoindre la liste d'attente",
     hero_counter: "Rejoins les premiers à découvrir <span>Authentique</span>",
@@ -1040,7 +1040,7 @@ const translations = {
   },
   en: {
     nav_cta: "Join the waitlist",
-    hero_title: '<span class="hero-title-line">Authentique.</span><span class="hero-title-line hero-title-line--regular">Your Instagram, your <span class="hero-title-accent">choices</span><span style="color:#141414">.</span></span>',
+    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Your Instagram, your <span class="hero-title-accent">choices</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
     hero_cta: "Join the waitlist",
     hero_counter: "Be among the first to discover <span>Authentique</span>",
@@ -1092,7 +1092,7 @@ const translations = {
   },
   es: {
     nav_cta: "Unirse a la lista",
-    hero_title: '<span class="hero-title-line">Authentique.</span><span class="hero-title-line hero-title-line--regular">Tu Instagram, tus <span class="hero-title-accent">elecciones</span><span style="color:#141414">.</span></span>',
+    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Tu Instagram, tus <span class="hero-title-accent">elecciones</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
     hero_cta: "Unirse a la lista de espera",
     hero_counter: "Sé de los primeros en descubrir <span>Authentique</span>",
@@ -1144,7 +1144,7 @@ const translations = {
   },
   ru: {
     nav_cta: "Присоединиться",
-    hero_title: '<span class="hero-title-line">Authentique.</span><span class="hero-title-line hero-title-line--regular">Твой Instagram, твои <span class="hero-title-accent">правила</span><span style="color:#141414">.</span></span>',
+    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Твой Instagram, твои <span class="hero-title-accent">правила</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
     hero_cta: "Присоединиться к листу ожидания",
     hero_counter: "Будь среди первых, кто откроет для себя <span>Authentique</span>",
@@ -1222,30 +1222,20 @@ function setLang(lang) {
 }
 
 // Ajuste le font-size de la 2e ligne du titre hero pour qu'elle
-// fasse exactement la meme largeur que la 1ere ligne ("Authentique.").
-// Mesure les bbox via getBoundingClientRect, calcule un scale, applique
-// puis ajuste une 2eme fois si besoin (font metrics + sub-pixel).
+// soit <= largeur de la 1ere ligne. Decremente par pas de 0.5px
+// jusqu'a ce que la ligne 2 tienne, plancher a 8px.
 function fitHeroTitle() {
-  var title = document.querySelector('.hero-title');
-  if (!title) return;
-  var lines = title.querySelectorAll('.hero-title-line');
-  if (lines.length < 2) return;
-  var line1 = lines[0];
-  var line2 = lines[1];
-  // Reset le font-size avant la mesure (sinon on partirait du
-  // dernier ajustement, derive a chaque appel).
+  var line1 = document.getElementById('hero-line1');
+  var line2 = document.getElementById('hero-line2');
+  if (!line1 || !line2) return;
+  // Reset avant mesure pour ne pas heriter d'un ajustement precedent
+  // (sinon le font-size derive a chaque appel resize / setLang).
   line2.style.fontSize = '';
-  var w1 = line1.getBoundingClientRect().width;
-  var w2 = line2.getBoundingClientRect().width;
-  if (w1 <= 0 || w2 <= 0) return;
-  var fs = parseFloat(window.getComputedStyle(line2).fontSize) || 48;
-  var target = fs * (w1 / w2);
-  line2.style.fontSize = target + 'px';
-  // Une iteration de correction (les fontes peuvent reagir
-  // non-lineairement au changement de taille, ex: hinting).
-  var w2b = line2.getBoundingClientRect().width;
-  if (Math.abs(w2b - w1) > 2) {
-    line2.style.fontSize = (target * (w1 / w2b)) + 'px';
+  var targetWidth = line1.getBoundingClientRect().width;
+  var fontSize = parseFloat(window.getComputedStyle(line2).fontSize);
+  while (line2.getBoundingClientRect().width > targetWidth && fontSize > 8) {
+    fontSize -= 0.5;
+    line2.style.fontSize = fontSize + 'px';
   }
 }
 
