@@ -638,21 +638,75 @@ section { padding: 120px 24px; }
 .feature-card:has(input:checked) .card-on { opacity: 1; }
 
 /* SCREENSHOTS */
-.section-screens { padding: 120px 24px 80px; }
+.section-screens { padding: 120px 24px 0; }
 .screens-inner { max-width: 1100px; margin: 0 auto; }
-.screens-header { text-align: center; max-width: 700px; margin: 0 auto 80px; }
+.screens-header { text-align: center; max-width: 700px; margin: 0 auto 0; }
 .screens-header h2 { margin-bottom: 16px; }
-.screens-row {
+
+/* Sticky scroll : outer = 3 × 100vh d'espace de scroll, inner reste
+   en sticky top:0 pendant tout le scroll. Les 3 slides sont
+   superposes en absolute et leur opacity est togglee selon la
+   position de scroll dans outer. */
+.sticky-outer {
+  position: relative;
+  height: 300vh;
+}
+.sticky-inner {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sticky-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease-in-out;
+}
+.sticky-slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.sticky-slide-content {
+  width: 100%;
+  max-width: 1100px;
+  padding: 0 24px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
   align-items: center;
-  margin-bottom: 100px;
 }
-.screens-row--reverse > .screen-col--phones { order: 1; }
-.screens-row--center { grid-template-columns: 1fr; text-align: center; }
-.screens-row--center .screen-col--text { max-width: 600px; margin: 0 auto; }
-.screen-col--continuation { margin-top: 56px; }
+.sticky-slide:nth-child(2) .sticky-slide-content > .screen-col--phones { order: -1; }
+
+.sticky-dots {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 5;
+}
+.sticky-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ccc;
+  transition: background 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
+.sticky-dot.is-active {
+  width: 10px;
+  height: 10px;
+  background: #19d382;
+}
+
 .screen-col--text h3 { margin-bottom: 16px; font-size: 32px; }
 .screen-col--text p { color: var(--text-soft); font-size: 17px; line-height: 1.55; }
 .screen-col--phones {
@@ -905,9 +959,10 @@ footer {
   section { padding: 80px 20px; }
   .section-problem .problem-grid { grid-template-columns: 1fr; gap: 48px; }
   .features-grid { grid-template-columns: 1fr; }
-  .screens-row { grid-template-columns: 1fr; gap: 40px; margin-bottom: 80px; }
-  .screens-row--reverse > .screen-col--phones { order: 0; }
+  .sticky-slide-content { grid-template-columns: 1fr; gap: 32px; padding: 0 16px; }
+  .sticky-slide:nth-child(2) .sticky-slide-content > .screen-col--phones { order: 0; }
   .screen-col--phones { flex-wrap: wrap; }
+  .sticky-dots { bottom: 24px; }
   .iphone { width: 180px; }
   .iphone--featured { transform: none; }
   footer { flex-direction: column; text-align: center; }
@@ -1266,108 +1321,106 @@ footer {
   </div>
 </section>
 
-<!-- SCREENSHOTS -->
+<!-- SCREENSHOTS — sticky scroll, 3 slides -->
 <section class="section-screens">
   <div class="screens-inner">
     <div class="screens-header reveal">
       <p class="section-label" data-i18n="screens_label">L'app en images</p>
       <h2 data-i18n="screens_title">Vois la différence<br><em>par toi-même</em>.</h2>
     </div>
+  </div>
 
-    <div class="screens-row reveal">
-      <div class="screen-col screen-col--text">
-        <h3 data-i18n="s1_title">Zéro publicité dans ton fil</h3>
-        <p data-i18n="s1_desc">Masque les posts sponsorisés, les suggestions algorithmiques et/ou les reposts non désirés — indépendamment les uns des autres.</p>
-      </div>
-      <div class="screen-col screen-col--phones">
-        <div class="iphone">
-          <div class="iphone-frame">
-            <div class="iphone-dynamic-island"></div>
-            <div class="iphone-screen iphone-screen--demo">
-              <div class="phone-feed" aria-hidden="true">
-                <div class="phone-feed-track" data-feed-mode="chaos"></div>
+  <!-- sticky-outer : hauteur = nb_slides * 100vh, capture le scroll
+       pour piloter la transition entre slides via window.scrollY.
+       sticky-inner : reste fixé top: 0 pendant tout le scroll de outer. -->
+  <div class="sticky-outer">
+    <div class="sticky-inner">
+      <!-- Slide 1 : Zéro publicité — 2 mockups (chaos + calm + counter) -->
+      <div class="sticky-slide is-active" data-slide="0">
+        <div class="sticky-slide-content">
+          <div class="screen-col screen-col--text">
+            <h3 data-i18n="s1_title">Zéro publicité dans ton fil</h3>
+            <p data-i18n="s1_desc">Masque les posts sponsorisés, les suggestions algorithmiques et/ou les reposts non désirés — indépendamment les uns des autres.</p>
+          </div>
+          <div class="screen-col screen-col--phones">
+            <div class="iphone">
+              <div class="iphone-frame">
+                <div class="iphone-dynamic-island"></div>
+                <div class="iphone-screen iphone-screen--demo">
+                  <div class="phone-feed" aria-hidden="true">
+                    <div class="phone-feed-track" data-feed-mode="chaos"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="iphone iphone--featured">
+              <div class="iphone-frame">
+                <div class="iphone-dynamic-island"></div>
+                <div class="iphone-screen iphone-screen--demo iphone-screen--counter">
+                  <div class="phone-feed" aria-hidden="true">
+                    <div class="phone-feed-track" data-feed-mode="calm"></div>
+                  </div>
+                  <div class="iphone-hidden-strip" data-hidden-strip aria-hidden="true">0 élément masqué</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="iphone iphone--featured">
-          <div class="iphone-frame">
-            <div class="iphone-dynamic-island"></div>
-            <div class="iphone-screen iphone-screen--demo iphone-screen--counter">
-              <div class="phone-feed" aria-hidden="true">
-                <div class="phone-feed-track" data-feed-mode="calm"></div>
+      </div>
+
+      <!-- Slide 2 : Onglet Recherche épuré -->
+      <div class="sticky-slide" data-slide="1">
+        <div class="sticky-slide-content">
+          <div class="screen-col screen-col--text">
+            <h3 data-i18n="s2_title">Onglet Recherche épuré</h3>
+            <p data-i18n="s2_desc">La grille de suggestions algorithmiques disparaît. Seule la barre de recherche reste — pour que tu cherches ce que TU veux trouver. Cette option peut être activée ou désactivée à tout moment selon tes préférences.</p>
+          </div>
+          <div class="screen-col screen-col--phones">
+            <div class="iphone">
+              <div class="iphone-frame">
+                <div class="iphone-dynamic-island"></div>
+                <div class="iphone-screen iphone-screen--light"></div>
               </div>
-              <div class="iphone-hidden-strip" data-hidden-strip aria-hidden="true">0 élément masqué</div>
+            </div>
+            <div class="iphone iphone--featured">
+              <div class="iphone-frame">
+                <div class="iphone-dynamic-island"></div>
+                <div class="iphone-screen"></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="screens-row screens-row--reverse reveal">
-      <div class="screen-col screen-col--phones">
-        <div class="iphone">
-          <div class="iphone-frame">
-            <div class="iphone-dynamic-island"></div>
-            <div class="iphone-screen iphone-screen--light"></div>
+      <!-- Slide 3 : Reels et stories protégés -->
+      <div class="sticky-slide" data-slide="2">
+        <div class="sticky-slide-content">
+          <div class="screen-col screen-col--text">
+            <h3 data-i18n="s3_title">Reels et stories protégés</h3>
+            <p data-i18n="s3_desc">L'onglet Reels affiche un message honnête. Les stories sponsorisées sont bloquées. Tu ne vois que ce qui vient vraiment de tes amis.</p>
           </div>
-        </div>
-        <div class="iphone iphone--featured">
-          <div class="iphone-frame">
-            <div class="iphone-dynamic-island"></div>
-            <div class="iphone-screen"></div>
+          <div class="screen-col screen-col--phones">
+            <div class="iphone">
+              <div class="iphone-frame">
+                <div class="iphone-dynamic-island"></div>
+                <div class="iphone-screen"></div>
+              </div>
+            </div>
+            <div class="iphone iphone--featured">
+              <div class="iphone-frame">
+                <div class="iphone-dynamic-island"></div>
+                <div class="iphone-screen iphone-screen--light"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="screen-col screen-col--text">
-        <h3 data-i18n="s2_title">Onglet Recherche épuré</h3>
-        <p data-i18n="s2_desc">La grille de suggestions algorithmiques disparaît. Seule la barre de recherche reste — pour que tu cherches ce que TU veux trouver. Cette option peut être activée ou désactivée à tout moment selon tes préférences.</p>
-      </div>
-    </div>
 
-    <div class="screens-row reveal">
-      <div class="screen-col screen-col--text">
-        <h3 data-i18n="s3_title">Reels et stories protégés</h3>
-        <p data-i18n="s3_desc">L'onglet Reels affiche un message honnête. Les stories sponsorisées sont bloquées. Tu ne vois que ce qui vient vraiment de tes amis.</p>
-      </div>
-      <div class="screen-col screen-col--phones">
-        <div class="iphone">
-          <div class="iphone-frame">
-            <div class="iphone-dynamic-island"></div>
-            <div class="iphone-screen"></div>
-          </div>
-        </div>
-        <div class="iphone iphone--featured">
-          <div class="iphone-frame">
-            <div class="iphone-dynamic-island"></div>
-            <div class="iphone-screen iphone-screen--light"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="screens-row screens-row--center reveal">
-      <div class="screen-col screen-col--text">
-        <h3 data-i18n="s4_title">Tu contrôles <span class="authentique-gradient-text">tout</span></h3>
-        <p data-i18n="s4_desc">Chaque filtre est configurable depuis l'écran Paramètres. Active ou désactive ce que tu veux, quand tu veux.</p>
-      </div>
-      <div class="screen-col screen-col--phones">
-        <div class="iphone">
-          <div class="iphone-frame">
-            <div class="iphone-dynamic-island"></div>
-            <div class="iphone-screen iphone-screen--light"></div>
-          </div>
-        </div>
-        <div class="iphone iphone--featured">
-          <div class="iphone-frame">
-            <div class="iphone-dynamic-island"></div>
-            <div class="iphone-screen"></div>
-          </div>
-        </div>
-      </div>
-      <div class="screen-col screen-col--text screen-col--continuation">
-        <h3 data-i18n="suggest_title">Et ce n'est que le <em>début</em>.</h3>
-        <p data-i18n="suggest_sub">De nouvelles fonctionnalités arrivent régulièrement.</p>
+      <!-- Indicateurs de progression -->
+      <div class="sticky-dots" aria-hidden="true">
+        <span class="sticky-dot is-active" data-dot="0"></span>
+        <span class="sticky-dot" data-dot="1"></span>
+        <span class="sticky-dot" data-dot="2"></span>
       </div>
     </div>
   </div>
@@ -2452,6 +2505,41 @@ document.querySelectorAll('.reveal').forEach(el => {
       if (!isNaN(idx) && labels[idx]) el.textContent = labels[idx];
     });
   };
+})();
+
+// Section "L'app en images" — sticky scroll. Pendant que .sticky-outer
+// traverse le viewport, on calcule la progression du scroll et on
+// active le slide correspondant. window.scrollY - rect.top est equivalent
+// a la formule (scrollY - offsetTop) mais utilise getBoundingClientRect
+// pour rester robuste meme si le layout au-dessus change.
+(function () {
+  var outer = document.querySelector('.sticky-outer');
+  if (!outer) return;
+  var slides = outer.querySelectorAll('.sticky-slide');
+  var dots = outer.querySelectorAll('.sticky-dot');
+  if (slides.length === 0) return;
+  var nbSlides = slides.length;
+  var lastIndex = -1;
+
+  function update() {
+    var rect = outer.getBoundingClientRect();
+    var scrolled = -rect.top;
+    var scrollable = outer.offsetHeight - window.innerHeight;
+    if (scrollable <= 0) return;
+    var progress = Math.max(0, Math.min(0.999, scrolled / scrollable));
+    var index = Math.min(nbSlides - 1, Math.floor(progress * nbSlides));
+    if (index === lastIndex) return;
+    lastIndex = index;
+    slides.forEach(function (s, i) {
+      s.classList.toggle('is-active', i === index);
+    });
+    dots.forEach(function (d, i) {
+      d.classList.toggle('is-active', i === index);
+    });
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
 })();
 
 // Strip "X éléments masqués" sur le mockup droit s1. Replique du

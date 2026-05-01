@@ -70,14 +70,18 @@ Lire ce fichier avant chaque modif pour éviter les ré-explorations inutiles.
   - f5 = Masquer les stories sponsorisées
   - f6 = Bloquer le scroll infini
 
-### Section Screens (`section.section-screens`, ligne 913)
-- `.screens-inner` — wrapper centré
-- `.screens-header` — header de section
-- `.screens-row` / `.screens-row--reverse` / `.screens-row--center` — alternance gauche/droite
-- `.screen-col` / `.screen-col--text` / `.screen-col--phones` / `.screen-col--continuation` — colonnes texte / téléphones / bloc « Et ce n'est que le début. » sous s4
-- `.iphone` / `.iphone--featured` — mockup iPhone
-- `.iphone-frame` / `.iphone-dynamic-island` / `.iphone-screen` — composants du mockup
-- `.iphone-screen` est vide (aspect-ratio 9 / 19.5, fond #1a1a1a par défaut). Variante `.iphone-screen--light` (fond #f0f0ec).
+### Section Screens (`section.section-screens`) — sticky scroll, 3 slides
+- `.screens-inner` / `.screens-header` — wrapper + header (« L'app en images », titre h2)
+- `.sticky-outer` — wrapper haut (height 300vh) qui capture le scroll
+- `.sticky-inner` — bloc en `position: sticky; top: 0; height: 100vh` qui reste visible pendant le scroll
+- `.sticky-slide` — 3 slides superposés en absolute, transitionnent via opacity 0/1 (ease-in-out 0.4s)
+- `.sticky-slide.is-active` — slide actuellement visible
+- `.sticky-slide-content` — grille 2 colonnes (texte + téléphones) max-width 1100px
+- `.sticky-dots` / `.sticky-dot` — indicateurs en bas (3 points, point actif = `#19d382` 10×10, inactifs = #ccc 7×7)
+- Slides : 1) « Zéro publicité » avec mockups chaos + calm + counter strip, 2) « Onglet Recherche épuré », 3) « Reels et stories protégés »
+- JS : `window.scrollY` → `getBoundingClientRect().top` détermine `index = Math.floor(progress × nbSlides)` qui toggle `.is-active`
+- `.iphone` / `.iphone--featured` — mockup iPhone (frame + dynamic-island + screen)
+- `.iphone-screen` vide (aspect-ratio 9/19.5, fond #1a1a1a). Variante `.iphone-screen--light` (#f0f0ec). `.iphone-screen--demo` héberge le scrollant feed. `.iphone-screen--counter` ajoute la strip « X éléments masqués » en bas (#0c0f14, texte #19d382).
 
 ### Section Philosophie (`section.section-philosophy`, ligne 1007)
 - `.philosophy-inner` — wrapper centré
