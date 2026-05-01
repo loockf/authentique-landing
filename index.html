@@ -779,10 +779,11 @@ footer {
   </a>
   <div class="nav-right">
     <div class="lang-switcher">
-      <button class="lang-btn active" onclick="setLang('fr')">FR</button>
-      <button class="lang-btn" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" onclick="setLang('es')">ES</button>
-      <button class="lang-btn" onclick="setLang('ru')">RU</button>
+      <button class="lang-btn active" data-lang="fr" onclick="setLang('fr')">FR</button>
+      <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
+      <button class="lang-btn" data-lang="it" onclick="setLang('it')">🇮🇹</button>
+      <button class="lang-btn" data-lang="pt" onclick="setLang('pt')">🇵🇹</button>
     </div>
     <a href="#" class="nav-cta">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -958,7 +959,7 @@ footer {
             <h3 data-i18n="f1_title">Masquer les posts sponsorisés</h3>
             <p data-i18n="f1_desc">Les publications sponsorisées et bandeaux publicitaires disparaissent automatiquement de ton fil.</p>
           </div>
-          <div class="card-on">Pour un fil plus authentique.</div>
+          <div class="card-on" data-i18n="toggle_on_sponsored">Pour un fil plus authentique.</div>
         </div>
       </div>
       <div class="feature-card reveal" style="transition-delay: 0.08s">
@@ -974,7 +975,7 @@ footer {
             <h3 data-i18n="f2_title">Masquer les suggestions de comptes</h3>
             <p data-i18n="f2_desc">Les suggestions "Pour vous" et comptes algorithmiques sont filtrés. Tu ne vois que les gens que tu suis.</p>
           </div>
-          <div class="card-on">Pour mieux profiter de tes amis.</div>
+          <div class="card-on" data-i18n="toggle_on_accounts">Pour mieux profiter de tes amis.</div>
         </div>
       </div>
       <div class="feature-card reveal" style="transition-delay: 0.16s">
@@ -989,7 +990,7 @@ footer {
             <h3 data-i18n="f3_title">Section Recherche épurée</h3>
             <p data-i18n="f3_desc">L'onglet Recherche n'affiche que la barre de recherche. La grille de suggestions algorithmiques disparaît.</p>
           </div>
-          <div class="card-on">Pour se concentrer sur l'essentiel.</div>
+          <div class="card-on" data-i18n="toggle_on_search">Pour se concentrer sur l'essentiel.</div>
         </div>
       </div>
       <div class="feature-card reveal" style="transition-delay: 0.04s">
@@ -1006,7 +1007,7 @@ footer {
             <h3 data-i18n="f4_title">Masquer les Reels</h3>
             <p data-i18n="f4_desc">L'onglet Reels est remplacé par un message honnête. Les Reels de tes amis restent visibles dans ton fil.</p>
           </div>
-          <div class="card-on">Pour éviter les distractions.</div>
+          <div class="card-on" data-i18n="toggle_on_reels">Pour éviter les distractions.</div>
         </div>
       </div>
       <div class="feature-card reveal" style="transition-delay: 0.12s">
@@ -1021,7 +1022,7 @@ footer {
             <h3 data-i18n="f5_title">Masquer les stories sponsorisées</h3>
             <p data-i18n="f5_desc">Les stories sponsorisées sont bloquées avec un overlay clair. Tu ne vois que les stories de tes amis.</p>
           </div>
-          <div class="card-on">Pour des stories vraiment choisies.</div>
+          <div class="card-on" data-i18n="toggle_on_stories">Pour des stories vraiment choisies.</div>
         </div>
       </div>
       <div class="feature-card reveal" style="transition-delay: 0.2s">
@@ -1040,7 +1041,7 @@ footer {
             <h3 data-i18n="f6_title">Bloquer le scroll infini</h3>
             <p data-i18n="f6_desc">Bloque le scroll vers les Reels suivants lors de la lecture d'un Reel dans les DM, dans l'onglet Recherche et dans l'onglet Reels.</p>
           </div>
-          <div class="card-on">Pour reprendre le contrôle de ton temps.</div>
+          <div class="card-on" data-i18n="toggle_on_scroll">Pour reprendre le contrôle de ton temps.</div>
         </div>
       </div>
     </div>
@@ -1182,32 +1183,32 @@ footer {
 <!-- FAQ -->
 <section class="section-faq" id="faq">
   <div class="faq-inner">
-    <p class="section-label">FAQ</p>
-    <h2 class="reveal">Questions fréquentes</h2>
+    <p class="section-label" data-i18n="faq_label">FAQ</p>
+    <h2 class="reveal" data-i18n="faq_title">Questions fréquentes</h2>
     <div class="faq-list">
       <details class="faq-item reveal">
-        <summary>Comment fonctionne Authentique ?</summary>
-        <p>Authentique est un navigateur web qui affiche Instagram.com en filtrant le contenu que tu ne veux pas voir. Aucune modification de l'app Instagram, aucun accès à ton compte — juste une fenêtre filtrée sur le web.</p>
+        <summary data-i18n="faq_q1">Comment fonctionne Authentique ?</summary>
+        <p data-i18n="faq_a1">Authentique est un navigateur web qui affiche Instagram.com en filtrant le contenu que tu ne veux pas voir. Aucune modification de l'app Instagram, aucun accès à ton compte — juste une fenêtre filtrée sur le web.</p>
       </details>
       <details class="faq-item reveal">
-        <summary>Est-ce gratuit ?</summary>
-        <p>Oui, Authentique est et restera totalement gratuit sur l'App Store. Notre modèle repose sur le soutien volontaire via Kickstarter.</p>
+        <summary data-i18n="faq_q2">Est-ce gratuit ?</summary>
+        <p data-i18n="faq_a2">Oui, Authentique est et restera totalement gratuit sur l'App Store. Notre modèle repose sur le soutien volontaire via Kickstarter.</p>
       </details>
       <details class="faq-item reveal">
-        <summary>Comment est financé le projet ?</summary>
-        <p>Authentique est un projet indépendant développé par une seule personne. Nous lançons une campagne Kickstarter pour financer le développement et le maintien de l'app. Chaque soutien compte.</p>
+        <summary data-i18n="faq_q3">Comment est financé le projet ?</summary>
+        <p data-i18n="faq_a3">Authentique est un projet indépendant développé par une seule personne. Nous lançons une campagne Kickstarter pour financer le développement et le maintien de l'app. Chaque soutien compte.</p>
       </details>
       <details class="faq-item reveal">
-        <summary>Mes données sont-elles collectées ?</summary>
-        <p>Non. Authentique ne collecte aucune donnée personnelle. Aucun serveur, aucun tracking. Tu utilises Instagram directement — on filtre juste l'affichage.</p>
+        <summary data-i18n="faq_q4">Mes données sont-elles collectées ?</summary>
+        <p data-i18n="faq_a4">Non. Authentique ne collecte aucune donnée personnelle. Aucun serveur, aucun tracking. Tu utilises Instagram directement — on filtre juste l'affichage.</p>
       </details>
       <details class="faq-item reveal">
-        <summary>Sur quels appareils est disponible Authentique ?</summary>
-        <p>Authentique sera disponible d'abord sur iOS, puis sur Android. Rejoins la liste d'attente pour être notifié du lancement.</p>
+        <summary data-i18n="faq_q5">Sur quels appareils est disponible Authentique ?</summary>
+        <p data-i18n="faq_a5">Authentique sera disponible d'abord sur iOS, puis sur Android. Rejoins la liste d'attente pour être notifié du lancement.</p>
       </details>
       <details class="faq-item reveal">
-        <summary>Est-ce que ça respecte les conditions d'utilisation d'Instagram ?</summary>
-        <p>Authentique fonctionne comme un navigateur web (comme Safari ou Chrome). Nous n'accédons pas à l'API privée d'Instagram ni ne modifions l'application. Notre approche est similaire à celle d'autres navigateurs spécialisés disponibles sur l'App Store.</p>
+        <summary data-i18n="faq_q6">Est-ce que ça respecte les conditions d'utilisation d'Instagram ?</summary>
+        <p data-i18n="faq_a6">Authentique fonctionne comme un navigateur web (comme Safari ou Chrome). Nous n'accédons pas à l'API privée d'Instagram ni ne modifions l'application. Notre approche est similaire à celle d'autres navigateurs spécialisés disponibles sur l'App Store.</p>
       </details>
     </div>
   </div>
@@ -1264,6 +1265,12 @@ const translations = {
     f5_desc: "Les stories sponsorisées sont bloquées avec un overlay clair. Tu ne vois que les stories de tes amis.",
     f6_title: "Bloquer le scroll infini",
     f6_desc: "Bloque le scroll vers les Reels suivants lors de la lecture d'un Reel dans les DM, dans l'onglet Recherche et dans l'onglet Reels.",
+    toggle_on_sponsored: "Pour un fil plus authentique.",
+    toggle_on_accounts: "Pour mieux profiter de tes amis.",
+    toggle_on_search: "Pour se concentrer sur l'essentiel.",
+    toggle_on_reels: "Pour éviter les distractions.",
+    toggle_on_stories: "Pour des stories vraiment choisies.",
+    toggle_on_scroll: "Pour reprendre le contrôle de ton temps.",
     screens_label: "L'app en images",
     screens_title: "Vois la différence <em>par toi-même</em>.",
     s1_title: "Zéro publicité dans ton fil",
@@ -1279,6 +1286,20 @@ const translations = {
     cta_title: 'On construit <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span> ensemble.',
     cta_thanks: "Merci pour ton intérêt et ton soutien. Chaque contribution nous aide à construire l'app que Instagram aurait dû être.",
     cta_contact: 'Tu as des questions ? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
+    faq_label: "FAQ",
+    faq_title: "Questions fréquentes",
+    faq_q1: "Comment fonctionne Authentique ?",
+    faq_a1: "Authentique est un navigateur web qui affiche Instagram.com en filtrant le contenu que tu ne veux pas voir. Aucune modification de l'app Instagram, aucun accès à ton compte — juste une fenêtre filtrée sur le web.",
+    faq_q2: "Est-ce gratuit ?",
+    faq_a2: "Oui, Authentique est et restera totalement gratuit sur l'App Store. Notre modèle repose sur le soutien volontaire via Kickstarter.",
+    faq_q3: "Comment est financé le projet ?",
+    faq_a3: "Authentique est un projet indépendant développé par une seule personne. Nous lançons une campagne Kickstarter pour financer le développement et le maintien de l'app. Chaque soutien compte.",
+    faq_q4: "Mes données sont-elles collectées ?",
+    faq_a4: "Non. Authentique ne collecte aucune donnée personnelle. Aucun serveur, aucun tracking. Tu utilises Instagram directement — on filtre juste l'affichage.",
+    faq_q5: "Sur quels appareils est disponible Authentique ?",
+    faq_a5: "Authentique sera disponible d'abord sur iOS, puis sur Android. Rejoins la liste d'attente pour être notifié du lancement.",
+    faq_q6: "Est-ce que ça respecte les conditions d'utilisation d'Instagram ?",
+    faq_a6: "Authentique fonctionne comme un navigateur web (comme Safari ou Chrome). Nous n'accédons pas à l'API privée d'Instagram ni ne modifions l'application. Notre approche est similaire à celle d'autres navigateurs spécialisés disponibles sur l'App Store.",
     footer_contact: "Contact",
     footer_legal: "Mentions légales",
   },
@@ -1313,6 +1334,12 @@ const translations = {
     f5_desc: "Sponsored stories are blocked with a clear overlay. You only see stories from your friends.",
     f6_title: "Block infinite scroll",
     f6_desc: "Blocks scrolling to the next Reels when watching a Reel in DMs, the Search tab, and the Reels tab.",
+    toggle_on_sponsored: "For a more authentic feed.",
+    toggle_on_accounts: "To better enjoy your friends.",
+    toggle_on_search: "To focus on what matters.",
+    toggle_on_reels: "To avoid distractions.",
+    toggle_on_stories: "For stories you actually chose.",
+    toggle_on_scroll: "To take back control of your time.",
     screens_label: "The app in images",
     screens_title: "See the difference <em>for yourself</em>.",
     s1_title: "Zero ads in your feed",
@@ -1328,6 +1355,20 @@ const translations = {
     cta_title: 'We are building <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span> together.',
     cta_thanks: "Thank you for your interest and support. Every contribution helps us build the app Instagram should have been.",
     cta_contact: 'Any questions? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
+    faq_label: "FAQ",
+    faq_title: "Frequently asked questions",
+    faq_q1: "How does Authentique work?",
+    faq_a1: "Authentique is a web browser that displays Instagram.com while filtering out content you don't want to see. No modification to the Instagram app, no access to your account — just a filtered window on the web.",
+    faq_q2: "Is it free?",
+    faq_a2: "Yes, Authentique is and will remain completely free on the App Store. Our model relies on voluntary support via Kickstarter.",
+    faq_q3: "How is the project funded?",
+    faq_a3: "Authentique is an independent project developed by a single person. We're launching a Kickstarter campaign to fund the development and maintenance of the app. Every contribution counts.",
+    faq_q4: "Is my data collected?",
+    faq_a4: "No. Authentique collects no personal data. No server, no tracking. You use Instagram directly — we just filter the display.",
+    faq_q5: "On which devices is Authentique available?",
+    faq_a5: "Authentique will first be available on iOS, then Android. Join the waitlist to be notified at launch.",
+    faq_q6: "Does it respect Instagram's terms of service?",
+    faq_a6: "Authentique works like a web browser (like Safari or Chrome). We don't access Instagram's private API nor modify the application. Our approach is similar to that of other specialized browsers available on the App Store.",
     footer_contact: "Contact",
     footer_legal: "Legal notice",
   },
@@ -1362,6 +1403,12 @@ const translations = {
     f5_desc: "Las stories patrocinadas se bloquean con una superposición clara. Solo ves stories de tus amigos.",
     f6_title: "Bloquear scroll infinito",
     f6_desc: "Bloquea el scroll hacia los siguientes Reels mientras ves un Reel en los DM, la pestaña Búsqueda y la pestaña Reels.",
+    toggle_on_sponsored: "Para un feed más auténtico.",
+    toggle_on_accounts: "Para disfrutar mejor de tus amigos.",
+    toggle_on_search: "Para centrarte en lo esencial.",
+    toggle_on_reels: "Para evitar distracciones.",
+    toggle_on_stories: "Para stories verdaderamente elegidas.",
+    toggle_on_scroll: "Para recuperar el control de tu tiempo.",
     screens_label: "La app en imágenes",
     screens_title: "Ve la diferencia <em>por ti mismo</em>.",
     s1_title: "Cero publicidad en tu feed",
@@ -1377,57 +1424,160 @@ const translations = {
     cta_title: 'Construimos <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span> juntos.',
     cta_thanks: "Gracias por tu interés y tu apoyo. Cada contribución nos ayuda a construir la app que Instagram debería haber sido.",
     cta_contact: '¿Preguntas? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
+    faq_label: "FAQ",
+    faq_title: "Preguntas frecuentes",
+    faq_q1: "¿Cómo funciona Authentique?",
+    faq_a1: "Authentique es un navegador web que muestra Instagram.com filtrando el contenido que no quieres ver. Ninguna modificación a la app de Instagram, ningún acceso a tu cuenta — solo una ventana filtrada en la web.",
+    faq_q2: "¿Es gratis?",
+    faq_a2: "Sí, Authentique es y seguirá siendo totalmente gratis en la App Store. Nuestro modelo se basa en el apoyo voluntario a través de Kickstarter.",
+    faq_q3: "¿Cómo se financia el proyecto?",
+    faq_a3: "Authentique es un proyecto independiente desarrollado por una sola persona. Lanzamos una campaña de Kickstarter para financiar el desarrollo y mantenimiento de la app. Cada apoyo cuenta.",
+    faq_q4: "¿Se recopilan mis datos?",
+    faq_a4: "No. Authentique no recopila ningún dato personal. Ningún servidor, ningún rastreo. Usas Instagram directamente — solo filtramos la visualización.",
+    faq_q5: "¿En qué dispositivos está disponible Authentique?",
+    faq_a5: "Authentique estará disponible primero en iOS, después en Android. Únete a la lista de espera para recibir aviso del lanzamiento.",
+    faq_q6: "¿Respeta las condiciones de uso de Instagram?",
+    faq_a6: "Authentique funciona como un navegador web (como Safari o Chrome). No accedemos a la API privada de Instagram ni modificamos la aplicación. Nuestro enfoque es similar al de otros navegadores especializados disponibles en la App Store.",
     footer_contact: "Contacto",
     footer_legal: "Aviso legal",
   },
-  ru: {
-    nav_cta: "Поддержать на Kickstarter",
-    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Твой Instagram, твои <span class="hero-title-accent">правила</span><span style="color:#141414">.</span></span>',
+  it: {
+    nav_cta: "Sostieni su Kickstarter",
+    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Il tuo Instagram, le tue <span class="hero-title-accent">scelte</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
-    hero_cta: "Поддержать на Kickstarter",
-    hero_tagline: "Будь среди первых, кто откроет Authentique.",
-    problem_label: "Проблема",
-    problem_title: "Instagram решает, что ты <em>видишь</em>.",
-    problem_p2: "Это не недостаток воли. Instagram создан, чтобы вызывать зависимость — твоё внимание — их продукт.<br>Authentique меняет правила игры.",
-    pain1: "Спонсированные посты",
-    pain2: "Рекомендации",
-    pain3: "Спонсированные истории",
-    pain4: "Doom-скроллинг",
-    pain5: "Потеря времени",
-    pain6: "Цифровая тревожность",
-    platforms_caption: "Скоро на:",
-    features_label: "Что делает Authentique",
-    features_title: "Создан, чтобы <em>освободить</em> тебя.",
-    features_sub: "Каждая функция разработана для того, чтобы вернуть тебе контроль над Instagram.",
-    f1_title: "Скрыть рекламные посты",
-    f1_desc: "Спонсированные посты и рекламные баннеры автоматически исчезают из ленты.",
-    f2_title: "Скрыть рекомендации аккаунтов",
-    f2_desc: 'Рекомендации "Для вас" и алгоритмические аккаунты фильтруются.',
-    f3_title: "Чистая вкладка Поиск",
-    f3_desc: "Вкладка Поиск показывает только строку поиска. Сетка рекомендаций исчезает.",
-    f4_title: "Скрыть Reels",
-    f4_desc: "Вкладка Reels заменяется честным сообщением. Reels твоих друзей остаются в ленте.",
-    f5_title: "Скрыть рекламные истории",
-    f5_desc: "Спонсированные истории блокируются. Ты видишь только истории друзей.",
-    f6_title: "Блокировать бесконечную ленту",
-    f6_desc: "Блокирует прокрутку к следующим Reels при просмотре Reel в DM, во вкладке Поиск и во вкладке Reels.",
-    screens_label: "Приложение в картинках",
-    screens_title: "Увидь разницу <em>сам</em>.",
-    s1_title: "Ноль рекламы в ленте",
-    s1_desc: "Authentique автоматически скрывает все спонсированные посты, алгоритмические рекомендации и нежелательные репосты.",
-    s2_title: "Чистая вкладка Поиск",
-    s2_desc: "Сетка алгоритмических рекомендаций исчезает. Остаётся только строка поиска.",
-    s3_title: "Reels и истории защищены",
-    s3_desc: "Вкладка Reels показывает честное сообщение. Спонсированные истории заблокированы.",
-    s4_title: "Ты контролируешь всё",
-    s4_desc: "Каждый фильтр настраивается в экране Настроек. Включай или выключай что хочешь.",
-    philosophy_quote: '"Социальные сети должны соединять тебя с друзьями, а не <em>отдалять</em> от них."',
-    philosophy_text: 'Authentique не собирает данных. Никаких серверов. Никакой слежки. Только отфильтрованное окно в Instagram, каким он всегда должен был быть.',
-    cta_title: 'Мы создаём <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span> вместе.',
-    cta_thanks: "Спасибо за интерес и поддержку. Каждый вклад помогает нам создать приложение, которым должен был быть Instagram.",
-    cta_contact: 'Вопросы? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
-    footer_contact: "Контакт",
-    footer_legal: "Правовая информация",
+    hero_cta: "Sostieni su Kickstarter",
+    hero_tagline: "Sii tra i primi a scoprire Authentique.",
+    problem_label: "Il problema",
+    problem_title: "Instagram decide cosa <em>vedi</em>.",
+    problem_p2: "Non è una mancanza di volontà. Instagram è progettato per creare dipendenza — la tua attenzione è il loro prodotto.<br>Authentique cambia le regole del gioco.",
+    pain1: "Post sponsorizzati",
+    pain2: "Contenuti suggeriti",
+    pain3: "Storie sponsorizzate",
+    pain4: "Doom-scrolling",
+    pain5: "Tempo perso",
+    pain6: "Ansia digitale",
+    platforms_caption: "Presto disponibile su:",
+    features_label: "Cosa fa Authentique",
+    features_title: "Pensato per <em>liberarti</em>.",
+    features_sub: "Ogni funzione è stata progettata per restituirti il controllo della tua esperienza Instagram.",
+    f1_title: "Nascondi i post sponsorizzati",
+    f1_desc: "I post sponsorizzati e i banner pubblicitari spariscono automaticamente dal tuo feed.",
+    f2_title: "Nascondi i suggerimenti di account",
+    f2_desc: 'I suggerimenti «Per te» e gli account algoritmici vengono filtrati. Vedi solo le persone che segui.',
+    f3_title: "Sezione Cerca pulita",
+    f3_desc: "La scheda Cerca mostra solo la barra di ricerca. La griglia di suggerimenti algoritmici sparisce.",
+    f4_title: "Nascondi i Reels",
+    f4_desc: "La scheda Reels viene sostituita da un messaggio onesto. I Reels dei tuoi amici restano visibili nel feed.",
+    f5_title: "Nascondi le storie sponsorizzate",
+    f5_desc: "Le storie sponsorizzate sono bloccate con un overlay chiaro. Vedi solo le storie dei tuoi amici.",
+    f6_title: "Blocca lo scroll infinito",
+    f6_desc: "Blocca lo scroll verso i Reels successivi quando guardi un Reel nei DM, nella scheda Cerca e nella scheda Reels.",
+    toggle_on_sponsored: "Per un feed più autentico.",
+    toggle_on_accounts: "Per godere meglio dei tuoi amici.",
+    toggle_on_search: "Per concentrarti sull'essenziale.",
+    toggle_on_reels: "Per evitare le distrazioni.",
+    toggle_on_stories: "Per storie davvero scelte.",
+    toggle_on_scroll: "Per riprendere il controllo del tuo tempo.",
+    screens_label: "L'app in immagini",
+    screens_title: "Vedi la differenza <em>tu stesso</em>.",
+    s1_title: "Zero pubblicità nel tuo feed",
+    s1_desc: "Authentique nasconde automaticamente tutti i post sponsorizzati, suggerimenti algoritmici e repost indesiderati.",
+    s2_title: "Scheda Cerca pulita",
+    s2_desc: "La griglia di suggerimenti algoritmici sparisce. Resta solo la barra di ricerca — così cerchi quello che TU vuoi trovare.",
+    s3_title: "Reels e storie protetti",
+    s3_desc: "La scheda Reels mostra un messaggio onesto. Le storie sponsorizzate sono bloccate. Vedi solo ciò che viene davvero dai tuoi amici.",
+    s4_title: "Tu controlli tutto",
+    s4_desc: "Ogni filtro è configurabile dalla schermata Impostazioni. Attiva o disattiva ciò che vuoi, quando vuoi.",
+    philosophy_quote: '"I social media dovrebbero connetterti ai tuoi amici, non <em>allontanarti</em> da loro."',
+    philosophy_text: "Authentique non raccoglie nessun dato. Nessun server. Nessun tracciamento. Solo una finestra filtrata su Instagram, come avrebbe sempre dovuto essere.",
+    cta_title: 'Costruiamo <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span> insieme.',
+    cta_thanks: "Grazie per il tuo interesse e il tuo supporto. Ogni contributo ci aiuta a costruire l'app che Instagram avrebbe dovuto essere.",
+    cta_contact: 'Domande? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
+    faq_label: "FAQ",
+    faq_title: "Domande frequenti",
+    faq_q1: "Come funziona Authentique?",
+    faq_a1: "Authentique è un browser web che mostra Instagram.com filtrando i contenuti che non vuoi vedere. Nessuna modifica all'app Instagram, nessun accesso al tuo account — solo una finestra filtrata sul web.",
+    faq_q2: "È gratis?",
+    faq_a2: "Sì, Authentique è e resterà completamente gratis sull'App Store. Il nostro modello si basa sul supporto volontario tramite Kickstarter.",
+    faq_q3: "Come è finanziato il progetto?",
+    faq_a3: "Authentique è un progetto indipendente sviluppato da una sola persona. Lanciamo una campagna Kickstarter per finanziare lo sviluppo e la manutenzione dell'app. Ogni supporto conta.",
+    faq_q4: "I miei dati vengono raccolti?",
+    faq_a4: "No. Authentique non raccoglie nessun dato personale. Nessun server, nessun tracciamento. Usi Instagram direttamente — filtriamo solo la visualizzazione.",
+    faq_q5: "Su quali dispositivi è disponibile Authentique?",
+    faq_a5: "Authentique sarà disponibile prima su iOS, poi su Android. Iscriviti alla lista d'attesa per essere avvisato del lancio.",
+    faq_q6: "Rispetta i termini di servizio di Instagram?",
+    faq_a6: "Authentique funziona come un browser web (come Safari o Chrome). Non accediamo all'API privata di Instagram né modifichiamo l'applicazione. Il nostro approccio è simile a quello di altri browser specializzati disponibili sull'App Store.",
+    footer_contact: "Contatto",
+    footer_legal: "Note legali",
+  },
+  pt: {
+    nav_cta: "Apoiar no Kickstarter",
+    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">O teu Instagram, as tuas <span class="hero-title-accent">escolhas</span><span style="color:#141414">.</span></span>',
+    hero_sub: '',
+    hero_cta: "Apoiar no Kickstarter",
+    hero_tagline: "Sê dos primeiros a descobrir Authentique.",
+    problem_label: "O problema",
+    problem_title: "O Instagram decide o que <em>vês</em>.",
+    problem_p2: "Não é falta de vontade. O Instagram foi concebido para ser viciante — a tua atenção é o produto deles.<br>Authentique muda as regras do jogo.",
+    pain1: "Posts patrocinados",
+    pain2: "Conteúdos sugeridos",
+    pain3: "Stories patrocinados",
+    pain4: "Doom-scrolling",
+    pain5: "Tempo perdido",
+    pain6: "Ansiedade digital",
+    platforms_caption: "Em breve em:",
+    features_label: "O que o Authentique faz",
+    features_title: "Concebido para te <em>libertar</em>.",
+    features_sub: "Cada funcionalidade foi pensada para te devolver o controlo da tua experiência no Instagram.",
+    f1_title: "Ocultar posts patrocinados",
+    f1_desc: "As publicações patrocinadas e banners publicitários desaparecem automaticamente do teu feed.",
+    f2_title: "Ocultar sugestões de contas",
+    f2_desc: 'As sugestões «Para ti» e contas algorítmicas são filtradas. Só vês as pessoas que segues.',
+    f3_title: "Secção Pesquisa limpa",
+    f3_desc: "O separador Pesquisa só mostra a barra de pesquisa. A grelha de sugestões algorítmicas desaparece.",
+    f4_title: "Ocultar os Reels",
+    f4_desc: "O separador Reels é substituído por uma mensagem honesta. Os Reels dos teus amigos continuam visíveis no feed.",
+    f5_title: "Ocultar stories patrocinados",
+    f5_desc: "Os stories patrocinados são bloqueados com uma sobreposição clara. Só vês stories dos teus amigos.",
+    f6_title: "Bloquear scroll infinito",
+    f6_desc: "Bloqueia o scroll para os próximos Reels ao ver um Reel nos DMs, no separador Pesquisa e no separador Reels.",
+    toggle_on_sponsored: "Para um feed mais autêntico.",
+    toggle_on_accounts: "Para aproveitar melhor seus amigos.",
+    toggle_on_search: "Para focar no essencial.",
+    toggle_on_reels: "Para evitar distrações.",
+    toggle_on_stories: "Para stories verdadeiramente escolhidas.",
+    toggle_on_scroll: "Para retomar o controle do seu tempo.",
+    screens_label: "A app em imagens",
+    screens_title: "Vê a diferença <em>por ti próprio</em>.",
+    s1_title: "Zero publicidade no teu feed",
+    s1_desc: "O Authentique oculta automaticamente todos os posts patrocinados, sugestões algorítmicas e reposts indesejados.",
+    s2_title: "Separador Pesquisa limpo",
+    s2_desc: "A grelha de sugestões algorítmicas desaparece. Só fica a barra de pesquisa — para que pesquises o que TU queres encontrar.",
+    s3_title: "Reels e stories protegidos",
+    s3_desc: "O separador Reels mostra uma mensagem honesta. Os stories patrocinados estão bloqueados. Só vês o que vem realmente dos teus amigos.",
+    s4_title: "Tu controlas tudo",
+    s4_desc: "Cada filtro é configurável a partir do ecrã Definições. Ativa ou desativa o que quiseres, quando quiseres.",
+    philosophy_quote: '"As redes sociais deviam conectar-te aos teus amigos, não <em>afastar-te</em> deles."',
+    philosophy_text: "O Authentique não recolhe nenhum dado. Sem servidor. Sem rastreio. Apenas uma janela filtrada para o Instagram, como sempre deveria ter sido.",
+    cta_title: 'Construímos <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span> juntos.',
+    cta_thanks: "Obrigado pelo teu interesse e apoio. Cada contribuição ajuda-nos a construir a app que o Instagram devia ter sido.",
+    cta_contact: 'Tens dúvidas? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
+    faq_label: "FAQ",
+    faq_title: "Perguntas frequentes",
+    faq_q1: "Como funciona o Authentique?",
+    faq_a1: "O Authentique é um navegador web que apresenta o Instagram.com filtrando o conteúdo que não queres ver. Nenhuma modificação à app do Instagram, nenhum acesso à tua conta — apenas uma janela filtrada na web.",
+    faq_q2: "É gratuito?",
+    faq_a2: "Sim, o Authentique é e continuará a ser totalmente gratuito na App Store. O nosso modelo assenta no apoio voluntário através do Kickstarter.",
+    faq_q3: "Como é financiado o projeto?",
+    faq_a3: "O Authentique é um projeto independente desenvolvido por uma só pessoa. Estamos a lançar uma campanha no Kickstarter para financiar o desenvolvimento e a manutenção da app. Cada apoio conta.",
+    faq_q4: "Os meus dados são recolhidos?",
+    faq_a4: "Não. O Authentique não recolhe nenhum dado pessoal. Sem servidor, sem rastreio. Usas o Instagram diretamente — só filtramos a apresentação.",
+    faq_q5: "Em que dispositivos está disponível o Authentique?",
+    faq_a5: "O Authentique estará disponível primeiro em iOS, depois em Android. Inscreve-te na lista de espera para seres notificado do lançamento.",
+    faq_q6: "Respeita os termos de utilização do Instagram?",
+    faq_a6: "O Authentique funciona como um navegador web (como o Safari ou Chrome). Não acedemos à API privada do Instagram nem modificamos a aplicação. A nossa abordagem é semelhante à de outros navegadores especializados disponíveis na App Store.",
+    footer_contact: "Contacto",
+    footer_legal: "Aviso legal",
   }
 };
 
@@ -1435,7 +1585,7 @@ let currentLang = 'fr';
 function setLang(lang) {
   currentLang = lang;
   document.querySelectorAll('.lang-btn').forEach(b => {
-    b.classList.toggle('active', b.textContent === lang.toUpperCase());
+    b.classList.toggle('active', b.getAttribute('data-lang') === lang);
   });
   const t = translations[lang];
   document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -1552,7 +1702,7 @@ document.querySelectorAll('.reveal').forEach(el => {
     en: ['Sponsored','Suggested for you','Shop now','For you','Paid partnership','Buy now'],
     es: ['Patrocinado','Sugerido para ti','Comprar','Para ti','Colaboración pagada','Comprar ahora'],
     it: ['Sponsorizzato','Suggerito per te','Acquista','Per te','Partnership pagata','Acquista ora'],
-    ru: ['Реклама','Рекомендуем','Купить','Для вас','Платное партнёрство','Купить сейчас'],
+    pt: ['Patrocinado','Sugerido para ti','Comprar','Para ti','Parceria paga','Comprar agora'],
   };
   const SCROLL_LANG = (
     document.documentElement.getAttribute('lang') ||
