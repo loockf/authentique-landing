@@ -381,20 +381,15 @@ section { padding: 120px 24px; position: relative; }
   overflow: hidden;
 }
 .section-problem .problem-grid {
-  align-items: stretch;
+  align-items: center;
   flex: 1;
 }
-.section-problem .problem-text {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-/* Pains pousses vers le bas : alignes avec le bas du mockup
-   telephone (qui occupe la colonne droite). margin-top: auto
-   les colle au bas de problem-text. */
-.section-problem .problem-pains { margin-top: auto; }
-.problem-text h2 { margin-bottom: 14px; font-size: clamp(30px, 4.5vw, 48px); }
+.problem-text h2 { margin-bottom: 12px; font-size: clamp(30px, 4.5vw, 48px); }
 .problem-text p { margin-bottom: 8px; }
+/* Petit gap entre paragraphe et 6 cards : flux naturel, pas de
+   margin-top auto pour que les pains restent pres du texte plutot
+   que collees au bas (ne depassent pas le bas du telephone). */
+.section-problem .problem-pains { margin-top: 16px; }
 .problem-text p { color: var(--text-soft); font-size: 16px; margin-bottom: 12px; max-width: 480px; line-height: 1.5; }
 .problem-pains {
   margin-top: 24px;
@@ -556,16 +551,27 @@ section { padding: 120px 24px; position: relative; }
    + bloc philosophy. Tout dans 100vh, compact. */
 .section-wellbeing {
   background: var(--white);
-  padding: 48px 24px 100px;
+  padding: 80px 24px 100px;
   min-height: 100vh;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
 }
-.wellbeing-inner { max-width: 1100px; margin: 0 auto; width: 100%; }
-.ally-header { text-align: center; max-width: 720px; margin: 0 auto 32px; }
-.ally-header h2 { margin-bottom: 8px; font-size: clamp(28px, 4vw, 44px); }
+.wellbeing-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  /* space-between : wellbeing-top en haut, philosophy-separator
+     au centre, philosophy-inner en bas. HR pile au milieu. */
+  justify-content: space-between;
+}
+.wellbeing-top { width: 100%; }
+.ally-header { text-align: center; max-width: 720px; margin: 0 auto; }
+.ally-header h2 { margin: 8px 0 0; font-size: clamp(28px, 4vw, 44px); }
 .ally-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -611,11 +617,13 @@ section { padding: 120px 24px; position: relative; }
   display: flex;
   flex-direction: column;
   flex: 1;
-  /* space-between pour distribuer titre / sub / phones / continuation
-     uniformement sur toute la hauteur disponible -> espacements
-     augmentes entre chaque element. */
-  justify-content: space-between;
   align-items: center;
+  /* center + gap : groupe titre/sub + phones + continuation au
+     centre vertical de la section. Title descendu (pas pinned au
+     top), continuation remontee (pas pinned au bottom), phones
+     au milieu visuel. */
+  justify-content: center;
+  gap: 56px;
 }
 .control-head { width: 100%; }
 .control-head h2 {
@@ -800,8 +808,10 @@ section { padding: 120px 24px; position: relative; }
   position: absolute;
   inset: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  padding-top: 24px;
+  box-sizing: border-box;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.4s ease-in-out;
@@ -922,40 +932,33 @@ section { padding: 120px 24px; position: relative; }
   background: #000;
   perspective: 800px;
 }
+/* Barre de progression unique : track + fill. Pilote par
+   requestAnimationFrame (initStories) qui anime la largeur du
+   fill jusqu'a 100% puis declenche la transition vers la story
+   suivante. Pas de keyframe CSS, pas de timer fixe. */
 .stories-progress {
   position: absolute;
   top: 40px;
   left: 8px;
   right: 8px;
   height: 2px;
-  display: flex;
-  gap: 3px;
+  background: rgba(255,255,255,0.3);
+  overflow: hidden;
+  border-radius: 1px;
   z-index: 10;
 }
-.stories-progress-seg {
-  flex: 1;
-  background: rgba(255,255,255,0.3);
-  border-radius: 1px;
-  overflow: hidden;
-  position: relative;
-}
-.stories-progress-seg.is-done { background: #fff; }
-.stories-progress-seg.is-active::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; bottom: 0;
-  width: 0;
+.stories-progress-fill {
+  height: 100%;
+  width: 0%;
   background: #fff;
-  animation: stories-fill var(--duration, 3s) linear forwards;
+  border-radius: 1px;
 }
-/* Bar verte : applique sur le parent quand l'overlay Authentique
-   est actif. Le toggle se fait dans activate() via la classe
-   .stories-progress--green sur la barre. Permet d'avoir une barre
-   blanche pendant les stories normales et verte pendant l'overlay. */
-.stories-progress--green .stories-progress-seg { background: rgba(0,0,0,0.15); }
-.stories-progress--green .stories-progress-seg.is-done { background: #19d382; }
-.stories-progress--green .stories-progress-seg.is-active::after { background: #19d382; }
-@keyframes stories-fill { to { width: 100%; } }
+.stories-progress.is-green {
+  background: rgba(0,0,0,0.15);
+}
+.stories-progress.is-green .stories-progress-fill {
+  background: #19d382;
+}
 
 /* Card de story : un slide plein ecran. transition 3D imitation
    cube : translateX + rotateY 25deg autour du bord vertical. */
@@ -1811,6 +1814,7 @@ footer {
 <!-- WELLBEING — fusion ALLY + PHILOSOPHY (1 seule section 100vh) -->
 <section class="section-wellbeing" id="wellbeing">
   <div class="wellbeing-inner">
+    <div class="wellbeing-top">
     <div class="ally-header reveal">
       <p class="section-label" data-i18n="ally_label">Bien-être numérique</p>
       <h2 data-i18n="ally_title">Ton allié contre l'<span class="authentique-gradient-text">addiction digitale</span>.</h2>
@@ -1846,6 +1850,7 @@ footer {
         <p data-i18n="ally_card3_desc">Tes amis, ta famille, les comptes que tu as vraiment choisis.</p>
       </div>
     </div>
+    </div><!-- /wellbeing-top -->
 
     <hr class="philosophy-separator" aria-hidden="true">
 
@@ -3153,81 +3158,71 @@ document.querySelectorAll('.reveal').forEach(el => {
     return card;
   }
 
-  function buildProgressBar(nbSegments) {
-    const bar = document.createElement('div');
-    bar.className = 'stories-progress';
-    for (let i = 0; i < nbSegments; i++) {
-      const seg = document.createElement('div');
-      seg.className = 'stories-progress-seg';
-      bar.appendChild(seg);
-    }
-    return bar;
-  }
+  // initStories : pilote la rotation des cartes via une barre de
+   // progression UNIQUE animee par requestAnimationFrame. La barre
+   // pilote le timing : quand son fill atteint 100%, on passe a la
+   // carte suivante (idx + 1) % cards.length et on reset le fill.
+   // duration peut etre un nombre uniforme ou un tableau (1 par
+   // carte) pour des durees differentes. Boucle infinie sans timer.
+   function initStories(screen, cards, duration) {
+     function getDur(i) {
+       return Array.isArray(duration) ? duration[i] : duration;
+     }
+     const bar = document.createElement('div');
+     bar.className = 'stories-progress';
+     const fill = document.createElement('div');
+     fill.className = 'stories-progress-fill';
+     bar.appendChild(fill);
+     screen.appendChild(bar);
 
-  // initStories : pilote la rotation des cartes + la barre de
-  // progression. duration peut etre un nombre uniforme ou un
-  // tableau (1 valeur par carte) pour des durees variables.
-  // La barre prend la classe .stories-progress--green quand la
-  // carte active est un overlay (story-overlay) -> bar verte ;
-  // sinon bar blanche par defaut.
-  function initStories(screen, cards, duration) {
-    function getDuration(i) {
-      return Array.isArray(duration) ? duration[i] : duration;
-    }
-    const bar = buildProgressBar(cards.length);
-    screen.appendChild(bar);
-    const segs = bar.querySelectorAll('.stories-progress-seg');
-    let idx = 0;
-    let prevIdx = -1;
+     let idx = 0;
+     let startTime = 0;
+     let prevIdx = -1;
 
-    function activate(i) {
-      // Toggle bar verte si la carte courante est un overlay.
-      const isOverlay = cards[i].classList.contains('story-overlay');
-      bar.classList.toggle('stories-progress--green', isOverlay);
+     function applyState(i) {
+       // Bar verte uniquement quand la carte est un overlay.
+       const isOverlay = cards[i].classList.contains('story-overlay');
+       bar.classList.toggle('is-green', isOverlay);
 
-      // Synchronise la duree CSS du fill avec la duree JS.
-      bar.style.setProperty('--duration', getDuration(i) + 'ms');
+       // Sens unique gauche -> droite : reset des transitions au wrap.
+       const isWrap = prevIdx === cards.length - 1 && i === 0;
+       if (isWrap) {
+         cards.forEach(c => {
+           c.style.transition = 'none';
+           c.classList.remove('is-current', 'is-past');
+         });
+         void screen.offsetWidth;
+         cards.forEach(c => { c.style.transition = ''; });
+       }
 
-      // Sens unique gauche -> droite : reset apres wrap.
-      const isWrap = prevIdx === cards.length - 1 && i === 0;
-      if (isWrap) {
-        cards.forEach(c => {
-          c.style.transition = 'none';
-          c.classList.remove('is-current', 'is-past');
-        });
-        void screen.offsetWidth;
-        cards.forEach(c => { c.style.transition = ''; });
-      }
+       cards.forEach((c, j) => {
+         c.classList.remove('is-current', 'is-past');
+         if (j === i) c.classList.add('is-current');
+         else if (j < i) c.classList.add('is-past');
+       });
+       prevIdx = i;
+     }
 
-      cards.forEach((c, j) => {
-        c.classList.remove('is-current', 'is-past');
-        if (j === i) c.classList.add('is-current');
-        else if (j < i) c.classList.add('is-past');
-      });
-      segs.forEach((s, j) => {
-        s.classList.remove('is-active', 'is-done');
-        if (j === i) {
-          // Force restart de l'animation CSS via cloneNode.
-          const clone = s.cloneNode(false);
-          s.parentNode.replaceChild(clone, s);
-          segs[j] = clone;
-          clone.classList.add('is-active');
-        } else if (j < i) {
-          s.classList.add('is-done');
-        }
-      });
-      prevIdx = i;
-    }
+     applyState(0);
 
-    activate(0);
-    // setTimeout enchaine pour supporter durees variables par carte.
-    function tick() {
-      idx = (idx + 1) % cards.length;
-      activate(idx);
-      setTimeout(tick, getDuration(idx));
-    }
-    setTimeout(tick, getDuration(0));
-  }
+     function loop(now) {
+       if (!startTime) startTime = now;
+       const elapsed = now - startTime;
+       const dur = getDur(idx);
+       const progress = Math.min(elapsed / dur, 1);
+       fill.style.width = (progress * 100) + '%';
+
+       if (progress >= 1) {
+         // Avance a la carte suivante. Reset du fill et du startTime.
+         idx = (idx + 1) % cards.length;
+         applyState(idx);
+         fill.style.width = '0%';
+         startTime = now;
+       }
+       requestAnimationFrame(loop);
+     }
+     requestAnimationFrame(loop);
+   }
 
   // Telephone gauche : 4 stories en boucle (3 sponsor + 1 neutre = 75/25).
   // Tres rapide (1.2s par story) pour evoquer le flux incessant de
