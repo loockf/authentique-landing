@@ -372,8 +372,21 @@ section { padding: 120px 24px; position: relative; }
   flex-direction: column;
   justify-content: center;
 }
-.section-problem { padding: 60px 24px 120px; }
-.problem-text h2 { margin-bottom: 48px; font-size: clamp(30px, 4.5vw, 48px); }
+.section-problem {
+  padding: 48px 24px 100px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+.section-problem .problem-grid { flex: 1; align-items: stretch; }
+.section-problem .problem-text {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.section-problem .problem-pains { margin-top: auto; }
+.problem-text h2 { margin-bottom: 24px; font-size: clamp(30px, 4.5vw, 48px); }
 .problem-text p { color: var(--text-soft); font-size: 16px; margin-bottom: 12px; max-width: 480px; line-height: 1.5; }
 .problem-pains {
   margin-top: 24px;
@@ -531,7 +544,15 @@ section { padding: 120px 24px; position: relative; }
 }
 
 /* ALLY (digital wellbeing) */
-.section-ally { background: var(--white); padding: 100px 24px 50px; }
+.section-ally {
+  background: var(--white);
+  padding: 80px 24px 100px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .ally-inner { max-width: 1100px; margin: 0 auto; }
 .ally-header { text-align: center; max-width: 720px; margin: 0 auto 56px; }
 .ally-header h2 { margin-bottom: 16px; }
@@ -565,11 +586,22 @@ section { padding: 120px 24px; position: relative; }
 
 /* CONTROL — Tu contrôles tout. */
 .section-control {
-  padding: 100px 24px;
+  padding: 60px 24px 100px;
   background: var(--bg);
   text-align: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
-.control-inner { max-width: 1100px; margin: 0 auto; }
+.control-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
 .control-inner h2 {
   margin-bottom: 16px;
   font-size: clamp(36px, 5.5vw, 64px);
@@ -580,15 +612,16 @@ section { padding: 120px 24px; position: relative; }
   font-size: 17px;
   line-height: 1.55;
   max-width: 600px;
-  margin: 0 auto 56px;
+  margin: 0 auto;
 }
 .control-phones {
   display: flex;
   gap: 20px;
   justify-content: center;
   align-items: center;
-  margin-bottom: 56px;
   flex-wrap: wrap;
+  margin-top: auto;
+  margin-bottom: 32px;
 }
 .control-continuation { max-width: 600px; margin: 0 auto; }
 .control-continuation h3 {
@@ -603,7 +636,15 @@ section { padding: 120px 24px; position: relative; }
 }
 
 /* FEATURES */
-.section-features { background: var(--bg); }
+.section-features {
+  background: var(--bg);
+  padding: 60px 24px 100px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
 .features-inner { max-width: 1100px; margin: 0 auto; }
 .features-header { text-align: center; max-width: 600px; margin: 0 auto 64px; }
 .features-header h2 { margin-bottom: 16px; }
@@ -1106,10 +1147,15 @@ section { padding: 120px 24px; position: relative; }
 /* FINAL CTA */
 .section-cta {
   background: var(--bg);
-  padding: 100px 24px 140px;
+  padding: 60px 24px 120px;
   text-align: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
-.cta-inner { max-width: 640px; margin: 0 auto; }
+.cta-inner { max-width: 640px; margin: 0 auto; width: 100%; }
 .cta-inner h2 {
   margin-bottom: 36px;
   font-size: clamp(30px, 4.5vw, 48px);
@@ -1804,7 +1850,7 @@ footer {
 <!-- FINAL CTA -->
 <section class="section-cta" id="cta">
   <div class="cta-inner">
-    <h2 class="reveal" data-i18n="cta_title">On construit&nbsp;<span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;ensemble.</h2>
+    <h2 class="reveal" data-i18n="cta_title">On construit&nbsp;<span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span><br>ensemble.</h2>
     <p class="cta-thanks reveal" data-i18n="cta_thanks">Merci pour ton intérêt et ton soutien. Chaque contribution nous aide à construire l'app que Instagram aurait dû être.</p>
     <div class="cta-action reveal">
       <a href="#" class="btn-primary">
@@ -1962,7 +2008,7 @@ const translations = {
     s4_desc: "Chaque filtre est configurable depuis l'écran Paramètres. Active ou désactive ce que tu veux, quand tu veux.",
     philosophy_quote: '"Les réseaux sociaux devraient te connecter à tes amis, pas t\'<em>en éloigner</em>."',
     philosophy_text: "Authentique ne collecte aucune donnée. Aucun serveur. Aucun tracking. Juste une fenêtre filtrée sur Instagram, tel qu'il aurait toujours dû être.",
-    cta_title: 'On construit&nbsp;<span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;ensemble.',
+    cta_title: 'On construit&nbsp;<span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span><br>ensemble.',
     cta_thanks: "Merci pour ton intérêt et ton soutien. Chaque contribution nous aide à construire l'app que Instagram aurait dû être.",
     cta_prompt: "Tu as une idée, une question ou une suggestion ? On veut l'entendre.",
     cta_email_line: 'ou écris-nous directement à <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
@@ -2054,7 +2100,7 @@ const translations = {
     s4_desc: "Every filter is configurable from the Settings screen. Enable or disable what you want, when you want.",
     philosophy_quote: '"Social media should connect you to your friends, not <em>push you away</em> from them."',
     philosophy_text: "Authentique collects no data. No server. No tracking. Just a filtered window into Instagram, as it should always have been.",
-    cta_title: 'We are building&nbsp;<span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;together.',
+    cta_title: 'We are building&nbsp;<span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span><br>together.',
     cta_thanks: "Thank you for your interest and support. Every contribution helps us build the app Instagram should have been.",
     cta_prompt: "Got an idea, a question or a suggestion? We want to hear it.",
     cta_email_line: 'or write to us directly at <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
@@ -2146,7 +2192,7 @@ const translations = {
     s4_desc: "Cada filtro es configurable desde la pantalla de Ajustes. Activa o desactiva lo que quieras.",
     philosophy_quote: '"Las redes sociales deberían conectarte con tus amigos, no <em>alejarte</em> de ellos."',
     philosophy_text: "Authentique no recopila ningún dato. Sin servidor. Sin seguimiento. Solo una ventana filtrada a Instagram, como siempre debió haber sido.",
-    cta_title: 'Construimos&nbsp;<span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;juntos.',
+    cta_title: 'Construimos&nbsp;<span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span><br>juntos.',
     cta_thanks: "Gracias por tu interés y tu apoyo. Cada contribución nos ayuda a construir la app que Instagram debería haber sido.",
     cta_prompt: "¿Tienes una idea, una pregunta o una sugerencia? Queremos escucharla.",
     cta_email_line: 'o escríbenos directamente a <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
@@ -2238,7 +2284,7 @@ const translations = {
     s4_desc: "Ogni filtro è configurabile dalla schermata Impostazioni. Attiva o disattiva ciò che vuoi, quando vuoi.",
     philosophy_quote: '"I social media dovrebbero connetterti ai tuoi amici, non <em>allontanarti</em> da loro."',
     philosophy_text: "Authentique non raccoglie nessun dato. Nessun server. Nessun tracciamento. Solo una finestra filtrata su Instagram, come avrebbe sempre dovuto essere.",
-    cta_title: 'Costruiamo&nbsp;<span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;insieme.',
+    cta_title: 'Costruiamo&nbsp;<span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span><br>insieme.',
     cta_thanks: "Grazie per il tuo interesse e il tuo supporto. Ogni contributo ci aiuta a costruire l'app che Instagram avrebbe dovuto essere.",
     cta_prompt: "Hai un'idea, una domanda o un suggerimento? Vogliamo sentirlo.",
     cta_email_line: 'oppure scrivici direttamente a <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
@@ -2330,7 +2376,7 @@ const translations = {
     s4_desc: "Cada filtro é configurável a partir do ecrã Definições. Ativa ou desativa o que quiseres, quando quiseres.",
     philosophy_quote: '"As redes sociais deviam conectar-te aos teus amigos, não <em>afastar-te</em> deles."',
     philosophy_text: "O Authentique não recolhe nenhum dado. Sem servidor. Sem rastreio. Apenas uma janela filtrada para o Instagram, como sempre deveria ter sido.",
-    cta_title: 'Construímos&nbsp;<span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;juntos.',
+    cta_title: 'Construímos&nbsp;<span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span><br>juntos.',
     cta_thanks: "Obrigado pelo teu interesse e apoio. Cada contribuição ajuda-nos a construir a app que o Instagram devia ter sido.",
     cta_prompt: "Tens uma ideia, uma pergunta ou uma sugestão? Queremos ouvi-la.",
     cta_email_line: 'ou escreve-nos diretamente para <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
@@ -2422,7 +2468,7 @@ const translations = {
     s4_desc: "Каждый фильтр настраивается в экране Настроек. Включай или выключай что хочешь.",
     philosophy_quote: '"Социальные сети должны соединять тебя с друзьями, а не <em>отдалять</em> от них."',
     philosophy_text: "Authentique не собирает данных. Никаких серверов. Никакой слежки. Только отфильтрованное окно в Instagram, каким он всегда должен был быть.",
-    cta_title: 'Мы создаём&nbsp;<span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;вместе.',
+    cta_title: 'Мы создаём&nbsp;<span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span><br>вместе.',
     cta_thanks: "Спасибо за интерес и поддержку. Каждый вклад помогает нам создать приложение, которым должен был быть Instagram.",
     cta_prompt: "У тебя есть идея, вопрос или предложение? Мы хотим услышать.",
     cta_email_line: 'или напиши нам напрямую на <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
