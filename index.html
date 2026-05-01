@@ -928,6 +928,7 @@ section { padding: 120px 24px; position: relative; }
   font-size: 18px;
   font-weight: 600;
   text-align: center;
+  padding-top: 40px;
   margin-bottom: 16px;
   color: #1c1c1a;
   letter-spacing: -0.2px;
@@ -1905,34 +1906,34 @@ footer {
           <div class="iphone-dynamic-island"></div>
           <div class="iphone-screen iphone-screen--light iphone-screen--settings">
             <div class="settings-mockup">
-              <div class="settings-title">Paramètres</div>
+              <div class="settings-title" data-i18n="settings_title">Paramètres</div>
               <div class="settings-list">
                 <div class="settings-row">
-                  <span class="settings-label">Masquer les posts sponsorisés</span>
+                  <span class="settings-label" data-i18n="settings_label_sponsored">Masquer les posts sponsorisés</span>
                   <span class="settings-switch is-on" aria-hidden="true"></span>
                 </div>
                 <div class="settings-row">
-                  <span class="settings-label">Masquer les publications suggérées</span>
+                  <span class="settings-label" data-i18n="settings_label_suggested">Masquer les publications suggérées</span>
                   <span class="settings-switch is-on" aria-hidden="true"></span>
                 </div>
                 <div class="settings-row">
-                  <span class="settings-label">Masquer les suggestions de comptes</span>
+                  <span class="settings-label" data-i18n="settings_label_accounts">Masquer les suggestions de comptes</span>
                   <span class="settings-switch is-on" aria-hidden="true"></span>
                 </div>
                 <div class="settings-row">
-                  <span class="settings-label">Masquer les Reels</span>
+                  <span class="settings-label" data-i18n="settings_label_reels">Masquer les Reels</span>
                   <span class="settings-switch" aria-hidden="true"></span>
                 </div>
                 <div class="settings-row">
-                  <span class="settings-label">Masquer les stories sponsorisées</span>
+                  <span class="settings-label" data-i18n="settings_label_stories">Masquer les stories sponsorisées</span>
                   <span class="settings-switch is-on" aria-hidden="true"></span>
                 </div>
                 <div class="settings-row">
-                  <span class="settings-label">Bloquer le scroll infini</span>
+                  <span class="settings-label" data-i18n="settings_label_scroll">Bloquer le scroll infini</span>
                   <span class="settings-switch is-on" aria-hidden="true"></span>
                 </div>
                 <div class="settings-row">
-                  <span class="settings-label">Section Recherche épurée</span>
+                  <span class="settings-label" data-i18n="settings_label_search">Section Recherche épurée</span>
                   <span class="settings-switch is-on" aria-hidden="true"></span>
                 </div>
               </div>
@@ -2210,6 +2211,14 @@ const translations = {
     suggest_sub: "De nouvelles fonctionnalités arrivent régulièrement.",
     suggest_placeholder: "Ton idée ou suggestion...",
     suggest_btn: "Envoyer",
+    settings_title: "Paramètres",
+    settings_label_sponsored: "Masquer les posts sponsorisés",
+    settings_label_suggested: "Masquer les publications suggérées",
+    settings_label_accounts: "Masquer les suggestions de comptes",
+    settings_label_reels: "Masquer les Reels",
+    settings_label_stories: "Masquer les stories sponsorisées",
+    settings_label_scroll: "Bloquer le scroll infini",
+    settings_label_search: "Section Recherche épurée",
     footer_contact: "Contact",
     footer_legal: "Mentions légales",
   },
@@ -2302,6 +2311,14 @@ const translations = {
     suggest_sub: "New features are coming regularly.",
     suggest_placeholder: "Your idea or suggestion...",
     suggest_btn: "Send",
+    settings_title: "Settings",
+    settings_label_sponsored: "Hide sponsored posts",
+    settings_label_suggested: "Hide suggested posts",
+    settings_label_accounts: "Hide account suggestions",
+    settings_label_reels: "Hide Reels",
+    settings_label_stories: "Hide sponsored stories",
+    settings_label_scroll: "Block infinite scroll",
+    settings_label_search: "Clean Search tab",
     footer_contact: "Contact",
     footer_legal: "Legal notice",
   },
@@ -2394,6 +2411,14 @@ const translations = {
     suggest_sub: "Nuevas funciones llegan regularmente.",
     suggest_placeholder: "Tu idea o sugerencia...",
     suggest_btn: "Enviar",
+    settings_title: "Ajustes",
+    settings_label_sponsored: "Ocultar posts patrocinados",
+    settings_label_suggested: "Ocultar publicaciones sugeridas",
+    settings_label_accounts: "Ocultar sugerencias de cuentas",
+    settings_label_reels: "Ocultar Reels",
+    settings_label_stories: "Ocultar stories patrocinadas",
+    settings_label_scroll: "Bloquear scroll infinito",
+    settings_label_search: "Búsqueda limpia",
     footer_contact: "Contacto",
     footer_legal: "Aviso legal",
   },
@@ -2486,6 +2511,14 @@ const translations = {
     suggest_sub: "Nuove funzionalità arrivano regolarmente.",
     suggest_placeholder: "La tua idea o suggerimento...",
     suggest_btn: "Invia",
+    settings_title: "Impostazioni",
+    settings_label_sponsored: "Nascondi post sponsorizzati",
+    settings_label_suggested: "Nascondi post suggeriti",
+    settings_label_accounts: "Nascondi suggerimenti account",
+    settings_label_reels: "Nascondi Reels",
+    settings_label_stories: "Nascondi storie sponsorizzate",
+    settings_label_scroll: "Blocca scroll infinito",
+    settings_label_search: "Ricerca pulita",
     footer_contact: "Contatto",
     footer_legal: "Note legali",
   },
@@ -2578,6 +2611,14 @@ const translations = {
     suggest_sub: "Novas funcionalidades chegam regularmente.",
     suggest_placeholder: "Sua ideia ou sugestão...",
     suggest_btn: "Enviar",
+    settings_title: "Configurações",
+    settings_label_sponsored: "Ocultar posts patrocinados",
+    settings_label_suggested: "Ocultar publicações sugeridas",
+    settings_label_accounts: "Ocultar sugestões de contas",
+    settings_label_reels: "Ocultar Reels",
+    settings_label_stories: "Ocultar stories patrocinadas",
+    settings_label_scroll: "Bloquear scroll infinito",
+    settings_label_search: "Pesquisa limpa",
     footer_contact: "Contacto",
     footer_legal: "Aviso legal",
   },
@@ -2670,6 +2711,14 @@ const translations = {
     suggest_sub: "Новые функции появляются регулярно.",
     suggest_placeholder: "Твоя идея или предложение...",
     suggest_btn: "Отправить",
+    settings_title: "Настройки",
+    settings_label_sponsored: "Скрыть рекламные посты",
+    settings_label_suggested: "Скрыть рекомендуемые посты",
+    settings_label_accounts: "Скрыть предложения аккаунтов",
+    settings_label_reels: "Скрыть Reels",
+    settings_label_stories: "Скрыть рекламные истории",
+    settings_label_scroll: "Блокировать бесконечную прокрутку",
+    settings_label_search: "Чистый поиск",
     footer_contact: "Контакт",
     footer_legal: "Правовая информация",
   }
