@@ -507,11 +507,7 @@ section { padding: 120px 24px; }
 .section-ally { background: var(--white); padding: 100px 24px; }
 .ally-inner { max-width: 1100px; margin: 0 auto; }
 .ally-header { text-align: center; max-width: 720px; margin: 0 auto 56px; }
-.ally-header h2 {
-  font-size: clamp(28px, 4vw, 44px);
-  line-height: 1.2;
-  letter-spacing: -0.4px;
-}
+.ally-header h2 { margin-bottom: 16px; }
 .ally-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -997,7 +993,7 @@ footer {
     Sois parmi les premiers à découvrir Authentique.
   </p>
   <button class="hero-scroll" aria-label="Faire défiler" type="button">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
       <polyline points="6 9 12 15 18 9"/>
     </svg>
   </button>
@@ -1078,7 +1074,6 @@ footer {
   </div>
   <div class="problem-stats">
     <p class="problem-stat reveal" data-i18n="problem_stat1">En moyenne, on consulte son téléphone <strong>96 fois par jour</strong>. Instagram est conçu pour en capturer le maximum.</p>
-    <p class="problem-stat reveal" data-i18n="problem_stat2">Le scroll infini a été inventé pour qu'on ne s'arrête jamais. <strong>Il n'y a pas de fin — c'est voulu.</strong></p>
   </div>
 </section>
 
@@ -1197,7 +1192,7 @@ footer {
   <div class="ally-inner">
     <div class="ally-header reveal">
       <p class="section-label" data-i18n="ally_label">Bien-être numérique</p>
-      <h2 data-i18n="ally_title">Authentique, ton allié contre l'<span class="authentique-gradient-text">addiction digitale</span>.</h2>
+      <h2 data-i18n="ally_title">Ton allié contre l'<span class="authentique-gradient-text">addiction digitale</span>.</h2>
     </div>
     <div class="ally-grid">
       <div class="ally-card reveal">
@@ -1339,12 +1334,10 @@ footer {
       <textarea class="suggest-textarea" id="suggestText" rows="4" data-i18n-placeholder="suggest_placeholder" placeholder="Ton idée ou suggestion..." required></textarea>
       <button type="submit" class="btn-primary suggest-btn">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M4 6h16v12H4z"/><path d="M4 6l8 7 8-7"/>
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
         </svg>
         <span data-i18n="suggest_btn">Envoyer</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
       </button>
     </form>
   </div>
@@ -1466,9 +1459,8 @@ const translations = {
     pain5: "Perte de temps",
     pain6: "Anxiété numérique",
     problem_stat1: "En moyenne, on consulte son téléphone <strong>96 fois par jour</strong>. Instagram est conçu pour en capturer le maximum.",
-    problem_stat2: "Le scroll infini a été inventé pour qu'on ne s'arrête jamais. <strong>Il n'y a pas de fin — c'est voulu.</strong>",
     ally_label: "Bien-être numérique",
-    ally_title: 'Authentique, ton allié contre l\'<span class="authentique-gradient-text">addiction digitale</span>.',
+    ally_title: 'Ton allié contre l\'<span class="authentique-gradient-text">addiction digitale</span>.',
     ally_card1_title: "Moins de stimulation",
     ally_card1_desc: "Sans pubs ni suggestions, ton cerveau respire enfin.",
     ally_card2_title: "Moins de temps perdu",
@@ -1553,9 +1545,8 @@ const translations = {
     pain5: "Wasted time",
     pain6: "Digital anxiety",
     problem_stat1: "On average, we check our phones <strong>96 times a day</strong>. Instagram is designed to capture as many as possible.",
-    problem_stat2: "Infinite scroll was invented so we never stop. <strong>There is no end — it's by design.</strong>",
     ally_label: "Digital wellbeing",
-    ally_title: 'Authentique, your ally against <span class="authentique-gradient-text">digital addiction</span>.',
+    ally_title: 'Your ally against <span class="authentique-gradient-text">digital addiction</span>.',
     ally_card1_title: "Less stimulation",
     ally_card1_desc: "Without ads or suggestions, your brain finally breathes.",
     ally_card2_title: "Less wasted time",
@@ -1640,9 +1631,8 @@ const translations = {
     pain5: "Pérdida de tiempo",
     pain6: "Ansiedad digital",
     problem_stat1: "En promedio, miramos el móvil <strong>96 veces al día</strong>. Instagram está diseñado para captar el máximo posible.",
-    problem_stat2: "El scroll infinito se inventó para que nunca paremos. <strong>No hay fin — es deliberado.</strong>",
     ally_label: "Bienestar digital",
-    ally_title: 'Authentique, tu aliado contra la <span class="authentique-gradient-text">adicción digital</span>.',
+    ally_title: 'Tu aliado contra la <span class="authentique-gradient-text">adicción digital</span>.',
     ally_card1_title: "Menos estimulación",
     ally_card1_desc: "Sin anuncios ni sugerencias, tu cerebro por fin respira.",
     ally_card2_title: "Menos tiempo perdido",
@@ -1727,9 +1717,8 @@ const translations = {
     pain5: "Tempo perso",
     pain6: "Ansia digitale",
     problem_stat1: "In media, controlliamo il telefono <strong>96 volte al giorno</strong>. Instagram è progettato per catturarne il più possibile.",
-    problem_stat2: "Lo scroll infinito è stato inventato perché non ci si fermi mai. <strong>Non c'è una fine — è intenzionale.</strong>",
     ally_label: "Benessere digitale",
-    ally_title: 'Authentique, il tuo alleato contro la <span class="authentique-gradient-text">dipendenza digitale</span>.',
+    ally_title: 'Il tuo alleato contro la <span class="authentique-gradient-text">dipendenza digitale</span>.',
     ally_card1_title: "Meno stimolazione",
     ally_card1_desc: "Senza pubblicità né suggerimenti, il tuo cervello finalmente respira.",
     ally_card2_title: "Meno tempo perso",
@@ -1814,9 +1803,8 @@ const translations = {
     pain5: "Tempo perdido",
     pain6: "Ansiedade digital",
     problem_stat1: "Em média, consultamos o telemóvel <strong>96 vezes por dia</strong>. O Instagram foi concebido para capturar o máximo possível.",
-    problem_stat2: "O scroll infinito foi inventado para que nunca paremos. <strong>Não há um fim — é propositado.</strong>",
     ally_label: "Bem-estar digital",
-    ally_title: 'Authentique, o teu aliado contra a <span class="authentique-gradient-text">dependência digital</span>.',
+    ally_title: 'O teu aliado contra a <span class="authentique-gradient-text">dependência digital</span>.',
     ally_card1_title: "Menos estímulos",
     ally_card1_desc: "Sem anúncios nem sugestões, o teu cérebro finalmente respira.",
     ally_card2_title: "Menos tempo perdido",
@@ -1901,9 +1889,8 @@ const translations = {
     pain5: "Потеря времени",
     pain6: "Цифровая тревожность",
     problem_stat1: "В среднем, мы проверяем телефон <strong>96 раз в день</strong>. Instagram создан, чтобы захватить как можно больше.",
-    problem_stat2: "Бесконечная прокрутка была создана, чтобы мы никогда не останавливались. <strong>Конца нет — это сделано намеренно.</strong>",
     ally_label: "Цифровое благополучие",
-    ally_title: 'Authentique — твой союзник против <span class="authentique-gradient-text">цифровой зависимости</span>.',
+    ally_title: 'Твой союзник против <span class="authentique-gradient-text">цифровой зависимости</span>.',
     ally_card1_title: "Меньше стимуляции",
     ally_card1_desc: "Без рекламы и рекомендаций твой мозг наконец дышит.",
     ally_card2_title: "Меньше потерянного времени",
@@ -2066,7 +2053,8 @@ function submitSuggestion(e) {
 
 // Toggles automatiques de la section Features. Les inputs sont
 // pilotes en JS, l'utilisateur ne peut pas cliquer (pointer-events
-// none). Cycle : ON 2.5s -> OFF 1.5s -> autre carte aleatoire.
+// none). File d'attente melangee : chaque carte est activee une
+// fois avant qu'on re-melange et qu'on recommence.
 (function () {
   var cards = Array.prototype.slice.call(
     document.querySelectorAll('.section-features .feature-card')
@@ -2076,16 +2064,32 @@ function submitSuggestion(e) {
     .map(function (c) { return c.querySelector('input[type="checkbox"]'); })
     .filter(Boolean);
   if (inputs.length === 0) return;
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+  var queue = [];
   var lastIndex = -1;
-  function pickNext() {
-    if (inputs.length === 1) return 0;
-    var i;
-    do { i = Math.floor(Math.random() * inputs.length); }
-    while (i === lastIndex);
-    return i;
+  function nextToggle() {
+    if (queue.length === 0) {
+      var ids = [];
+      for (var k = 0; k < inputs.length; k++) ids.push(k);
+      queue = shuffle(ids);
+      // Eviter que la 1ere carte d'un nouveau cycle soit la meme
+      // que la derniere du cycle precedent (transition plus jolie).
+      if (inputs.length > 1 && queue[queue.length - 1] === lastIndex) {
+        var first = queue.shift();
+        queue.push(first);
+      }
+    }
+    return queue.pop();
   }
   function cycle() {
-    var idx = pickNext();
+    var idx = nextToggle();
     lastIndex = idx;
     var input = inputs[idx];
     input.checked = true;
