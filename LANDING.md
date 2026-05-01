@@ -86,11 +86,10 @@ Lire ce fichier avant chaque modif pour éviter les ré-explorations inutiles.
 ### Section CTA finale (`section.section-cta#cta`, fin de page avant footer)
 - `.cta-inner` — wrapper centré (max-width 640px)
 - `.cta-action` — wrapper du bouton Kickstarter (en haut)
-- `.cta-prompt` — phrase « Tu as une idée ou une suggestion ? On veut l'entendre. »
-- `.suggest-form` / `.suggest-textarea` / `.suggest-btn` — formulaire + bouton avion en papier (mailto)
-- `.cta-contact` — ligne « Tu as des questions ? hello@... »
+- `.cta-prompt` — phrase « Tu as une idée, une question ou une suggestion ? On veut l'entendre. »
+- `.suggest-form` / `.suggest-textarea` / `.suggest-btn` — formulaire + bouton avion en papier (mailto avec subject « Suggestion Authentique »)
 
-Ordre interne : Bouton Kickstarter → prompt suggestion → formulaire → contact.
+Ordre interne : Bouton Kickstarter → prompt suggestion → formulaire.
 
 ### Section Suggest (supprimée)
 La section dédiée n'existe plus. Le titre + sous-titre ont été déplacés sous les téléphones de la rangée s4 (« Tu contrôles tout ») via `.screen-col--continuation` (clés `suggest_title` + `suggest_sub`). Le formulaire (textarea + bouton avion en papier) a été déplacé dans la **section CTA finale** (clés `suggest_placeholder`, `suggest_btn` + nouvelle `cta_prompt`).

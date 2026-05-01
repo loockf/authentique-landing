@@ -752,11 +752,6 @@ section { padding: 120px 24px; }
   margin-bottom: 20px;
   font-weight: 500;
 }
-.cta-contact {
-  font-size: 14px;
-  color: var(--text-mute);
-}
-.cta-contact a { color: var(--green); text-decoration: underline; }
 
 /* FOOTER */
 footer {
@@ -1060,7 +1055,7 @@ footer {
 </section>
 
 <!-- FEATURES -->
-<section class="section-features">
+<section class="section-features" id="section-features">
   <div class="features-inner">
     <div class="features-header reveal">
       <p class="section-label" data-i18n="features_label">Ce qu'Authentique fait</p>
@@ -1394,9 +1389,6 @@ footer {
         <span data-i18n="suggest_btn">Envoyer</span>
       </button>
     </form>
-    <p class="cta-contact reveal" data-i18n="cta_contact">
-      Tu as des questions ? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>
-    </p>
   </div>
 </section>
 
@@ -1478,8 +1470,7 @@ const translations = {
     s4_desc: "Chaque filtre est configurable depuis l'écran Paramètres. Active ou désactive ce que tu veux, quand tu veux.",
     philosophy_quote: '"Les réseaux sociaux devraient te connecter à tes amis, pas t\'<em>en éloigner</em>."',
     philosophy_text: 'Authentique ne collecte aucune donnée. Aucun serveur. Aucun tracking. Juste une fenêtre filtrée sur Instagram, tel qu\'il aurait toujours dû être.',
-    cta_prompt: "Tu as une idée ou une suggestion ? On veut l'entendre.",
-    cta_contact: 'Tu as des questions ? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
+    cta_prompt: "Tu as une idée, une question ou une suggestion ? On veut l'entendre.",
     faq_label: "FAQ",
     faq_title: "Questions fréquentes",
     faq_q1: "Comment fonctionne Authentique ?",
@@ -1563,8 +1554,7 @@ const translations = {
     s4_desc: "Every filter is configurable from the Settings screen. Enable or disable what you want, when you want.",
     philosophy_quote: '"Social media should connect you to your friends, not <em>push you away</em> from them."',
     philosophy_text: 'Authentique collects no data. No server. No tracking. Just a filtered window into Instagram, as it should always have been.',
-    cta_prompt: "Got an idea or a suggestion? We want to hear it.",
-    cta_contact: 'Any questions? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
+    cta_prompt: "Got an idea, a question or a suggestion? We want to hear it.",
     faq_label: "FAQ",
     faq_title: "Frequently asked questions",
     faq_q1: "How does Authentique work?",
@@ -1648,8 +1638,7 @@ const translations = {
     s4_desc: "Cada filtro es configurable desde la pantalla de Ajustes. Activa o desactiva lo que quieras.",
     philosophy_quote: '"Las redes sociales deberían conectarte con tus amigos, no <em>alejarte</em> de ellos."',
     philosophy_text: 'Authentique no recopila ningún dato. Sin servidor. Sin seguimiento. Solo una ventana filtrada a Instagram, como siempre debió haber sido.',
-    cta_prompt: "¿Tienes una idea o sugerencia? Queremos escucharla.",
-    cta_contact: '¿Preguntas? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
+    cta_prompt: "¿Tienes una idea, una pregunta o una sugerencia? Queremos escucharla.",
     faq_label: "FAQ",
     faq_title: "Preguntas frecuentes",
     faq_q1: "¿Cómo funciona Authentique?",
@@ -1733,8 +1722,7 @@ const translations = {
     s4_desc: "Ogni filtro è configurabile dalla schermata Impostazioni. Attiva o disattiva ciò che vuoi, quando vuoi.",
     philosophy_quote: '"I social media dovrebbero connetterti ai tuoi amici, non <em>allontanarti</em> da loro."',
     philosophy_text: "Authentique non raccoglie nessun dato. Nessun server. Nessun tracciamento. Solo una finestra filtrata su Instagram, come avrebbe sempre dovuto essere.",
-    cta_prompt: "Hai un'idea o un suggerimento? Vogliamo sentirlo.",
-    cta_contact: 'Domande? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
+    cta_prompt: "Hai un'idea, una domanda o un suggerimento? Vogliamo sentirlo.",
     faq_label: "FAQ",
     faq_title: "Domande frequenti",
     faq_q1: "Come funziona Authentique?",
@@ -1818,8 +1806,7 @@ const translations = {
     s4_desc: "Cada filtro é configurável a partir do ecrã Definições. Ativa ou desativa o que quiseres, quando quiseres.",
     philosophy_quote: '"As redes sociais deviam conectar-te aos teus amigos, não <em>afastar-te</em> deles."',
     philosophy_text: "O Authentique não recolhe nenhum dado. Sem servidor. Sem rastreio. Apenas uma janela filtrada para o Instagram, como sempre deveria ter sido.",
-    cta_prompt: "Tens uma ideia ou sugestão? Queremos ouvi-la.",
-    cta_contact: 'Tens dúvidas? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
+    cta_prompt: "Tens uma ideia, uma pergunta ou uma sugestão? Queremos ouvi-la.",
     faq_label: "FAQ",
     faq_title: "Perguntas frequentes",
     faq_q1: "Como funciona o Authentique?",
@@ -1903,8 +1890,7 @@ const translations = {
     s4_desc: "Каждый фильтр настраивается в экране Настроек. Включай или выключай что хочешь.",
     philosophy_quote: '"Социальные сети должны соединять тебя с друзьями, а не <em>отдалять</em> от них."',
     philosophy_text: 'Authentique не собирает данных. Никаких серверов. Никакой слежки. Только отфильтрованное окно в Instagram, каким он всегда должен был быть.',
-    cta_prompt: "У тебя есть идея или предложение? Мы хотим услышать.",
-    cta_contact: 'Вопросы? <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
+    cta_prompt: "У тебя есть идея, вопрос или предложение? Мы хотим услышать.",
     faq_label: "FAQ",
     faq_title: "Часто задаваемые вопросы",
     faq_q1: "Как работает Authentique?",
@@ -2000,7 +1986,7 @@ function submitSuggestion(e) {
   if (!ta) return false;
   var text = ta.value.trim();
   if (!text) return false;
-  var subject = 'Idée Authentique';
+  var subject = 'Suggestion Authentique';
   var body = encodeURIComponent(text);
   window.location.href =
     'mailto:hello@get-authentique.com?subject=' +
@@ -2009,13 +1995,15 @@ function submitSuggestion(e) {
 }
 
 // Fleche scroll du hero : disparait apres 100px de scroll. Au clic,
-// scroll smooth vers la section suivante.
+// scroll smooth jusqu'a 100px AVANT la section "Ce qu'Authentique fait".
 (function () {
   var arrow = document.querySelector('.hero-scroll');
   if (!arrow) return;
   arrow.addEventListener('click', function () {
-    var next = document.querySelector('.section-problem');
-    if (next) next.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    var section = document.querySelector('#section-features');
+    if (!section) return;
+    var offset = section.getBoundingClientRect().top + window.scrollY - 100;
+    window.scrollTo({ top: offset, behavior: 'smooth' });
   });
   window.addEventListener('scroll', function () {
     arrow.classList.toggle('is-hidden', window.scrollY > 100);
@@ -2024,8 +2012,7 @@ function submitSuggestion(e) {
 
 // Toggles automatiques de la section Features. Les inputs sont
 // pilotes en JS, l'utilisateur ne peut pas cliquer (pointer-events
-// none). File d'attente melangee : chaque carte est activee une
-// fois avant qu'on re-melange et qu'on recommence.
+// none). Ordre fixe en boucle : 1 -> 3 -> 5 -> 2 -> 4 -> 6.
 (function () {
   var cards = Array.prototype.slice.call(
     document.querySelectorAll('.section-features .feature-card')
@@ -2035,33 +2022,16 @@ function submitSuggestion(e) {
     .map(function (c) { return c.querySelector('input[type="checkbox"]'); })
     .filter(Boolean);
   if (inputs.length === 0) return;
-  function shuffle(arr) {
-    var a = arr.slice();
-    for (var i = a.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
-    }
-    return a;
-  }
-  var queue = [];
-  var lastIndex = -1;
+  var ORDER = [0, 2, 4, 1, 3, 5];
+  var currentStep = 0;
   function nextToggle() {
-    if (queue.length === 0) {
-      var ids = [];
-      for (var k = 0; k < inputs.length; k++) ids.push(k);
-      queue = shuffle(ids);
-      // Eviter que la 1ere carte d'un nouveau cycle soit la meme
-      // que la derniere du cycle precedent (transition plus jolie).
-      if (inputs.length > 1 && queue[queue.length - 1] === lastIndex) {
-        var first = queue.shift();
-        queue.push(first);
-      }
-    }
-    return queue.pop();
+    var idx = ORDER[currentStep];
+    currentStep = (currentStep + 1) % ORDER.length;
+    return idx;
   }
   function cycle() {
     var idx = nextToggle();
-    lastIndex = idx;
+    if (idx >= inputs.length) { setTimeout(cycle, 100); return; }
     var input = inputs[idx];
     input.checked = true;
     setTimeout(function () {
