@@ -12,7 +12,8 @@ Lire ce fichier avant chaque modif pour éviter les ré-explorations inutiles.
 - `.arch-icon` — wrapper du logo arche (le « A » géométrique). Utilisé dans nav, hero, philosophy, footer.
 - `.section-label` — petite étiquette grise au-dessus de chaque titre de section.
 - `.reveal` — éléments qui s'animent au scroll (fade-in via IntersectionObserver).
-- `.authentique-gradient-text` — applique le dégradé Authentique au texte (background-clip: text).
+- `.authentique-gradient-text` — applique le **dégradé** Authentique au texte (background-clip: text). Pour usage explicite (cta_title, s4_title, etc.).
+- `.authentique-name` — applique le **vert plein** `#19d382`. Utilisé par l'auto-wrapper sur chaque occurrence du mot « Authentique ».
 
 ### Navigation (`<nav>`, ligne 669)
 - `.nav-logo` — lien retour haut (logo arche)

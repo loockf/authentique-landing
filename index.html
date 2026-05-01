@@ -32,10 +32,18 @@
 /* Texte avec degrade Authentique (substitue a color: #19d382). Repli
    color: var(--green) pour les contextes ou background-clip:text
    n'est pas supporte. */
-/* Texte vert plein #19d382 : la classe .authentique-gradient-text
-   est conservee (utilisee par le JS auto-wrapper) mais ne fait
-   plus de degrade — juste color. */
+/* Degrade Authentique applique au texte. Utilisee uniquement par
+   les contextes explicites (ex: "tout" dans s4_title, "Authentique"
+   dans cta_title). Le auto-wrapper utilise .authentique-name pour
+   le rendu vert plein par defaut. */
 .authentique-gradient-text {
+  background: var(--auth-grad);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+          color: transparent;
+}
+.authentique-name {
   color: var(--green);
 }
 
@@ -151,6 +159,29 @@ nav {
 .hero-arch {
   width: 80px; height: 80px;
   margin-bottom: 32px;
+}
+.hero-scroll {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  color: #19d382;
+  transform: translateX(-50%);
+  animation: heroBounce 1.5s ease-in-out infinite;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-scroll svg { display: block; }
+.hero-scroll.is-hidden { opacity: 0; pointer-events: none; }
+@keyframes heroBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(8px); }
 }
 /* Wrapper en width: fit-content : sa taille = celle de son enfant
    le plus large (la rangee de badges). Les enfants en width:100%
@@ -496,7 +527,8 @@ section { padding: 120px 24px; }
   position: relative;
   width: 48px;
   height: 28px;
-  cursor: pointer;
+  cursor: default;
+  pointer-events: none;
 }
 .feature-toggle input {
   position: absolute;
@@ -862,6 +894,11 @@ footer {
   <p class="hero-tagline" data-i18n="hero_tagline">
     Sois parmi les premiers à découvrir Authentique.
   </p>
+  <button class="hero-scroll" aria-label="Faire défiler" type="button">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"/>
+    </svg>
+  </button>
 </section>
 
 <!-- PROBLEM -->
@@ -1054,13 +1091,13 @@ footer {
   <div class="screens-inner">
     <div class="screens-header reveal">
       <p class="section-label" data-i18n="screens_label">L'app en images</p>
-      <h2 data-i18n="screens_title">Vois la différence <em>par toi-même</em>.</h2>
+      <h2 data-i18n="screens_title">Vois la différence<br><em>par toi-même</em>.</h2>
     </div>
 
     <div class="screens-row reveal">
       <div class="screen-col screen-col--text">
         <h3 data-i18n="s1_title">Zéro publicité dans ton fil</h3>
-        <p data-i18n="s1_desc">Authentique masque automatiquement tous les posts sponsorisés, suggestions algorithmiques et reposts non désirés.</p>
+        <p data-i18n="s1_desc">Masque les posts sponsorisés, les suggestions algorithmiques et/ou les reposts non désirés — indépendamment les uns des autres.</p>
       </div>
       <div class="screen-col screen-col--phones">
         <div class="iphone">
@@ -1095,7 +1132,7 @@ footer {
       </div>
       <div class="screen-col screen-col--text">
         <h3 data-i18n="s2_title">Onglet Recherche épuré</h3>
-        <p data-i18n="s2_desc">La grille de suggestions algorithmiques disparaît. Seule la barre de recherche reste — pour que tu cherches ce que TU veux trouver.</p>
+        <p data-i18n="s2_desc">La grille de suggestions algorithmiques disparaît. Seule la barre de recherche reste — pour que tu cherches ce que TU veux trouver. Cette option peut être activée ou désactivée à tout moment selon tes préférences.</p>
       </div>
     </div>
 
@@ -1122,7 +1159,7 @@ footer {
 
     <div class="screens-row screens-row--center reveal">
       <div class="screen-col screen-col--text">
-        <h3 data-i18n="s4_title">Tu contrôles tout</h3>
+        <h3 data-i18n="s4_title">Tu contrôles <span class="authentique-gradient-text">tout</span></h3>
         <p data-i18n="s4_desc">Chaque filtre est configurable depuis l'écran Paramètres. Active ou désactive ce que tu veux, quand tu veux.</p>
       </div>
       <div class="screen-col screen-col--phones">
@@ -1273,14 +1310,14 @@ const translations = {
     toggle_on_stories: "Pour des stories vraiment choisies.",
     toggle_on_scroll: "Pour reprendre le contrôle de ton temps.",
     screens_label: "L'app en images",
-    screens_title: "Vois la différence <em>par toi-même</em>.",
+    screens_title: "Vois la différence<br><em>par toi-même</em>.",
     s1_title: "Zéro publicité dans ton fil",
-    s1_desc: "Authentique masque automatiquement tous les posts sponsorisés, suggestions algorithmiques et reposts non désirés.",
+    s1_desc: "Masque les posts sponsorisés, les suggestions algorithmiques et/ou les reposts non désirés — indépendamment les uns des autres.",
     s2_title: "Onglet Recherche épuré",
-    s2_desc: "La grille de suggestions algorithmiques disparaît. Seule la barre de recherche reste — pour que tu cherches ce que TU veux trouver.",
+    s2_desc: "La grille de suggestions algorithmiques disparaît. Seule la barre de recherche reste — pour que tu cherches ce que TU veux trouver. Cette option peut être activée ou désactivée à tout moment selon tes préférences.",
     s3_title: "Reels et stories protégés",
     s3_desc: "L'onglet Reels affiche un message honnête. Les stories sponsorisées sont bloquées. Tu ne vois que ce qui vient vraiment de tes amis.",
-    s4_title: "Tu contrôles tout",
+    s4_title: 'Tu contrôles <span class="authentique-gradient-text">tout</span>',
     s4_desc: "Chaque filtre est configurable depuis l'écran Paramètres. Active ou désactive ce que tu veux, quand tu veux.",
     philosophy_quote: '"Les réseaux sociaux devraient te connecter à tes amis, pas t\'<em>en éloigner</em>."',
     philosophy_text: 'Authentique ne collecte aucune donnée. Aucun serveur. Aucun tracking. Juste une fenêtre filtrée sur Instagram, tel qu\'il aurait toujours dû être.',
@@ -1342,14 +1379,14 @@ const translations = {
     toggle_on_stories: "For stories you actually chose.",
     toggle_on_scroll: "To take back control of your time.",
     screens_label: "The app in images",
-    screens_title: "See the difference <em>for yourself</em>.",
+    screens_title: "See the difference<br><em>for yourself</em>.",
     s1_title: "Zero ads in your feed",
-    s1_desc: "Authentique automatically hides all sponsored posts, algorithmic suggestions and unwanted reposts.",
+    s1_desc: "Hide sponsored posts, algorithmic suggestions and/or unwanted reposts — independently of each other.",
     s2_title: "Clean Search tab",
-    s2_desc: "The algorithmic suggestion grid disappears. Only the search bar remains — so you search what YOU want to find.",
+    s2_desc: "The algorithmic suggestion grid disappears. Only the search bar remains — so you search what YOU want to find. This option can be enabled or disabled at any time based on your preferences.",
     s3_title: "Reels and stories protected",
     s3_desc: "The Reels tab shows an honest message. Sponsored stories are blocked. You only see what truly comes from your friends.",
-    s4_title: "You control everything",
+    s4_title: 'You control <span class="authentique-gradient-text">everything</span>',
     s4_desc: "Every filter is configurable from the Settings screen. Enable or disable what you want, when you want.",
     philosophy_quote: '"Social media should connect you to your friends, not <em>push you away</em> from them."',
     philosophy_text: 'Authentique collects no data. No server. No tracking. Just a filtered window into Instagram, as it should always have been.',
@@ -1411,14 +1448,14 @@ const translations = {
     toggle_on_stories: "Para stories verdaderamente elegidas.",
     toggle_on_scroll: "Para recuperar el control de tu tiempo.",
     screens_label: "La app en imágenes",
-    screens_title: "Ve la diferencia <em>por ti mismo</em>.",
+    screens_title: "Ve la diferencia<br><em>por ti mismo</em>.",
     s1_title: "Cero publicidad en tu feed",
-    s1_desc: "Authentique oculta automáticamente todos los posts patrocinados, sugerencias algorítmicas y reposts no deseados.",
+    s1_desc: "Oculta los posts patrocinados, las sugerencias algorítmicas y/o los reposts no deseados — independientemente unos de otros.",
     s2_title: "Pestaña Búsqueda limpia",
-    s2_desc: "La cuadrícula de sugerencias algorítmicas desaparece. Solo queda la barra de búsqueda.",
+    s2_desc: "La cuadrícula de sugerencias algorítmicas desaparece. Solo queda la barra de búsqueda. Esta opción puede activarse o desactivarse en cualquier momento según tus preferencias.",
     s3_title: "Reels e historias protegidas",
     s3_desc: "La pestaña Reels muestra un mensaje honesto. Las historias patrocinadas están bloqueadas.",
-    s4_title: "Tú controlas todo",
+    s4_title: 'Tú controlas <span class="authentique-gradient-text">todo</span>',
     s4_desc: "Cada filtro es configurable desde la pantalla de Ajustes. Activa o desactiva lo que quieras.",
     philosophy_quote: '"Las redes sociales deberían conectarte con tus amigos, no <em>alejarte</em> de ellos."',
     philosophy_text: 'Authentique no recopila ningún dato. Sin servidor. Sin seguimiento. Solo una ventana filtrada a Instagram, como siempre debió haber sido.',
@@ -1480,14 +1517,14 @@ const translations = {
     toggle_on_stories: "Per storie davvero scelte.",
     toggle_on_scroll: "Per riprendere il controllo del tuo tempo.",
     screens_label: "L'app in immagini",
-    screens_title: "Vedi la differenza <em>tu stesso</em>.",
+    screens_title: "Vedi la differenza<br><em>tu stesso</em>.",
     s1_title: "Zero pubblicità nel tuo feed",
-    s1_desc: "Authentique nasconde automaticamente tutti i post sponsorizzati, suggerimenti algoritmici e repost indesiderati.",
+    s1_desc: "Nascondi i post sponsorizzati, i suggerimenti algoritmici e/o i repost indesiderati — indipendentemente l'uno dall'altro.",
     s2_title: "Scheda Cerca pulita",
-    s2_desc: "La griglia di suggerimenti algoritmici sparisce. Resta solo la barra di ricerca — così cerchi quello che TU vuoi trovare.",
+    s2_desc: "La griglia di suggerimenti algoritmici sparisce. Resta solo la barra di ricerca — così cerchi quello che TU vuoi trovare. Questa opzione può essere attivata o disattivata in qualsiasi momento secondo le tue preferenze.",
     s3_title: "Reels e storie protetti",
     s3_desc: "La scheda Reels mostra un messaggio onesto. Le storie sponsorizzate sono bloccate. Vedi solo ciò che viene davvero dai tuoi amici.",
-    s4_title: "Tu controlli tutto",
+    s4_title: 'Tu controlli <span class="authentique-gradient-text">tutto</span>',
     s4_desc: "Ogni filtro è configurabile dalla schermata Impostazioni. Attiva o disattiva ciò che vuoi, quando vuoi.",
     philosophy_quote: '"I social media dovrebbero connetterti ai tuoi amici, non <em>allontanarti</em> da loro."',
     philosophy_text: "Authentique non raccoglie nessun dato. Nessun server. Nessun tracciamento. Solo una finestra filtrata su Instagram, come avrebbe sempre dovuto essere.",
@@ -1549,14 +1586,14 @@ const translations = {
     toggle_on_stories: "Para stories verdadeiramente escolhidas.",
     toggle_on_scroll: "Para retomar o controle do seu tempo.",
     screens_label: "A app em imagens",
-    screens_title: "Vê a diferença <em>por ti próprio</em>.",
+    screens_title: "Vê a diferença<br><em>por ti próprio</em>.",
     s1_title: "Zero publicidade no teu feed",
-    s1_desc: "O Authentique oculta automaticamente todos os posts patrocinados, sugestões algorítmicas e reposts indesejados.",
+    s1_desc: "Oculta os posts patrocinados, as sugestões algorítmicas e/ou os reposts indesejados — independentemente uns dos outros.",
     s2_title: "Separador Pesquisa limpo",
-    s2_desc: "A grelha de sugestões algorítmicas desaparece. Só fica a barra de pesquisa — para que pesquises o que TU queres encontrar.",
+    s2_desc: "A grelha de sugestões algorítmicas desaparece. Só fica a barra de pesquisa — para que pesquises o que TU queres encontrar. Esta opção pode ser ativada ou desativada a qualquer momento de acordo com as tuas preferências.",
     s3_title: "Reels e stories protegidos",
     s3_desc: "O separador Reels mostra uma mensagem honesta. Os stories patrocinados estão bloqueados. Só vês o que vem realmente dos teus amigos.",
-    s4_title: "Tu controlas tudo",
+    s4_title: 'Tu controlas <span class="authentique-gradient-text">tudo</span>',
     s4_desc: "Cada filtro é configurável a partir do ecrã Definições. Ativa ou desativa o que quiseres, quando quiseres.",
     philosophy_quote: '"As redes sociais deviam conectar-te aos teus amigos, não <em>afastar-te</em> deles."',
     philosophy_text: "O Authentique não recolhe nenhum dado. Sem servidor. Sem rastreio. Apenas uma janela filtrada para o Instagram, como sempre deveria ter sido.",
@@ -1618,14 +1655,14 @@ const translations = {
     toggle_on_stories: "Для действительно выбранных историй.",
     toggle_on_scroll: "Чтобы вернуть контроль над своим временем.",
     screens_label: "Приложение в картинках",
-    screens_title: "Увидь разницу <em>сам</em>.",
+    screens_title: "Увидь разницу<br><em>сам</em>.",
     s1_title: "Ноль рекламы в ленте",
-    s1_desc: "Authentique автоматически скрывает все спонсированные посты, алгоритмические рекомендации и нежелательные репосты.",
+    s1_desc: "Скрывай спонсированные посты, алгоритмические рекомендации и/или нежелательные репосты — независимо друг от друга.",
     s2_title: "Чистая вкладка Поиск",
-    s2_desc: "Сетка алгоритмических рекомендаций исчезает. Остаётся только строка поиска.",
+    s2_desc: "Сетка алгоритмических рекомендаций исчезает. Остаётся только строка поиска. Эту опцию можно включить или отключить в любой момент по своему усмотрению.",
     s3_title: "Reels и истории защищены",
     s3_desc: "Вкладка Reels показывает честное сообщение. Спонсированные истории заблокированы.",
-    s4_title: "Ты контролируешь всё",
+    s4_title: 'Ты контролируешь <span class="authentique-gradient-text">всё</span>',
     s4_desc: "Каждый фильтр настраивается в экране Настроек. Включай или выключай что хочешь.",
     philosophy_quote: '"Социальные сети должны соединять тебя с друзьями, а не <em>отдалять</em> от них."',
     philosophy_text: 'Authentique не собирает данных. Никаких серверов. Никакой слежки. Только отфильтрованное окно в Instagram, каким он всегда должен был быть.',
@@ -1694,7 +1731,7 @@ function wrapAuthentiqueOccurrences() {
         var span = document.createElement('span');
         span.innerHTML = node.textContent.replace(
           /Authentique/g,
-          '<span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span>'
+          '<span class="authentique-name" style="font-family:GrosVentre,sans-serif">Authentique</span>'
         );
         node.parentNode.replaceChild(span, node);
       }
@@ -1709,6 +1746,55 @@ function wrapAuthentiqueOccurrences() {
 }
 
 document.addEventListener('DOMContentLoaded', wrapAuthentiqueOccurrences);
+
+// Fleche scroll du hero : disparait apres 100px de scroll. Au clic,
+// scroll smooth vers la section suivante.
+(function () {
+  var arrow = document.querySelector('.hero-scroll');
+  if (!arrow) return;
+  arrow.addEventListener('click', function () {
+    var next = document.querySelector('.section-problem');
+    if (next) next.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  window.addEventListener('scroll', function () {
+    arrow.classList.toggle('is-hidden', window.scrollY > 100);
+  }, { passive: true });
+})();
+
+// Toggles automatiques de la section Features. Les inputs sont
+// pilotes en JS, l'utilisateur ne peut pas cliquer (pointer-events
+// none). Cycle : ON 2.5s -> OFF 1.5s -> autre carte aleatoire.
+(function () {
+  var cards = Array.prototype.slice.call(
+    document.querySelectorAll('.section-features .feature-card')
+  );
+  if (cards.length === 0) return;
+  var inputs = cards
+    .map(function (c) { return c.querySelector('input[type="checkbox"]'); })
+    .filter(Boolean);
+  if (inputs.length === 0) return;
+  var lastIndex = -1;
+  function pickNext() {
+    if (inputs.length === 1) return 0;
+    var i;
+    do { i = Math.floor(Math.random() * inputs.length); }
+    while (i === lastIndex);
+    return i;
+  }
+  function cycle() {
+    var idx = pickNext();
+    lastIndex = idx;
+    var input = inputs[idx];
+    input.checked = true;
+    setTimeout(function () {
+      input.checked = false;
+      setTimeout(cycle, 1500);
+    }, 2500);
+  }
+  // Demarre apres un court delai pour laisser le reveal initial
+  // jouer avant la premiere bascule.
+  setTimeout(cycle, 1200);
+})();
 
 // Ajuste le font-size de la 2e ligne du titre hero pour qu'elle
 // soit <= largeur de la 1ere ligne. Decremente par pas de 0.5px
