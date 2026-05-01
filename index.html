@@ -698,20 +698,21 @@ section { padding: 120px 24px; }
   will-change: transform;
 }
 
-/* Strip "X éléments masqués" — replique du composant HiddenBadge.tsx
-   natif de l'app. Fond #0c0f14, texte #19d382, posée tout en bas
-   du mockup droit s1. Le feed laisse 26px en bas pour la bande. */
-.iphone-screen--counter .phone-feed { bottom: 26px; }
+/* Strip "X éléments masqués" — inspirée du composant HiddenBadge.tsx
+   natif de l'app. Fond #0c0f14, texte #19d382. Remontée de 8px du
+   bas du mockup pour respirer, font 13px pour la lisibilité depuis
+   la landing. Le feed s'arrête au-dessus (36px = 8px gap + 28 strip). */
+.iphone-screen--counter .phone-feed { bottom: 36px; }
 .iphone-hidden-strip {
   position: absolute;
-  bottom: 0;
+  bottom: 8px;
   left: 0;
   width: 100%;
-  height: 26px;
+  height: 28px;
   background: #0c0f14;
   border-top: 1px solid #1a1f29;
   color: #19d382;
-  font: 500 12px/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font: 500 13px/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   letter-spacing: 0.3px;
   display: flex;
   align-items: center;
@@ -1544,6 +1545,7 @@ const translations = {
     cta_thanks: "Merci pour ton intérêt et ton soutien. Chaque contribution nous aide à construire l'app que Instagram aurait dû être.",
     cta_prompt: "Tu as une idée, une question ou une suggestion ? On veut l'entendre.",
     cta_email_line: 'ou écris-nous directement à <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
+    hidden_count_format: "{n} éléments masqués",
     faq_label: "FAQ",
     faq_title: "Questions fréquentes",
     faq_q1: "Comment fonctionne Authentique ?",
@@ -1631,6 +1633,7 @@ const translations = {
     cta_thanks: "Thank you for your interest and support. Every contribution helps us build the app Instagram should have been.",
     cta_prompt: "Got an idea, a question or a suggestion? We want to hear it.",
     cta_email_line: 'or write to us directly at <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
+    hidden_count_format: "{n} items hidden",
     faq_label: "FAQ",
     faq_title: "Frequently asked questions",
     faq_q1: "How does Authentique work?",
@@ -1718,6 +1721,7 @@ const translations = {
     cta_thanks: "Gracias por tu interés y tu apoyo. Cada contribución nos ayuda a construir la app que Instagram debería haber sido.",
     cta_prompt: "¿Tienes una idea, una pregunta o una sugerencia? Queremos escucharla.",
     cta_email_line: 'o escríbenos directamente a <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
+    hidden_count_format: "{n} elementos ocultos",
     faq_label: "FAQ",
     faq_title: "Preguntas frecuentes",
     faq_q1: "¿Cómo funciona Authentique?",
@@ -1805,6 +1809,7 @@ const translations = {
     cta_thanks: "Grazie per il tuo interesse e il tuo supporto. Ogni contributo ci aiuta a costruire l'app che Instagram avrebbe dovuto essere.",
     cta_prompt: "Hai un'idea, una domanda o un suggerimento? Vogliamo sentirlo.",
     cta_email_line: 'oppure scrivici direttamente a <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
+    hidden_count_format: "{n} elementi nascosti",
     faq_label: "FAQ",
     faq_title: "Domande frequenti",
     faq_q1: "Come funziona Authentique?",
@@ -1892,6 +1897,7 @@ const translations = {
     cta_thanks: "Obrigado pelo teu interesse e apoio. Cada contribuição ajuda-nos a construir a app que o Instagram devia ter sido.",
     cta_prompt: "Tens uma ideia, uma pergunta ou uma sugestão? Queremos ouvi-la.",
     cta_email_line: 'ou escreve-nos diretamente para <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
+    hidden_count_format: "{n} elementos ocultados",
     faq_label: "FAQ",
     faq_title: "Perguntas frequentes",
     faq_q1: "Como funciona o Authentique?",
@@ -1979,6 +1985,7 @@ const translations = {
     cta_thanks: "Спасибо за интерес и поддержку. Каждый вклад помогает нам создать приложение, которым должен был быть Instagram.",
     cta_prompt: "У тебя есть идея, вопрос или предложение? Мы хотим услышать.",
     cta_email_line: 'или напиши нам напрямую на <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
+    hidden_count_format: "{n} элементов скрыто",
     faq_label: "FAQ",
     faq_title: "Часто задаваемые вопросы",
     faq_q1: "Как работает Authentique?",
@@ -2025,6 +2032,10 @@ function setLang(lang) {
   // existantes gardent leur layout, seul le texte est remplace).
   if (typeof window.__authUpdateScrollLabels === 'function') {
     window.__authUpdateScrollLabels(lang);
+  }
+  // Strip "X éléments masqués" du mockup droit s1.
+  if (typeof window.__authUpdateHiddenStrip === 'function') {
+    window.__authUpdateHiddenStrip();
   }
   // La ligne 2 du titre vient d'etre re-injectee via innerHTML —
   // re-mesurer pour qu'elle matche toujours la largeur de la ligne 1.
@@ -2090,7 +2101,7 @@ function submitSuggestion(e) {
   arrow.addEventListener('click', function () {
     var section = document.querySelector('#section-problem');
     if (!section) return;
-    var offset = section.getBoundingClientRect().top + window.scrollY;
+    var offset = section.getBoundingClientRect().top + window.scrollY - 200;
     window.scrollTo({ top: offset, behavior: 'smooth' });
   });
   window.addEventListener('scroll', function () {
@@ -2443,10 +2454,10 @@ document.querySelectorAll('.reveal').forEach(el => {
   };
 })();
 
-// Strip "X élément(s) masqué(s)" sur le mockup droit s1. Replique
-// du composant HiddenBadge.tsx natif. Demarre a 0 quand le strip
+// Strip "X éléments masqués" sur le mockup droit s1. Replique du
+// composant HiddenBadge.tsx natif. Demarre a 0 quand le strip
 // entre dans le viewport, +1 toutes les 2s, jusqu'a 47, puis reset.
-// Pluralisation FR : 0/1 -> "élément masqué", 2+ -> "éléments masqués".
+// Le format vient de translations[lang].hidden_count_format ({n} = compteur).
 (function () {
   var strip = document.querySelector('[data-hidden-strip]');
   if (!strip) return;
@@ -2454,17 +2465,23 @@ document.querySelectorAll('.reveal').forEach(el => {
   var max = 47;
   var intervalMs = 2000;
   function fmt(n) {
-    var plural = n > 1 ? 's' : '';
-    return n + ' élément' + plural + ' masqué' + plural;
+    var lang = (typeof currentLang !== 'undefined' && currentLang) ? currentLang : 'fr';
+    var t = (translations && (translations[lang] || translations.fr)) || {};
+    var template = t.hidden_count_format || '{n} éléments masqués';
+    return template.replace('{n}', n);
   }
-  strip.textContent = fmt(0);
+  function render() { strip.textContent = fmt(current); }
+  render();
+  // Hook expose pour que setLang() puisse re-rendre le strip
+  // dans la nouvelle langue sans attendre le prochain tick.
+  window.__authUpdateHiddenStrip = render;
   var started = false;
   function start() {
     if (started) return;
     started = true;
     setInterval(function () {
       current = current >= max ? 0 : current + 1;
-      strip.textContent = fmt(current);
+      render();
     }, intervalMs);
   }
   if (typeof IntersectionObserver === 'function') {
