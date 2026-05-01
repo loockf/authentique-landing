@@ -3092,7 +3092,25 @@ document.querySelectorAll('.reveal').forEach(el => {
     }
     setSegmentDuration(duration);
 
+    let prevIdx = -1;
     function activate(i) {
+      // Sens unique gauche -> droite : a chaque wrap (last index -> 0),
+      // on remet TOUTES les cartes a leur position par defaut (off-right)
+      // SANS transition. La carte 0 entre ainsi de la droite, jamais de
+      // la gauche. Sans ce reset, la carte qui etait .is-past glisserait
+      // depuis la gauche pour redevenir .is-current.
+      const isWrap = prevIdx === cards.length - 1 && i === 0;
+      if (isWrap) {
+        cards.forEach(c => {
+          c.style.transition = 'none';
+          c.classList.remove('is-current', 'is-past');
+        });
+        // Force reflow pour figer l'etat sans transition.
+        void screen.offsetWidth;
+        // Restore transitions (next frame)
+        cards.forEach(c => { c.style.transition = ''; });
+      }
+
       cards.forEach((c, j) => {
         c.classList.remove('is-current', 'is-past');
         if (j === i) c.classList.add('is-current');
@@ -3111,6 +3129,7 @@ document.querySelectorAll('.reveal').forEach(el => {
           s.classList.add('is-done');
         }
       });
+      prevIdx = i;
     }
 
     activate(0);
