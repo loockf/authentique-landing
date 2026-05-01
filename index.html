@@ -564,15 +564,18 @@ section { padding: 120px 24px; position: relative; }
   flex-direction: column;
   flex: 1;
 }
-/* wellbeing-top : flex:1 + space-between → header en HAUT (position
-   d'origine, restauree) + cartes en BAS, juste au-dessus du <hr>. */
+/* wellbeing-top : flex:1 + flex-start (header pin top) + margin
+   auto sur .ally-grid (en CSS ci-dessous) → header reste en haut,
+   cartes centrees verticalement dans l'espace disponible entre le
+   header et la ligne grise. */
 .wellbeing-top {
   width: 100%;
   display: flex;
   flex-direction: column;
   flex: 1;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
+.section-wellbeing .ally-grid { margin: auto 0; }
 /* philosophy-inner : flex:1 + center pour occuper l'espace entre
    le <hr> et le bouton scroll, centre verticalement. */
 .section-wellbeing .philosophy-inner {
