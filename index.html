@@ -1184,13 +1184,16 @@ section { padding: 120px 24px; position: relative; }
 }
 .philosophy-inner p { color: var(--text-soft); font-size: 14px; max-width: 540px; margin: 0 auto; line-height: 1.5; }
 
-/* FINAL CTA — titre en haut, le reste pousse vers le bas via
-   margin-top: auto sur cta-thanks (premier element apres h2). */
+/* FINAL CTA — 100vh strict. Layout : top-half (h2 + thanks + button)
+   + hr (centre vertical, 50% via flex:1 sur les deux moities) +
+   bottom-half (prompt + form + email). HR est pile au milieu car
+   les deux halves ont flex:1 (taille egale). Top et bottom group
+   centrent leur contenu. */
 .section-cta {
   background: var(--bg);
-  padding: 48px 24px 120px;
+  padding: 48px 24px 100px;
   text-align: center;
-  min-height: 100vh;
+  height: 100vh;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -1203,30 +1206,52 @@ section { padding: 120px 24px; position: relative; }
   flex-direction: column;
   flex: 1;
 }
-.cta-inner h2 {
-  margin: 0 0 36px;
+.cta-top-half,
+.cta-bottom-half {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cta-top-half h2 {
+  margin: 0;
+  padding-top: 64px;
   font-size: clamp(36px, 5.5vw, 64px);
   line-height: 1.1;
+  flex-shrink: 0;
+}
+.cta-top-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
 }
 .cta-thanks {
   color: var(--text-soft);
   font-size: 17px;
   line-height: 1.55;
-  margin-top: auto;
-  margin-bottom: 56px;
+  margin: 0;
 }
-.cta-action { margin-bottom: 56px; }
+.cta-action { margin: 0; }
 .cta-separator {
   border: none;
   border-top: 1px solid #d0d0cc;
   width: 60%;
-  margin: 56px auto;
+  margin: 0 auto;
+  flex-shrink: 0;
+}
+.cta-bottom-half {
+  justify-content: center;
+  gap: 24px;
 }
 .cta-prompt {
   color: var(--text-soft);
   font-size: 17px;
   line-height: 1.55;
-  margin-bottom: 32px;
+  margin: 0;
 }
 .cta-email-line {
   margin-top: 18px;
@@ -1896,32 +1921,38 @@ footer {
 <!-- FINAL CTA -->
 <section class="section-cta" id="cta">
   <div class="cta-inner">
-    <h2 class="reveal" data-i18n="cta_title">On construit<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;ensemble.</h2>
-    <p class="cta-thanks reveal" data-i18n="cta_thanks">Merci pour ton intérêt et ton soutien. Chaque contribution nous aide à construire l'app que Instagram aurait dû être.</p>
-    <div class="cta-action reveal">
-      <a href="#" class="btn-primary">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M5 4h3.5v6.5L13 4h4.2l-5.4 8 5.7 8h-4.4L8.5 13.4V20H5z"/>
-        </svg>
-        <span data-i18n="hero_cta">Soutenir sur Kickstarter</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
-      </a>
+    <div class="cta-top-half">
+      <h2 class="reveal" data-i18n="cta_title">On construit<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;ensemble.</h2>
+      <div class="cta-top-group">
+        <p class="cta-thanks reveal" data-i18n="cta_thanks">Merci pour ton intérêt et ton soutien. Chaque contribution nous aide à construire l'app que Instagram aurait dû être.</p>
+        <div class="cta-action reveal">
+          <a href="#" class="btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M5 4h3.5v6.5L13 4h4.2l-5.4 8 5.7 8h-4.4L8.5 13.4V20H5z"/>
+            </svg>
+            <span data-i18n="hero_cta">Soutenir sur Kickstarter</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
     </div>
     <hr class="cta-separator reveal" aria-hidden="true">
-    <p class="cta-prompt reveal" data-i18n="cta_prompt">Tu as une idée, une question ou une suggestion ? On veut l'entendre.</p>
-    <form class="suggest-form reveal" id="suggestForm" onsubmit="return submitSuggestion(event)">
-      <textarea class="suggest-textarea" id="suggestText" rows="4" data-i18n-placeholder="suggest_placeholder" placeholder="Ton idée ou suggestion..." required></textarea>
-      <button type="submit" class="btn-primary suggest-btn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="22" y1="2" x2="11" y2="13"/>
-          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-        </svg>
-        <span data-i18n="suggest_btn">Envoyer</span>
-      </button>
-    </form>
-    <p class="cta-email-line reveal" data-i18n="cta_email_line">ou écris-nous directement à <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a></p>
+    <div class="cta-bottom-half">
+      <p class="cta-prompt reveal" data-i18n="cta_prompt">Tu as une idée, une question ou une suggestion ? On veut l'entendre.</p>
+      <form class="suggest-form reveal" id="suggestForm" onsubmit="return submitSuggestion(event)">
+        <textarea class="suggest-textarea" id="suggestText" rows="4" data-i18n-placeholder="suggest_placeholder" placeholder="Ton idée ou suggestion..." required></textarea>
+        <button type="submit" class="btn-primary suggest-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+          <span data-i18n="suggest_btn">Envoyer</span>
+        </button>
+      </form>
+      <p class="cta-email-line reveal" data-i18n="cta_email_line">ou écris-nous directement à <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a></p>
+    </div>
     <button class="section-scroll" data-scroll-to="#faq" aria-label="Section suivante" type="button">
       <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="6 9 12 15 18 9"/>
