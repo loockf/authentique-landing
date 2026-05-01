@@ -44,6 +44,13 @@ Lire ce fichier avant chaque modif pour éviter les ré-explorations inutiles.
 - `.pain-label` — texte du pain (data-i18n: pain1..pain6)
 - `.phone-mockup` / `.phone-frame` / `.phone-notch` / `.phone-screen` — mockup iPhone côté droit
 - `.phone-feed` / `.phone-feed-track` — conteneurs du faux feed scrollant (cartes injectées en JS)
+- `.problem-stats` / `.problem-stat` — bloc full-width sous la grille avec 2 statistiques choc (fond #e8e8e4, italique, `<strong>` en vert)
+
+### Section Ally / bien-être (`section.section-ally`, après Features)
+- `.ally-inner` / `.ally-header` / `.ally-grid` — wrapper + header + grille 3 colonnes
+- `.ally-card` — carte fond clair, texte centré, icône ronde au-dessus
+- `.ally-icon` — cercle 56×56 avec SVG en `url(#authGrad)` (cerveau / horloge / cœur)
+- Clés data-i18n : `ally_label`, `ally_title` (avec `<span class="authentique-gradient-text">`), `ally_card1..3_title`/`_desc`
 
 ### Section Features (`section.section-features`, ligne 839)
 - `.features-inner` — wrapper centré
@@ -181,12 +188,13 @@ Wrapper JS auto sur le mot « Authentique » : `wrapAuthentiqueOccurrences()` (D
 | 2 | Hero | `section.hero` | top |
 | 3 | Problème | `section.section-problem` | — |
 | 4 | Features (« Conçu pour te libérer ») | `section.section-features` | — |
-| 5 | Screens (« L'app en images ») | `section.section-screens` | — |
-| 6 | Suggest (« Et ce n'est que le début. ») | `section.section-suggest` | — |
-| 7 | Philosophie | `section.section-philosophy` | — |
-| 8 | CTA finale | `section.section-cta` | `#cta` |
-| 9 | FAQ | `section.section-faq` | `#faq` |
-| 10 | Footer | `<footer>` | — |
+| 5 | Ally (« Authentique, ton allié... ») | `section.section-ally` | — |
+| 6 | Screens (« L'app en images ») | `section.section-screens` | — |
+| 7 | Suggest (« Et ce n'est que le début. ») | `section.section-suggest` | — |
+| 8 | Philosophie | `section.section-philosophy` | — |
+| 9 | CTA finale | `section.section-cta` | `#cta` |
+| 10 | FAQ (8 items) | `section.section-faq` | `#faq` |
+| 11 | Footer | `<footer>` | — |
 
 ### Navigation interne
 - Lien retour haut : `<a href="#">` (logo nav + footer)

@@ -319,6 +319,28 @@ section { padding: 120px 24px; }
   gap: 60px;
   align-items: center;
 }
+.problem-stats {
+  max-width: 760px;
+  margin: 80px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.problem-stat {
+  background: #e8e8e4;
+  border-radius: 16px;
+  padding: 24px 28px;
+  font-style: italic;
+  font-size: clamp(17px, 2vw, 20px);
+  line-height: 1.5;
+  color: #141414;
+  text-align: center;
+}
+.problem-stat strong {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--green);
+}
 .problem-text {
   display: flex;
   flex-direction: column;
@@ -479,6 +501,43 @@ section { padding: 120px 24px; }
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+/* ALLY (digital wellbeing) */
+.section-ally { background: var(--white); padding: 100px 24px; }
+.ally-inner { max-width: 1100px; margin: 0 auto; }
+.ally-header { text-align: center; max-width: 720px; margin: 0 auto 56px; }
+.ally-header h2 {
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.2;
+  letter-spacing: -0.4px;
+}
+.ally-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.ally-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ally-icon {
+  width: 56px; height: 56px;
+  background: rgba(25,211,130,0.1);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px;
+}
+.ally-card h3 { font-size: 19px; margin-bottom: 8px; color: var(--text); }
+.ally-card p { color: var(--text-soft); font-size: 15px; line-height: 1.5; }
+@media (max-width: 820px) {
+  .ally-grid { grid-template-columns: 1fr; }
 }
 
 /* FEATURES */
@@ -1017,6 +1076,10 @@ footer {
       </div>
     </div>
   </div>
+  <div class="problem-stats">
+    <p class="problem-stat reveal" data-i18n="problem_stat1">En moyenne, on consulte son téléphone <strong>96 fois par jour</strong>. Instagram est conçu pour en capturer le maximum.</p>
+    <p class="problem-stat reveal" data-i18n="problem_stat2">Le scroll infini a été inventé pour qu'on ne s'arrête jamais. <strong>Il n'y a pas de fin — c'est voulu.</strong></p>
+  </div>
 </section>
 
 <!-- FEATURES -->
@@ -1124,6 +1187,50 @@ footer {
           </div>
           <div class="card-on" data-i18n="toggle_on_scroll">Pour reprendre le contrôle de ton temps.</div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ALLY (digital wellbeing) -->
+<section class="section-ally">
+  <div class="ally-inner">
+    <div class="ally-header reveal">
+      <p class="section-label" data-i18n="ally_label">Bien-être numérique</p>
+      <h2 data-i18n="ally_title">Authentique, ton allié contre l'<span class="authentique-gradient-text">addiction digitale</span>.</h2>
+    </div>
+    <div class="ally-grid">
+      <div class="ally-card reveal">
+        <div class="ally-icon">
+          <!-- Cerveau stylise : silhouette gyrus simple -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9.5 4.5a2.5 2.5 0 0 1 2.5 2.5v10a2.5 2.5 0 0 1-5 0 2 2 0 0 1-2-2 2 2 0 0 1-1-3.5 2 2 0 0 1 1-3.5 2 2 0 0 1 2-2 2.5 2.5 0 0 1 2.5-1.5z"/>
+            <path d="M14.5 4.5a2.5 2.5 0 0 0-2.5 2.5v10a2.5 2.5 0 0 0 5 0 2 2 0 0 0 2-2 2 2 0 0 0 1-3.5 2 2 0 0 0-1-3.5 2 2 0 0 0-2-2 2.5 2.5 0 0 0-2.5-1.5z"/>
+          </svg>
+        </div>
+        <h3 data-i18n="ally_card1_title">Moins de stimulation</h3>
+        <p data-i18n="ally_card1_desc">Sans pubs ni suggestions, ton cerveau respire enfin.</p>
+      </div>
+      <div class="ally-card reveal" style="transition-delay: 0.08s">
+        <div class="ally-icon">
+          <!-- Horloge -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/>
+            <polyline points="12 7 12 12 15 14"/>
+          </svg>
+        </div>
+        <h3 data-i18n="ally_card2_title">Moins de temps perdu</h3>
+        <p data-i18n="ally_card2_desc">Tu vois ce que tu veux, tu pars quand tu veux.</p>
+      </div>
+      <div class="ally-card reveal" style="transition-delay: 0.16s">
+        <div class="ally-icon">
+          <!-- Coeur -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </div>
+        <h3 data-i18n="ally_card3_title">Plus de liens vrais</h3>
+        <p data-i18n="ally_card3_desc">Tes amis, ta famille, les comptes que tu as vraiment choisis.</p>
       </div>
     </div>
   </div>
@@ -1315,6 +1422,10 @@ footer {
         <summary data-i18n="faq_q7">L'expérience est-elle identique à l'app Instagram ?</summary>
         <p data-i18n="faq_a7">Authentique fonctionne via la version web d'Instagram. L'expérience est similaire à celle d'instagram.com dans un navigateur. Certaines fonctionnalités de l'app native (comme les effets de caméra Stories ou certaines animations) peuvent différer ou ne pas être disponibles.</p>
       </details>
+      <details class="faq-item reveal">
+        <summary data-i18n="faq_q8">Authentique peut-il m'aider à moins dépendre d'Instagram ?</summary>
+        <p data-i18n="faq_a8">Oui. En supprimant le contenu conçu pour te garder — publicités, suggestions algorithmiques, scroll infini — Authentique réduit les mécanismes d'addiction intégrés par Meta. Tu restes maître de ce que tu consommes et du temps que tu y passes.</p>
+      </details>
     </div>
   </div>
 </section>
@@ -1354,6 +1465,16 @@ const translations = {
     pain4: "Doom-scrolling",
     pain5: "Perte de temps",
     pain6: "Anxiété numérique",
+    problem_stat1: "En moyenne, on consulte son téléphone <strong>96 fois par jour</strong>. Instagram est conçu pour en capturer le maximum.",
+    problem_stat2: "Le scroll infini a été inventé pour qu'on ne s'arrête jamais. <strong>Il n'y a pas de fin — c'est voulu.</strong>",
+    ally_label: "Bien-être numérique",
+    ally_title: 'Authentique, ton allié contre l\'<span class="authentique-gradient-text">addiction digitale</span>.',
+    ally_card1_title: "Moins de stimulation",
+    ally_card1_desc: "Sans pubs ni suggestions, ton cerveau respire enfin.",
+    ally_card2_title: "Moins de temps perdu",
+    ally_card2_desc: "Tu vois ce que tu veux, tu pars quand tu veux.",
+    ally_card3_title: "Plus de liens vrais",
+    ally_card3_desc: "Tes amis, ta famille, les comptes que tu as vraiment choisis.",
     platforms_caption: "Bientôt disponible sur :",
     features_label: "Ce qu'Authentique fait",
     features_title: "Conçu pour te <em>libérer</em>.",
@@ -1407,6 +1528,8 @@ const translations = {
     faq_a6: "Authentique fonctionne comme un navigateur web (comme Safari ou Chrome). Nous n'accédons pas à l'API privée d'Instagram ni ne modifions l'application. Notre approche est similaire à celle d'autres navigateurs spécialisés disponibles sur l'App Store.",
     faq_q7: "L'expérience est-elle identique à l'app Instagram ?",
     faq_a7: "Authentique fonctionne via la version web d'Instagram. L'expérience est similaire à celle d'instagram.com dans un navigateur. Certaines fonctionnalités de l'app native (comme les effets de caméra Stories ou certaines animations) peuvent différer ou ne pas être disponibles.",
+    faq_q8: "Authentique peut-il m'aider à moins dépendre d'Instagram ?",
+    faq_a8: "Oui. En supprimant le contenu conçu pour te garder — publicités, suggestions algorithmiques, scroll infini — Authentique réduit les mécanismes d'addiction intégrés par Meta. Tu restes maître de ce que tu consommes et du temps que tu y passes.",
     suggest_title: "Et ce n'est que le <em>début</em>.",
     suggest_sub: "De nouvelles fonctionnalités arrivent régulièrement. Tu as une idée ou une suggestion ? On veut l'entendre.",
     suggest_placeholder: "Ton idée ou suggestion...",
@@ -1429,6 +1552,16 @@ const translations = {
     pain4: "Doom-scrolling",
     pain5: "Wasted time",
     pain6: "Digital anxiety",
+    problem_stat1: "On average, we check our phones <strong>96 times a day</strong>. Instagram is designed to capture as many as possible.",
+    problem_stat2: "Infinite scroll was invented so we never stop. <strong>There is no end — it's by design.</strong>",
+    ally_label: "Digital wellbeing",
+    ally_title: 'Authentique, your ally against <span class="authentique-gradient-text">digital addiction</span>.',
+    ally_card1_title: "Less stimulation",
+    ally_card1_desc: "Without ads or suggestions, your brain finally breathes.",
+    ally_card2_title: "Less wasted time",
+    ally_card2_desc: "You see what you want, you leave when you want.",
+    ally_card3_title: "More real connections",
+    ally_card3_desc: "Your friends, your family, the accounts you actually chose.",
     platforms_caption: "Coming soon on:",
     features_label: "What Authentique does",
     features_title: "Designed to <em>free</em> you.",
@@ -1482,6 +1615,8 @@ const translations = {
     faq_a6: "Authentique works like a web browser (like Safari or Chrome). We don't access Instagram's private API nor modify the application. Our approach is similar to that of other specialized browsers available on the App Store.",
     faq_q7: "Is the experience identical to the Instagram app?",
     faq_a7: "Authentique works via Instagram's web version. The experience is similar to instagram.com in a browser. Some native app features (like Stories camera effects or certain animations) may differ or be unavailable.",
+    faq_q8: "Can Authentique help me depend less on Instagram?",
+    faq_a8: "Yes. By removing the content designed to keep you hooked — ads, algorithmic suggestions, infinite scroll — Authentique reduces the addiction mechanisms built in by Meta. You stay in control of what you consume and the time you spend on it.",
     suggest_title: "And this is just the <em>beginning</em>.",
     suggest_sub: "New features are coming regularly. Got an idea or a suggestion? We want to hear it.",
     suggest_placeholder: "Your idea or suggestion...",
@@ -1504,6 +1639,16 @@ const translations = {
     pain4: "Doom-scrolling",
     pain5: "Pérdida de tiempo",
     pain6: "Ansiedad digital",
+    problem_stat1: "En promedio, miramos el móvil <strong>96 veces al día</strong>. Instagram está diseñado para captar el máximo posible.",
+    problem_stat2: "El scroll infinito se inventó para que nunca paremos. <strong>No hay fin — es deliberado.</strong>",
+    ally_label: "Bienestar digital",
+    ally_title: 'Authentique, tu aliado contra la <span class="authentique-gradient-text">adicción digital</span>.',
+    ally_card1_title: "Menos estimulación",
+    ally_card1_desc: "Sin anuncios ni sugerencias, tu cerebro por fin respira.",
+    ally_card2_title: "Menos tiempo perdido",
+    ally_card2_desc: "Ves lo que quieres, te vas cuando quieres.",
+    ally_card3_title: "Más vínculos reales",
+    ally_card3_desc: "Tus amigos, tu familia, las cuentas que realmente elegiste.",
     platforms_caption: "Próximamente en:",
     features_label: "Lo que hace Authentique",
     features_title: "Diseñado para <em>liberarte</em>.",
@@ -1557,6 +1702,8 @@ const translations = {
     faq_a6: "Authentique funciona como un navegador web (como Safari o Chrome). No accedemos a la API privada de Instagram ni modificamos la aplicación. Nuestro enfoque es similar al de otros navegadores especializados disponibles en la App Store.",
     faq_q7: "¿La experiencia es idéntica a la app de Instagram?",
     faq_a7: "Authentique funciona a través de la versión web de Instagram. La experiencia es similar a la de instagram.com en un navegador. Algunas funciones de la app nativa (como los efectos de cámara de Stories o ciertas animaciones) pueden diferir o no estar disponibles.",
+    faq_q8: "¿Puede Authentique ayudarme a depender menos de Instagram?",
+    faq_a8: "Sí. Al eliminar el contenido diseñado para mantenerte enganchado — anuncios, sugerencias algorítmicas, scroll infinito — Authentique reduce los mecanismos de adicción incorporados por Meta. Sigues siendo dueño de lo que consumes y del tiempo que dedicas.",
     suggest_title: "Y esto es solo el <em>comienzo</em>.",
     suggest_sub: "Nuevas funciones llegan regularmente. ¿Tienes una idea o sugerencia? Queremos escucharla.",
     suggest_placeholder: "Tu idea o sugerencia...",
@@ -1579,6 +1726,16 @@ const translations = {
     pain4: "Doom-scrolling",
     pain5: "Tempo perso",
     pain6: "Ansia digitale",
+    problem_stat1: "In media, controlliamo il telefono <strong>96 volte al giorno</strong>. Instagram è progettato per catturarne il più possibile.",
+    problem_stat2: "Lo scroll infinito è stato inventato perché non ci si fermi mai. <strong>Non c'è una fine — è intenzionale.</strong>",
+    ally_label: "Benessere digitale",
+    ally_title: 'Authentique, il tuo alleato contro la <span class="authentique-gradient-text">dipendenza digitale</span>.',
+    ally_card1_title: "Meno stimolazione",
+    ally_card1_desc: "Senza pubblicità né suggerimenti, il tuo cervello finalmente respira.",
+    ally_card2_title: "Meno tempo perso",
+    ally_card2_desc: "Vedi quello che vuoi, te ne vai quando vuoi.",
+    ally_card3_title: "Più legami veri",
+    ally_card3_desc: "I tuoi amici, la tua famiglia, gli account che hai davvero scelto.",
     platforms_caption: "Presto disponibile su:",
     features_label: "Cosa fa Authentique",
     features_title: "Pensato per <em>liberarti</em>.",
@@ -1632,6 +1789,8 @@ const translations = {
     faq_a6: "Authentique funziona come un browser web (come Safari o Chrome). Non accediamo all'API privata di Instagram né modifichiamo l'applicazione. Il nostro approccio è simile a quello di altri browser specializzati disponibili sull'App Store.",
     faq_q7: "L'esperienza è identica all'app Instagram?",
     faq_a7: "Authentique funziona tramite la versione web di Instagram. L'esperienza è simile a quella di instagram.com in un browser. Alcune funzioni dell'app nativa (come gli effetti fotocamera Stories o certe animazioni) possono differire o non essere disponibili.",
+    faq_q8: "Authentique può aiutarmi a dipendere meno da Instagram?",
+    faq_a8: "Sì. Eliminando i contenuti pensati per tenerti agganciato — pubblicità, suggerimenti algoritmici, scroll infinito — Authentique riduce i meccanismi di dipendenza integrati da Meta. Tu resti padrone di ciò che consumi e del tempo che vi dedichi.",
     suggest_title: "Ed è solo l'<em>inizio</em>.",
     suggest_sub: "Nuove funzionalità arrivano regolarmente. Hai un'idea o un suggerimento? Vogliamo sentirlo.",
     suggest_placeholder: "La tua idea o suggerimento...",
@@ -1654,6 +1813,16 @@ const translations = {
     pain4: "Doom-scrolling",
     pain5: "Tempo perdido",
     pain6: "Ansiedade digital",
+    problem_stat1: "Em média, consultamos o telemóvel <strong>96 vezes por dia</strong>. O Instagram foi concebido para capturar o máximo possível.",
+    problem_stat2: "O scroll infinito foi inventado para que nunca paremos. <strong>Não há um fim — é propositado.</strong>",
+    ally_label: "Bem-estar digital",
+    ally_title: 'Authentique, o teu aliado contra a <span class="authentique-gradient-text">dependência digital</span>.',
+    ally_card1_title: "Menos estímulos",
+    ally_card1_desc: "Sem anúncios nem sugestões, o teu cérebro finalmente respira.",
+    ally_card2_title: "Menos tempo perdido",
+    ally_card2_desc: "Vês o que queres, sais quando queres.",
+    ally_card3_title: "Mais ligações reais",
+    ally_card3_desc: "Os teus amigos, a tua família, as contas que realmente escolheste.",
     platforms_caption: "Em breve em:",
     features_label: "O que o Authentique faz",
     features_title: "Concebido para te <em>libertar</em>.",
@@ -1707,6 +1876,8 @@ const translations = {
     faq_a6: "O Authentique funciona como um navegador web (como o Safari ou Chrome). Não acedemos à API privada do Instagram nem modificamos a aplicação. A nossa abordagem é semelhante à de outros navegadores especializados disponíveis na App Store.",
     faq_q7: "A experiência é idêntica à app do Instagram?",
     faq_a7: "O Authentique funciona através da versão web do Instagram. A experiência é semelhante à do instagram.com num navegador. Algumas funcionalidades da app nativa (como efeitos de câmara nos Stories ou certas animações) podem diferir ou não estar disponíveis.",
+    faq_q8: "O Authentique pode ajudar-me a depender menos do Instagram?",
+    faq_a8: "Sim. Ao remover o conteúdo concebido para te prender — anúncios, sugestões algorítmicas, scroll infinito — o Authentique reduz os mecanismos de dependência integrados pela Meta. Permaneces dono do que consomes e do tempo que dedicas.",
     suggest_title: "E isto é só o <em>começo</em>.",
     suggest_sub: "Novas funcionalidades chegam regularmente. Tens uma ideia ou sugestão? Queremos ouvi-la.",
     suggest_placeholder: "Sua ideia ou sugestão...",
@@ -1729,6 +1900,16 @@ const translations = {
     pain4: "Doom-скроллинг",
     pain5: "Потеря времени",
     pain6: "Цифровая тревожность",
+    problem_stat1: "В среднем, мы проверяем телефон <strong>96 раз в день</strong>. Instagram создан, чтобы захватить как можно больше.",
+    problem_stat2: "Бесконечная прокрутка была создана, чтобы мы никогда не останавливались. <strong>Конца нет — это сделано намеренно.</strong>",
+    ally_label: "Цифровое благополучие",
+    ally_title: 'Authentique — твой союзник против <span class="authentique-gradient-text">цифровой зависимости</span>.',
+    ally_card1_title: "Меньше стимуляции",
+    ally_card1_desc: "Без рекламы и рекомендаций твой мозг наконец дышит.",
+    ally_card2_title: "Меньше потерянного времени",
+    ally_card2_desc: "Видишь то, что хочешь, уходишь когда хочешь.",
+    ally_card3_title: "Больше настоящих связей",
+    ally_card3_desc: "Твои друзья, семья, аккаунты, которые ты действительно выбрал.",
     platforms_caption: "Скоро на:",
     features_label: "Что делает Authentique",
     features_title: "Создан, чтобы <em>освободить</em> тебя.",
@@ -1782,6 +1963,8 @@ const translations = {
     faq_a6: "Authentique работает как веб-браузер (как Safari или Chrome). Мы не получаем доступ к приватному API Instagram и не модифицируем приложение. Наш подход аналогичен другим специализированным браузерам, доступным в App Store.",
     faq_q7: "Идентичен ли опыт приложению Instagram?",
     faq_a7: "Authentique работает через веб-версию Instagram. Опыт похож на использование instagram.com в браузере. Некоторые функции нативного приложения (например, эффекты камеры в Stories или определённые анимации) могут отличаться или быть недоступными.",
+    faq_q8: "Может ли Authentique помочь мне меньше зависеть от Instagram?",
+    faq_a8: "Да. Удаляя контент, созданный чтобы держать тебя на крючке — рекламу, алгоритмические рекомендации, бесконечную прокрутку — Authentique снижает механизмы зависимости, встроенные Meta. Ты остаёшься хозяином того, что потребляешь и сколько времени на это тратишь.",
     suggest_title: "И это только <em>начало</em>.",
     suggest_sub: "Новые функции появляются регулярно. У тебя есть идея или предложение? Мы хотим услышать.",
     suggest_placeholder: "Твоя идея или предложение...",
