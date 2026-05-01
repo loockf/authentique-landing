@@ -504,7 +504,7 @@ section { padding: 120px 24px; }
 }
 
 /* ALLY (digital wellbeing) */
-.section-ally { background: var(--white); padding: 100px 24px; }
+.section-ally { background: var(--white); padding: 100px 24px 50px; }
 .ally-inner { max-width: 1100px; margin: 0 auto; }
 .ally-header { text-align: center; max-width: 720px; margin: 0 auto 56px; }
 .ally-header h2 { margin-bottom: 16px; }
@@ -857,64 +857,36 @@ section { padding: 120px 24px; }
   cursor: pointer;
 }
 
-/* PHILOSOPHY — section 100vh, contenu compact pour tout afficher
-   sans scroll. Logo + citation + separateur + 3 cards "Aucune
-   donnee / Aucun serveur / Aucun tracking". */
+/* PHILOSOPHY — restauration du texte original. Ligne grise au-dessus
+   du logo (juste apres la section Ally), entre les deux. */
 .section-philosophy {
   background: var(--white);
-  padding: 48px 24px;
+  padding: 60px 24px 120px;
   text-align: center;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.philosophy-inner { max-width: 720px; margin: 0 auto; width: 100%; }
-.philosophy-arch {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 24px;
-  width: 64px; height: 64px;
-}
-.philosophy-inner blockquote {
-  font-family: 'GrosVentre', -apple-system, sans-serif;
-  font-size: clamp(24px, 3.5vw, 38px);
-  line-height: 1.25;
-  color: var(--text);
-  letter-spacing: -0.3px;
-  margin-bottom: 12px;
-}
-.philosophy-tagline {
-  color: var(--text-soft);
-  font-size: 15px;
-  max-width: 540px;
-  margin: 0 auto;
 }
 .philosophy-separator {
   border: none;
   border-top: 1px solid #d0d0cc;
   width: 60%;
-  margin: 32px auto;
+  margin: 0 auto 32px;
 }
-.philosophy-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  max-width: 640px;
-  margin: 0 auto;
+.philosophy-inner { max-width: 720px; margin: 0 auto; }
+.philosophy-arch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 32px;
+  width: 80px; height: 80px;
 }
-.philosophy-card {
-  background: #f0f0ec;
-  border-radius: 14px;
-  padding: 18px 12px;
-  font: 600 15px/1.2 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+.philosophy-inner blockquote {
+  font-family: 'GrosVentre', -apple-system, sans-serif;
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.25;
   color: var(--text);
-  letter-spacing: 0.1px;
+  letter-spacing: -0.4px;
+  margin-bottom: 24px;
 }
-@media (max-width: 600px) {
-  .philosophy-cards { grid-template-columns: 1fr; gap: 10px; }
-}
+.philosophy-inner p { color: var(--text-soft); font-size: 17px; max-width: 540px; margin: 0 auto; }
 
 /* FINAL CTA */
 .section-cta {
@@ -1546,6 +1518,7 @@ footer {
 
 <!-- PHILOSOPHY -->
 <section class="section-philosophy">
+  <hr class="philosophy-separator" aria-hidden="true">
   <div class="philosophy-inner reveal">
     <span class="arch-icon philosophy-arch">
       <svg viewBox="0 0 200 200" fill="none">
@@ -1556,13 +1529,7 @@ footer {
     <blockquote data-i18n="philosophy_quote">
       "Les réseaux sociaux devraient te connecter à tes amis, pas t'<em>en éloigner</em>."
     </blockquote>
-    <p class="philosophy-tagline" data-i18n="philosophy_text">Juste une fenêtre filtrée sur Instagram, tel qu'il aurait toujours dû être.</p>
-    <hr class="philosophy-separator" aria-hidden="true">
-    <div class="philosophy-cards">
-      <div class="philosophy-card" data-i18n="philosophy_card1">Aucune donnée</div>
-      <div class="philosophy-card" data-i18n="philosophy_card2">Aucun serveur</div>
-      <div class="philosophy-card" data-i18n="philosophy_card3">Aucun tracking</div>
-    </div>
+    <p data-i18n="philosophy_text">Authentique ne collecte aucune donnée. Aucun serveur. Aucun tracking. Juste une fenêtre filtrée sur Instagram, tel qu'il aurait toujours dû être.</p>
   </div>
 </section>
 
@@ -1717,10 +1684,7 @@ const translations = {
     s4_title: 'Tu contrôles <span class="authentique-gradient-text">tout</span>.',
     s4_desc: "Chaque filtre est configurable depuis l'écran Paramètres. Active ou désactive ce que tu veux, quand tu veux.",
     philosophy_quote: '"Les réseaux sociaux devraient te connecter à tes amis, pas t\'<em>en éloigner</em>."',
-    philosophy_text: "Juste une fenêtre filtrée sur Instagram, tel qu'il aurait toujours dû être.",
-    philosophy_card1: "Aucune donnée",
-    philosophy_card2: "Aucun serveur",
-    philosophy_card3: "Aucun tracking",
+    philosophy_text: "Authentique ne collecte aucune donnée. Aucun serveur. Aucun tracking. Juste une fenêtre filtrée sur Instagram, tel qu'il aurait toujours dû être.",
     cta_title: 'On construit <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span> ensemble.',
     cta_thanks: "Merci pour ton intérêt et ton soutien. Chaque contribution nous aide à construire l'app que Instagram aurait dû être.",
     cta_prompt: "Tu as une idée, une question ou une suggestion ? On veut l'entendre.",
@@ -1808,10 +1772,7 @@ const translations = {
     s4_title: 'You control <span class="authentique-gradient-text">everything</span>.',
     s4_desc: "Every filter is configurable from the Settings screen. Enable or disable what you want, when you want.",
     philosophy_quote: '"Social media should connect you to your friends, not <em>push you away</em> from them."',
-    philosophy_text: "Just a filtered window on Instagram, as it should always have been.",
-    philosophy_card1: "No data",
-    philosophy_card2: "No server",
-    philosophy_card3: "No tracking",
+    philosophy_text: "Authentique collects no data. No server. No tracking. Just a filtered window into Instagram, as it should always have been.",
     cta_title: 'We are building <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span> together.',
     cta_thanks: "Thank you for your interest and support. Every contribution helps us build the app Instagram should have been.",
     cta_prompt: "Got an idea, a question or a suggestion? We want to hear it.",
@@ -1899,10 +1860,7 @@ const translations = {
     s4_title: 'Tú controlas <span class="authentique-gradient-text">todo</span>.',
     s4_desc: "Cada filtro es configurable desde la pantalla de Ajustes. Activa o desactiva lo que quieras.",
     philosophy_quote: '"Las redes sociales deberían conectarte con tus amigos, no <em>alejarte</em> de ellos."',
-    philosophy_text: "Solo una ventana filtrada a Instagram, como siempre debió haber sido.",
-    philosophy_card1: "Sin datos",
-    philosophy_card2: "Sin servidor",
-    philosophy_card3: "Sin rastreo",
+    philosophy_text: "Authentique no recopila ningún dato. Sin servidor. Sin seguimiento. Solo una ventana filtrada a Instagram, como siempre debió haber sido.",
     cta_title: 'Construimos <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span> juntos.',
     cta_thanks: "Gracias por tu interés y tu apoyo. Cada contribución nos ayuda a construir la app que Instagram debería haber sido.",
     cta_prompt: "¿Tienes una idea, una pregunta o una sugerencia? Queremos escucharla.",
@@ -1990,10 +1948,7 @@ const translations = {
     s4_title: 'Tu controlli <span class="authentique-gradient-text">tutto</span>.',
     s4_desc: "Ogni filtro è configurabile dalla schermata Impostazioni. Attiva o disattiva ciò che vuoi, quando vuoi.",
     philosophy_quote: '"I social media dovrebbero connetterti ai tuoi amici, non <em>allontanarti</em> da loro."',
-    philosophy_text: "Solo una finestra filtrata su Instagram, come avrebbe sempre dovuto essere.",
-    philosophy_card1: "Nessun dato",
-    philosophy_card2: "Nessun server",
-    philosophy_card3: "Nessun tracciamento",
+    philosophy_text: "Authentique non raccoglie nessun dato. Nessun server. Nessun tracciamento. Solo una finestra filtrata su Instagram, come avrebbe sempre dovuto essere.",
     cta_title: 'Costruiamo <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span> insieme.',
     cta_thanks: "Grazie per il tuo interesse e il tuo supporto. Ogni contributo ci aiuta a costruire l'app che Instagram avrebbe dovuto essere.",
     cta_prompt: "Hai un'idea, una domanda o un suggerimento? Vogliamo sentirlo.",
@@ -2081,10 +2036,7 @@ const translations = {
     s4_title: 'Tu controlas <span class="authentique-gradient-text">tudo</span>.',
     s4_desc: "Cada filtro é configurável a partir do ecrã Definições. Ativa ou desativa o que quiseres, quando quiseres.",
     philosophy_quote: '"As redes sociais deviam conectar-te aos teus amigos, não <em>afastar-te</em> deles."',
-    philosophy_text: "Apenas uma janela filtrada para o Instagram, como sempre deveria ter sido.",
-    philosophy_card1: "Sem dados",
-    philosophy_card2: "Sem servidor",
-    philosophy_card3: "Sem rastreio",
+    philosophy_text: "O Authentique não recolhe nenhum dado. Sem servidor. Sem rastreio. Apenas uma janela filtrada para o Instagram, como sempre deveria ter sido.",
     cta_title: 'Construímos <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span> juntos.',
     cta_thanks: "Obrigado pelo teu interesse e apoio. Cada contribuição ajuda-nos a construir a app que o Instagram devia ter sido.",
     cta_prompt: "Tens uma ideia, uma pergunta ou uma sugestão? Queremos ouvi-la.",
@@ -2172,10 +2124,7 @@ const translations = {
     s4_title: 'Ты контролируешь <span class="authentique-gradient-text">всё</span>.',
     s4_desc: "Каждый фильтр настраивается в экране Настроек. Включай или выключай что хочешь.",
     philosophy_quote: '"Социальные сети должны соединять тебя с друзьями, а не <em>отдалять</em> от них."',
-    philosophy_text: "Только отфильтрованное окно в Instagram, каким он всегда должен был быть.",
-    philosophy_card1: "Никаких данных",
-    philosophy_card2: "Никаких серверов",
-    philosophy_card3: "Никакого отслеживания",
+    philosophy_text: "Authentique не собирает данных. Никаких серверов. Никакой слежки. Только отфильтрованное окно в Instagram, каким он всегда должен был быть.",
     cta_title: 'Мы создаём <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span> вместе.',
     cta_thanks: "Спасибо за интерес и поддержку. Каждый вклад помогает нам создать приложение, которым должен был быть Instagram.",
     cta_prompt: "У тебя есть идея, вопрос или предложение? Мы хотим услышать.",
