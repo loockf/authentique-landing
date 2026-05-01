@@ -336,67 +336,60 @@ section { padding: 120px 24px; position: relative; }
   margin-bottom: 16px;
 }
 
-/* PROBLEM */
-.section-problem .problem-grid {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 60px;
-  align-items: center;
-}
-.problem-stats {
-  max-width: 760px;
-  margin: 80px auto 0;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-.problem-stat {
-  background: #e8e8e4;
-  border-radius: 16px;
-  padding: 24px 28px;
-  font-style: italic;
-  font-size: clamp(17px, 2vw, 20px);
-  line-height: 1.5;
-  color: #141414;
-  text-align: center;
-}
-.problem-stat strong {
-  font-style: normal;
-  font-weight: 600;
-  color: var(--green);
-}
-.problem-text {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+/* PROBLEM — tout en colonne unique, 100vh exact, compact pour
+   que le bouton scroll reste a la meme position que les autres
+   sections. */
 .section-problem {
   padding: 48px 24px 100px;
   height: 100vh;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-}
-.section-problem .problem-grid {
+  justify-content: center;
   align-items: center;
-  flex: 1;
+  overflow: hidden;
+  text-align: center;
 }
-.problem-text h2 { margin-bottom: 12px; font-size: clamp(30px, 4.5vw, 48px); }
-.problem-text p { margin-bottom: 8px; }
-/* Petit gap entre paragraphe et 6 cards : flux naturel, pas de
-   margin-top auto pour que les pains restent pres du texte plutot
-   que collees au bas (ne depassent pas le bas du telephone). */
-.section-problem .problem-pains { margin-top: 16px; }
-.problem-text p { color: var(--text-soft); font-size: 16px; margin-bottom: 12px; max-width: 480px; line-height: 1.5; }
+.problem-inner {
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+}
+.problem-inner h2 {
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.15;
+  margin: 6px 0 14px;
+}
+.problem-lead {
+  color: var(--text-soft);
+  font-size: 15px;
+  line-height: 1.5;
+  max-width: 600px;
+  margin: 0 auto 24px;
+}
 .problem-pains {
-  margin-top: 24px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  max-width: 520px;
+  max-width: 600px;
+  margin: 0 auto 24px;
+}
+.problem-stat {
+  background: #e8e8e4;
+  border-radius: 14px;
+  padding: 14px 20px;
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.45;
+  color: #141414;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.problem-stat strong {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--green);
 }
 .pain-card {
   background: var(--white);
@@ -1444,81 +1437,65 @@ footer {
   </button>
 </section>
 
-<!-- PROBLEM -->
+<!-- PROBLEM — tout sur 1 colonne, 100vh exact -->
 <section class="section-problem" id="section-problem">
-  <div class="problem-grid">
-    <div class="problem-text reveal">
-      <p class="section-label" data-i18n="problem_label">Le problème</p>
-      <h2 data-i18n="problem_title">Instagram décide ce que tu <em>vois</em>.</h2>
-      <p data-i18n="problem_p2">Ce n'est pas un manque de volonté. Instagram est conçu pour être addictif — votre attention est leur produit.<br>Authentique change les règles du jeu.</p>
-      <div class="problem-pains">
-        <div class="pain-card">
-          <div class="pain-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 11l18-5v12L3 13z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>
-            </svg>
-          </div>
-          <span class="pain-label" data-i18n="pain1">Posts sponsorisés</span>
+  <div class="problem-inner reveal">
+    <p class="section-label" data-i18n="problem_label">Le problème</p>
+    <h2 data-i18n="problem_title">Instagram décide ce que tu <em>vois</em>.</h2>
+    <p class="problem-lead" data-i18n="problem_p2">Ce n'est pas un manque de volonté. Instagram est conçu pour être addictif — votre attention est leur produit.<br>Authentique change les règles du jeu.</p>
+    <div class="problem-pains">
+      <div class="pain-card">
+        <div class="pain-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 11l18-5v12L3 13z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>
+          </svg>
         </div>
-        <div class="pain-card">
-          <div class="pain-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="4" y="6" width="16" height="14" rx="2"/><circle cx="9" cy="11" r="1.2"/><circle cx="15" cy="11" r="1.2"/>
-              <path d="M9 16h6"/><path d="M9 4l-1 2"/><path d="M15 4l1 2"/>
-            </svg>
-          </div>
-          <span class="pain-label" data-i18n="pain2">Contenus suggérés</span>
+        <span class="pain-label" data-i18n="pain1">Posts sponsorisés</span>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="6" width="16" height="14" rx="2"/><circle cx="9" cy="11" r="1.2"/><circle cx="15" cy="11" r="1.2"/>
+            <path d="M9 16h6"/><path d="M9 4l-1 2"/><path d="M15 4l1 2"/>
+          </svg>
         </div>
-        <div class="pain-card">
-          <div class="pain-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>
-            </svg>
-          </div>
-          <span class="pain-label" data-i18n="pain3">Stories sponsorisées</span>
+        <span class="pain-label" data-i18n="pain2">Contenus suggérés</span>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>
+          </svg>
         </div>
-        <div class="pain-card">
-          <div class="pain-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 6h4"/><path d="M12 18v.01"/>
-            </svg>
-          </div>
-          <span class="pain-label" data-i18n="pain4">Doom-scrolling</span>
+        <span class="pain-label" data-i18n="pain3">Stories sponsorisées</span>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 6h4"/><path d="M12 18v.01"/>
+          </svg>
         </div>
-        <div class="pain-card">
-          <div class="pain-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
-            </svg>
-          </div>
-          <span class="pain-label" data-i18n="pain5">Perte de temps</span>
+        <span class="pain-label" data-i18n="pain4">Doom-scrolling</span>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
+          </svg>
         </div>
-        <div class="pain-card">
-          <div class="pain-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/>
-              <circle cx="12" cy="12" r="3"/>
-            </svg>
-          </div>
-          <span class="pain-label" data-i18n="pain6">Anxiété numérique</span>
+        <span class="pain-label" data-i18n="pain5">Perte de temps</span>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
         </div>
+        <span class="pain-label" data-i18n="pain6">Anxiété numérique</span>
       </div>
     </div>
-    <div class="reveal" style="transition-delay: 0.15s">
-      <div class="phone-mockup">
-        <div class="phone-frame">
-          <div class="phone-notch"></div>
-          <div class="phone-screen">
-            <div class="phone-feed" aria-hidden="true">
-              <div class="phone-feed-track"><!-- cards injectees par JS --></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="problem-stats">
-    <p class="problem-stat reveal" data-i18n="problem_stat1">En moyenne, on consulte son téléphone <strong>96 fois par jour</strong>. Instagram est conçu pour en capturer le maximum.</p>
+    <p class="problem-stat" data-i18n="problem_stat1">En moyenne, on consulte son téléphone <strong>96 fois par jour</strong>. Instagram est conçu pour en capturer le maximum.</p>
   </div>
   <button class="section-scroll" data-scroll-to="#section-features" aria-label="Section suivante" type="button">
     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
