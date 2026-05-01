@@ -82,6 +82,14 @@ Lire ce fichier avant chaque modif pour éviter les ré-explorations inutiles.
 - `.cta-action` — wrapper du bouton Kickstarter
 - `.cta-contact` — ligne « Tu as des questions ? hello@... »
 
+### Section Suggest (`section.section-suggest`, après screens)
+- `.suggest-inner` — wrapper centré (max-width 640px)
+- `.suggest-sub` — paragraphe descriptif gris sous le titre
+- `.suggest-form` — formulaire textarea + bouton, action `submitSuggestion(event)` qui ouvre `mailto:hello@get-authentique.com`
+- `.suggest-textarea` — zone de texte (placeholder via `data-i18n-placeholder`)
+- `.suggest-btn` — réutilise `.btn-primary` (fond dégradé) + icône enveloppe + flèche
+- Clés data-i18n : `suggest_title`, `suggest_sub`, `suggest_placeholder`, `suggest_btn`
+
 ### Section FAQ (`section.section-faq#faq`, ligne ~1024)
 - `.faq-inner` — wrapper centré (max-width 760px)
 - `.faq-list` — liste verticale d'items
@@ -89,6 +97,7 @@ Lire ce fichier avant chaque modif pour éviter les ré-explorations inutiles.
 - `.faq-item summary` — la question (couleur #141414)
 - `.faq-item p` — la réponse (couleur #555)
 - Flèche : pseudo-element `::after` (border-right + border-bottom rotatés), tourne via `[open]`
+- 7 questions (faq_q1..faq_q7 / faq_a1..faq_a7)
 
 ### Footer (`<footer>`, ligne 1039)
 - `.footer-logo` / `.footer-name` — logo + nom Authentique
@@ -173,10 +182,11 @@ Wrapper JS auto sur le mot « Authentique » : `wrapAuthentiqueOccurrences()` (D
 | 3 | Problème | `section.section-problem` | — |
 | 4 | Features (« Conçu pour te libérer ») | `section.section-features` | — |
 | 5 | Screens (« L'app en images ») | `section.section-screens` | — |
-| 6 | Philosophie | `section.section-philosophy` | — |
-| 7 | CTA finale | `section.section-cta` | `#cta` |
-| 8 | FAQ | `section.section-faq` | `#faq` |
-| 9 | Footer | `<footer>` | — |
+| 6 | Suggest (« Et ce n'est que le début. ») | `section.section-suggest` | — |
+| 7 | Philosophie | `section.section-philosophy` | — |
+| 8 | CTA finale | `section.section-cta` | `#cta` |
+| 9 | FAQ | `section.section-faq` | `#faq` |
+| 10 | Footer | `<footer>` | — |
 
 ### Navigation interne
 - Lien retour haut : `<a href="#">` (logo nav + footer)

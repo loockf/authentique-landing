@@ -629,6 +629,49 @@ section { padding: 120px 24px; }
   border-radius: 26px;
 }
 
+/* SUGGEST */
+.section-suggest {
+  background: var(--bg);
+  padding: 100px 24px 120px;
+  text-align: center;
+}
+.suggest-inner { max-width: 640px; margin: 0 auto; }
+.suggest-inner h2 {
+  margin-bottom: 16px;
+  font-size: clamp(28px, 4vw, 42px);
+}
+.suggest-sub {
+  color: var(--text-soft);
+  font-size: 17px;
+  line-height: 1.55;
+  margin-bottom: 32px;
+}
+.suggest-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: stretch;
+}
+.suggest-textarea {
+  width: 100%;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px 18px;
+  font: 400 15px/1.55 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text);
+  resize: vertical;
+  min-height: 110px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.suggest-textarea::placeholder { color: var(--text-mute); }
+.suggest-textarea:focus { border-color: var(--green); }
+.suggest-btn {
+  align-self: center;
+  cursor: pointer;
+}
+
 /* PHILOSOPHY */
 .section-philosophy {
   background: var(--white);
@@ -1180,6 +1223,26 @@ footer {
   </div>
 </section>
 
+<!-- SUGGEST -->
+<section class="section-suggest">
+  <div class="suggest-inner">
+    <h2 class="reveal" data-i18n="suggest_title">Et ce n'est que le <em>début</em>.</h2>
+    <p class="suggest-sub reveal" data-i18n="suggest_sub">De nouvelles fonctionnalités arrivent régulièrement. Tu as une idée ou une suggestion ? On veut l'entendre.</p>
+    <form class="suggest-form reveal" id="suggestForm" onsubmit="return submitSuggestion(event)">
+      <textarea class="suggest-textarea" id="suggestText" rows="4" data-i18n-placeholder="suggest_placeholder" placeholder="Ton idée ou suggestion..." required></textarea>
+      <button type="submit" class="btn-primary suggest-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 6h16v12H4z"/><path d="M4 6l8 7 8-7"/>
+        </svg>
+        <span data-i18n="suggest_btn">Envoyer</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </form>
+  </div>
+</section>
+
 <!-- PHILOSOPHY -->
 <section class="section-philosophy">
   <div class="philosophy-inner reveal">
@@ -1247,6 +1310,10 @@ footer {
       <details class="faq-item reveal">
         <summary data-i18n="faq_q6">Est-ce que ça respecte les conditions d'utilisation d'Instagram ?</summary>
         <p data-i18n="faq_a6">Authentique fonctionne comme un navigateur web (comme Safari ou Chrome). Nous n'accédons pas à l'API privée d'Instagram ni ne modifions l'application. Notre approche est similaire à celle d'autres navigateurs spécialisés disponibles sur l'App Store.</p>
+      </details>
+      <details class="faq-item reveal">
+        <summary data-i18n="faq_q7">L'expérience est-elle identique à l'app Instagram ?</summary>
+        <p data-i18n="faq_a7">Authentique fonctionne via la version web d'Instagram. L'expérience est similaire à celle d'instagram.com dans un navigateur. Certaines fonctionnalités de l'app native (comme les effets de caméra Stories ou certaines animations) peuvent différer ou ne pas être disponibles.</p>
       </details>
     </div>
   </div>
@@ -1338,6 +1405,12 @@ const translations = {
     faq_a5: "Authentique sera disponible d'abord sur iOS, puis sur Android. Rejoins la liste d'attente pour être notifié du lancement.",
     faq_q6: "Est-ce que ça respecte les conditions d'utilisation d'Instagram ?",
     faq_a6: "Authentique fonctionne comme un navigateur web (comme Safari ou Chrome). Nous n'accédons pas à l'API privée d'Instagram ni ne modifions l'application. Notre approche est similaire à celle d'autres navigateurs spécialisés disponibles sur l'App Store.",
+    faq_q7: "L'expérience est-elle identique à l'app Instagram ?",
+    faq_a7: "Authentique fonctionne via la version web d'Instagram. L'expérience est similaire à celle d'instagram.com dans un navigateur. Certaines fonctionnalités de l'app native (comme les effets de caméra Stories ou certaines animations) peuvent différer ou ne pas être disponibles.",
+    suggest_title: "Et ce n'est que le <em>début</em>.",
+    suggest_sub: "De nouvelles fonctionnalités arrivent régulièrement. Tu as une idée ou une suggestion ? On veut l'entendre.",
+    suggest_placeholder: "Ton idée ou suggestion...",
+    suggest_btn: "Envoyer",
     footer_contact: "Contact",
     footer_legal: "Mentions légales",
   },
@@ -1407,6 +1480,12 @@ const translations = {
     faq_a5: "Authentique will first be available on iOS, then Android. Join the waitlist to be notified at launch.",
     faq_q6: "Does it respect Instagram's terms of service?",
     faq_a6: "Authentique works like a web browser (like Safari or Chrome). We don't access Instagram's private API nor modify the application. Our approach is similar to that of other specialized browsers available on the App Store.",
+    faq_q7: "Is the experience identical to the Instagram app?",
+    faq_a7: "Authentique works via Instagram's web version. The experience is similar to instagram.com in a browser. Some native app features (like Stories camera effects or certain animations) may differ or be unavailable.",
+    suggest_title: "And this is just the <em>beginning</em>.",
+    suggest_sub: "New features are coming regularly. Got an idea or a suggestion? We want to hear it.",
+    suggest_placeholder: "Your idea or suggestion...",
+    suggest_btn: "Send",
     footer_contact: "Contact",
     footer_legal: "Legal notice",
   },
@@ -1476,6 +1555,12 @@ const translations = {
     faq_a5: "Authentique estará disponible primero en iOS, después en Android. Únete a la lista de espera para recibir aviso del lanzamiento.",
     faq_q6: "¿Respeta las condiciones de uso de Instagram?",
     faq_a6: "Authentique funciona como un navegador web (como Safari o Chrome). No accedemos a la API privada de Instagram ni modificamos la aplicación. Nuestro enfoque es similar al de otros navegadores especializados disponibles en la App Store.",
+    faq_q7: "¿La experiencia es idéntica a la app de Instagram?",
+    faq_a7: "Authentique funciona a través de la versión web de Instagram. La experiencia es similar a la de instagram.com en un navegador. Algunas funciones de la app nativa (como los efectos de cámara de Stories o ciertas animaciones) pueden diferir o no estar disponibles.",
+    suggest_title: "Y esto es solo el <em>comienzo</em>.",
+    suggest_sub: "Nuevas funciones llegan regularmente. ¿Tienes una idea o sugerencia? Queremos escucharla.",
+    suggest_placeholder: "Tu idea o sugerencia...",
+    suggest_btn: "Enviar",
     footer_contact: "Contacto",
     footer_legal: "Aviso legal",
   },
@@ -1545,6 +1630,12 @@ const translations = {
     faq_a5: "Authentique sarà disponibile prima su iOS, poi su Android. Iscriviti alla lista d'attesa per essere avvisato del lancio.",
     faq_q6: "Rispetta i termini di servizio di Instagram?",
     faq_a6: "Authentique funziona come un browser web (come Safari o Chrome). Non accediamo all'API privata di Instagram né modifichiamo l'applicazione. Il nostro approccio è simile a quello di altri browser specializzati disponibili sull'App Store.",
+    faq_q7: "L'esperienza è identica all'app Instagram?",
+    faq_a7: "Authentique funziona tramite la versione web di Instagram. L'esperienza è simile a quella di instagram.com in un browser. Alcune funzioni dell'app nativa (come gli effetti fotocamera Stories o certe animazioni) possono differire o non essere disponibili.",
+    suggest_title: "Ed è solo l'<em>inizio</em>.",
+    suggest_sub: "Nuove funzionalità arrivano regolarmente. Hai un'idea o un suggerimento? Vogliamo sentirlo.",
+    suggest_placeholder: "La tua idea o suggerimento...",
+    suggest_btn: "Invia",
     footer_contact: "Contatto",
     footer_legal: "Note legali",
   },
@@ -1614,6 +1705,12 @@ const translations = {
     faq_a5: "O Authentique estará disponível primeiro em iOS, depois em Android. Inscreve-te na lista de espera para seres notificado do lançamento.",
     faq_q6: "Respeita os termos de utilização do Instagram?",
     faq_a6: "O Authentique funciona como um navegador web (como o Safari ou Chrome). Não acedemos à API privada do Instagram nem modificamos a aplicação. A nossa abordagem é semelhante à de outros navegadores especializados disponíveis na App Store.",
+    faq_q7: "A experiência é idêntica à app do Instagram?",
+    faq_a7: "O Authentique funciona através da versão web do Instagram. A experiência é semelhante à do instagram.com num navegador. Algumas funcionalidades da app nativa (como efeitos de câmara nos Stories ou certas animações) podem diferir ou não estar disponíveis.",
+    suggest_title: "E isto é só o <em>começo</em>.",
+    suggest_sub: "Novas funcionalidades chegam regularmente. Tens uma ideia ou sugestão? Queremos ouvi-la.",
+    suggest_placeholder: "Sua ideia ou sugestão...",
+    suggest_btn: "Enviar",
     footer_contact: "Contacto",
     footer_legal: "Aviso legal",
   },
@@ -1683,6 +1780,12 @@ const translations = {
     faq_a5: "Authentique будет доступен сначала на iOS, затем на Android. Подпишись на лист ожидания, чтобы получить уведомление о запуске.",
     faq_q6: "Соответствует ли это условиям использования Instagram?",
     faq_a6: "Authentique работает как веб-браузер (как Safari или Chrome). Мы не получаем доступ к приватному API Instagram и не модифицируем приложение. Наш подход аналогичен другим специализированным браузерам, доступным в App Store.",
+    faq_q7: "Идентичен ли опыт приложению Instagram?",
+    faq_a7: "Authentique работает через веб-версию Instagram. Опыт похож на использование instagram.com в браузере. Некоторые функции нативного приложения (например, эффекты камеры в Stories или определённые анимации) могут отличаться или быть недоступными.",
+    suggest_title: "И это только <em>начало</em>.",
+    suggest_sub: "Новые функции появляются регулярно. У тебя есть идея или предложение? Мы хотим услышать.",
+    suggest_placeholder: "Твоя идея или предложение...",
+    suggest_btn: "Отправить",
     footer_contact: "Контакт",
     footer_legal: "Правовая информация",
   }
@@ -1746,6 +1849,23 @@ function wrapAuthentiqueOccurrences() {
 }
 
 document.addEventListener('DOMContentLoaded', wrapAuthentiqueOccurrences);
+
+// Formulaire de suggestion : ouvre mailto: avec le contenu du
+// textarea en body. Pas de backend, c'est l'app mail de
+// l'utilisateur qui prend le relais.
+function submitSuggestion(e) {
+  e.preventDefault();
+  var ta = document.getElementById('suggestText');
+  if (!ta) return false;
+  var text = ta.value.trim();
+  if (!text) return false;
+  var subject = 'Idée Authentique';
+  var body = encodeURIComponent(text);
+  window.location.href =
+    'mailto:hello@get-authentique.com?subject=' +
+    encodeURIComponent(subject) + '&body=' + body;
+  return false;
+}
 
 // Fleche scroll du hero : disparait apres 100px de scroll. Au clic,
 // scroll smooth vers la section suivante.
