@@ -374,16 +374,27 @@ section { padding: 120px 24px; position: relative; }
 }
 .section-problem {
   padding: 48px 24px 100px;
-  min-height: 100vh;
+  height: 100vh;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  overflow: hidden;
 }
-.section-problem .problem-grid { align-items: center; }
+.section-problem .problem-grid {
+  align-items: stretch;
+  flex: 1;
+}
+.section-problem .problem-text {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+/* Pains pousses vers le bas : alignes avec le bas du mockup
+   telephone (qui occupe la colonne droite). margin-top: auto
+   les colle au bas de problem-text. */
+.section-problem .problem-pains { margin-top: auto; }
 .problem-text h2 { margin-bottom: 14px; font-size: clamp(30px, 4.5vw, 48px); }
 .problem-text p { margin-bottom: 8px; }
-.section-problem .problem-pains { margin-top: 16px; }
 .problem-text p { color: var(--text-soft); font-size: 16px; margin-bottom: 12px; max-width: 480px; line-height: 1.5; }
 .problem-pains {
   margin-top: 24px;
@@ -545,12 +556,12 @@ section { padding: 120px 24px; position: relative; }
    + bloc philosophy. Tout dans 100vh, compact. */
 .section-wellbeing {
   background: var(--white);
-  padding: 60px 24px 100px;
+  padding: 48px 24px 100px;
   min-height: 100vh;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 .wellbeing-inner { max-width: 1100px; margin: 0 auto; width: 100%; }
 .ally-header { text-align: center; max-width: 720px; margin: 0 auto 32px; }
@@ -585,31 +596,39 @@ section { padding: 120px 24px; position: relative; }
 
 /* CONTROL — Tu contrôles tout. */
 .section-control {
-  padding: 60px 24px 100px;
+  padding: 48px 24px 100px;
   background: var(--bg);
   text-align: center;
-  min-height: 100vh;
+  height: 100vh;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 .control-inner {
   max-width: 1100px;
   margin: 0 auto;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  /* space-between pour distribuer titre / sub / phones / continuation
+     uniformement sur toute la hauteur disponible -> espacements
+     augmentes entre chaque element. */
+  justify-content: space-between;
+  align-items: center;
 }
-.control-inner h2 {
-  margin-bottom: 14px;
+.control-head { width: 100%; }
+.control-head h2 {
   font-size: clamp(36px, 5.5vw, 64px);
   line-height: 1.1;
+  margin: 0 0 16px;
 }
 .control-sub {
   color: var(--text-soft);
   font-size: 17px;
   line-height: 1.55;
   max-width: 600px;
-  margin: 0 auto 32px;
+  margin: 0 auto;
 }
 .control-phones {
   display: flex;
@@ -617,7 +636,6 @@ section { padding: 120px 24px; position: relative; }
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  margin-bottom: 24px;
 }
 .control-continuation { max-width: 600px; margin: 0 auto; }
 .control-continuation h3 {
@@ -803,13 +821,13 @@ section { padding: 120px 24px; position: relative; }
 }
 .sticky-slide:nth-child(2) .sticky-slide-content > .screen-col--phones { order: -1; }
 
-/* Dots : positionnes a gauche du centre pour laisser le bouton
-   scroll centre au milieu du panel sticky comme dans les autres
-   sections. */
+/* Dots : centres horizontalement, JUSTE AU-DESSUS du bouton scroll
+   (qui est lui aussi centre, position from .sticky-scroll rule). */
 .sticky-dots {
   position: absolute;
-  bottom: 42px;
-  left: calc(50% - 100px);
+  bottom: 78px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   gap: 12px;
   z-index: 5;
@@ -1144,7 +1162,8 @@ section { padding: 120px 24px; position: relative; }
 }
 .philosophy-inner p { color: var(--text-soft); font-size: 14px; max-width: 540px; margin: 0 auto; line-height: 1.5; }
 
-/* FINAL CTA */
+/* FINAL CTA — titre en haut, le reste pousse vers le bas via
+   margin-top: auto sur cta-thanks (premier element apres h2). */
 .section-cta {
   background: var(--bg);
   padding: 48px 24px 120px;
@@ -1153,11 +1172,17 @@ section { padding: 120px 24px; position: relative; }
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
 }
-.cta-inner { max-width: 640px; margin: 0 auto; width: 100%; }
+.cta-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
 .cta-inner h2 {
-  margin-bottom: 36px;
+  margin: 0 0 36px;
   font-size: clamp(30px, 4.5vw, 48px);
   line-height: 1.15;
 }
@@ -1165,21 +1190,21 @@ section { padding: 120px 24px; position: relative; }
   color: var(--text-soft);
   font-size: 17px;
   line-height: 1.55;
+  margin-top: auto;
   margin-bottom: 56px;
 }
-.cta-action { margin-bottom: 88px; }
+.cta-action { margin-bottom: 56px; }
 .cta-separator {
   border: none;
   border-top: 1px solid #d0d0cc;
   width: 60%;
-  margin: 48px auto;
+  margin: 56px auto;
 }
 .cta-prompt {
   color: var(--text-soft);
   font-size: 17px;
   line-height: 1.55;
   margin-bottom: 32px;
-  padding-top: 80px;
 }
 .cta-email-line {
   margin-top: 18px;
@@ -1753,8 +1778,10 @@ footer {
 <!-- CONTROL — Tu contrôles tout. -->
 <section class="section-control" id="control">
   <div class="control-inner">
-    <h2 class="reveal" data-i18n="s4_title">Tu contrôles <span class="authentique-gradient-text">tout</span>.</h2>
-    <p class="control-sub reveal" data-i18n="s4_desc">Chaque filtre est configurable depuis l'écran Paramètres. Active ou désactive ce que tu veux, quand tu veux.</p>
+    <div class="control-head reveal">
+      <h2 data-i18n="s4_title">Tu contrôles <span class="authentique-gradient-text">tout</span>.</h2>
+      <p class="control-sub" data-i18n="s4_desc">Chaque filtre est configurable depuis l'écran Paramètres. Active ou désactive ce que tu veux, quand tu veux.</p>
+    </div>
     <div class="control-phones reveal">
       <div class="iphone">
         <div class="iphone-frame">
