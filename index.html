@@ -1285,7 +1285,16 @@ footer {
 
 /* FAQ */
 .section-faq {
-  background: var(--white);
+  /* FAQ blanche sur les premiers 100% - 120px, puis bande beige
+     #f0f0ec sur les 120px du bas pour que le footer apparaisse
+     sur le bg de page comme avant le merge. */
+  background: linear-gradient(
+    to bottom,
+    var(--white) 0%,
+    var(--white) calc(100% - 120px),
+    var(--bg) calc(100% - 120px),
+    var(--bg) 100%
+  );
   padding: 120px 24px 0;
   min-height: 100vh;
   box-sizing: border-box;
@@ -1294,7 +1303,7 @@ footer {
 }
 /* faq-inner remplit la zone au-dessus du footer ; si la liste FAQ
    depasse, le contenu est naturellement scrollable dans le flux
-   normal (pas de overflow:hidden, hauteur libre). */
+   normal. */
 .section-faq .faq-inner { flex: 1; }
 .section-faq footer { margin-top: auto; }
 .faq-inner { max-width: 760px; margin: 0 auto; }
