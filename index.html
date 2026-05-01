@@ -411,7 +411,9 @@ section { padding: 120px 24px; }
   position: relative;
 }
 .phone-feed {
-  display: none;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
 }
 .phone-feed-track {
   display: flex;
@@ -744,7 +746,24 @@ section { padding: 120px 24px; }
   text-align: center;
 }
 .cta-inner { max-width: 640px; margin: 0 auto; }
+.cta-inner h2 {
+  margin-bottom: 20px;
+  font-size: clamp(30px, 4.5vw, 48px);
+  line-height: 1.15;
+}
+.cta-thanks {
+  color: var(--text-soft);
+  font-size: 17px;
+  line-height: 1.55;
+  margin-bottom: 32px;
+}
 .cta-action { margin-bottom: 56px; }
+.cta-separator {
+  border: 0;
+  border-top: 1px solid var(--border);
+  width: 80px;
+  margin: 0 auto 40px;
+}
 .cta-prompt {
   color: var(--text);
   font-size: 18px;
@@ -752,6 +771,12 @@ section { padding: 120px 24px; }
   margin-bottom: 20px;
   font-weight: 500;
 }
+.cta-email-line {
+  margin-top: 18px;
+  font-size: 14px;
+  color: var(--text-mute);
+}
+.cta-email-line a { color: var(--green); text-decoration: underline; }
 
 /* FOOTER */
 footer {
@@ -1322,6 +1347,38 @@ footer {
   </div>
 </section>
 
+<!-- FINAL CTA -->
+<section class="section-cta" id="cta">
+  <div class="cta-inner">
+    <h2 class="reveal" data-i18n="cta_title">On construit <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span> ensemble.</h2>
+    <p class="cta-thanks reveal" data-i18n="cta_thanks">Merci pour ton intérêt et ton soutien. Chaque contribution nous aide à construire l'app que Instagram aurait dû être.</p>
+    <div class="cta-action reveal">
+      <a href="#" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M5 4h3.5v6.5L13 4h4.2l-5.4 8 5.7 8h-4.4L8.5 13.4V20H5z"/>
+        </svg>
+        <span data-i18n="hero_cta">Soutenir sur Kickstarter</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+    <hr class="cta-separator reveal" aria-hidden="true">
+    <p class="cta-prompt reveal" data-i18n="cta_prompt">Tu as une idée, une question ou une suggestion ? On veut l'entendre.</p>
+    <form class="suggest-form reveal" id="suggestForm" onsubmit="return submitSuggestion(event)">
+      <textarea class="suggest-textarea" id="suggestText" rows="4" data-i18n-placeholder="suggest_placeholder" placeholder="Ton idée ou suggestion..." required></textarea>
+      <button type="submit" class="btn-primary suggest-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+        <span data-i18n="suggest_btn">Envoyer</span>
+      </button>
+    </form>
+    <p class="cta-email-line reveal" data-i18n="cta_email_line">ou écris-nous directement à <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a></p>
+  </div>
+</section>
+
 <!-- FAQ -->
 <section class="section-faq" id="faq">
   <div class="faq-inner">
@@ -1361,34 +1418,6 @@ footer {
         <p data-i18n="faq_a8">Oui. En supprimant le contenu conçu pour te garder — publicités, suggestions algorithmiques, scroll infini — Authentique réduit les mécanismes d'addiction intégrés par Meta. Tu restes maître de ce que tu consommes et du temps que tu y passes.</p>
       </details>
     </div>
-  </div>
-</section>
-
-<!-- FINAL CTA -->
-<section class="section-cta" id="cta">
-  <div class="cta-inner">
-    <div class="cta-action reveal">
-      <a href="#" class="btn-primary">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M5 4h3.5v6.5L13 4h4.2l-5.4 8 5.7 8h-4.4L8.5 13.4V20H5z"/>
-        </svg>
-        <span data-i18n="hero_cta">Soutenir sur Kickstarter</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
-      </a>
-    </div>
-    <p class="cta-prompt reveal" data-i18n="cta_prompt">Tu as une idée ou une suggestion ? On veut l'entendre.</p>
-    <form class="suggest-form reveal" id="suggestForm" onsubmit="return submitSuggestion(event)">
-      <textarea class="suggest-textarea" id="suggestText" rows="4" data-i18n-placeholder="suggest_placeholder" placeholder="Ton idée ou suggestion..." required></textarea>
-      <button type="submit" class="btn-primary suggest-btn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="22" y1="2" x2="11" y2="13"/>
-          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-        </svg>
-        <span data-i18n="suggest_btn">Envoyer</span>
-      </button>
-    </form>
   </div>
 </section>
 
@@ -1470,7 +1499,10 @@ const translations = {
     s4_desc: "Chaque filtre est configurable depuis l'écran Paramètres. Active ou désactive ce que tu veux, quand tu veux.",
     philosophy_quote: '"Les réseaux sociaux devraient te connecter à tes amis, pas t\'<em>en éloigner</em>."',
     philosophy_text: 'Authentique ne collecte aucune donnée. Aucun serveur. Aucun tracking. Juste une fenêtre filtrée sur Instagram, tel qu\'il aurait toujours dû être.',
+    cta_title: 'On construit <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span> ensemble.',
+    cta_thanks: "Merci pour ton intérêt et ton soutien. Chaque contribution nous aide à construire l'app que Instagram aurait dû être.",
     cta_prompt: "Tu as une idée, une question ou une suggestion ? On veut l'entendre.",
+    cta_email_line: 'ou écris-nous directement à <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
     faq_label: "FAQ",
     faq_title: "Questions fréquentes",
     faq_q1: "Comment fonctionne Authentique ?",
@@ -1554,7 +1586,10 @@ const translations = {
     s4_desc: "Every filter is configurable from the Settings screen. Enable or disable what you want, when you want.",
     philosophy_quote: '"Social media should connect you to your friends, not <em>push you away</em> from them."',
     philosophy_text: 'Authentique collects no data. No server. No tracking. Just a filtered window into Instagram, as it should always have been.',
+    cta_title: 'We are building <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span> together.',
+    cta_thanks: "Thank you for your interest and support. Every contribution helps us build the app Instagram should have been.",
     cta_prompt: "Got an idea, a question or a suggestion? We want to hear it.",
+    cta_email_line: 'or write to us directly at <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
     faq_label: "FAQ",
     faq_title: "Frequently asked questions",
     faq_q1: "How does Authentique work?",
@@ -1638,7 +1673,10 @@ const translations = {
     s4_desc: "Cada filtro es configurable desde la pantalla de Ajustes. Activa o desactiva lo que quieras.",
     philosophy_quote: '"Las redes sociales deberían conectarte con tus amigos, no <em>alejarte</em> de ellos."',
     philosophy_text: 'Authentique no recopila ningún dato. Sin servidor. Sin seguimiento. Solo una ventana filtrada a Instagram, como siempre debió haber sido.',
+    cta_title: 'Construimos <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span> juntos.',
+    cta_thanks: "Gracias por tu interés y tu apoyo. Cada contribución nos ayuda a construir la app que Instagram debería haber sido.",
     cta_prompt: "¿Tienes una idea, una pregunta o una sugerencia? Queremos escucharla.",
+    cta_email_line: 'o escríbenos directamente a <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
     faq_label: "FAQ",
     faq_title: "Preguntas frecuentes",
     faq_q1: "¿Cómo funciona Authentique?",
@@ -1722,7 +1760,10 @@ const translations = {
     s4_desc: "Ogni filtro è configurabile dalla schermata Impostazioni. Attiva o disattiva ciò che vuoi, quando vuoi.",
     philosophy_quote: '"I social media dovrebbero connetterti ai tuoi amici, non <em>allontanarti</em> da loro."',
     philosophy_text: "Authentique non raccoglie nessun dato. Nessun server. Nessun tracciamento. Solo una finestra filtrata su Instagram, come avrebbe sempre dovuto essere.",
+    cta_title: 'Costruiamo <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span> insieme.',
+    cta_thanks: "Grazie per il tuo interesse e il tuo supporto. Ogni contributo ci aiuta a costruire l'app che Instagram avrebbe dovuto essere.",
     cta_prompt: "Hai un'idea, una domanda o un suggerimento? Vogliamo sentirlo.",
+    cta_email_line: 'oppure scrivici direttamente a <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
     faq_label: "FAQ",
     faq_title: "Domande frequenti",
     faq_q1: "Come funziona Authentique?",
@@ -1806,7 +1847,10 @@ const translations = {
     s4_desc: "Cada filtro é configurável a partir do ecrã Definições. Ativa ou desativa o que quiseres, quando quiseres.",
     philosophy_quote: '"As redes sociais deviam conectar-te aos teus amigos, não <em>afastar-te</em> deles."',
     philosophy_text: "O Authentique não recolhe nenhum dado. Sem servidor. Sem rastreio. Apenas uma janela filtrada para o Instagram, como sempre deveria ter sido.",
+    cta_title: 'Construímos <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span> juntos.',
+    cta_thanks: "Obrigado pelo teu interesse e apoio. Cada contribuição ajuda-nos a construir a app que o Instagram devia ter sido.",
     cta_prompt: "Tens uma ideia, uma pergunta ou uma sugestão? Queremos ouvi-la.",
+    cta_email_line: 'ou escreve-nos diretamente para <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
     faq_label: "FAQ",
     faq_title: "Perguntas frequentes",
     faq_q1: "Como funciona o Authentique?",
@@ -1890,7 +1934,10 @@ const translations = {
     s4_desc: "Каждый фильтр настраивается в экране Настроек. Включай или выключай что хочешь.",
     philosophy_quote: '"Социальные сети должны соединять тебя с друзьями, а не <em>отдалять</em> от них."',
     philosophy_text: 'Authentique не собирает данных. Никаких серверов. Никакой слежки. Только отфильтрованное окно в Instagram, каким он всегда должен был быть.',
+    cta_title: 'Мы создаём <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif">Authentique</span> вместе.',
+    cta_thanks: "Спасибо за интерес и поддержку. Каждый вклад помогает нам создать приложение, которым должен был быть Instagram.",
     cta_prompt: "У тебя есть идея, вопрос или предложение? Мы хотим услышать.",
+    cta_email_line: 'или напиши нам напрямую на <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
     faq_label: "FAQ",
     faq_title: "Часто задаваемые вопросы",
     faq_q1: "Как работает Authentique?",

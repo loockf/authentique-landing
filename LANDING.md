@@ -43,7 +43,7 @@ Lire ce fichier avant chaque modif pour éviter les ré-explorations inutiles.
 - `.pain-icon` — wrapper SVG (utilise `url(#authGrad)`)
 - `.pain-label` — texte du pain (data-i18n: pain1..pain6)
 - `.phone-mockup` / `.phone-frame` / `.phone-notch` / `.phone-screen` — mockup iPhone côté droit
-- `.phone-feed` / `.phone-feed-track` — conteneurs du faux feed scrollant (cartes injectées en JS)
+- `.phone-feed` (`position: absolute; inset: 0`) / `.phone-feed-track` — conteneurs du faux feed scrollant. Cartes injectées en JS via l'IIFE en bas (`SPONSOR_GRADS`, `SCROLL_LABELS`, `feed-card`, `feed-action`, etc.). Animation saccadée (kick + ease-in + micro-pause).
 - `.problem-stats` / `.problem-stat` — bloc full-width sous la grille avec 2 statistiques choc (fond #e8e8e4, italique, `<strong>` en vert)
 
 ### Section Ally / bien-être (`section.section-ally`, après Features)
@@ -83,13 +83,17 @@ Lire ce fichier avant chaque modif pour éviter les ré-explorations inutiles.
 - `.philosophy-inner` — wrapper centré
 - `.philosophy-arch` — logo arche
 
-### Section CTA finale (`section.section-cta#cta`, fin de page avant footer)
+### Section CTA finale (`section.section-cta#cta`, juste après philosophy, avant FAQ)
 - `.cta-inner` — wrapper centré (max-width 640px)
-- `.cta-action` — wrapper du bouton Kickstarter (en haut)
+- `<h2>` cta_title — titre « On construit Authentique ensemble. » (mot Authentique en `.authentique-gradient-text` + GrosVentre)
+- `.cta-thanks` — phrase de remerciement
+- `.cta-action` — wrapper du bouton Kickstarter (href="#" placeholder)
+- `.cta-separator` — `<hr>` 80×1 px
 - `.cta-prompt` — phrase « Tu as une idée, une question ou une suggestion ? On veut l'entendre. »
 - `.suggest-form` / `.suggest-textarea` / `.suggest-btn` — formulaire + bouton avion en papier (mailto avec subject « Suggestion Authentique »)
+- `.cta-email-line` — petite ligne « ou écris-nous directement à hello@... »
 
-Ordre interne : Bouton Kickstarter → prompt suggestion → formulaire.
+Ordre interne : titre → remerciement → Bouton Kickstarter → séparateur → prompt suggestion → formulaire → ligne email visible.
 
 ### Section Suggest (supprimée)
 La section dédiée n'existe plus. Le titre + sous-titre ont été déplacés sous les téléphones de la rangée s4 (« Tu contrôles tout ») via `.screen-col--continuation` (clés `suggest_title` + `suggest_sub`). Le formulaire (textarea + bouton avion en papier) a été déplacé dans la **section CTA finale** (clés `suggest_placeholder`, `suggest_btn` + nouvelle `cta_prompt`).
@@ -188,8 +192,8 @@ Wrapper JS auto sur le mot « Authentique » : `wrapAuthentiqueOccurrences()` (D
 | 5 | Ally (« Authentique, ton allié... ») | `section.section-ally` | — |
 | 6 | Screens (« L'app en images ») + continuation s4 « Et ce n'est que le début. » | `section.section-screens` | — |
 | 7 | Philosophie | `section.section-philosophy` | — |
-| 8 | FAQ (8 items) | `section.section-faq` | `#faq` |
-| 9 | CTA finale (Kickstarter + form + contact) | `section.section-cta` | `#cta` |
+| 8 | CTA finale (Kickstarter + form + email) | `section.section-cta` | `#cta` |
+| 9 | FAQ (8 items) | `section.section-faq` | `#faq` |
 | 10 | Footer | `<footer>` | — |
 
 ### Navigation interne
