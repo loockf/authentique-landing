@@ -71,9 +71,10 @@ Lire ce fichier avant chaque modif pour éviter les ré-explorations inutiles.
   - f6 = Bloquer le scroll infini
 
 ### Section Screens (`section.section-screens`) — sticky scroll, 3 slides
-- `.screens-inner` / `.screens-header` — wrapper + header (« L'app en images », titre h2)
 - `.sticky-outer` — wrapper haut (height 300vh) qui capture le scroll
-- `.sticky-inner` — bloc en `position: sticky; top: 0; height: 100vh` qui reste visible pendant le scroll
+- `.sticky-inner` — bloc en `position: sticky; top: 0; height: 100vh; flex-direction: column` qui reste visible pendant le scroll
+- `.screens-header` — header (label + h2) **dans** le sticky-inner pour rester visible pendant tous les slides
+- `.sticky-slides-area` — zone flex:1 qui héberge les 3 slides absolus
 - `.sticky-slide` — 3 slides superposés en absolute, transitionnent via opacity 0/1 (ease-in-out 0.4s)
 - `.sticky-slide.is-active` — slide actuellement visible
 - `.sticky-slide-content` — grille 2 colonnes (texte + téléphones) max-width 1100px
@@ -193,12 +194,13 @@ Wrapper JS auto sur le mot « Authentique » : `wrapAuthentiqueOccurrences()` (D
 | 2 | Hero | `section.hero` | top |
 | 3 | Problème | `section.section-problem` | — |
 | 4 | Features (« Conçu pour te libérer ») | `section.section-features` | — |
-| 5 | Ally (« Authentique, ton allié... ») | `section.section-ally` | — |
-| 6 | Screens (« L'app en images ») + continuation s4 « Et ce n'est que le début. » | `section.section-screens` | — |
-| 7 | Philosophie | `section.section-philosophy` | — |
-| 8 | CTA finale (Kickstarter + form + email) | `section.section-cta` | `#cta` |
-| 9 | FAQ (8 items) | `section.section-faq` | `#faq` |
-| 10 | Footer | `<footer>` | — |
+| 5 | Screens (« L'app en images ») — sticky scroll 3 slides | `section.section-screens` | — |
+| 6 | Control (« Tu contrôles tout. ») + continuation « Et ce n'est que le début. » | `section.section-control` | — |
+| 7 | Ally (« Ton allié contre l'addiction... ») | `section.section-ally` | — |
+| 8 | Philosophie | `section.section-philosophy` | — |
+| 9 | CTA finale (Kickstarter + form + email) | `section.section-cta` | `#cta` |
+| 10 | FAQ (8 items) | `section.section-faq` | `#faq` |
+| 11 | Footer | `<footer>` | — |
 
 ### Navigation interne
 - Lien retour haut : `<a href="#">` (logo nav + footer)

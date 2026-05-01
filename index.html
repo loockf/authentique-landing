@@ -536,6 +536,45 @@ section { padding: 120px 24px; }
   .ally-grid { grid-template-columns: 1fr; }
 }
 
+/* CONTROL — Tu contrôles tout. */
+.section-control {
+  padding: 100px 24px;
+  background: var(--bg);
+  text-align: center;
+}
+.control-inner { max-width: 1100px; margin: 0 auto; }
+.control-inner h2 {
+  margin-bottom: 16px;
+  font-size: clamp(36px, 5.5vw, 64px);
+  line-height: 1.1;
+}
+.control-sub {
+  color: var(--text-soft);
+  font-size: 17px;
+  line-height: 1.55;
+  max-width: 600px;
+  margin: 0 auto 56px;
+}
+.control-phones {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 56px;
+  flex-wrap: wrap;
+}
+.control-continuation { max-width: 600px; margin: 0 auto; }
+.control-continuation h3 {
+  font-size: 28px;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+.control-continuation p {
+  color: var(--text-soft);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
 /* FEATURES */
 .section-features { background: var(--bg); }
 .features-inner { max-width: 1100px; margin: 0 auto; }
@@ -638,15 +677,21 @@ section { padding: 120px 24px; }
 .feature-card:has(input:checked) .card-on { opacity: 1; }
 
 /* SCREENSHOTS */
-.section-screens { padding: 120px 24px 0; }
-.screens-inner { max-width: 1100px; margin: 0 auto; }
-.screens-header { text-align: center; max-width: 700px; margin: 0 auto 0; }
-.screens-header h2 { margin-bottom: 16px; }
+.section-screens { padding: 0; }
+.screens-header {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 32px 24px 16px;
+  flex-shrink: 0;
+}
+.screens-header h2 { margin-bottom: 0; }
 
 /* Sticky scroll : outer = 3 × 100vh d'espace de scroll, inner reste
-   en sticky top:0 pendant tout le scroll. Les 3 slides sont
-   superposes en absolute et leur opacity est togglee selon la
-   position de scroll dans outer. */
+   en sticky top:0 pendant tout le scroll. Le header (label + h2)
+   est dans le sticky pour rester visible. Les 3 slides occupent
+   .sticky-slides-area (flex:1) et sont superposes en absolute,
+   leur opacity togglee selon la position de scroll. */
 .sticky-outer {
   position: relative;
   height: 300vh;
@@ -657,8 +702,12 @@ section { padding: 120px 24px; }
   height: 100vh;
   overflow: hidden;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+}
+.sticky-slides-area {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
 }
 .sticky-slide {
   position: absolute;
@@ -1277,64 +1326,20 @@ footer {
   </div>
 </section>
 
-<!-- ALLY (digital wellbeing) -->
-<section class="section-ally">
-  <div class="ally-inner">
-    <div class="ally-header reveal">
-      <p class="section-label" data-i18n="ally_label">Bien-être numérique</p>
-      <h2 data-i18n="ally_title">Ton allié contre l'<span class="authentique-gradient-text">addiction digitale</span>.</h2>
-    </div>
-    <div class="ally-grid">
-      <div class="ally-card reveal">
-        <div class="ally-icon">
-          <!-- Cerveau stylise : silhouette gyrus simple -->
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9.5 4.5a2.5 2.5 0 0 1 2.5 2.5v10a2.5 2.5 0 0 1-5 0 2 2 0 0 1-2-2 2 2 0 0 1-1-3.5 2 2 0 0 1 1-3.5 2 2 0 0 1 2-2 2.5 2.5 0 0 1 2.5-1.5z"/>
-            <path d="M14.5 4.5a2.5 2.5 0 0 0-2.5 2.5v10a2.5 2.5 0 0 0 5 0 2 2 0 0 0 2-2 2 2 0 0 0 1-3.5 2 2 0 0 0-1-3.5 2 2 0 0 0-2-2 2.5 2.5 0 0 0-2.5-1.5z"/>
-          </svg>
-        </div>
-        <h3 data-i18n="ally_card1_title">Moins de stimulation</h3>
-        <p data-i18n="ally_card1_desc">Sans pubs ni suggestions, ton cerveau respire enfin.</p>
-      </div>
-      <div class="ally-card reveal" style="transition-delay: 0.08s">
-        <div class="ally-icon">
-          <!-- Horloge -->
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="9"/>
-            <polyline points="12 7 12 12 15 14"/>
-          </svg>
-        </div>
-        <h3 data-i18n="ally_card2_title">Moins de temps perdu</h3>
-        <p data-i18n="ally_card2_desc">Tu vois ce que tu veux, tu pars quand tu veux.</p>
-      </div>
-      <div class="ally-card reveal" style="transition-delay: 0.16s">
-        <div class="ally-icon">
-          <!-- Coeur -->
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-          </svg>
-        </div>
-        <h3 data-i18n="ally_card3_title">Plus de liens vrais</h3>
-        <p data-i18n="ally_card3_desc">Tes amis, ta famille, les comptes que tu as vraiment choisis.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- SCREENSHOTS — sticky scroll, 3 slides -->
 <section class="section-screens">
-  <div class="screens-inner">
-    <div class="screens-header reveal">
-      <p class="section-label" data-i18n="screens_label">L'app en images</p>
-      <h2 data-i18n="screens_title">Vois la différence<br><em>par toi-même</em>.</h2>
-    </div>
-  </div>
-
   <!-- sticky-outer : hauteur = nb_slides * 100vh, capture le scroll
        pour piloter la transition entre slides via window.scrollY.
-       sticky-inner : reste fixé top: 0 pendant tout le scroll de outer. -->
+       sticky-inner : reste fixé top: 0 pendant tout le scroll de outer.
+       Le header (label + h2) est DANS le sticky pour rester visible
+       en haut pendant tous les slides. -->
   <div class="sticky-outer">
     <div class="sticky-inner">
+      <div class="screens-header">
+        <p class="section-label" data-i18n="screens_label">L'app en images</p>
+        <h2 data-i18n="screens_title">Vois la différence<br><em>par toi-même</em>.</h2>
+      </div>
+      <div class="sticky-slides-area">
       <!-- Slide 1 : Zéro publicité — 2 mockups (chaos + calm + counter) -->
       <div class="sticky-slide is-active" data-slide="0">
         <div class="sticky-slide-content">
@@ -1416,11 +1421,83 @@ footer {
         </div>
       </div>
 
+      </div><!-- /sticky-slides-area -->
+
       <!-- Indicateurs de progression -->
       <div class="sticky-dots" aria-hidden="true">
         <span class="sticky-dot is-active" data-dot="0"></span>
         <span class="sticky-dot" data-dot="1"></span>
         <span class="sticky-dot" data-dot="2"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTROL — Tu contrôles tout. -->
+<section class="section-control">
+  <div class="control-inner">
+    <h2 class="reveal" data-i18n="s4_title">Tu contrôles <span class="authentique-gradient-text">tout</span>.</h2>
+    <p class="control-sub reveal" data-i18n="s4_desc">Chaque filtre est configurable depuis l'écran Paramètres. Active ou désactive ce que tu veux, quand tu veux.</p>
+    <div class="control-phones reveal">
+      <div class="iphone">
+        <div class="iphone-frame">
+          <div class="iphone-dynamic-island"></div>
+          <div class="iphone-screen iphone-screen--light"></div>
+        </div>
+      </div>
+      <div class="iphone iphone--featured">
+        <div class="iphone-frame">
+          <div class="iphone-dynamic-island"></div>
+          <div class="iphone-screen"></div>
+        </div>
+      </div>
+    </div>
+    <div class="control-continuation reveal">
+      <h3 data-i18n="suggest_title">Et ce n'est que le <em>début</em>.</h3>
+      <p data-i18n="suggest_sub">De nouvelles fonctionnalités arrivent régulièrement.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ALLY (digital wellbeing) -->
+<section class="section-ally">
+  <div class="ally-inner">
+    <div class="ally-header reveal">
+      <p class="section-label" data-i18n="ally_label">Bien-être numérique</p>
+      <h2 data-i18n="ally_title">Ton allié contre l'<span class="authentique-gradient-text">addiction digitale</span>.</h2>
+    </div>
+    <div class="ally-grid">
+      <div class="ally-card reveal">
+        <div class="ally-icon">
+          <!-- Cerveau stylise : silhouette gyrus simple -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9.5 4.5a2.5 2.5 0 0 1 2.5 2.5v10a2.5 2.5 0 0 1-5 0 2 2 0 0 1-2-2 2 2 0 0 1-1-3.5 2 2 0 0 1 1-3.5 2 2 0 0 1 2-2 2.5 2.5 0 0 1 2.5-1.5z"/>
+            <path d="M14.5 4.5a2.5 2.5 0 0 0-2.5 2.5v10a2.5 2.5 0 0 0 5 0 2 2 0 0 0 2-2 2 2 0 0 0 1-3.5 2 2 0 0 0-1-3.5 2 2 0 0 0-2-2 2.5 2.5 0 0 0-2.5-1.5z"/>
+          </svg>
+        </div>
+        <h3 data-i18n="ally_card1_title">Moins de stimulation</h3>
+        <p data-i18n="ally_card1_desc">Sans pubs ni suggestions, ton cerveau respire enfin.</p>
+      </div>
+      <div class="ally-card reveal" style="transition-delay: 0.08s">
+        <div class="ally-icon">
+          <!-- Horloge -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/>
+            <polyline points="12 7 12 12 15 14"/>
+          </svg>
+        </div>
+        <h3 data-i18n="ally_card2_title">Moins de temps perdu</h3>
+        <p data-i18n="ally_card2_desc">Tu vois ce que tu veux, tu pars quand tu veux.</p>
+      </div>
+      <div class="ally-card reveal" style="transition-delay: 0.16s">
+        <div class="ally-icon">
+          <!-- Coeur -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </div>
+        <h3 data-i18n="ally_card3_title">Plus de liens vrais</h3>
+        <p data-i18n="ally_card3_desc">Tes amis, ta famille, les comptes que tu as vraiment choisis.</p>
       </div>
     </div>
   </div>
@@ -1590,7 +1667,7 @@ const translations = {
     s2_desc: "La grille de suggestions algorithmiques disparaît. Seule la barre de recherche reste — pour que tu cherches ce que TU veux trouver. Cette option peut être activée ou désactivée à tout moment selon tes préférences.",
     s3_title: "Reels et stories protégés",
     s3_desc: "L'onglet Reels affiche un message honnête. Les stories sponsorisées sont bloquées. Tu ne vois que ce qui vient vraiment de tes amis.",
-    s4_title: 'Tu contrôles <span class="authentique-gradient-text">tout</span>',
+    s4_title: 'Tu contrôles <span class="authentique-gradient-text">tout</span>.',
     s4_desc: "Chaque filtre est configurable depuis l'écran Paramètres. Active ou désactive ce que tu veux, quand tu veux.",
     philosophy_quote: '"Les réseaux sociaux devraient te connecter à tes amis, pas t\'<em>en éloigner</em>."',
     philosophy_text: 'Authentique ne collecte aucune donnée. Aucun serveur. Aucun tracking. Juste une fenêtre filtrée sur Instagram, tel qu\'il aurait toujours dû être.',
@@ -1678,7 +1755,7 @@ const translations = {
     s2_desc: "The algorithmic suggestion grid disappears. Only the search bar remains — so you search what YOU want to find. This option can be enabled or disabled at any time based on your preferences.",
     s3_title: "Reels and stories protected",
     s3_desc: "The Reels tab shows an honest message. Sponsored stories are blocked. You only see what truly comes from your friends.",
-    s4_title: 'You control <span class="authentique-gradient-text">everything</span>',
+    s4_title: 'You control <span class="authentique-gradient-text">everything</span>.',
     s4_desc: "Every filter is configurable from the Settings screen. Enable or disable what you want, when you want.",
     philosophy_quote: '"Social media should connect you to your friends, not <em>push you away</em> from them."',
     philosophy_text: 'Authentique collects no data. No server. No tracking. Just a filtered window into Instagram, as it should always have been.',
@@ -1766,7 +1843,7 @@ const translations = {
     s2_desc: "La cuadrícula de sugerencias algorítmicas desaparece. Solo queda la barra de búsqueda. Esta opción puede activarse o desactivarse en cualquier momento según tus preferencias.",
     s3_title: "Reels e historias protegidas",
     s3_desc: "La pestaña Reels muestra un mensaje honesto. Las historias patrocinadas están bloqueadas.",
-    s4_title: 'Tú controlas <span class="authentique-gradient-text">todo</span>',
+    s4_title: 'Tú controlas <span class="authentique-gradient-text">todo</span>.',
     s4_desc: "Cada filtro es configurable desde la pantalla de Ajustes. Activa o desactiva lo que quieras.",
     philosophy_quote: '"Las redes sociales deberían conectarte con tus amigos, no <em>alejarte</em> de ellos."',
     philosophy_text: 'Authentique no recopila ningún dato. Sin servidor. Sin seguimiento. Solo una ventana filtrada a Instagram, como siempre debió haber sido.',
@@ -1854,7 +1931,7 @@ const translations = {
     s2_desc: "La griglia di suggerimenti algoritmici sparisce. Resta solo la barra di ricerca — così cerchi quello che TU vuoi trovare. Questa opzione può essere attivata o disattivata in qualsiasi momento secondo le tue preferenze.",
     s3_title: "Reels e storie protetti",
     s3_desc: "La scheda Reels mostra un messaggio onesto. Le storie sponsorizzate sono bloccate. Vedi solo ciò che viene davvero dai tuoi amici.",
-    s4_title: 'Tu controlli <span class="authentique-gradient-text">tutto</span>',
+    s4_title: 'Tu controlli <span class="authentique-gradient-text">tutto</span>.',
     s4_desc: "Ogni filtro è configurabile dalla schermata Impostazioni. Attiva o disattiva ciò che vuoi, quando vuoi.",
     philosophy_quote: '"I social media dovrebbero connetterti ai tuoi amici, non <em>allontanarti</em> da loro."',
     philosophy_text: "Authentique non raccoglie nessun dato. Nessun server. Nessun tracciamento. Solo una finestra filtrata su Instagram, come avrebbe sempre dovuto essere.",
@@ -1942,7 +2019,7 @@ const translations = {
     s2_desc: "A grelha de sugestões algorítmicas desaparece. Só fica a barra de pesquisa — para que pesquises o que TU queres encontrar. Esta opção pode ser ativada ou desativada a qualquer momento de acordo com as tuas preferências.",
     s3_title: "Reels e stories protegidos",
     s3_desc: "O separador Reels mostra uma mensagem honesta. Os stories patrocinados estão bloqueados. Só vês o que vem realmente dos teus amigos.",
-    s4_title: 'Tu controlas <span class="authentique-gradient-text">tudo</span>',
+    s4_title: 'Tu controlas <span class="authentique-gradient-text">tudo</span>.',
     s4_desc: "Cada filtro é configurável a partir do ecrã Definições. Ativa ou desativa o que quiseres, quando quiseres.",
     philosophy_quote: '"As redes sociais deviam conectar-te aos teus amigos, não <em>afastar-te</em> deles."',
     philosophy_text: "O Authentique não recolhe nenhum dado. Sem servidor. Sem rastreio. Apenas uma janela filtrada para o Instagram, como sempre deveria ter sido.",
@@ -2030,7 +2107,7 @@ const translations = {
     s2_desc: "Сетка алгоритмических рекомендаций исчезает. Остаётся только строка поиска. Эту опцию можно включить или отключить в любой момент по своему усмотрению.",
     s3_title: "Reels и истории защищены",
     s3_desc: "Вкладка Reels показывает честное сообщение. Спонсированные истории заблокированы.",
-    s4_title: 'Ты контролируешь <span class="authentique-gradient-text">всё</span>',
+    s4_title: 'Ты контролируешь <span class="authentique-gradient-text">всё</span>.',
     s4_desc: "Каждый фильтр настраивается в экране Настроек. Включай или выключай что хочешь.",
     philosophy_quote: '"Социальные сети должны соединять тебя с друзьями, а не <em>отдалять</em> от них."',
     philosophy_text: 'Authentique не собирает данных. Никаких серверов. Никакой слежки. Только отфильтрованное окно в Instagram, каким он всегда должен был быть.',
