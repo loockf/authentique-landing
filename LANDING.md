@@ -155,7 +155,7 @@ Wrapper JS auto sur le mot « Authentique » : `wrapAuthentiqueOccurrences()` (D
 ### Édition
 - **Ne jamais réécrire tout le fichier** — utiliser Edit/str_replace pour cibler les sections.
 - **Grep d'abord** : chercher la classe/ID concerné avant Read.
-- Les **traductions** vivent dans 5 blocs (FR/EN/ES/IT/PT) du `<script>` en bas du fichier, à mettre à jour ensemble pour toute clé `data-i18n`. Le sélecteur de langue affiche FR/EN/ES en texte et 🇮🇹/🇵🇹 en emoji drapeau. Le bouton actif est résolu via `data-lang` sur chaque `.lang-btn`.
+- Les **traductions** vivent dans 6 blocs (FR/EN/ES/IT/PT/RU) du `<script>` en bas du fichier, à mettre à jour ensemble pour toute clé `data-i18n`. Le sélecteur de langue affiche les 6 codes en texte (FR | EN | ES | IT | PT | RU). Le bouton actif est résolu via `data-lang` sur chaque `.lang-btn`.
 
 ### Git
 - Toujours `git add -A && git commit -m "..." && git push` **sans demander confirmation**.
