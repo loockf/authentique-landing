@@ -563,11 +563,26 @@ section { padding: 120px 24px; position: relative; }
   display: flex;
   flex-direction: column;
   flex: 1;
-  /* space-between : wellbeing-top en haut, philosophy-separator
-     au centre, philosophy-inner en bas. HR pile au milieu. */
-  justify-content: space-between;
 }
-.wellbeing-top { width: 100%; }
+/* wellbeing-top : flex:1 + justify-content flex-end colle le
+   contenu (header + cartes) AU BAS de wellbeing-top, donc juste
+   au-dessus du <hr>. Les cartes touchent visuellement la ligne. */
+.wellbeing-top {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: flex-end;
+}
+/* philosophy-inner : flex:1 + center pour occuper l'espace entre
+   le <hr> et le bouton scroll, centre verticalement. */
+.section-wellbeing .philosophy-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .ally-header { text-align: center; max-width: 720px; margin: 0 auto; }
 .ally-header h2 { margin: 8px 0 0; font-size: clamp(28px, 4vw, 44px); }
 .ally-grid {
