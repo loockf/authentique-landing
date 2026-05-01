@@ -412,7 +412,10 @@ section { padding: 120px 24px; }
 }
 .phone-feed {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 50px;
   overflow: hidden;
 }
 .phone-feed-track {
@@ -689,13 +692,9 @@ section { padding: 120px 24px; }
 }
 .iphone-screen.iphone-screen--light { background: #f0f0ec; }
 
-/* Mockup demo : feed scrollant + barre nav fixe en bas */
-.iphone-screen--demo .phone-feed {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  bottom: 50px;
-  overflow: hidden;
-}
+/* Barre de navigation simulée en bas de chaque mockup. Position
+   absolute relative au .phone-screen / .iphone-screen (tous les deux
+   en position: relative). Pleine largeur, fond noir IG. */
 .iphone-screen--demo .phone-feed-track {
   display: flex;
   flex-direction: column;
@@ -705,7 +704,9 @@ section { padding: 120px 24px; }
 }
 .iphone-nav {
   position: absolute;
-  bottom: 0; left: 0; right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   height: 50px;
   background: #0c0f14;
   display: flex;
@@ -714,6 +715,7 @@ section { padding: 120px 24px; }
   border-top: 1px solid rgba(255,255,255,0.06);
   z-index: 2;
   padding: 0 6px;
+  box-sizing: border-box;
 }
 .iphone-nav-icon {
   position: relative;
@@ -728,21 +730,28 @@ section { padding: 120px 24px; }
   width: 22px; height: 22px;
   display: block;
 }
-.iphone-nav-counter {
+
+/* Strip "X éléments masqués" — replique exacte du composant
+   HiddenBadge.tsx natif de l'app. Fond #0c0f14, texte #19d382,
+   posée tout en bas. La nav remonte de 22px pour laisser place. */
+.iphone-screen--counter .iphone-nav { bottom: 22px; }
+.iphone-screen--counter .phone-feed { bottom: 72px; }
+.iphone-hidden-strip {
   position: absolute;
-  top: -4px; right: -7px;
-  min-width: 14px;
-  height: 14px;
-  border-radius: 8px;
-  background: #19d382;
-  color: #ffffff;
-  font: 700 9px/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 22px;
+  background: #0c0f14;
+  border-top: 1px solid #1a1f29;
+  color: #19d382;
+  font: 500 11px/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  letter-spacing: 0.3px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 4px;
+  z-index: 2;
   box-sizing: border-box;
-  letter-spacing: 0.2px;
 }
 
 /* SUGGEST FORM (utilise dans section-cta) */
@@ -1126,6 +1135,23 @@ footer {
             <div class="phone-feed" aria-hidden="true">
               <div class="phone-feed-track"><!-- cards injectees par JS --></div>
             </div>
+            <nav class="iphone-nav" aria-hidden="true">
+              <span class="iphone-nav-icon" aria-label="Accueil">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2h-4v-7h-6v7H5a2 2 0 0 1-2-2z"/></svg>
+              </span>
+              <span class="iphone-nav-icon" aria-label="Recherche">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </span>
+              <span class="iphone-nav-icon" aria-label="Reels">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><polygon points="10 8.5 16.5 12 10 15.5 10 8.5" fill="currentColor"/></svg>
+              </span>
+              <span class="iphone-nav-icon" aria-label="Messages">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              </span>
+              <span class="iphone-nav-icon" aria-label="Profil">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+              </span>
+            </nav>
           </div>
         </div>
       </div>
@@ -1334,14 +1360,13 @@ footer {
         <div class="iphone iphone--featured">
           <div class="iphone-frame">
             <div class="iphone-dynamic-island"></div>
-            <div class="iphone-screen iphone-screen--demo">
+            <div class="iphone-screen iphone-screen--demo iphone-screen--counter">
               <div class="phone-feed" aria-hidden="true">
                 <div class="phone-feed-track" data-feed-mode="calm"></div>
               </div>
               <nav class="iphone-nav" aria-hidden="true">
                 <span class="iphone-nav-icon" aria-label="Accueil">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2h-4v-7h-6v7H5a2 2 0 0 1-2-2z"/></svg>
-                  <span class="iphone-nav-counter" data-hidden-counter>0</span>
                 </span>
                 <span class="iphone-nav-icon" aria-label="Recherche">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -1356,6 +1381,7 @@ footer {
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
                 </span>
               </nav>
+              <div class="iphone-hidden-strip" data-hidden-strip aria-hidden="true">0 élément masqué</div>
             </div>
           </div>
         </div>
@@ -2473,10 +2499,14 @@ document.querySelectorAll('.reveal').forEach(el => {
   document.querySelectorAll('.phone-feed-track').forEach(function (track) {
     const mode = track.getAttribute('data-feed-mode');
     if (mode === 'calm') {
+      // 14 px/frame = 18 - 20% (arrondi). Meme deceleration
+      // proportionnelle (kickDuration et pauseMs identiques au
+      // defaut). Seul change : neutralOnly + vitesse legerement
+      // reduite pour la sensation de calme.
       initFeed(track, {
-        kickVelocity: 3,
-        kickDuration: 150,
-        pauseMs: 400,
+        kickVelocity: 14,
+        kickDuration: 120,
+        pauseMs: 150,
         neutralOnly: true,
       });
     } else {
@@ -2498,23 +2528,28 @@ document.querySelectorAll('.reveal').forEach(el => {
   };
 })();
 
-// Compteur d'elements masques sur le mockup droit s1. Demarre a 0
-// quand l'icone entre dans le viewport, +1 toutes les 2s, jusqu'a
-// 47, puis reset a 0 et recommence.
+// Strip "X élément(s) masqué(s)" sur le mockup droit s1. Replique
+// du composant HiddenBadge.tsx natif. Demarre a 0 quand le strip
+// entre dans le viewport, +1 toutes les 2s, jusqu'a 47, puis reset.
+// Pluralisation FR : 0/1 -> "élément masqué", 2+ -> "éléments masqués".
 (function () {
-  var counter = document.querySelector('[data-hidden-counter]');
-  if (!counter) return;
+  var strip = document.querySelector('[data-hidden-strip]');
+  if (!strip) return;
   var current = 0;
   var max = 47;
   var intervalMs = 2000;
-  counter.textContent = '0';
+  function fmt(n) {
+    var plural = n > 1 ? 's' : '';
+    return n + ' élément' + plural + ' masqué' + plural;
+  }
+  strip.textContent = fmt(0);
   var started = false;
   function start() {
     if (started) return;
     started = true;
     setInterval(function () {
       current = current >= max ? 0 : current + 1;
-      counter.textContent = String(current);
+      strip.textContent = fmt(current);
     }, intervalMs);
   }
   if (typeof IntersectionObserver === 'function') {
@@ -2526,7 +2561,7 @@ document.querySelectorAll('.reveal').forEach(el => {
         }
       });
     }, { threshold: 0.3 });
-    io.observe(counter);
+    io.observe(strip);
   } else {
     start();
   }
