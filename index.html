@@ -1287,7 +1287,13 @@ footer {
 .section-faq {
   background: var(--white);
   padding: 120px 24px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
+.section-faq .faq-inner { flex: 1; }
+.section-faq footer { margin-top: auto; }
 .faq-inner { max-width: 760px; margin: 0 auto; }
 .faq-inner .section-label { display: block; text-align: center; }
 .faq-inner h2 {
@@ -2002,25 +2008,25 @@ footer {
       </details>
     </div>
   </div>
+  <!-- Footer integre en bas de section-faq pour qu'il apparaisse
+       dans le meme viewport que la FAQ apres scroll down. -->
+  <footer>
+    <a href="#" class="footer-logo">
+      <span class="arch-icon">
+        <svg viewBox="0 0 200 200" fill="none">
+          <path d="M 28,178 L 52,88 Q 66,38 100,38 Q 134,38 148,88 L 172,178"
+            stroke="#ffffff" stroke-width="30" stroke-linecap="round" fill="none"/>
+        </svg>
+      </span>
+      <span class="footer-name">Authentique</span>
+    </a>
+    <div class="footer-links">
+      <a href="mailto:hello@get-authentique.com" data-i18n="footer_contact">Contact</a>
+      <a href="/mentions-legales.html" data-i18n="footer_legal">Mentions légales</a>
+    </div>
+    <p class="footer-copy">© 2026 Authentique</p>
+  </footer>
 </section>
-
-<!-- FOOTER -->
-<footer>
-  <a href="#" class="footer-logo">
-    <span class="arch-icon">
-      <svg viewBox="0 0 200 200" fill="none">
-        <path d="M 28,178 L 52,88 Q 66,38 100,38 Q 134,38 148,88 L 172,178"
-          stroke="#ffffff" stroke-width="30" stroke-linecap="round" fill="none"/>
-      </svg>
-    </span>
-    <span class="footer-name">Authentique</span>
-  </a>
-  <div class="footer-links">
-    <a href="mailto:hello@get-authentique.com" data-i18n="footer_contact">Contact</a>
-    <a href="/mentions-legales.html" data-i18n="footer_legal">Mentions légales</a>
-  </div>
-  <p class="footer-copy">© 2026 Authentique</p>
-</footer>
 
 <script>
 const translations = {
