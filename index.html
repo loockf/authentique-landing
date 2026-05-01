@@ -930,11 +930,13 @@ section { padding: 120px 24px; position: relative; }
   background: #fff;
   animation: stories-fill var(--duration, 3s) linear forwards;
 }
-/* Segment vert : applique uniquement aux segments des overlays
-   Authentique (story-overlay). Les segments neutres restent blancs. */
-.stories-progress-seg.is-green { background: rgba(0,0,0,0.15); }
-.stories-progress-seg.is-green.is-done { background: #19d382; }
-.stories-progress-seg.is-green.is-active::after { background: #19d382; }
+/* Bar verte : applique sur le parent quand l'overlay Authentique
+   est actif. Le toggle se fait dans activate() via la classe
+   .stories-progress--green sur la barre. Permet d'avoir une barre
+   blanche pendant les stories normales et verte pendant l'overlay. */
+.stories-progress--green .stories-progress-seg { background: rgba(0,0,0,0.15); }
+.stories-progress--green .stories-progress-seg.is-done { background: #19d382; }
+.stories-progress--green .stories-progress-seg.is-active::after { background: #19d382; }
 @keyframes stories-fill { to { width: 100%; } }
 
 /* Card de story : un slide plein ecran. transition 3D imitation
@@ -1022,8 +1024,9 @@ section { padding: 120px 24px; position: relative; }
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 0 24px;
-  max-width: 80%;
+  padding: 0 8px;
+  width: 95%;
+  box-sizing: border-box;
 }
 .story-overlay-icon {
   width: 44px;
@@ -1045,13 +1048,15 @@ section { padding: 120px 24px; position: relative; }
 }
 .story-overlay-title {
   color: #1c1c1a;
-  font: 600 18px/1.2 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font: 600 16px/1.2 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   letter-spacing: -0.2px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+  white-space: nowrap;
 }
 .story-overlay-subtitle {
   color: #6b6a65;
-  font: 400 13px/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font: 400 11px/1.4 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  white-space: nowrap;
 }
 .story-overlay-arch {
   width: 24px;
@@ -3085,15 +3090,11 @@ document.querySelectorAll('.reveal').forEach(el => {
   }
 
   // Overlay app-style : fond #fafafa, icone cercle barre, titre +
-  // sous-titre noirs, arche verte sous le texte. Fleches lateres
-  // en chevron decoratif (opacity 0.25). Pas de croix de fermeture.
+  // sous-titre noirs, arche verte sous le texte. Pas de fleches
+  // ni de croix — sobre comme dans l'app.
   function buildOverlayCard() {
     const card = document.createElement('div');
     card.className = 'story-card story-overlay';
-    const arrowL = document.createElement('div');
-    arrowL.className = 'story-overlay-arrow story-overlay-arrow-left';
-    const arrowR = document.createElement('div');
-    arrowR.className = 'story-overlay-arrow story-overlay-arrow-right';
 
     const content = document.createElement('div');
     content.className = 'story-overlay-content';
@@ -3111,7 +3112,6 @@ document.querySelectorAll('.reveal').forEach(el => {
 
     const arch = document.createElement('div');
     arch.className = 'story-overlay-arch';
-    // Arche verte #19d382, replique de createArchSignature() de l'app.
     arch.innerHTML =
       '<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
         '<path d="M 28,178 L 52,88 Q 66,38 100,38 Q 134,38 148,88 L 172,178" ' +
@@ -3122,8 +3122,6 @@ document.querySelectorAll('.reveal').forEach(el => {
     content.appendChild(title);
     content.appendChild(sub);
     content.appendChild(arch);
-    card.appendChild(arrowL);
-    card.appendChild(arrowR);
     card.appendChild(content);
     return card;
   }
@@ -3140,43 +3138,37 @@ document.querySelectorAll('.reveal').forEach(el => {
   }
 
   // initStories : pilote la rotation des cartes + la barre de
-  // progression pour un screen donne. cards: tableau de DOM nodes
-  // deja appendees au screen. duration: ms par carte.
-  // Chaque segment recoit la classe is-green si la carte associee
-  // est un overlay (color verte #19d382 uniquement quand l'overlay
-  // est actif ; les segments des stories neutres restent blancs).
+  // progression. duration peut etre un nombre uniforme ou un
+  // tableau (1 valeur par carte) pour des durees variables.
+  // La barre prend la classe .stories-progress--green quand la
+  // carte active est un overlay (story-overlay) -> bar verte ;
+  // sinon bar blanche par defaut.
   function initStories(screen, cards, duration) {
+    function getDuration(i) {
+      return Array.isArray(duration) ? duration[i] : duration;
+    }
     const bar = buildProgressBar(cards.length);
     screen.appendChild(bar);
     const segs = bar.querySelectorAll('.stories-progress-seg');
-    cards.forEach(function (c, i) {
-      if (c.classList.contains('story-overlay')) {
-        segs[i].classList.add('is-green');
-      }
-    });
     let idx = 0;
-
-    function setSegmentDuration(ms) {
-      bar.style.setProperty('--duration', ms + 'ms');
-    }
-    setSegmentDuration(duration);
-
     let prevIdx = -1;
+
     function activate(i) {
-      // Sens unique gauche -> droite : a chaque wrap (last index -> 0),
-      // on remet TOUTES les cartes a leur position par defaut (off-right)
-      // SANS transition. La carte 0 entre ainsi de la droite, jamais de
-      // la gauche. Sans ce reset, la carte qui etait .is-past glisserait
-      // depuis la gauche pour redevenir .is-current.
+      // Toggle bar verte si la carte courante est un overlay.
+      const isOverlay = cards[i].classList.contains('story-overlay');
+      bar.classList.toggle('stories-progress--green', isOverlay);
+
+      // Synchronise la duree CSS du fill avec la duree JS.
+      bar.style.setProperty('--duration', getDuration(i) + 'ms');
+
+      // Sens unique gauche -> droite : reset apres wrap.
       const isWrap = prevIdx === cards.length - 1 && i === 0;
       if (isWrap) {
         cards.forEach(c => {
           c.style.transition = 'none';
           c.classList.remove('is-current', 'is-past');
         });
-        // Force reflow pour figer l'etat sans transition.
         void screen.offsetWidth;
-        // Restore transitions (next frame)
         cards.forEach(c => { c.style.transition = ''; });
       }
 
@@ -3188,8 +3180,7 @@ document.querySelectorAll('.reveal').forEach(el => {
       segs.forEach((s, j) => {
         s.classList.remove('is-active', 'is-done');
         if (j === i) {
-          // Force restart de l'animation CSS en re-clonant le node
-          // (sinon Chrome ne replays pas l'anim quand on retoggle la classe).
+          // Force restart de l'animation CSS via cloneNode.
           const clone = s.cloneNode(false);
           s.parentNode.replaceChild(clone, s);
           segs[j] = clone;
@@ -3202,14 +3193,18 @@ document.querySelectorAll('.reveal').forEach(el => {
     }
 
     activate(0);
-    setInterval(function () {
+    // setTimeout enchaine pour supporter durees variables par carte.
+    function tick() {
       idx = (idx + 1) % cards.length;
       activate(idx);
-    }, duration);
+      setTimeout(tick, getDuration(idx));
+    }
+    setTimeout(tick, getDuration(0));
   }
 
   // Telephone gauche : 4 stories en boucle (3 sponsor + 1 neutre = 75/25).
-  // Vitesse rapide : 1.5s par story pour donner l'impression de chaos.
+  // Tres rapide (1.2s par story) pour evoquer le flux incessant de
+  // contenu sponsorise.
   const leftScreen = document.querySelector('[data-stories-mode="chaos"]');
   if (leftScreen) {
     const state = { lastGrad: -1, lastName: -1 };
@@ -3220,12 +3215,13 @@ document.querySelectorAll('.reveal').forEach(el => {
       buildSponsorCard(state),
     ];
     cards.forEach(c => leftScreen.appendChild(c));
-    initStories(leftScreen, cards, 1500);
+    initStories(leftScreen, cards, 1200);
   }
 
-  // Telephone droit : alternance story neutre + overlay Authentique,
-  // 2 cards qui bouclent (2s chacune). Le segment de progression
-  // est blanc pour la story neutre, vert quand l'overlay est actif.
+  // Telephone droit : alternance story neutre + overlay Authentique.
+  // Durees variables : story neutre 2.5s, overlay 2s. Le rythme plus
+  // lent donne l'impression de calme vs le chaos du gauche. La barre
+  // est blanche pendant la story neutre, verte pendant l'overlay.
   const rightScreen = document.querySelector('[data-stories-mode="overlay"]');
   if (rightScreen) {
     const cards = [
@@ -3233,7 +3229,7 @@ document.querySelectorAll('.reveal').forEach(el => {
       buildOverlayCard(),
     ];
     cards.forEach(c => rightScreen.appendChild(c));
-    initStories(rightScreen, cards, 2000);
+    initStories(rightScreen, cards, [2500, 2000]);
   }
 })();
 
