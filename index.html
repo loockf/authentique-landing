@@ -910,7 +910,7 @@ section { padding: 120px 24px; position: relative; }
 }
 .stories-progress {
   position: absolute;
-  top: 8px;
+  top: 40px;
   left: 8px;
   right: 8px;
   height: 2px;
@@ -934,8 +934,11 @@ section { padding: 120px 24px; position: relative; }
   background: #fff;
   animation: stories-fill var(--duration, 3s) linear forwards;
 }
-.stories-progress--green .stories-progress-seg.is-done { background: #19d382; }
-.stories-progress--green .stories-progress-seg.is-active::after { background: #19d382; }
+/* Segment vert : applique uniquement aux segments des overlays
+   Authentique (story-overlay). Les segments neutres restent blancs. */
+.stories-progress-seg.is-green { background: rgba(0,0,0,0.15); }
+.stories-progress-seg.is-green.is-done { background: #19d382; }
+.stories-progress-seg.is-green.is-active::after { background: #19d382; }
 @keyframes stories-fill { to { width: 100%; } }
 
 /* Card de story : un slide plein ecran. transition 3D imitation
@@ -960,19 +963,38 @@ section { padding: 120px 24px; position: relative; }
   transform-origin: right center;
 }
 
-/* Story sponsor : fond degrade + label "Sponsorisé" + nom de compte */
-.story-sponsor { /* background set inline */ }
-.story-sponsor .story-account {
+/* Header (avatar + nom/namebar) commun aux stories sponsor + neutres,
+   positionne sous l'encoche du mockup (top 56px = 40 progress + 16). */
+.story-card .story-header {
   position: absolute;
-  top: 22px;
+  top: 56px;
   left: 12px;
-  color: #fff;
-  font: 500 11px/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   z-index: 5;
 }
+.story-card .story-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #fff;
+  flex-shrink: 0;
+}
+.story-card .story-account {
+  color: #fff;
+  font: 500 11px/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+.story-card .story-namebar {
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.7);
+}
+
+/* Label "Sponsorisé" pose sous le header */
 .story-sponsor .story-label {
   position: absolute;
-  top: 40px;
+  top: 96px;
   left: 12px;
   background: rgba(0,0,0,0.35);
   color: #fff;
@@ -983,47 +1005,17 @@ section { padding: 120px 24px; position: relative; }
   z-index: 5;
 }
 
-/* Story neutre : fond gris fonce + avatar simulé en haut */
+/* Story neutre : fond uniforme, header (avatar + namebar) en haut */
 .story-neutral { background: #2d2d2d; }
-.story-neutral .story-avatar {
-  position: absolute;
-  top: 18px;
-  left: 12px;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: #fff;
-}
-.story-neutral .story-namebar {
-  position: absolute;
-  top: 28px;
-  left: 48px;
-  height: 8px;
-  border-radius: 4px;
-  background: rgba(255,255,255,0.7);
-}
 
-/* Story overlay (telephone droit) — replique de l'overlay app.
-   Fond noir semi-transparent + degrades top/bottom + logo arche
-   blanc + texte centre + fleches lateres + croix top-right. */
+/* Story overlay (telephone droit) — replique pixel-near de
+   injectSponsoredStoryOverlay() : fond #fafafa clair, icone cercle
+   barre noir, titre + sous-titre noirs, arche verte #19d382 sous
+   le texte (opacity 0.6). Fleches lateres en chevron, opacity 0
+   comme dans l'app (decoratif click-through). */
 .story-overlay {
-  background: rgba(0,0,0,0.88);
-}
-.story-overlay::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 60px;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
-  pointer-events: none;
-}
-.story-overlay::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 80px;
-  background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
-  pointer-events: none;
+  background: #fafafa;
+  color: #1c1c1a;
 }
 .story-overlay-content {
   position: absolute;
@@ -1034,55 +1026,63 @@ section { padding: 120px 24px; position: relative; }
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 10px;
-  width: 80%;
+  padding: 0 24px;
+  max-width: 80%;
 }
-.story-overlay-arch {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.story-overlay-icon {
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid rgba(28, 28, 26, 0.55);
+  border-radius: 50%;
+  position: relative;
+  margin-bottom: 20px;
 }
-.story-overlay-arch svg { width: 100%; height: 100%; }
+.story-overlay-icon::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 38px;
+  height: 1.5px;
+  background: rgba(28, 28, 26, 0.55);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
 .story-overlay-title {
-  color: #fff;
-  font: 600 14px/1.2 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-  letter-spacing: 0.1px;
+  color: #1c1c1a;
+  font: 600 18px/1.2 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  letter-spacing: -0.2px;
+  margin-bottom: 8px;
 }
 .story-overlay-subtitle {
-  color: rgba(255,255,255,0.85);
-  font: 400 12px/1.3 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  color: #6b6a65;
+  font: 400 13px/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
 }
+.story-overlay-arch {
+  width: 24px;
+  height: 26px;
+  margin-top: 14px;
+  opacity: 0.6;
+}
+.story-overlay-arch svg { width: 100%; height: 100%; display: block; }
+
 .story-overlay-arrow {
   position: absolute;
   top: 50%;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: rgba(0,0,0,0.4);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  border-top: 1.5px solid rgba(28, 28, 26, 0.4);
+  border-right: 1.5px solid rgba(28, 28, 26, 0.4);
+  pointer-events: none;
+  opacity: 0.25;
   z-index: 6;
 }
-.story-overlay-arrow-left { left: 6px; }
-.story-overlay-arrow-right { right: 6px; }
-.story-overlay-close {
-  position: absolute;
-  top: 22px;
-  right: 12px;
-  width: 18px;
-  height: 18px;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  z-index: 6;
+.story-overlay-arrow-left {
+  left: 8%;
+  transform: translateY(-50%) rotate(-135deg);
+}
+.story-overlay-arrow-right {
+  right: 8%;
+  transform: translateY(-50%) rotate(45deg);
 }
 
 /* SUGGEST FORM (utilise dans section-cta) */
@@ -3046,20 +3046,43 @@ document.querySelectorAll('.reveal').forEach(el => {
     return i;
   }
 
+  // Header commun (avatar 28px + libelle). avatar = cercle blanc.
+  // libelle = nom de compte (sponsor) ou barre simulee (neutre).
+  function buildSponsorHeader(state) {
+    const header = document.createElement('div');
+    header.className = 'story-header';
+    const av = document.createElement('span');
+    av.className = 'story-avatar';
+    const ni = pick(ACCOUNT_NAMES, state.lastName); state.lastName = ni;
+    const account = document.createElement('span');
+    account.className = 'story-account';
+    account.textContent = ACCOUNT_NAMES[ni];
+    header.appendChild(av);
+    header.appendChild(account);
+    return header;
+  }
+  function buildNeutralHeader() {
+    const header = document.createElement('div');
+    header.className = 'story-header';
+    const av = document.createElement('span');
+    av.className = 'story-avatar';
+    const nm = document.createElement('span');
+    nm.className = 'story-namebar';
+    nm.style.width = rand(60, 100) + 'px';
+    header.appendChild(av);
+    header.appendChild(nm);
+    return header;
+  }
+
   function buildSponsorCard(state) {
     const card = document.createElement('div');
     card.className = 'story-card story-sponsor';
     const gi = pick(SPONSOR_GRADS, state.lastGrad); state.lastGrad = gi;
     card.style.background = SPONSOR_GRADS[gi];
-    const account = document.createElement('span');
-    account.className = 'story-account';
-    const ni = pick(ACCOUNT_NAMES, state.lastName); state.lastName = ni;
-    account.textContent = ACCOUNT_NAMES[ni];
+    card.appendChild(buildSponsorHeader(state));
     const label = document.createElement('span');
     label.className = 'story-label';
     label.textContent = 'Sponsorisé';
-    label.dataset.labelKey = 'sponsor';
-    card.appendChild(account);
     card.appendChild(label);
     return card;
   }
@@ -3067,53 +3090,57 @@ document.querySelectorAll('.reveal').forEach(el => {
   function buildNeutralCard() {
     const card = document.createElement('div');
     card.className = 'story-card story-neutral';
-    const av = document.createElement('span');
-    av.className = 'story-avatar';
-    const nm = document.createElement('span');
-    nm.className = 'story-namebar';
-    nm.style.width = rand(60, 100) + 'px';
-    card.appendChild(av);
-    card.appendChild(nm);
+    card.appendChild(buildNeutralHeader());
     return card;
   }
 
+  // Overlay app-style : fond #fafafa, icone cercle barre, titre +
+  // sous-titre noirs, arche verte sous le texte. Fleches lateres
+  // en chevron decoratif (opacity 0.25). Pas de croix de fermeture.
   function buildOverlayCard() {
     const card = document.createElement('div');
     card.className = 'story-card story-overlay';
-    const closeBtn = document.createElement('span');
-    closeBtn.className = 'story-overlay-close';
-    closeBtn.textContent = '✕';
-    const arrowL = document.createElement('span');
+    const arrowL = document.createElement('div');
     arrowL.className = 'story-overlay-arrow story-overlay-arrow-left';
-    arrowL.innerHTML = '&#8249;';
-    const arrowR = document.createElement('span');
+    const arrowR = document.createElement('div');
     arrowR.className = 'story-overlay-arrow story-overlay-arrow-right';
-    arrowR.innerHTML = '&#8250;';
+
     const content = document.createElement('div');
     content.className = 'story-overlay-content';
-    const arch = document.createElement('div');
-    arch.className = 'story-overlay-arch';
-    arch.innerHTML = ARCH_SVG;
+
+    const icon = document.createElement('div');
+    icon.className = 'story-overlay-icon';
+
     const title = document.createElement('span');
     title.className = 'story-overlay-title';
-    title.textContent = 'Story sponsorisée';
+    title.textContent = 'Contenu sponsorisé';
+
     const sub = document.createElement('span');
     sub.className = 'story-overlay-subtitle';
-    sub.textContent = 'Masquée par Authentique';
-    content.appendChild(arch);
+    sub.textContent = 'Authentique veille sur ton fil.';
+
+    const arch = document.createElement('div');
+    arch.className = 'story-overlay-arch';
+    // Arche verte #19d382, replique de createArchSignature() de l'app.
+    arch.innerHTML =
+      '<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+        '<path d="M 28,178 L 52,88 Q 66,38 100,38 Q 134,38 148,88 L 172,178" ' +
+          'stroke="#19d382" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"/>' +
+      '</svg>';
+
+    content.appendChild(icon);
     content.appendChild(title);
     content.appendChild(sub);
-    card.appendChild(closeBtn);
+    content.appendChild(arch);
     card.appendChild(arrowL);
     card.appendChild(arrowR);
     card.appendChild(content);
     return card;
   }
 
-  function buildProgressBar(nbSegments, opts) {
-    opts = opts || {};
+  function buildProgressBar(nbSegments) {
     const bar = document.createElement('div');
-    bar.className = 'stories-progress' + (opts.green ? ' stories-progress--green' : '');
+    bar.className = 'stories-progress';
     for (let i = 0; i < nbSegments; i++) {
       const seg = document.createElement('div');
       seg.className = 'stories-progress-seg';
@@ -3125,12 +3152,18 @@ document.querySelectorAll('.reveal').forEach(el => {
   // initStories : pilote la rotation des cartes + la barre de
   // progression pour un screen donne. cards: tableau de DOM nodes
   // deja appendees au screen. duration: ms par carte.
-  function initStories(screen, cards, duration, opts) {
-    opts = opts || {};
-    const greenBar = !!opts.green;
-    const bar = buildProgressBar(cards.length, { green: greenBar });
+  // Chaque segment recoit la classe is-green si la carte associee
+  // est un overlay (color verte #19d382 uniquement quand l'overlay
+  // est actif ; les segments des stories neutres restent blancs).
+  function initStories(screen, cards, duration) {
+    const bar = buildProgressBar(cards.length);
     screen.appendChild(bar);
     const segs = bar.querySelectorAll('.stories-progress-seg');
+    cards.forEach(function (c, i) {
+      if (c.classList.contains('story-overlay')) {
+        segs[i].classList.add('is-green');
+      }
+    });
     let idx = 0;
 
     function setSegmentDuration(ms) {
@@ -3186,6 +3219,7 @@ document.querySelectorAll('.reveal').forEach(el => {
   }
 
   // Telephone gauche : 4 stories en boucle (3 sponsor + 1 neutre = 75/25).
+  // Vitesse rapide : 1.5s par story pour donner l'impression de chaos.
   const leftScreen = document.querySelector('[data-stories-mode="chaos"]');
   if (leftScreen) {
     const state = { lastGrad: -1, lastName: -1 };
@@ -3196,11 +3230,12 @@ document.querySelectorAll('.reveal').forEach(el => {
       buildSponsorCard(state),
     ];
     cards.forEach(c => leftScreen.appendChild(c));
-    initStories(leftScreen, cards, 3000);
+    initStories(leftScreen, cards, 1500);
   }
 
   // Telephone droit : alternance story neutre + overlay Authentique,
-  // 2 cards qui bouclent (2s chacune). Barre de progression verte.
+  // 2 cards qui bouclent (2s chacune). Le segment de progression
+  // est blanc pour la story neutre, vert quand l'overlay est actif.
   const rightScreen = document.querySelector('[data-stories-mode="overlay"]');
   if (rightScreen) {
     const cards = [
@@ -3208,7 +3243,7 @@ document.querySelectorAll('.reveal').forEach(el => {
       buildOverlayCard(),
     ];
     cards.forEach(c => rightScreen.appendChild(c));
-    initStories(rightScreen, cards, 2000, { green: true });
+    initStories(rightScreen, cards, 2000);
   }
 })();
 
