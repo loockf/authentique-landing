@@ -183,6 +183,28 @@ nav {
   0%, 100% { transform: translateX(-50%) translateY(0); }
   50%      { transform: translateX(-50%) translateY(8px); }
 }
+
+/* Bouton scroll inter-sections : meme style que .hero-scroll mais
+   centre par margin auto au lieu d'absolute. Anime via scrollBounce
+   (axe Y seulement, pas de translateX). */
+.section-scroll {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 56px auto 0;
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: #19d382;
+  animation: scrollBounce 1.5s ease-in-out infinite;
+  transition: opacity 0.3s ease;
+}
+.section-scroll svg { display: block; }
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(8px); }
+}
 /* Wrapper en width: fit-content : sa taille = celle de son enfant
    le plus large (la rangee de badges). Les enfants en width:100%
    pour que "Authentique", la legende et la rangee de badges aient
@@ -346,7 +368,8 @@ section { padding: 120px 24px; }
   flex-direction: column;
   justify-content: center;
 }
-.problem-text h2 { margin-bottom: 18px; font-size: clamp(30px, 4.5vw, 48px); }
+.section-problem { padding: 60px 24px 120px; }
+.problem-text h2 { margin-bottom: 48px; font-size: clamp(30px, 4.5vw, 48px); }
 .problem-text p { color: var(--text-soft); font-size: 16px; margin-bottom: 12px; max-width: 480px; line-height: 1.5; }
 .problem-pains {
   margin-top: 24px;
@@ -739,14 +762,23 @@ section { padding: 120px 24px; }
 }
 .sticky-slide:nth-child(2) .sticky-slide-content > .screen-col--phones { order: -1; }
 
-.sticky-dots {
+/* Wrapper sticky-controls : centre les dots et le bouton scroll
+   en un seul bloc flex en bas du panel sticky. Le bouton n'est
+   visible qu'au dernier slide (.is-visible). */
+.sticky-controls {
   position: absolute;
-  bottom: 36px;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 28px;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  z-index: 5;
+}
+.sticky-dots {
   display: flex;
   gap: 12px;
-  z-index: 5;
 }
 .sticky-dot {
   width: 7px;
@@ -760,6 +792,25 @@ section { padding: 120px 24px; }
   height: 10px;
   background: #19d382;
 }
+.sticky-scroll {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: #19d382;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  animation: scrollBounce 1.5s ease-in-out infinite;
+}
+.sticky-scroll.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.sticky-scroll svg { display: block; }
 
 .screen-col--text h3 { margin-bottom: 16px; font-size: 32px; }
 .screen-col--text p { color: var(--text-soft); font-size: 17px; line-height: 1.55; }
@@ -1331,7 +1382,7 @@ footer {
     Sois parmi les premiers à découvrir Authentique.
   </p>
   <button class="hero-scroll" aria-label="Faire défiler" type="button">
-    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
       <polyline points="6 9 12 15 18 9"/>
     </svg>
   </button>
@@ -1413,6 +1464,11 @@ footer {
   <div class="problem-stats">
     <p class="problem-stat reveal" data-i18n="problem_stat1">En moyenne, on consulte son téléphone <strong>96 fois par jour</strong>. Instagram est conçu pour en capturer le maximum.</p>
   </div>
+  <button class="section-scroll" data-scroll-to="#section-features" aria-label="Section suivante" type="button">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"/>
+    </svg>
+  </button>
 </section>
 
 <!-- FEATURES -->
@@ -1523,10 +1579,15 @@ footer {
       </div>
     </div>
   </div>
+  <button class="section-scroll" data-scroll-to="#screens" aria-label="Section suivante" type="button">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"/>
+    </svg>
+  </button>
 </section>
 
-<!-- SCREENSHOTS — sticky scroll, 3 slides -->
-<section class="section-screens">
+<!-- SCREENSHOTS — sticky scroll, 4 slides -->
+<section class="section-screens" id="screens">
   <!-- sticky-outer : hauteur = nb_slides * 100vh, capture le scroll
        pour piloter la transition entre slides via window.scrollY.
        sticky-inner : reste fixé top: 0 pendant tout le scroll de outer.
@@ -1646,19 +1707,27 @@ footer {
 
       </div><!-- /sticky-slides-area -->
 
-      <!-- Indicateurs de progression -->
-      <div class="sticky-dots" aria-hidden="true">
-        <span class="sticky-dot is-active" data-dot="0"></span>
-        <span class="sticky-dot" data-dot="1"></span>
-        <span class="sticky-dot" data-dot="2"></span>
-        <span class="sticky-dot" data-dot="3"></span>
+      <!-- Indicateurs + bouton scroll vers section suivante. Le bouton
+           apparait uniquement sur le dernier slide (.is-visible). -->
+      <div class="sticky-controls">
+        <div class="sticky-dots" aria-hidden="true">
+          <span class="sticky-dot is-active" data-dot="0"></span>
+          <span class="sticky-dot" data-dot="1"></span>
+          <span class="sticky-dot" data-dot="2"></span>
+          <span class="sticky-dot" data-dot="3"></span>
+        </div>
+        <button class="sticky-scroll" data-scroll-to="#control" aria-label="Section suivante" type="button">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
       </div>
     </div>
   </div>
 </section>
 
 <!-- CONTROL — Tu contrôles tout. -->
-<section class="section-control">
+<section class="section-control" id="control">
   <div class="control-inner">
     <h2 class="reveal" data-i18n="s4_title">Tu contrôles <span class="authentique-gradient-text">tout</span>.</h2>
     <p class="control-sub reveal" data-i18n="s4_desc">Chaque filtre est configurable depuis l'écran Paramètres. Active ou désactive ce que tu veux, quand tu veux.</p>
@@ -1680,11 +1749,16 @@ footer {
       <h3 data-i18n="suggest_title">Et ce n'est que le <em>début</em>.</h3>
       <p data-i18n="suggest_sub">De nouvelles fonctionnalités arrivent régulièrement.</p>
     </div>
+    <button class="section-scroll" data-scroll-to="#ally" aria-label="Section suivante" type="button">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </button>
   </div>
 </section>
 
 <!-- ALLY (digital wellbeing) -->
-<section class="section-ally">
+<section class="section-ally" id="ally">
   <div class="ally-inner">
     <div class="ally-header reveal">
       <p class="section-label" data-i18n="ally_label">Bien-être numérique</p>
@@ -1724,11 +1798,16 @@ footer {
         <p data-i18n="ally_card3_desc">Tes amis, ta famille, les comptes que tu as vraiment choisis.</p>
       </div>
     </div>
+    <button class="section-scroll" data-scroll-to="#philosophy" aria-label="Section suivante" type="button">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </button>
   </div>
 </section>
 
 <!-- PHILOSOPHY -->
-<section class="section-philosophy">
+<section class="section-philosophy" id="philosophy">
   <hr class="philosophy-separator" aria-hidden="true">
   <div class="philosophy-inner reveal">
     <span class="arch-icon philosophy-arch">
@@ -1773,6 +1852,11 @@ footer {
       </button>
     </form>
     <p class="cta-email-line reveal" data-i18n="cta_email_line">ou écris-nous directement à <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a></p>
+    <button class="section-scroll" data-scroll-to="#faq" aria-label="Section suivante" type="button">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </button>
   </div>
 </section>
 
@@ -2835,14 +2919,14 @@ document.querySelectorAll('.reveal').forEach(el => {
 
 // Section "L'app en images" — sticky scroll. Pendant que .sticky-outer
 // traverse le viewport, on calcule la progression du scroll et on
-// active le slide correspondant. window.scrollY - rect.top est equivalent
-// a la formule (scrollY - offsetTop) mais utilise getBoundingClientRect
-// pour rester robuste meme si le layout au-dessus change.
+// active le slide correspondant. Bonus : le bouton .sticky-scroll
+// (vers la section suivante) n'apparait qu'au dernier slide.
 (function () {
   var outer = document.querySelector('.sticky-outer');
   if (!outer) return;
   var slides = outer.querySelectorAll('.sticky-slide');
   var dots = outer.querySelectorAll('.sticky-dot');
+  var scrollBtn = outer.querySelector('.sticky-scroll');
   if (slides.length === 0) return;
   var nbSlides = slides.length;
   var lastIndex = -1;
@@ -2862,10 +2946,29 @@ document.querySelectorAll('.reveal').forEach(el => {
     dots.forEach(function (d, i) {
       d.classList.toggle('is-active', i === index);
     });
+    if (scrollBtn) {
+      scrollBtn.classList.toggle('is-visible', index === nbSlides - 1);
+    }
   }
   window.addEventListener('scroll', update, { passive: true });
   window.addEventListener('resize', update);
   update();
+})();
+
+// Boutons de scroll inter-sections (.section-scroll + .sticky-scroll).
+// Au clic, scroll smooth vers le data-scroll-to.
+(function () {
+  var btns = document.querySelectorAll('.section-scroll, .sticky-scroll');
+  btns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var sel = btn.getAttribute('data-scroll-to');
+      if (!sel) return;
+      var target = document.querySelector(sel);
+      if (!target) return;
+      var offset = target.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: offset, behavior: 'smooth' });
+    });
+  });
 })();
 
 // === Stories mockup (slide 2 sticky scroll) ===
