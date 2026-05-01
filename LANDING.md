@@ -74,28 +74,26 @@ Lire ce fichier avant chaque modif pour éviter les ré-explorations inutiles.
 - `.screens-inner` — wrapper centré
 - `.screens-header` — header de section
 - `.screens-row` / `.screens-row--reverse` / `.screens-row--center` — alternance gauche/droite
-- `.screen-col` / `.screen-col--text` / `.screen-col--phones` — colonnes texte / téléphones
-- `.iphone` / `.iphone--featured` — mockup iPhone (le 2e est mis en avant)
+- `.screen-col` / `.screen-col--text` / `.screen-col--phones` / `.screen-col--continuation` — colonnes texte / téléphones / bloc « Et ce n'est que le début. » sous s4
+- `.iphone` / `.iphone--featured` — mockup iPhone
 - `.iphone-frame` / `.iphone-dynamic-island` / `.iphone-screen` — composants du mockup
-- Images : `images/feed.jpg`, `feed-light.jpg`, `recherche-light.jpg`, `recherche-dark.jpg`, `reels-dark.jpg`, `stories-light.jpg`, `parametres-light.jpg`, `parametres-dark.jpg`
+- `.iphone-screen` est vide (aspect-ratio 9 / 19.5, fond #1a1a1a par défaut). Variante `.iphone-screen--light` (fond #f0f0ec).
 
 ### Section Philosophie (`section.section-philosophy`, ligne 1007)
 - `.philosophy-inner` — wrapper centré
 - `.philosophy-arch` — logo arche
 
-### Section CTA finale (`section.section-cta#cta`, ligne ~1003)
-- `.cta-inner` — wrapper centré
-- `.cta-thanks` — phrase de remerciement
-- `.cta-action` — wrapper du bouton Kickstarter
+### Section CTA finale (`section.section-cta#cta`, fin de page avant footer)
+- `.cta-inner` — wrapper centré (max-width 640px)
+- `.cta-action` — wrapper du bouton Kickstarter (en haut)
+- `.cta-prompt` — phrase « Tu as une idée ou une suggestion ? On veut l'entendre. »
+- `.suggest-form` / `.suggest-textarea` / `.suggest-btn` — formulaire + bouton avion en papier (mailto)
 - `.cta-contact` — ligne « Tu as des questions ? hello@... »
 
-### Section Suggest (`section.section-suggest`, après screens)
-- `.suggest-inner` — wrapper centré (max-width 640px)
-- `.suggest-sub` — paragraphe descriptif gris sous le titre
-- `.suggest-form` — formulaire textarea + bouton, action `submitSuggestion(event)` qui ouvre `mailto:hello@get-authentique.com`
-- `.suggest-textarea` — zone de texte (placeholder via `data-i18n-placeholder`)
-- `.suggest-btn` — réutilise `.btn-primary` (fond dégradé) + icône enveloppe + flèche
-- Clés data-i18n : `suggest_title`, `suggest_sub`, `suggest_placeholder`, `suggest_btn`
+Ordre interne : Bouton Kickstarter → prompt suggestion → formulaire → contact.
+
+### Section Suggest (supprimée)
+La section dédiée n'existe plus. Le titre + sous-titre ont été déplacés sous les téléphones de la rangée s4 (« Tu contrôles tout ») via `.screen-col--continuation` (clés `suggest_title` + `suggest_sub`). Le formulaire (textarea + bouton avion en papier) a été déplacé dans la **section CTA finale** (clés `suggest_placeholder`, `suggest_btn` + nouvelle `cta_prompt`).
 
 ### Section FAQ (`section.section-faq#faq`, ligne ~1024)
 - `.faq-inner` — wrapper centré (max-width 760px)
@@ -189,12 +187,11 @@ Wrapper JS auto sur le mot « Authentique » : `wrapAuthentiqueOccurrences()` (D
 | 3 | Problème | `section.section-problem` | — |
 | 4 | Features (« Conçu pour te libérer ») | `section.section-features` | — |
 | 5 | Ally (« Authentique, ton allié... ») | `section.section-ally` | — |
-| 6 | Screens (« L'app en images ») | `section.section-screens` | — |
-| 7 | Suggest (« Et ce n'est que le début. ») | `section.section-suggest` | — |
-| 8 | Philosophie | `section.section-philosophy` | — |
-| 9 | CTA finale | `section.section-cta` | `#cta` |
-| 10 | FAQ (8 items) | `section.section-faq` | `#faq` |
-| 11 | Footer | `<footer>` | — |
+| 6 | Screens (« L'app en images ») + continuation s4 « Et ce n'est que le début. » | `section.section-screens` | — |
+| 7 | Philosophie | `section.section-philosophy` | — |
+| 8 | FAQ (8 items) | `section.section-faq` | `#faq` |
+| 9 | CTA finale (Kickstarter + form + contact) | `section.section-cta` | `#cta` |
+| 10 | Footer | `<footer>` | — |
 
 ### Navigation interne
 - Lien retour haut : `<a href="#">` (logo nav + footer)
