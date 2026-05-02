@@ -683,10 +683,10 @@ section { padding: 120px 24px; position: relative; }
   background: rgba(25,211,130,0.1);
   border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
-  margin-bottom: 18px;
+  margin: 0 auto 18px;
 }
-.feature-card h3 { font-size: 22px; margin-bottom: 10px; color: var(--text); }
-.feature-card p { color: var(--text-soft); font-size: 15px; line-height: 1.55; }
+.feature-card h3 { font-size: 22px; margin-bottom: 10px; color: var(--text); text-align: center; }
+.feature-card p { color: var(--text-soft); font-size: 15px; line-height: 1.55; text-align: center; }
 
 /* Toggle ON/OFF en haut de chaque feature-card. Pur CSS via :has(). */
 .feature-toggle {
@@ -741,7 +741,10 @@ section { padding: 120px 24px; position: relative; }
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
   text-align: center;
+  word-wrap: break-word;
+  white-space: normal;
   color: #19d382;
   font-size: 14px;
   font-weight: 500;
@@ -750,6 +753,7 @@ section { padding: 120px 24px; position: relative; }
   pointer-events: none;
   transition: opacity 0.25s ease;
   padding: 0 8px;
+  box-sizing: border-box;
 }
 .feature-card:has(input:checked) .card-content { opacity: 0; }
 .feature-card:has(input:checked) .card-on { opacity: 1; }
