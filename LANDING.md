@@ -1,228 +1,168 @@
 # LANDING.md — Contexte persistant authentique-landing
 
-Fichier de référence pour toutes les modifications futures de `index.html`.
-Lire ce fichier avant chaque modif pour éviter les ré-explorations inutiles.
+> **Lis ce fichier EN ENTIER avant toute modification. Ne modifie que ce qui est demandé. Ne réécris jamais tout `index.html`.**
+
+Voir aussi `SECTIONS.md` pour la liste exhaustive des sections.
 
 ---
 
-## 1. STRUCTURE HTML — IDs et classes importantes
+## Règles à ne jamais enfreindre
 
-### Globaux
-- `#authGrad` — `<linearGradient>` défini dans un `<svg width="0" height="0">` en haut du body (ligne ~658). Réutilisable partout via `fill="url(#authGrad)"` ou `stroke="url(#authGrad)"`.
-- `.arch-icon` — wrapper du logo arche (le « A » géométrique). Utilisé dans nav, hero, philosophy, footer.
-- `.section-label` — petite étiquette grise au-dessus de chaque titre de section.
-- `.reveal` — éléments qui s'animent au scroll (fade-in via IntersectionObserver).
-- `.authentique-gradient-text` — applique le **dégradé** Authentique au texte (background-clip: text). Pour usage explicite (cta_title, s4_title, etc.).
-- `.authentique-name` — applique le **vert plein** `#19d382`. Utilisé par l'auto-wrapper sur chaque occurrence du mot « Authentique ».
+1. **Ne jamais réécrire `index.html` en entier**. Toujours utiliser des `Edit` ciblés sur les blocs concernés.
+2. **Toujours `git add -A && git commit -m "..." && git push` sans demander confirmation** après chaque modif.
+3. **Format de commit** : type court en français (`feat:`, `fix:`, `docs:`, `style:`).
+4. **Avant toute modif structurelle** : lire le fichier (`Read`) ou faire un `git show <commit>:index.html` pour vérifier l'état réel.
+5. **Quand l'utilisateur demande de restaurer un état antérieur** : `git diff HEAD~N` ou `git show <commit>:file` puis appliquer en `Edit` ciblé. Ne jamais modifier ce qui n'est pas demandé.
+6. **Toujours mettre à jour les 6 langues** (FR/EN/ES/IT/PT/RU) en même temps quand on touche à `data-i18n`.
+7. **Pas d'emojis** dans le code/HTML sauf demande explicite.
 
-### Navigation (`<nav>`, ligne 669)
-- `.nav-logo` — lien retour haut (logo arche)
-- `.nav-right` — conteneur droite (langues + CTA)
-- `.lang-switcher` — bloc des 4 boutons FR/EN/ES/RU
-- `.lang-btn` / `.lang-btn.active` — bouton de langue
-- `.nav-cta` — bouton « Soutenir sur Kickstarter » (K + texte + flèche)
+---
 
-### Hero (`section.hero`, ligne 698)
-- `.hero-arch` — grand logo arche au-dessus du titre
-- `.hero-title` — `<h1>` global
-- `#hero-line1` — première ligne du titre = mot « Authentique. » (GrosVentre + #19d382)
-- `#hero-line2` — deuxième ligne = sous-titre (« Ton Instagram, tes choix. »)
-- `.hero-title-line` / `.hero-title-line--regular` — modificateurs des lignes
-- `.hero-title-accent` — mot accentué dans la ligne 2 (« choix », « choices », etc.)
-- `.hero-platforms-wrap` / `.hero-platforms-caption` / `.hero-platforms` — bloc « Bientôt disponible sur : » + pills
-- `.platform-pill` — pill iOS / Android
-- `.hero-actions` — conteneur du CTA principal
-- `.btn-primary` — bouton vert « Soutenir sur Kickstarter » (K + texte + flèche)
-- `.hero-tagline` — phrase d'accroche sous le bouton
+## 1. STRUCTURE & SECTIONS
 
-### Section Problème (`section.section-problem`, ligne 764)
-- `.problem-grid` — grille texte + mockup téléphone
-- `.problem-text` — colonne gauche
-- `.problem-pains` — grille des 6 pains
-- `.pain-card` — carte d'un pain (icône + label)
-- `.pain-icon` — wrapper SVG (utilise `url(#authGrad)`)
-- `.pain-label` — texte du pain (data-i18n: pain1..pain6)
-- `.phone-mockup` / `.phone-frame` / `.phone-notch` / `.phone-screen` — mockup iPhone côté droit
-- `.phone-feed` (`position: absolute; inset: 0`) / `.phone-feed-track` — conteneurs du faux feed scrollant. Cartes injectées en JS via l'IIFE en bas (`SPONSOR_GRADS`, `SCROLL_LABELS`, `feed-card`, `feed-action`, etc.). Animation saccadée (kick + ease-in + micro-pause).
-- `.problem-stats` / `.problem-stat` — bloc full-width sous la grille avec 2 statistiques choc (fond #e8e8e4, italique, `<strong>` en vert)
+Ordre vertical (chacune `100vh` sauf le sticky qui fait 400vh outer + 100vh inner) :
 
-### Section Ally / bien-être (`section.section-ally`, après Features)
-- `.ally-inner` / `.ally-header` / `.ally-grid` — wrapper + header + grille 3 colonnes
-- `.ally-card` — carte fond clair, texte centré, icône ronde au-dessus
-- `.ally-icon` — cercle 56×56 avec SVG en `url(#authGrad)` (cerveau / horloge / cœur)
-- Clés data-i18n : `ally_label`, `ally_title` (avec `<span class="authentique-gradient-text">`), `ally_card1..3_title`/`_desc`
+| # | Section | id | Class |
+|---|---------|----|----|
+| 1 | Hero | — | `.hero` |
+| 2 | Le problème | `section-problem` | `.section-problem` |
+| 3 | Conçu pour te libérer | `section-features` | `.section-features` |
+| 4 | L'app en images (sticky 4 slides) | `screens` | `.section-screens` |
+| 5 | Tu contrôles tout. | `control` | `.section-control` |
+| 6 | Bien-être numérique + Philosophy fusionnés | `wellbeing` | `.section-wellbeing` |
+| 7 | On construit Authentique ensemble. | `cta` | `.section-cta` |
+| 8 | FAQ (8 items) | `faq` | `.section-faq` |
+| 9 | Footer | — | `<footer>` (sibling de section-faq) |
 
-### Section Features (`section.section-features`, ligne 839)
-- `.features-inner` — wrapper centré
-- `.features-header` — header (label + h2)
-- `.features-grid` — grille 6 cartes
-- `.feature-card` — encadré blanc (les 6 features)
-- `.feature-toggle` / `.feature-toggle label` / `.feature-toggle input` / `.feature-switch` — toggle ON/OFF en haut de chaque carte (style identique à l'app : 48×28 px, vert #19d382 ON, gris #e0e0e0 OFF, cercle blanc qui glisse 20 px)
-- `.card-body` — wrapper position:relative pour le swap content/on
-- `.card-content` — contenu OFF (icon + titre + desc)
-- `.card-on` — overlay absolu, message court vert #19d382 affiché quand toggle ON (pure CSS via `:has(input:checked)`)
-- `.feature-icon` — wrapper SVG en haut de carte (utilise `url(#authGrad)`)
-- Features data-i18n : `f1_title..f6_title`, `f1_desc..f6_desc`
-  - f1 = Masquer les posts sponsorisés
-  - f2 = Masquer les suggestions de comptes
-  - f3 = Section Recherche épurée
-  - f4 = Masquer les Reels
-  - f5 = Masquer les stories sponsorisées
-  - f6 = Bloquer le scroll infini
-
-### Section Screens (`section.section-screens`) — sticky scroll, 3 slides
-- `.sticky-outer` — wrapper haut (height 300vh) qui capture le scroll
-- `.sticky-inner` — bloc en `position: sticky; top: 0; height: 100vh; flex-direction: column` qui reste visible pendant le scroll
-- `.screens-header` — header (label + h2) **dans** le sticky-inner pour rester visible pendant tous les slides
-- `.sticky-slides-area` — zone flex:1 qui héberge les 3 slides absolus
-- `.sticky-slide` — 3 slides superposés en absolute, transitionnent via opacity 0/1 (ease-in-out 0.4s)
-- `.sticky-slide.is-active` — slide actuellement visible
-- `.sticky-slide-content` — grille 2 colonnes (texte + téléphones) max-width 1100px
-- `.sticky-dots` / `.sticky-dot` — indicateurs en bas (3 points, point actif = `#19d382` 10×10, inactifs = #ccc 7×7)
-- Slides : 1) « Zéro publicité » avec mockups chaos + calm + counter strip, 2) « Onglet Recherche épuré », 3) « Reels et stories protégés »
-- JS : `window.scrollY` → `getBoundingClientRect().top` détermine `index = Math.floor(progress × nbSlides)` qui toggle `.is-active`
-- `.iphone` / `.iphone--featured` — mockup iPhone (frame + dynamic-island + screen)
-- `.iphone-screen` vide (aspect-ratio 9/19.5, fond #1a1a1a). Variante `.iphone-screen--light` (#f0f0ec). `.iphone-screen--demo` héberge le scrollant feed. `.iphone-screen--counter` ajoute la strip « X éléments masqués » en bas (#0c0f14, texte #19d382).
-
-### Section Philosophie (`section.section-philosophy`, ligne 1007)
-- `.philosophy-inner` — wrapper centré
-- `.philosophy-arch` — logo arche
-
-### Section CTA finale (`section.section-cta#cta`, juste après philosophy, avant FAQ)
-- `.cta-inner` — wrapper centré (max-width 640px)
-- `<h2>` cta_title — titre « On construit Authentique ensemble. » (mot Authentique en `.authentique-gradient-text` + GrosVentre)
-- `.cta-thanks` — phrase de remerciement
-- `.cta-action` — wrapper du bouton Kickstarter (href="#" placeholder)
-- `.cta-separator` — `<hr>` 80×1 px
-- `.cta-prompt` — phrase « Tu as une idée, une question ou une suggestion ? On veut l'entendre. »
-- `.suggest-form` / `.suggest-textarea` / `.suggest-btn` — formulaire + bouton avion en papier (mailto avec subject « Suggestion Authentique »)
-- `.cta-email-line` — petite ligne « ou écris-nous directement à hello@... »
-
-Ordre interne : titre → remerciement → Bouton Kickstarter → séparateur → prompt suggestion → formulaire → ligne email visible.
-
-### Section Suggest (supprimée)
-La section dédiée n'existe plus. Le titre + sous-titre ont été déplacés sous les téléphones de la rangée s4 (« Tu contrôles tout ») via `.screen-col--continuation` (clés `suggest_title` + `suggest_sub`). Le formulaire (textarea + bouton avion en papier) a été déplacé dans la **section CTA finale** (clés `suggest_placeholder`, `suggest_btn` + nouvelle `cta_prompt`).
-
-### Section FAQ (`section.section-faq#faq`, ligne ~1024)
-- `.faq-inner` — wrapper centré (max-width 760px)
-- `.faq-list` — liste verticale d'items
-- `.faq-item` — `<details>` avec fond blanc + radius 12px + flèche rotative
-- `.faq-item summary` — la question (couleur #141414)
-- `.faq-item p` — la réponse (couleur #555)
-- Flèche : pseudo-element `::after` (border-right + border-bottom rotatés), tourne via `[open]`
-- 7 questions (faq_q1..faq_q7 / faq_a1..faq_a7)
-
-### Footer (`<footer>`, ligne 1039)
-- `.footer-logo` / `.footer-name` — logo + nom Authentique
-- `.footer-links` — liens (CGU, contact, etc.)
-- `.footer-copy` — copyright
-
-### Feed mockup (JS, ligne ~1311+)
-- `.feed-card` — carte du faux feed
-- `.feed-action` — bouton action (like/comment/repost/send)
-- Icônes : `ICON_HEART`, `ICON_COMMENT`, `ICON_REPOST`, `ICON_SEND`
-- Hook live update labels : `window.__authUpdateScrollLabels`
+Détail dans `SECTIONS.md`.
 
 ---
 
 ## 2. DESIGN SYSTEM
 
-### Couleurs
-- **Vert principal** : `#19d382` (mot Authentique, accents, CTA primaire, bordures)
-- **Fond clair** : `#f0f0ec` (fond global de la page)
-- **Texte sombre** : `#141414` (titres, points finaux, corps)
-
-### Dégradé Authentique
+### Couleurs CSS variables
 ```css
-linear-gradient(138deg, #adf5d8, #38eb98, #19d382, #10c89e, #0aaa8e)
+--bg: #f0f0ec        /* fond global page */
+--white: #ffffff     /* fond sections claires */
+--text: #141414      /* corps de texte sombre */
+--text-soft: #555    /* texte secondaire */
+--text-mute: #888    /* texte tertiaire */
+--border: rgba(20,20,20,0.08)
+--green: #19d382     /* vert principal Authentique */
+--auth-grad: linear-gradient(138deg, #adf5d8, #38eb98, #19d382, #10c89e, #0aaa8e)
+--grad-icon: linear-gradient(138deg, #19d382, #10c89e)
 ```
-Stops SVG correspondants (`#authGrad`) :
-- 0% → `#adf5d8`
-- 22% → `#38eb98`
-- 50% → `#19d382`
-- 72% → `#10c89e`
-- 100% → `#0aaa8e`
+
+### SVG defs partagé
+- `<linearGradient id="authGrad">` défini une seule fois dans `<svg width="0" height="0">` en haut du body. Utilisé par les SVG features/pains/ally via `fill="url(#authGrad)"` ou `stroke="url(#authGrad)"`.
 
 ### Polices
-- **GrosVentre** — embedded en base64 dans le `<style>` (extraite du logo v5). Utilisée pour : titres `<h1>`/`<h2>`, mot « Authentique » partout.
-- **-apple-system, BlinkMacSystemFont, "Segoe UI"...** — corps de texte, paragraphes, UI.
+- **GrosVentre** — police custom embedded base64. Utilisée pour h1/h2/h3 + mot « Authentique ».
+- **System UI** — `-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif` pour le corps.
 
-### Classe utilitaire texte dégradé
-```css
-.authentique-gradient-text {
-  background: linear-gradient(138deg, #adf5d8, #38eb98, #19d382, #10c89e, #0aaa8e);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-}
-```
-Wrapper JS auto sur le mot « Authentique » : `wrapAuthentiqueOccurrences()` (DOMContentLoaded), skip SPAN/SCRIPT/STYLE.
+### Classes utilitaires
+- `.authentique-gradient-text` — applique le **dégradé** Authentique au texte (background-clip text). Pour usage explicite.
+- `.authentique-name` — applique le **vert plein** `#19d382`. Utilisé par l'auto-wrapper `wrapAuthentiqueOccurrences()` sur chaque occurrence du mot « Authentique » (skip SPAN/SCRIPT/STYLE).
+- `.reveal` — fade-in + translateY 20→0 au scroll, déclenché par `IntersectionObserver`.
+- `.section-label` — petit label gris au-dessus des h2 de section.
 
----
-
-## 3. RÈGLES IMPORTANTES
-
-### Visuel
-- Le mot **« Authentique »** apparaît toujours en GrosVentre + couleur `#19d382` (sauf cas spécifiques où le dégradé est appliqué via `.authentique-gradient-text`).
-- Les **icônes SVG des features et pains** utilisent `fill="url(#authGrad)"` ou `stroke="url(#authGrad)"`.
-- Le `<defs>` `#authGrad` est défini **une seule fois** en haut du HTML (ligne ~656). Ne pas dupliquer.
-- **Bouton Kickstarter** : `href="#"` (placeholder, pas encore live). Structure obligatoire :
-  ```html
-  <svg> K logo </svg>
-  <span data-i18n="...">Texte traduit</span>
-  <svg> flèche </svg>
-  ```
-  Le `data-i18n` doit être sur le `<span>`, **jamais** sur le `<a>` parent (sinon `setLang()` écrase les SVGs via innerHTML).
-
-### Édition
-- **Ne jamais réécrire tout le fichier** — utiliser Edit/str_replace pour cibler les sections.
-- **Grep d'abord** : chercher la classe/ID concerné avant Read.
-- Les **traductions** vivent dans 6 blocs (FR/EN/ES/IT/PT/RU) du `<script>` en bas du fichier, à mettre à jour ensemble pour toute clé `data-i18n`. Le sélecteur de langue affiche les 6 codes en texte (FR | EN | ES | IT | PT | RU). Le bouton actif est résolu via `data-lang` sur chaque `.lang-btn`.
-
-### Git
-- Toujours `git add -A && git commit -m "..." && git push` **sans demander confirmation**.
-- Format de commit : type court en français (`feat:`, `fix:`, `docs:`, `style:`).
+### Boutons
+- `.btn-primary` — bouton principal vert dégradé (Kickstarter, Envoyer)
+- `.section-scroll` / `.sticky-scroll` — flèche `↓` chevron animée bounce, position absolute bottom 32, left 50%, translateX(-50%). Couleur `#19d382`. SVG 40×40 stroke 3.6.
+- `.hero-scroll` — variante hero (id`#hero-scroll`), même style + fade out après 100 px de scroll.
 
 ---
 
-## 4. SECTIONS DE LA PAGE (ordre)
+## 3. SYSTÈME i18n
 
-| # | Section | Tag/Class | Ancre |
-|---|---------|-----------|-------|
-| 1 | Navigation | `<nav>` | — |
-| 2 | Hero | `section.hero` | top |
-| 3 | Problème | `section.section-problem` | — |
-| 4 | Features (« Conçu pour te libérer ») | `section.section-features` | — |
-| 5 | Screens (« L'app en images ») — sticky scroll 3 slides | `section.section-screens` | — |
-| 6 | Control (« Tu contrôles tout. ») + continuation « Et ce n'est que le début. » | `section.section-control` | — |
-| 7 | Ally (« Ton allié contre l'addiction... ») | `section.section-ally` | — |
-| 8 | Philosophie | `section.section-philosophy` | — |
-| 9 | CTA finale (Kickstarter + form + email) | `section.section-cta` | `#cta` |
-| 10 | FAQ (8 items) | `section.section-faq` | `#faq` |
-| 11 | Footer | `<footer>` | — |
+### Source des traductions
+Bloc `<script>` en bas du fichier avec un objet `translations` contenant 6 clés langue (`fr`, `en`, `es`, `it`, `pt`, `ru`).
 
-### Navigation interne
-- Lien retour haut : `<a href="#">` (logo nav + footer)
-- Lien CTA finale : `<a href="#cta">` (ancre vers la section finale)
-- Lien Kickstarter : `href="#"` (placeholder, à remplacer le moment venu)
+### Switcher
+6 boutons dans `<nav>` : `<button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>` etc.
 
----
+### Fonction `setLang(lang)`
+1. Met à jour `currentLang` global.
+2. Active la `.lang-btn[data-lang=lang].active`.
+3. Pour chaque élément `[data-i18n]` : remplace l'`innerHTML` par `translations[lang][key]`.
+4. Pour chaque `[data-i18n-placeholder]` : remplace l'attribut `placeholder`.
+5. Appelle les hooks live-update :
+   - `window.__authUpdateScrollLabels(lang)` — labels du scroll feed
+   - `window.__authUpdateHiddenStrip()` — strip « X éléments masqués »
+6. Re-run `wrapAuthentiqueOccurrences()` pour wrapper les nouveaux mots « Authentique » du DOM mis à jour.
 
-## 5. JS / Hooks utiles
+### Ajouter une clé i18n
+1. Ajouter `<element data-i18n="ma_cle">Texte FR par défaut</element>` dans le HTML.
+2. Ajouter `ma_cle: "..."` dans **chacun** des 6 blocs de translations (FR/EN/ES/IT/PT/RU).
+3. Si l'élément contient des SVG inline, les sortir du `data-i18n` (sinon `setLang()` les wipe via innerHTML). Mettre le `data-i18n` sur un `<span>` enfant.
 
-- `setLang(lang)` — change la langue (FR/EN/ES/RU). Met à jour tous les `data-i18n` via innerHTML + appelle `window.__authUpdateScrollLabels()` pour les labels du mockup.
-- `fitHeroTitle()` — ajuste dynamiquement la taille de `#hero-line2` pour matcher la largeur de `#hero-line1` (window.load + document.fonts.ready).
-- `wrapAuthentiqueOccurrences()` — wrap auto du mot « Authentique » dans `.authentique-gradient-text` au DOMContentLoaded.
-- `IntersectionObserver` sur `.reveal` — animation fade-in au scroll.
-- Faux feed mockup — boucle scroll saccadé (kick + ease-in + micro-pause), 12-15 cartes, 3 types, dark mode IG-style.
+### Clés HTML (dynamiques, ne pas mettre les SVG dedans)
+- Pour les boutons CTA Kickstarter avec K-logo + flèche : structure `[K SVG] [span data-i18n] [arrow SVG]`
+- Pour les titres avec gradient ponctuel : `<h2 data-i18n="cta_title">On construit&nbsp;<span class="authentique-gradient-text">Authentique</span> ensemble.</h2>` — la traduction inclut le span dans la chaîne.
 
 ---
 
-## 6. Fichiers du repo
+## 4. ANIMATIONS JS
 
-- `index.html` — fichier principal
+Fichiers : tout est inline dans `<script>` au fond de `index.html`.
+
+### Globaux
+- **`setLang(lang)`** — change la langue (cf. § 3)
+- **`wrapAuthentiqueOccurrences()`** — au DOMContentLoaded, parcourt le DOM et wrap les occurrences du mot « Authentique » dans `<span class="authentique-name">`. Skip SPAN/SCRIPT/STYLE.
+- **`fitHeroTitle()`** — ajuste dynamiquement la taille de `#hero-line2` pour matcher la largeur de `#hero-line1`.
+- **`submitSuggestion(e)`** — handler du form CTA suggestion → ouvre `mailto:hello@get-authentique.com?subject=Suggestion Authentique&body=…`
+- **IntersectionObserver `.reveal`** — fade-in au scroll.
+
+### Hero
+- **Hero scroll arrow** : IIFE qui écoute le scroll et toggle `.is-hidden` après 100 px. Au clic, scroll smooth vers `#section-problem` (offset = `rect.top + scrollY`).
+
+### Sticky scroll (section L'app en images)
+- IIFE calcule `progress = scrolled / (outer.height - 100vh)` et toggle `.is-active` sur le bon `.sticky-slide` (4 slides). Les dots correspondants reçoivent aussi `.is-active`.
+- Bouton scroll sticky : si `currentIdx < 3`, scroll vers le slide suivant ; sinon vers `#control`.
+- Expose `outer.__getStickyIndex` pour le handler du bouton.
+
+### Toggles features
+- IIFE qui pilote les 6 toggles ON/OFF de la section Features. **Ordre fixe** `[0,2,4,1,3,5]` répété en boucle. Cycle : ON 2.5 s → OFF 1.5 s → toggle suivant.
+- Les inputs sont en `pointer-events: none` (non cliquables).
+
+### Phone feed (problem section + slide 1 left + slide 1 right)
+- IIFE `initFeed(track, opts)` itère sur tous les `.phone-feed-track`. Mode lu via `data-feed-mode` (`chaos` = sponsor + neutres, `calm` = neutres only). Le défaut (sans data-feed-mode) = problem section, avec sponsors.
+- Opts : `kickVelocity` (default 18 px/frame, `calm` = 14), `kickDuration` (120), `pauseMs` (150), `neutralOnly` (calm only).
+- Cards : sponsor (gradient + label), neutral (#2d2d2d + avatar simulé), video (#2d2d2d + play SVG).
+- Animation : kick-velocity decay (1-t)² sur kickDuration frames, micro-pause `pauseMs`, recyclage des cards qui sortent par le haut (DOM move au bottom).
+- Hook `window.__authUpdateScrollLabels(lang)` met à jour les labels « Sponsorisé / Pour vous / etc. » en live.
+
+### Counter strip (slide 1 right phone)
+- IIFE qui anime un compteur 0 → 47 toutes les 2 s sur la strip `[data-hidden-strip]`. Démarre quand le strip entre dans le viewport (IntersectionObserver, threshold 0.3).
+- Format via `translations[lang].hidden_count_format` avec placeholder `{n}`.
+- Hook `window.__authUpdateHiddenStrip()` re-render le texte au changement de langue.
+
+### Stories (slide 2)
+- 2 mockups : `data-stories-mode="chaos"` (3 sponsor + 1 neutre, 1.2 s/story) et `data-stories-mode="overlay"` (alternance neutre 2.5 s + overlay Authentique 5 s).
+- IIFE `initStories(screen, cards, durations)` : barre de progression UNIQUE pilotée par `requestAnimationFrame`. Quand fill atteint 100%, advance card + reset.
+- Bar `.stories-progress--green` quand la carte courante est `.story-overlay`. Wrap reset pour sens unique gauche → droite.
+
+### Reels (slide 3 left phone)
+- `data-reels-mode="chaos"`. 5 Reels pré-générés avec dégradés de la palette sponsor (alternés via `pickDifferent`).
+- Transition translateY 0.4 s ease-in-out, advance toutes les 1.5 s via setInterval.
+- Chaque Reel : header (avatar + namebar + Suivre), label rotatif, description 2 barres, barre son, colonne actions ♥ 💬 ↻ ➤ ⋮.
+
+---
+
+## 5. STRUCTURE DE FICHIER `index.html`
+
+Ordre approximatif (~3800 lignes) :
+1. `<head>` : meta, CSS inline (font GrosVentre base64, variables, classes utilitaires, sections)
+2. `<body>` : SVG `#authGrad` defs, `<nav>`, sections dans l'ordre, `<footer>`, `<script>`
+3. `<script>` : `translations` object (6 langues), `setLang`, `wrapAuthentiqueOccurrences`, `fitHeroTitle`, `submitSuggestion`, IIFE hero-scroll, IIFE toggles features, IIFE feed (problem + s1), IIFE stories (slide 2), IIFE reels (slide 3), IIFE counter strip.
+
+---
+
+## 6. FICHIERS DU REPO
+
+- `index.html` — fichier principal (~3800 lignes, ~170 KB avec font base64)
 - `mentions-legales.html` — page CGU + politique de confidentialité + mentions légales
 - `questionnaire/index.html` — page questionnaire séparée
-- `images/` — screenshots iPhone (feed, recherche, reels, stories, parametres × light/dark)
+- `images/` — captures iPhone (legacy, partiellement utilisées)
 - `LANDING.md` — ce fichier (contexte persistant)
+- `SECTIONS.md` — détail section par section
