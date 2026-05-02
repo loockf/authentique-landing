@@ -3144,6 +3144,9 @@ function setLang(lang) {
   if (typeof window.__authUpdateHiddenStrip === 'function') {
     window.__authUpdateHiddenStrip();
   }
+  if (typeof window.__authUpdateReelLabels === 'function') {
+    window.__authUpdateReelLabels(lang);
+  }
   // La ligne 2 du titre vient d'etre re-injectee via innerHTML —
   // re-mesurer pour qu'elle matche toujours la largeur de la ligne 1.
   fitHeroTitle();
@@ -3868,7 +3871,20 @@ document.querySelectorAll('.reveal').forEach(el => {
     'linear-gradient(135deg, #ff9d6c 0%, #e63a17 100%)',
     'linear-gradient(135deg, #fbe0d6 0%, #f1a896 100%)',
   ];
-  const REEL_LABELS = ['Sponsorisé', 'Pour vous', 'Suggéré pour vous'];
+  // Labels traduits 6 langues : pattern identique a SCROLL_LABELS.
+  // Update live via window.__authUpdateReelLabels(lang) appele par setLang().
+  const REEL_LABELS_BY_LANG = {
+    fr: ['Sponsorisé', 'Pour vous', 'Suggéré pour vous'],
+    en: ['Sponsored', 'For you', 'Suggested for you'],
+    es: ['Patrocinado', 'Para ti', 'Sugerido para ti'],
+    it: ['Sponsorizzato', 'Per te', 'Suggerito per te'],
+    pt: ['Patrocinado', 'Para você', 'Sugerido para você'],
+    ru: ['Реклама', 'Для вас', 'Рекомендуем'],
+  };
+  function getReelLabels() {
+    const lang = (typeof currentLang !== 'undefined' && currentLang) ? currentLang : 'fr';
+    return REEL_LABELS_BY_LANG[lang] || REEL_LABELS_BY_LANG.fr;
+  }
   const REEL_FOLLOW = 'Suivre';
   const NB_REEL_CARDS = 5;
 
@@ -3916,12 +3932,16 @@ document.querySelectorAll('.reveal').forEach(el => {
     header.appendChild(nm);
     header.appendChild(follow);
 
-    // Label rotation
-    const li = pickDifferent(REEL_LABELS, state.lastLabel);
+    // Label rotation : on stocke l'index dans data-reel-label-idx
+    // pour permettre __authUpdateReelLabels(lang) de re-resoudre
+    // le texte au changement de langue (sans regenerer les cards).
+    const labels = getReelLabels();
+    const li = pickDifferent(labels, state.lastLabel);
     state.lastLabel = li;
     const label = document.createElement('span');
     label.className = 'reel-label';
-    label.textContent = REEL_LABELS[li];
+    label.dataset.reelLabelIdx = String(li);
+    label.textContent = labels[li];
 
     // Description : 2 barres
     const desc = document.createElement('div');
@@ -3999,6 +4019,18 @@ document.querySelectorAll('.reveal').forEach(el => {
     idx = (idx + 1) % cards.length;
     activate(idx);
   }, 1500);
+
+  // Hook live-update : setLang() appelle ce setter au changement
+  // de langue. Re-resout le texte de chaque .reel-label visible
+  // a partir de son data-reel-label-idx + table de la nouvelle langue.
+  window.__authUpdateReelLabels = function (newLang) {
+    const code = (newLang || 'fr').substring(0, 2).toLowerCase();
+    const labels = REEL_LABELS_BY_LANG[code] || REEL_LABELS_BY_LANG.fr;
+    document.querySelectorAll('.reel-label').forEach(function (el) {
+      const idx = parseInt(el.dataset.reelLabelIdx, 10);
+      if (!isNaN(idx) && labels[idx]) el.textContent = labels[idx];
+    });
+  };
 })();
 
 // === Mockup Recherche (slide 4 gauche) ===
