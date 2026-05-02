@@ -73,8 +73,7 @@ body {
 }
 
 /* GROS VENTRE = titres + occurrences "Authentique" */
-h1, h2, h3, .gv, .footer-name,
-.section-label {
+h1, h2, h3, .gv, .footer-name {
   font-family: 'GrosVentre', -apple-system, sans-serif;
   font-weight: 400;
   letter-spacing: -0.5px;
@@ -301,6 +300,8 @@ nav {
 section { padding: 120px 24px; position: relative; }
 .section-label {
   display: inline-block;
+  font-family: 'GrosVentre', -apple-system, sans-serif;
+  font-weight: 400;
   font-size: 14px;
   color: var(--green);
   letter-spacing: 1px;
@@ -1530,13 +1531,21 @@ section { padding: 120px 24px; position: relative; }
   flex-direction: column;
   flex: 1;
 }
-.cta-top-half,
-.cta-bottom-half {
+.cta-top-half {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+.cta-bottom-half {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+.cta-bottom-half .suggest-form { width: 100%; }
 .cta-top-half h2 {
   margin: 0;
   padding-top: 64px;
@@ -1567,11 +1576,6 @@ section { padding: 120px 24px; position: relative; }
   margin: 0 auto;
   flex-shrink: 0;
 }
-.cta-bottom-half {
-  justify-content: center;
-  gap: 24px;
-}
-.cta-bottom-half .suggest-form { width: 100%; }
 .cta-prompt {
   color: var(--text-soft);
   font-size: 17px;
