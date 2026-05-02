@@ -23,11 +23,9 @@
   --text-soft: #4a4a4a;
   --text-mute: #8a8a86;
   --green: #19d382;
-  --green-light: #adf5d8;
   --green-dark: #0aaa8e;
   --white: #ffffff;
   --border: rgba(20,20,20,0.08);
-  --grad-icon: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%);
   --auth-grad: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%);
 }
 
@@ -53,8 +51,7 @@
    + lien mailto. .section-label NE FIGURE PLUS ici → solid green
    par sa propre regle plus bas. */
 .hero-title-accent,
-em,
-.hero-counter span {
+em {
   color: var(--green);
   background: var(--auth-grad);
   -webkit-background-clip: text;
@@ -76,7 +73,7 @@ body {
 }
 
 /* GROS VENTRE = titres + occurrences "Authentique" */
-h1, h2, h3, .gv, .nav-name, .footer-name, .hero-counter span,
+h1, h2, h3, .gv, .footer-name,
 .section-label {
   font-family: 'GrosVentre', -apple-system, sans-serif;
   font-weight: 400;
@@ -96,7 +93,7 @@ a { color: inherit; text-decoration: none; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: var(--grad-icon);
+  background: var(--auth-grad);
   border-radius: 50%;
   flex-shrink: 0;
 }
@@ -118,7 +115,6 @@ nav {
 }
 .nav-logo { display: flex; align-items: center; gap: 12px; }
 .nav-logo .arch-icon { width: 32px; height: 32px; }
-.nav-name { font-size: 22px; color: var(--text); }
 .nav-right { display: flex; align-items: center; gap: 20px; }
 .lang-switcher { display: flex; gap: 4px; }
 .lang-btn {
@@ -222,19 +218,6 @@ nav {
   margin: 0 auto 32px;
   gap: 10px;
 }
-.hero-platforms-brand {
-  width: 100%;
-  text-align: center;
-  font-family: 'GrosVentre', -apple-system, sans-serif;
-  font-weight: 400;
-  font-size: 24px;
-  letter-spacing: -0.3px;
-  color: var(--text);
-  line-height: 1;
-  /* Le wrap a un gap:10px par defaut. On ajoute 6px pour porter
-     l'espacement brand→caption a 16px sans toucher au reste. */
-  margin-bottom: 6px;
-}
 .hero-platforms-caption {
   width: 100%;
   text-align: center;
@@ -293,13 +276,6 @@ nav {
   letter-spacing: -1px;
   font-size: 65%;
 }
-.hero-sub {
-  max-width: 600px;
-  font-size: 18px;
-  color: var(--text-soft);
-  line-height: 1.6;
-  margin-bottom: 40px;
-}
 .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-top: 80px; }
 .btn-primary {
   display: inline-flex;
@@ -315,12 +291,6 @@ nav {
   transition: filter 0.2s, transform 0.2s;
 }
 .btn-primary:hover { filter: brightness(0.94); transform: translateY(-1px); }
-.hero-counter {
-  margin-top: 28px;
-  font-size: 14px;
-  color: var(--text-mute);
-}
-.hero-counter span { color: var(--green); font-size: 18px; }
 .hero-tagline {
   margin-top: 8px;
   font-size: 13px;
@@ -1177,26 +1147,6 @@ section { padding: 120px 24px; position: relative; }
 }
 .story-overlay-arch svg { width: 100%; height: 100%; display: block; }
 
-.story-overlay-arrow {
-  position: absolute;
-  top: 50%;
-  width: 14px;
-  height: 14px;
-  border-top: 1.5px solid rgba(28, 28, 26, 0.4);
-  border-right: 1.5px solid rgba(28, 28, 26, 0.4);
-  pointer-events: none;
-  opacity: 0.25;
-  z-index: 6;
-}
-.story-overlay-arrow-left {
-  left: 8%;
-  transform: translateY(-50%) rotate(-135deg);
-}
-.story-overlay-arrow-right {
-  right: 8%;
-  transform: translateY(-50%) rotate(45deg);
-}
-
 /* === Mockup Reels (slide 3 sticky scroll) ===
    Reels plein ecran qui defilent du bas vers le haut. Un nouveau
    Reel toutes les 1.5s, transition translateY 0.4s ease-in-out.
@@ -1723,7 +1673,6 @@ footer {
 /* MOBILE */
 @media (max-width: 820px) {
   nav { padding: 14px 20px; }
-  .nav-name { font-size: 18px; }
   .nav-right { gap: 12px; }
   .lang-switcher { gap: 0; }
   .nav-cta { padding: 9px 16px; font-size: 13px; }
