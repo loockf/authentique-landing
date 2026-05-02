@@ -673,8 +673,6 @@ section { padding: 120px 24px; position: relative; }
   transition: transform 0.2s, box-shadow 0.2s;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 .feature-card:hover {
   transform: translateY(-4px);
@@ -685,16 +683,20 @@ section { padding: 120px 24px; position: relative; }
   background: rgba(25,211,130,0.1);
   border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 18px;
+  margin-bottom: 18px;
 }
-.feature-card h3 { font-size: 22px; margin-bottom: 10px; color: var(--text); text-align: center; }
-.feature-card p { color: var(--text-soft); font-size: 15px; line-height: 1.55; text-align: center; }
+.feature-card h3 { font-size: 22px; margin-bottom: 10px; color: var(--text); }
+.feature-card p { color: var(--text-soft); font-size: 15px; line-height: 1.55; }
 
-/* Toggle ON/OFF en haut de chaque feature-card. Pur CSS via :has(). */
+/* Toggle ON/OFF positionne en haut a droite de chaque feature-card,
+   sur la meme ligne visuelle que l'icone. Pur CSS via :has(). */
 .feature-toggle {
+  position: absolute;
+  top: 32px;
+  right: 32px;
   display: flex;
   justify-content: center;
-  margin-bottom: 18px;
+  margin: 0;
 }
 .feature-toggle label {
   display: inline-block;
@@ -743,13 +745,7 @@ section { padding: 120px 24px; position: relative; }
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  max-width: 100%;
   text-align: center;
-  word-wrap: break-word;
-  word-break: break-word;
-  overflow-wrap: break-word;
-  white-space: normal !important;
   color: #19d382;
   font-size: 14px;
   font-weight: 500;
@@ -1683,39 +1679,38 @@ footer {
 }
 .reveal.visible { opacity: 1; transform: none; }
 
-/* Compact feature cards pour viewports <= 1440px : on cache la
-   description, on met le toggle inline avec l'icone (toggle absolute
-   top-right, icone + h3 dans le flux), et on reduit le padding. */
+/* Compact feature cards pour viewports <= 1440px : tout centre,
+   description masquee, toggle reste absolute top-right, texte vert
+   force le wrap. */
 @media (max-width: 1440px) {
   .feature-card {
     padding: clamp(12px, 2vh, 20px);
-    position: relative;
+    align-items: center;
+    justify-content: center;
   }
   .feature-card .feature-toggle {
-    position: absolute;
     top: clamp(12px, 2vh, 20px);
     right: clamp(12px, 2vh, 20px);
-    margin: 0;
   }
   .feature-card .card-content p,
   .feature-card .card-content .card-description {
     display: none;
   }
-  .feature-card .card-content {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 12px;
-    /* reserve space pour le toggle absolute (48px + gap) */
-    padding-right: 60px;
-  }
-  .feature-card .feature-icon { margin-bottom: 0; flex-shrink: 0; }
+  .feature-card .feature-icon { margin: 0 auto 8px; }
   .feature-card h3 {
+    text-align: center;
     margin-bottom: 0;
     font-size: clamp(14px, 1.2vw, 18px);
     line-height: 1.25;
   }
   .feature-card .card-on {
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
     padding: 0 8px;
     font-size: clamp(12px, 1vw, 14px);
   }
