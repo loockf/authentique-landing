@@ -6,6 +6,22 @@ Voir aussi `SECTIONS.md` pour la liste exhaustive des sections.
 
 ---
 
+## Instructions de communication
+
+- Réponses courtes et directes
+- Pas d'explication longue sauf si explicitement demandée
+- Afficher uniquement le code modifié, pas le fichier entier
+- Format de réponse :
+  1. Ce qui a été fait (1-2 lignes)
+  2. Code modifié si pertinent
+  3. Commit pushé ✅
+- Ne jamais expliquer ce qu'on pourrait faire — juste le faire
+- Si diagnostic demandé : afficher le code concerné + la cause en 2-3 lignes max
+- Toujours committer et pusher sans demander confirmation
+- Ne jamais réécrire `index.html` en entier — modifications chirurgicales uniquement
+
+---
+
 ## Règles à ne jamais enfreindre
 
 1. **Ne jamais réécrire `index.html` en entier**. Toujours utiliser des `Edit` ciblés sur les blocs concernés.
