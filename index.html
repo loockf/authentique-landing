@@ -1679,40 +1679,52 @@ footer {
 }
 .reveal.visible { opacity: 1; transform: none; }
 
-/* Compact feature cards pour viewports <= 1440px : tout centre,
-   description masquee, toggle reste absolute top-right, texte vert
-   force le wrap. */
+/* Compact feature cards <= 1440px : tout sur une ligne horizontale
+   [icone] [titre] [toggle]. Description et texte vert ON masques. */
 @media (max-width: 1440px) {
   .feature-card {
     padding: clamp(12px, 2vh, 20px);
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    gap: 12px;
   }
   .feature-card .feature-toggle {
-    top: clamp(12px, 2vh, 20px);
-    right: clamp(12px, 2vh, 20px);
+    position: static;
+    top: auto;
+    right: auto;
+    margin: 0;
+    flex-shrink: 0;
+    order: 1;
+  }
+  .feature-card .card-body {
+    flex: 1;
+    min-width: 0;
+  }
+  .feature-card .card-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
   }
   .feature-card .card-content p,
-  .feature-card .card-content .card-description {
+  .feature-card .card-content .card-description,
+  .feature-card .card-on {
     display: none;
   }
-  .feature-card .feature-icon { margin: 0 auto 8px; }
+  .feature-card .feature-icon {
+    margin: 0;
+    flex-shrink: 0;
+  }
   .feature-card h3 {
-    text-align: center;
-    margin-bottom: 0;
+    flex: 1;
+    text-align: left;
+    white-space: normal;
+    word-wrap: break-word;
+    margin: 0;
     font-size: clamp(14px, 1.2vw, 18px);
     line-height: 1.25;
-  }
-  .feature-card .card-on {
-    width: 100%;
-    max-width: 100%;
-    text-align: center;
-    word-wrap: break-word;
-    word-break: break-word;
-    overflow-wrap: break-word;
-    white-space: normal;
-    padding: 0 8px;
-    font-size: clamp(12px, 1vw, 14px);
   }
 }
 
