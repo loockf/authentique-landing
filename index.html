@@ -1212,6 +1212,68 @@ section { padding: 120px 24px; position: relative; }
   background: #fafafa;
   overflow: hidden;
 }
+
+/* Mockup Recherche IG (slide 4 gauche) — barre de recherche en
+   haut + grille style Explore (3 cols x 4 rows, 2 grandes tuiles
+   span 2 lignes en col 1 ligne 1-2 et col 3 ligne 3-4). */
+.iphone-screen--search {
+  background: #ffffff;
+  overflow: hidden;
+}
+.iphone-screen--search .search-bar {
+  margin: 8px;
+  height: 36px;
+  background: #f0f0f0;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 8px;
+  box-sizing: border-box;
+}
+.search-icon {
+  width: 14px;
+  height: 14px;
+  color: #999;
+  flex-shrink: 0;
+  display: block;
+}
+.search-placeholder {
+  color: #999;
+  font: 400 13px/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+.search-grid {
+  position: absolute;
+  top: 52px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 1.5px;
+  background: #fff;
+}
+.search-tile {
+  position: relative;
+  overflow: hidden;
+}
+.search-tile--big { grid-row: span 2; }
+.search-tile--neutral { background: #2d2d2d; }
+.search-tile-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 22px;
+  height: 22px;
+  color: #fff;
+  opacity: 0.85;
+}
+.search-tile--big .search-tile-play {
+  width: 30px;
+  height: 30px;
+}
 .reels-overlay {
   position: absolute;
   inset: 0;
@@ -2029,7 +2091,35 @@ footer {
             <div class="iphone">
               <div class="iphone-frame">
                 <div class="iphone-dynamic-island"></div>
-                <div class="iphone-screen iphone-screen--light"></div>
+                <div class="iphone-screen iphone-screen--search">
+                  <div class="search-bar">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <circle cx="11" cy="11" r="8"/>
+                      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                    <span class="search-placeholder" data-i18n="search_placeholder">Rechercher</span>
+                  </div>
+                  <div class="search-grid">
+                    <div class="search-tile search-tile--big" style="background: linear-gradient(135deg, #ffb088 0%, #ee6a2c 100%)">
+                      <svg class="search-tile-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+                    </div>
+                    <div class="search-tile search-tile--neutral"></div>
+                    <div class="search-tile" style="background: linear-gradient(135deg, #f8c5c5 0%, #d94560 100%)"></div>
+                    <div class="search-tile" style="background: linear-gradient(135deg, #f4a8b8 0%, #c73e5e 100%)">
+                      <svg class="search-tile-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+                    </div>
+                    <div class="search-tile search-tile--neutral"></div>
+                    <div class="search-tile" style="background: linear-gradient(135deg, #ff9d6c 0%, #e63a17 100%)">
+                      <svg class="search-tile-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+                    </div>
+                    <div class="search-tile search-tile--neutral"></div>
+                    <div class="search-tile search-tile--big" style="background: linear-gradient(135deg, #fbe0d6 0%, #f1a896 100%)">
+                      <svg class="search-tile-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+                    </div>
+                    <div class="search-tile" style="background: linear-gradient(135deg, #ffb088 0%, #ee6a2c 100%)"></div>
+                    <div class="search-tile search-tile--neutral"></div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="iphone iphone--featured">
@@ -2389,6 +2479,7 @@ const translations = {
     settings_label_stories: "Masquer les stories sponsorisées",
     settings_label_scroll: "Bloquer le scroll infini",
     settings_label_search: "Section Recherche épurée",
+    search_placeholder: "Rechercher",
     footer_contact: "Contact",
     footer_legal: "Mentions légales",
   },
@@ -2489,6 +2580,7 @@ const translations = {
     settings_label_stories: "Hide sponsored stories",
     settings_label_scroll: "Block infinite scroll",
     settings_label_search: "Clean Search tab",
+    search_placeholder: "Search",
     footer_contact: "Contact",
     footer_legal: "Legal notice",
   },
@@ -2589,6 +2681,7 @@ const translations = {
     settings_label_stories: "Ocultar stories patrocinadas",
     settings_label_scroll: "Bloquear scroll infinito",
     settings_label_search: "Búsqueda limpia",
+    search_placeholder: "Buscar",
     footer_contact: "Contacto",
     footer_legal: "Aviso legal",
   },
@@ -2689,6 +2782,7 @@ const translations = {
     settings_label_stories: "Nascondi storie sponsorizzate",
     settings_label_scroll: "Blocca scroll infinito",
     settings_label_search: "Ricerca pulita",
+    search_placeholder: "Cerca",
     footer_contact: "Contatto",
     footer_legal: "Note legali",
   },
@@ -2789,6 +2883,7 @@ const translations = {
     settings_label_stories: "Ocultar stories patrocinadas",
     settings_label_scroll: "Bloquear scroll infinito",
     settings_label_search: "Pesquisa limpa",
+    search_placeholder: "Pesquisar",
     footer_contact: "Contacto",
     footer_legal: "Aviso legal",
   },
@@ -2889,6 +2984,7 @@ const translations = {
     settings_label_stories: "Скрыть рекламные истории",
     settings_label_scroll: "Блокировать бесконечную прокрутку",
     settings_label_search: "Чистый поиск",
+    search_placeholder: "Поиск",
     footer_contact: "Контакт",
     footer_legal: "Правовая информация",
   }
