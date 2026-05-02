@@ -1195,6 +1195,142 @@ section { padding: 120px 24px; position: relative; }
   transform: translateY(-50%) rotate(45deg);
 }
 
+/* === Mockup Reels (slide 3 sticky scroll) ===
+   Reels plein ecran qui defilent du bas vers le haut. Un nouveau
+   Reel toutes les 1.5s, transition translateY 0.4s ease-in-out.
+   Reproduit le chrome IG : header avatar+nom+suivre, label, icones
+   actions a droite, description bas, barre son. */
+.iphone-screen--reels {
+  background: #000;
+  overflow: hidden;
+}
+.reel-card {
+  position: absolute;
+  inset: 0;
+  transform: translateY(100%);
+  transition: transform 0.4s ease-in-out;
+  overflow: hidden;
+}
+.reel-card.is-current { transform: translateY(0); }
+.reel-card.is-past { transform: translateY(-100%); }
+
+/* Header haut-gauche : avatar + nom simule + bouton Suivre */
+.reel-header {
+  position: absolute;
+  top: 36px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 5;
+}
+.reel-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fff;
+  flex-shrink: 0;
+}
+.reel-namebar {
+  height: 7px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.85);
+}
+.reel-follow {
+  font: 600 8px/1 -apple-system, sans-serif;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  padding: 3px 8px;
+  letter-spacing: 0.2px;
+}
+.reel-label {
+  position: absolute;
+  top: 70px;
+  left: 10px;
+  background: rgba(0,0,0,0.35);
+  color: #fff;
+  font: 500 12px/1 -apple-system, sans-serif;
+  padding: 5px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.2px;
+  z-index: 5;
+}
+
+/* Description en bas-gauche : 2 barres simulees */
+.reel-desc {
+  position: absolute;
+  bottom: 50px;
+  left: 10px;
+  right: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 5;
+}
+.reel-desc-bar {
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.7);
+}
+.reel-desc-bar:nth-child(2) {
+  height: 6px;
+  background: rgba(255,255,255,0.55);
+}
+
+/* Barre son en bas centre : ligne fine + point progression */
+.reel-sound {
+  position: absolute;
+  bottom: 28px;
+  left: 10px;
+  right: 60px;
+  height: 1px;
+  background: rgba(255,255,255,0.5);
+  z-index: 5;
+}
+.reel-sound::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 35%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+/* Colonne d'icones a droite, centree verticalement */
+.reel-actions {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  z-index: 5;
+}
+.reel-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+.reel-action svg {
+  display: block;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.reel-action.reel-action--more svg { stroke: none; fill: #fff; }
+.reel-action-count {
+  font: 600 10px/1 -apple-system, sans-serif;
+  color: #fff;
+}
+
 /* SUGGEST FORM (utilise dans section-cta) */
 .suggest-form {
   display: flex;
@@ -1835,7 +1971,7 @@ footer {
             <div class="iphone">
               <div class="iphone-frame">
                 <div class="iphone-dynamic-island"></div>
-                <div class="iphone-screen"></div>
+                <div class="iphone-screen iphone-screen--reels" data-reels-mode="chaos"></div>
               </div>
             </div>
             <div class="iphone iphone--featured">
@@ -3452,6 +3588,159 @@ document.querySelectorAll('.reveal').forEach(el => {
     cards.forEach(c => rightScreen.appendChild(c));
     initStories(rightScreen, cards, [2500, 5000]);
   }
+})();
+
+// === Mockup Reels (slide 3 sticky scroll) ===
+// Reels plein ecran qui defilent verticalement (translateY) sur
+// le mockup gauche du slide 3. Un nouveau Reel toutes les 1.5s.
+// Boucle infinie, jamais le meme degrade deux fois de suite.
+(function () {
+  var reelScreen = document.querySelector('[data-reels-mode="chaos"]');
+  if (!reelScreen) return;
+
+  const REEL_GRADS = [
+    'linear-gradient(135deg, #ffb088 0%, #ee6a2c 100%)',
+    'linear-gradient(135deg, #f8c5c5 0%, #d94560 100%)',
+    'linear-gradient(135deg, #f4a8b8 0%, #c73e5e 100%)',
+    'linear-gradient(135deg, #ff9d6c 0%, #e63a17 100%)',
+    'linear-gradient(135deg, #fbe0d6 0%, #f1a896 100%)',
+  ];
+  const REEL_LABELS = ['Sponsorisé', 'Pour vous', 'Suggéré pour vous'];
+  const REEL_FOLLOW = 'Suivre';
+  const NB_REEL_CARDS = 5;
+
+  function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+  function pickDifferent(arr, lastIdx) {
+    if (arr.length <= 1) return 0;
+    let i = Math.floor(Math.random() * arr.length);
+    if (i === lastIdx) i = (i + 1) % arr.length;
+    return i;
+  }
+  function fmtCount(n) {
+    if (n >= 1000) {
+      const v = (n / 1000);
+      return (v >= 10 ? Math.round(v) : v.toFixed(1).replace(/\.0$/, '')) + 'k';
+    }
+    return String(n);
+  }
+
+  // SVG icones Reels (fill none, stroke white pose en CSS)
+  const ICON_HEART = '<svg viewBox="0 0 24 24" width="28" height="28"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
+  const ICON_COMMENT = '<svg viewBox="0 0 24 24" width="26" height="26"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>';
+  const ICON_REPOST = '<svg viewBox="0 0 24 24" width="24" height="24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>';
+  const ICON_SEND = '<svg viewBox="0 0 24 24" width="24" height="24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
+  const ICON_MORE = '<svg viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg>';
+
+  function buildReelCard(state) {
+    const card = document.createElement('div');
+    card.className = 'reel-card';
+    const gi = pickDifferent(REEL_GRADS, state.lastGrad);
+    state.lastGrad = gi;
+    card.style.background = REEL_GRADS[gi];
+
+    // Header : avatar + namebar + bouton Suivre
+    const header = document.createElement('div');
+    header.className = 'reel-header';
+    const av = document.createElement('span');
+    av.className = 'reel-avatar';
+    const nm = document.createElement('span');
+    nm.className = 'reel-namebar';
+    nm.style.width = rand(50, 80) + 'px';
+    const follow = document.createElement('span');
+    follow.className = 'reel-follow';
+    follow.textContent = REEL_FOLLOW;
+    header.appendChild(av);
+    header.appendChild(nm);
+    header.appendChild(follow);
+
+    // Label rotation
+    const li = pickDifferent(REEL_LABELS, state.lastLabel);
+    state.lastLabel = li;
+    const label = document.createElement('span');
+    label.className = 'reel-label';
+    label.textContent = REEL_LABELS[li];
+
+    // Description : 2 barres
+    const desc = document.createElement('div');
+    desc.className = 'reel-desc';
+    const d1 = document.createElement('span');
+    d1.className = 'reel-desc-bar';
+    d1.style.width = rand(70, 100) + '%';
+    const d2 = document.createElement('span');
+    d2.className = 'reel-desc-bar';
+    d2.style.width = rand(40, 70) + '%';
+    desc.appendChild(d1);
+    desc.appendChild(d2);
+
+    // Barre son
+    const sound = document.createElement('div');
+    sound.className = 'reel-sound';
+
+    // Actions verticales a droite
+    const actions = document.createElement('div');
+    actions.className = 'reel-actions';
+    function makeAction(svg, count, extraClass) {
+      const a = document.createElement('div');
+      a.className = 'reel-action' + (extraClass ? ' ' + extraClass : '');
+      a.innerHTML = svg;
+      if (count != null) {
+        const c = document.createElement('span');
+        c.className = 'reel-action-count';
+        c.textContent = fmtCount(count);
+        a.appendChild(c);
+      }
+      return a;
+    }
+    actions.appendChild(makeAction(ICON_HEART, rand(1000, 50000)));
+    actions.appendChild(makeAction(ICON_COMMENT, rand(100, 5000)));
+    actions.appendChild(makeAction(ICON_REPOST, rand(50, 2000)));
+    actions.appendChild(makeAction(ICON_SEND, rand(20, 1000)));
+    actions.appendChild(makeAction(ICON_MORE, null, 'reel-action--more'));
+
+    card.appendChild(header);
+    card.appendChild(label);
+    card.appendChild(desc);
+    card.appendChild(sound);
+    card.appendChild(actions);
+    return card;
+  }
+
+  // Initial : pre-genere NB_REEL_CARDS Reels.
+  const state = { lastGrad: -1, lastLabel: -1 };
+  const cards = [];
+  for (let i = 0; i < NB_REEL_CARDS; i++) {
+    const c = buildReelCard(state);
+    cards.push(c);
+    reelScreen.appendChild(c);
+  }
+  cards[0].classList.add('is-current');
+
+  let idx = 0;
+  let prevIdx = -1;
+
+  function activate(i) {
+    // Sens unique bas -> haut, jamais de retour : reset au wrap.
+    const isWrap = prevIdx === cards.length - 1 && i === 0;
+    if (isWrap) {
+      cards.forEach(c => {
+        c.style.transition = 'none';
+        c.classList.remove('is-current', 'is-past');
+      });
+      void reelScreen.offsetWidth;
+      cards.forEach(c => { c.style.transition = ''; });
+    }
+    cards.forEach((c, j) => {
+      c.classList.remove('is-current', 'is-past');
+      if (j === i) c.classList.add('is-current');
+      else if (j < i) c.classList.add('is-past');
+    });
+    prevIdx = i;
+  }
+
+  setInterval(function () {
+    idx = (idx + 1) % cards.length;
+    activate(idx);
+  }, 1500);
 })();
 
 // Strip "X éléments masqués" sur le mockup droit s1. Replique du
