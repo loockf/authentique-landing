@@ -1204,6 +1204,50 @@ section { padding: 120px 24px; position: relative; }
   background: #000;
   overflow: hidden;
 }
+
+/* Overlay Reels (slide 3 droite) — replique exacte de
+   injectReelsWaitingOverlay() de l'app : fond #fafafa, texte
+   noir/gris, arche verte #19d382 sous le texte. Statique. */
+.iphone-screen--reels-overlay {
+  background: #fafafa;
+  overflow: hidden;
+}
+.reels-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 18px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  text-align: center;
+}
+.reels-overlay-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1c1c1a;
+  margin-bottom: 10px;
+  letter-spacing: -0.2px;
+  line-height: 1.25;
+}
+.reels-overlay-body {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  color: #6b6a65;
+  line-height: 1.45;
+  margin-bottom: 6px;
+}
+.reels-overlay-body:last-of-type { margin-bottom: 0; }
+.reels-overlay-arch {
+  margin-top: 12px;
+  width: 22px;
+  height: 24px;
+  opacity: 0.6;
+}
+.reels-overlay-arch svg { width: 100%; height: 100%; display: block; }
 .reel-card {
   position: absolute;
   inset: 0;
@@ -1276,27 +1320,6 @@ section { padding: 120px 24px; position: relative; }
 .reel-desc-bar:nth-child(2) {
   height: 6px;
   background: rgba(255,255,255,0.55);
-}
-
-/* Barre son en bas centre : ligne fine + point progression */
-.reel-sound {
-  position: absolute;
-  bottom: 28px;
-  left: 10px;
-  right: 60px;
-  height: 1px;
-  background: rgba(255,255,255,0.5);
-  z-index: 5;
-}
-.reel-sound::after {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: 35%;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #fff;
 }
 
 /* Colonne d'icones a droite, centree verticalement */
@@ -1977,7 +2000,18 @@ footer {
             <div class="iphone iphone--featured">
               <div class="iphone-frame">
                 <div class="iphone-dynamic-island"></div>
-                <div class="iphone-screen"></div>
+                <div class="iphone-screen iphone-screen--reels-overlay">
+                  <div class="reels-overlay">
+                    <span class="reels-overlay-title">L'onglet Reels, c'est le territoire de Meta.</span>
+                    <span class="reels-overlay-body">Cet onglet ne propose quasiment que du contenu algorithmique. Authentique n'a pas à le conquérir.</span>
+                    <span class="reels-overlay-body">Les Reels de tes amis apparaissent dans ton fil d'actualité.</span>
+                    <div class="reels-overlay-arch" aria-hidden="true">
+                      <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 28,178 L 52,88 Q 66,38 100,38 Q 134,38 148,88 L 172,178" stroke="#19d382" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -3672,10 +3706,6 @@ document.querySelectorAll('.reveal').forEach(el => {
     desc.appendChild(d1);
     desc.appendChild(d2);
 
-    // Barre son
-    const sound = document.createElement('div');
-    sound.className = 'reel-sound';
-
     // Actions verticales a droite
     const actions = document.createElement('div');
     actions.className = 'reel-actions';
@@ -3700,7 +3730,6 @@ document.querySelectorAll('.reveal').forEach(el => {
     card.appendChild(header);
     card.appendChild(label);
     card.appendChild(desc);
-    card.appendChild(sound);
     card.appendChild(actions);
     return card;
   }
