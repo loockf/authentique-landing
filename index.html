@@ -916,11 +916,9 @@ section { padding: 120px 24px; position: relative; }
   position: relative;
 }
 .iphone {
-  /* Hauteur comme dimension primaire : le telephone tient toujours
-     dans la zone utile du panel sticky (100vh - header - dots/scroll
-     ~= 320px). Width derive via aspect-ratio 9/19.5. */
-  max-height: calc(100vh - 320px);
-  width: auto;
+  /* Width-primary : clamp pour responsivite naturelle, aspect-ratio
+     porte par .iphone pour stabiliser la hauteur. */
+  width: clamp(180px, 22vw, 240px);
   aspect-ratio: 9 / 19.5;
   border-radius: 32px;
   background: #1c1c1a;
@@ -941,10 +939,8 @@ section { padding: 120px 24px; position: relative; }
 }
 .iphone-screen {
   position: relative;
-  /* aspect-ratio retire : le ratio est maintenant porte par .iphone.
-     Le screen suit la hauteur du parent .iphone-frame (100%). */
-  aspect-ratio: unset;
-  height: 100%;
+  aspect-ratio: 9 / 19.5;
+  height: auto;
   background: #1a1a1a;
   border-radius: 26px;
   overflow: hidden;
