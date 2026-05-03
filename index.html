@@ -456,8 +456,9 @@ section { padding: 120px 24px; position: relative; }
   box-shadow: 0 30px 60px rgba(20,20,20,0.18), 0 12px 24px rgba(20,20,20,0.08);
   position: relative;
   /* Base font-size proportionnelle a la largeur du telephone : tous
-     les enfants utilisent em pour scaler avec le mockup. */
-  font-size: clamp(10px, 1.4vw, 14px);
+     les enfants utilisent em pour scaler avec le mockup. Meme valeur
+     que .iphone pour coherence visuelle entre tous les telephones. */
+  font-size: clamp(8px, 1.2vw, 12px);
 }
 .phone-notch {
   position: absolute;
