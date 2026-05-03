@@ -1849,18 +1849,6 @@ footer {
   /* Override de l'ordre desktop pour le slide 2 (qui inverse phones
      a gauche). Sur mobile on force phones en haut pour tous. */
   .sticky-slide:nth-child(2) .sticky-slide-content > .screen-col--phones { order: 1; }
-  /* Header sticky compact sur mobile : moins de padding + tailles
-     reduites pour que les titres des slides arrivent plus tot dans
-     le viewport et que le sticky scroll se declenche au bon moment. */
-  .screens-header {
-    padding: 16px 16px 8px;
-  }
-  .screens-header h2 {
-    font-size: clamp(20px, 4vw, 28px);
-  }
-  .screens-header p {
-    font-size: clamp(12px, 2.5vw, 16px);
-  }
   .sticky-dots { bottom: 24px; }
   /* Mobile : on contraint le conteneur .screen-col--phones plutot que
      .iphone directement. Le selecteur .screen-col--phones .iphone est
