@@ -692,12 +692,16 @@ section { padding: 120px 24px; position: relative; }
 .feature-card p { color: var(--text-soft); font-size: 15px; line-height: 1.55; }
 
 /* Toggle ON/OFF positionne en haut a droite de chaque feature-card,
-   sur la meme ligne visuelle que l'icone. Pur CSS via :has(). */
+   sur la meme ligne visuelle que l'icone. Pur CSS via :has().
+   top: 40px = padding-card 32 + (icone 44 - toggle 28) / 2,
+   pour aligner verticalement le centre du toggle sur le centre
+   de l'icone (equivalent visuel d'un align-items: center). */
 .feature-toggle {
   position: absolute;
-  top: 32px;
+  top: 40px;
   right: 32px;
   display: flex;
+  align-items: center;
   justify-content: center;
   margin: 0;
 }
