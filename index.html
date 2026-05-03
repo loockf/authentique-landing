@@ -916,10 +916,11 @@ section { padding: 120px 24px; position: relative; }
   position: relative;
 }
 .iphone {
-  /* Width-primary : clamp pour responsivite naturelle, aspect-ratio
-     porte par .iphone pour stabiliser la hauteur. */
+  /* Meme logique de dimensionnement que .phone-frame (section "Le
+     probleme") : width clamp + aspect-ratio simple. Le screen interne
+     remplit 100%/100% pour eviter un bord noir en bas. */
   width: clamp(180px, 22vw, 240px);
-  aspect-ratio: 9 / 19.5;
+  aspect-ratio: 1 / 2;
   border-radius: 32px;
   background: #1c1c1a;
   padding: 6px;
@@ -927,7 +928,13 @@ section { padding: 120px 24px; position: relative; }
   transition: transform 0.4s;
 }
 .iphone--featured { transform: none; z-index: auto; }
-.iphone-frame { position: relative; border-radius: 26px; overflow: hidden; height: 100%; }
+.iphone-frame {
+  position: relative;
+  border-radius: 26px;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
 .iphone-dynamic-island {
   position: absolute;
   top: 8px; left: 50%;
@@ -939,8 +946,9 @@ section { padding: 120px 24px; position: relative; }
 }
 .iphone-screen {
   position: relative;
-  aspect-ratio: 9 / 19.5;
-  height: auto;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: unset;
   background: #1a1a1a;
   border-radius: 26px;
   overflow: hidden;
