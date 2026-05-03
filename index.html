@@ -916,7 +916,12 @@ section { padding: 120px 24px; position: relative; }
   position: relative;
 }
 .iphone {
-  width: clamp(180px, 22vw, 240px);
+  /* Hauteur comme dimension primaire : le telephone tient toujours
+     dans la zone utile du panel sticky (100vh - header - dots/scroll
+     ~= 320px). Width derive via aspect-ratio 9/19.5. */
+  max-height: calc(100vh - 320px);
+  width: auto;
+  aspect-ratio: 9 / 19.5;
   border-radius: 32px;
   background: #1c1c1a;
   padding: 6px;
@@ -924,7 +929,7 @@ section { padding: 120px 24px; position: relative; }
   transition: transform 0.4s;
 }
 .iphone--featured { transform: none; z-index: auto; }
-.iphone-frame { position: relative; border-radius: 26px; overflow: hidden; }
+.iphone-frame { position: relative; border-radius: 26px; overflow: hidden; height: 100%; }
 .iphone-dynamic-island {
   position: absolute;
   top: 8px; left: 50%;
@@ -936,7 +941,10 @@ section { padding: 120px 24px; position: relative; }
 }
 .iphone-screen {
   position: relative;
-  aspect-ratio: 9 / 19.5;
+  /* aspect-ratio retire : le ratio est maintenant porte par .iphone.
+     Le screen suit la hauteur du parent .iphone-frame (100%). */
+  aspect-ratio: unset;
+  height: 100%;
   background: #1a1a1a;
   border-radius: 26px;
   overflow: hidden;
@@ -1794,11 +1802,11 @@ footer {
     padding-right: 8px;
     font-size: clamp(13px, 1.05vw, 15px);
   }
-  /* Mockups telephone plus compacts <= 1440px. Le contenu interieur
-     (feed, stories, reels, search) est en width:100% + aspect-ratio
-     donc il suit automatiquement le redimensionnement du parent. */
+  /* Mockups telephone plus compacts <= 1440px. .phone-frame (section
+     "Le probleme") reste pilote par width. .iphone (sticky scroll)
+     est pilote par max-height en global, donc plus d'override width
+     ici (le clamp casserait l'aspect-ratio combine au max-height). */
   .phone-frame { width: clamp(160px, 18vw, 220px); }
-  .iphone { width: clamp(160px, 18vw, 220px); }
 }
 
 /* MOBILE */
@@ -1814,7 +1822,19 @@ footer {
   .sticky-slide:nth-child(2) .sticky-slide-content > .screen-col--phones { order: 0; }
   .screen-col--phones { flex-wrap: wrap; }
   .sticky-dots { bottom: 24px; }
-  .iphone { width: 180px; }
+  /* Mobile : layout single-column avec phones flex-wrap. On desactive
+     le height-primary du desktop et on revient a width-primary +
+     aspect-ratio sur .iphone-screen (comme avant). */
+  .iphone {
+    width: 180px;
+    max-height: none;
+    aspect-ratio: auto;
+  }
+  .iphone-frame { height: auto; }
+  .iphone-screen {
+    height: auto;
+    aspect-ratio: 9 / 19.5;
+  }
   .iphone--featured { transform: none; }
   footer { flex-direction: column; text-align: center; }
 }
