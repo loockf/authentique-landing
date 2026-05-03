@@ -1822,18 +1822,19 @@ footer {
   .sticky-slide:nth-child(2) .sticky-slide-content > .screen-col--phones { order: 0; }
   .screen-col--phones { flex-wrap: wrap; }
   .sticky-dots { bottom: 24px; }
-  /* Mobile : layout single-column avec phones flex-wrap. On desactive
-     le height-primary du desktop et on revient a width-primary +
-     aspect-ratio sur .iphone-screen (comme avant). */
+  /* Mobile : 2 phones cote a cote sur les slides 1/2/3. width
+     min(42vw, 180px) garantit qu'ils tiennent dans 390px (iPhone)
+     et clampe a 180px sur tablette. max-height calc(100vh - 400px)
+     evite le debordement vertical sur petits ecrans. */
   .iphone {
-    width: 180px;
-    max-height: none;
-    aspect-ratio: auto;
-  }
-  .iphone-frame { height: auto; }
-  .iphone-screen {
-    height: auto;
+    width: min(42vw, 180px);
+    max-height: calc(100vh - 400px);
     aspect-ratio: 9 / 19.5;
+  }
+  .iphone-frame { height: 100%; }
+  .iphone-screen {
+    height: 100%;
+    aspect-ratio: unset;
   }
   .iphone--featured { transform: none; }
   footer { flex-direction: column; text-align: center; }
