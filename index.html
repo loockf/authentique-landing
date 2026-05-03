@@ -839,7 +839,7 @@ section { padding: 120px 24px; position: relative; }
    (qui est lui aussi centre, position from .sticky-scroll rule). */
 .sticky-dots {
   position: absolute;
-  bottom: 78px;
+  bottom: 100px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -1746,6 +1746,11 @@ footer {
     padding-right: 8px;
     font-size: clamp(13px, 1.05vw, 15px);
   }
+  /* Mockups telephone plus compacts <= 1440px. Le contenu interieur
+     (feed, stories, reels, search) est en width:100% + aspect-ratio
+     donc il suit automatiquement le redimensionnement du parent. */
+  .phone-frame { width: clamp(160px, 18vw, 220px); }
+  .iphone { width: clamp(160px, 18vw, 220px); }
 }
 
 /* MOBILE */
