@@ -1559,6 +1559,22 @@ section { padding: 120px 24px; position: relative; }
 }
 .suggest-textarea::placeholder { color: var(--text-mute); }
 .suggest-textarea:focus { border-color: var(--green); }
+/* Champ email optionnel : meme style que le textarea (background,
+   border, radius, font, focus) mais sur une seule ligne. */
+.suggest-email {
+  width: 100%;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px 18px;
+  font: 400 15px/1.4 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+.suggest-email::placeholder { color: var(--text-mute); }
+.suggest-email:focus { border-color: var(--green); }
 .suggest-btn {
   align-self: center;
   cursor: pointer;
@@ -2521,6 +2537,7 @@ footer {
     <div class="cta-bottom-half">
       <p class="cta-prompt reveal" data-i18n="cta_prompt">Tu as une idée, une question ou une suggestion ? On veut l'entendre.</p>
       <form class="suggest-form reveal" id="suggestForm" onsubmit="return submitSuggestion(event)">
+        <input type="email" class="suggest-email" id="suggestEmail" data-i18n-placeholder="suggest_email_placeholder" placeholder="Ton adresse email (optionnel)" />
         <textarea class="suggest-textarea" id="suggestText" rows="4" data-i18n-placeholder="suggest_placeholder" placeholder="Ton idée ou suggestion..." required></textarea>
         <button type="submit" class="btn-primary suggest-btn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -2690,6 +2707,7 @@ const translations = {
     suggest_title: "Et ce n'est que le <em>début</em>.",
     suggest_sub: "De nouvelles fonctionnalités arrivent régulièrement.",
     suggest_placeholder: "Ton idée ou suggestion...",
+    suggest_email_placeholder: "Ton adresse email (optionnel)",
     suggest_btn: "Envoyer",
     settings_title: "Paramètres",
     settings_label_sponsored: "Masquer les posts sponsorisés",
@@ -2799,6 +2817,7 @@ const translations = {
     suggest_title: "And this is just the <em>beginning</em>.",
     suggest_sub: "New features are coming regularly.",
     suggest_placeholder: "Your idea or suggestion...",
+    suggest_email_placeholder: "Your email address (optional)",
     suggest_btn: "Send",
     settings_title: "Settings",
     settings_label_sponsored: "Hide sponsored posts",
@@ -2908,6 +2927,7 @@ const translations = {
     suggest_title: "Y esto es solo el <em>comienzo</em>.",
     suggest_sub: "Nuevas funciones llegan regularmente.",
     suggest_placeholder: "Tu idea o sugerencia...",
+    suggest_email_placeholder: "Tu correo electrónico (opcional)",
     suggest_btn: "Enviar",
     settings_title: "Ajustes",
     settings_label_sponsored: "Ocultar posts patrocinados",
@@ -3017,6 +3037,7 @@ const translations = {
     suggest_title: "Ed è solo l'<em>inizio</em>.",
     suggest_sub: "Nuove funzionalità arrivano regolarmente.",
     suggest_placeholder: "La tua idea o suggerimento...",
+    suggest_email_placeholder: "La tua email (opzionale)",
     suggest_btn: "Invia",
     settings_title: "Impostazioni",
     settings_label_sponsored: "Nascondi post sponsorizzati",
@@ -3126,6 +3147,7 @@ const translations = {
     suggest_title: "E isto é só o <em>começo</em>.",
     suggest_sub: "Novas funcionalidades chegam regularmente.",
     suggest_placeholder: "Sua ideia ou sugestão...",
+    suggest_email_placeholder: "Seu e-mail (opcional)",
     suggest_btn: "Enviar",
     settings_title: "Configurações",
     settings_label_sponsored: "Ocultar posts patrocinados",
@@ -3235,6 +3257,7 @@ const translations = {
     suggest_title: "И это только <em>начало</em>.",
     suggest_sub: "Новые функции появляются регулярно.",
     suggest_placeholder: "Твоя идея или предложение...",
+    suggest_email_placeholder: "Ваш email (необязательно)",
     suggest_btn: "Отправить",
     settings_title: "Настройки",
     settings_label_sponsored: "Скрыть рекламные посты",
@@ -3353,17 +3376,60 @@ function wrapAuthentiqueOccurrences() {
 
 document.addEventListener('DOMContentLoaded', wrapAuthentiqueOccurrences);
 
-// Formulaire de suggestion : ouvre mailto: avec le contenu du
-// textarea en body. Pas de backend, c'est l'app mail de
-// l'utilisateur qui prend le relais.
-function submitSuggestion(e) {
+// Formulaire de suggestion : envoie via Formspree (POST JSON) si
+// FORMSPREE_ID est configure, sinon fallback mailto. Affiche un
+// feedback visuel "✓ Envoyé !" pendant 3s sur succes.
+// Remplacer FORM_ID par l'ID Formspree une fois le compte cree.
+var FORMSPREE_ID = 'FORM_ID';
+async function submitSuggestion(e) {
   e.preventDefault();
   var ta = document.getElementById('suggestText');
+  var em = document.getElementById('suggestEmail');
   if (!ta) return false;
   var text = ta.value.trim();
   if (!text) return false;
+  var email = em ? em.value.trim() : '';
+  var form = document.getElementById('suggestForm');
+  var btn = form ? form.querySelector('.suggest-btn') : null;
+  var btnLabel = btn ? btn.querySelector('[data-i18n="suggest_btn"]') : null;
+
+  // Tentative Formspree si l'ID est configure
+  if (FORMSPREE_ID && FORMSPREE_ID !== 'FORM_ID') {
+    try {
+      var response = await fetch('https://formspree.io/f/' + FORMSPREE_ID, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          email: email,
+          message: text,
+          _subject: 'Suggestion Authentique'
+        })
+      });
+      if (response.ok) {
+        if (btnLabel) btnLabel.textContent = '✓ Envoyé !';
+        if (btn) btn.style.background = '#19d382';
+        setTimeout(function () {
+          if (btnLabel) {
+            var t = (typeof translations !== 'undefined' && translations[currentLang] && translations[currentLang].suggest_btn) ? translations[currentLang].suggest_btn : 'Envoyer';
+            btnLabel.textContent = t;
+          }
+          if (btn) btn.style.background = '';
+          ta.value = '';
+          if (em) em.value = '';
+        }, 3000);
+        return false;
+      }
+    } catch (err) {
+      // fall through to mailto
+    }
+  }
+
+  // Fallback mailto : ouvre le client mail de l'utilisateur
   var subject = 'Suggestion Authentique';
-  var body = encodeURIComponent(text);
+  var bodyParts = [];
+  if (email) bodyParts.push('De: ' + email);
+  bodyParts.push(text);
+  var body = encodeURIComponent(bodyParts.join('\n\n'));
   window.location.href =
     'mailto:hello@get-authentique.com?subject=' +
     encodeURIComponent(subject) + '&body=' + body;
