@@ -1816,20 +1816,19 @@ footer {
   .features-grid { grid-template-columns: 1fr; }
   .sticky-slide-content { grid-template-columns: 1fr; gap: 32px; padding: 0 16px; }
   .sticky-slide:nth-child(2) .sticky-slide-content > .screen-col--phones { order: 0; }
-  .screen-col--phones { flex-wrap: wrap; }
   .sticky-dots { bottom: 24px; }
-  /* Mobile : layout single-column avec phones flex-wrap. On desactive
-     le height-primary du desktop et on revient a width-primary +
-     aspect-ratio sur .iphone-screen (comme avant). */
-  .iphone {
-    width: 180px;
-    max-height: none;
-    aspect-ratio: auto;
+  /* Mobile : on contraint le conteneur .screen-col--phones plutot que
+     .iphone directement. Le selecteur .screen-col--phones .iphone est
+     plus specifique que .iphone global, ce qui evite de casser le
+     comportement desktop tout en redimensionnant les phones sur mobile. */
+  .screen-col--phones {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
   }
-  .iphone-frame { height: auto; }
-  .iphone-screen {
-    height: auto;
-    aspect-ratio: 9 / 19.5;
+  .screen-col--phones .iphone {
+    width: min(42vw, 180px);
   }
   .iphone--featured { transform: none; }
   footer { flex-direction: column; text-align: center; }
