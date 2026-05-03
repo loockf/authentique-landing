@@ -455,14 +455,17 @@ section { padding: 120px 24px; position: relative; }
   padding: 8px;
   box-shadow: 0 30px 60px rgba(20,20,20,0.18), 0 12px 24px rgba(20,20,20,0.08);
   position: relative;
+  /* Base font-size proportionnelle a la largeur du telephone : tous
+     les enfants utilisent em pour scaler avec le mockup. */
+  font-size: clamp(10px, 1.4vw, 14px);
 }
 .phone-notch {
   position: absolute;
-  top: 16px; left: 50%;
+  top: 1.14em; left: 50%;
   transform: translateX(-50%);
-  width: 100px; height: 24px;
+  width: 7.14em; height: 1.71em;
   background: #1c1c1a;
-  border-radius: 12px;
+  border-radius: 0.86em;
   z-index: 2;
 }
 .phone-screen {
@@ -496,34 +499,34 @@ section { padding: 120px 24px; position: relative; }
 }
 .feed-header {
   background: #1a1a1a;
-  height: 36px;
+  height: 3em;
   display: flex;
   align-items: center;
-  padding-left: 10px;
+  padding-left: 0.83em;
 }
 .feed-header-avatar {
-  width: 12px;
-  height: 12px;
+  width: 1em;
+  height: 1em;
   border-radius: 50%;
   background: #ffffff;
   flex-shrink: 0;
 }
 .feed-header-name {
-  height: 8px;
-  border-radius: 4px;
+  height: 0.67em;
+  border-radius: 0.33em;
   background: rgba(255,255,255,0.7);
-  margin-left: 8px;
+  margin-left: 0.67em;
   flex-shrink: 0;
 }
 .feed-label {
   position: absolute;
-  top: 8px;
-  left: 8px;
-  font: 500 18px/1 -apple-system, sans-serif;
+  top: 0.67em;
+  left: 0.67em;
+  font: 500 1.5em/1 -apple-system, sans-serif;
   color: #fff;
   background: rgba(0,0,0,0.35);
-  padding: 6px 14px;
-  border-radius: 20px;
+  padding: 0.33em 0.78em;
+  border-radius: 1.11em;
   letter-spacing: 0.2px;
 }
 .feed-play {
@@ -535,29 +538,29 @@ section { padding: 120px 24px; position: relative; }
   pointer-events: none;
 }
 .feed-play svg {
-  width: 24px;
-  height: 24px;
+  width: 2em;
+  height: 2em;
   fill: rgba(255,255,255,0.85);
   filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
 }
 .feed-actions {
   background: #1a1a1a;
-  height: 36px;
+  height: 3em;
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 0 10px;
+  gap: 1.33em;
+  padding: 0 0.83em;
 }
 .feed-action {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 0.42em;
   color: #fff;
-  font: 500 11px/1 -apple-system, sans-serif;
+  font: 500 0.92em/1 -apple-system, sans-serif;
 }
 .feed-action svg {
-  width: 18px;
-  height: 18px;
+  width: 1.5em;
+  height: 1.5em;
   fill: none;
   stroke: #fff;
   stroke-width: 2;
@@ -926,6 +929,9 @@ section { padding: 120px 24px; position: relative; }
   padding: 6px;
   box-shadow: 0 20px 40px rgba(20,20,20,0.15);
   transition: transform 0.4s;
+  /* Base font-size proportionnelle au telephone : tous les enfants
+     (textes, icones, paddings) utilisent em pour scaler ensemble. */
+  font-size: clamp(8px, 1.2vw, 12px);
 }
 .iphone--featured { transform: none; z-index: auto; }
 .iphone-frame {
@@ -937,11 +943,11 @@ section { padding: 120px 24px; position: relative; }
 }
 .iphone-dynamic-island {
   position: absolute;
-  top: 8px; left: 50%;
+  top: 0.67em; left: 50%;
   transform: translateX(-50%);
-  width: 80px; height: 22px;
+  width: 6.67em; height: 1.83em;
   background: #1c1c1a;
-  border-radius: 12px;
+  border-radius: 1em;
   z-index: 3;
 }
 .iphone-screen {
@@ -964,23 +970,23 @@ section { padding: 120px 24px; position: relative; }
 .settings-mockup {
   position: absolute;
   inset: 0;
-  padding: 28px 14px 0;
+  padding: 2.33em 1.17em 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   color: #1c1c1a;
   box-sizing: border-box;
 }
 .settings-title {
-  font-size: 18px;
+  font-size: 1.5em;
   font-weight: 600;
   text-align: center;
-  padding-top: 40px;
-  margin-bottom: 16px;
+  padding-top: 2.22em;
+  margin-bottom: 0.89em;
   color: #1c1c1a;
   letter-spacing: -0.2px;
 }
 .settings-list {
   background: #ffffff;
-  border-radius: 12px;
+  border-radius: 1em;
   border: 1px solid rgba(20,20,20,0.06);
   overflow: hidden;
 }
@@ -988,13 +994,13 @@ section { padding: 120px 24px; position: relative; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  padding: 11px 12px;
+  gap: 0.67em;
+  padding: 0.92em 1em;
   border-bottom: 1px solid rgba(20,20,20,0.06);
 }
 .settings-row:last-child { border-bottom: none; }
 .settings-label {
-  font-size: 11px;
+  font-size: 0.92em;
   line-height: 1.25;
   color: #1c1c1a;
   flex: 1;
@@ -1002,9 +1008,9 @@ section { padding: 120px 24px; position: relative; }
 }
 .settings-switch {
   position: relative;
-  width: 32px;
-  height: 19px;
-  border-radius: 10px;
+  width: 2.67em;
+  height: 1.58em;
+  border-radius: 0.83em;
   background: #e0e0e0;
   flex-shrink: 0;
   transition: background 0.25s ease;
@@ -1012,17 +1018,17 @@ section { padding: 120px 24px; position: relative; }
 .settings-switch::after {
   content: '';
   position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 15px;
-  height: 15px;
+  top: 0.17em;
+  left: 0.17em;
+  width: 1.25em;
+  height: 1.25em;
   border-radius: 50%;
   background: #ffffff;
   box-shadow: 0 1px 2px rgba(0,0,0,0.15);
   transition: transform 0.25s ease;
 }
 .settings-switch.is-on { background: #19d382; }
-.settings-switch.is-on::after { transform: translateX(13px); }
+.settings-switch.is-on::after { transform: translateX(1.08em); }
 
 /* Track interne du feed scrollant pour les mockups iphone (s1). */
 .iphone-screen--demo .phone-feed-track {
@@ -1037,17 +1043,17 @@ section { padding: 120px 24px; position: relative; }
    natif de l'app. Fond #0c0f14, texte #19d382. Remontée de 8px du
    bas du mockup pour respirer, font 13px pour la lisibilité depuis
    la landing. Le feed s'arrête au-dessus (36px = 8px gap + 28 strip). */
-.iphone-screen--counter .phone-feed { bottom: 36px; }
+.iphone-screen--counter .phone-feed { bottom: 3em; }
 .iphone-hidden-strip {
   position: absolute;
-  bottom: 8px;
+  bottom: 0.67em;
   left: 0;
   width: 100%;
-  height: 28px;
+  height: 2.33em;
   background: #0c0f14;
   border-top: 1px solid #1a1f29;
   color: #19d382;
-  font: 500 13px/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font: 500 1.08em/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   letter-spacing: 0.3px;
   display: flex;
   align-items: center;
@@ -1071,9 +1077,9 @@ section { padding: 120px 24px; position: relative; }
    suivante. Pas de keyframe CSS, pas de timer fixe. */
 .stories-progress {
   position: absolute;
-  top: 40px;
-  left: 8px;
-  right: 8px;
+  top: 3.33em;
+  left: 0.67em;
+  right: 0.67em;
   height: 2px;
   background: rgba(255,255,255,0.3);
   overflow: hidden;
@@ -1119,40 +1125,40 @@ section { padding: 120px 24px; position: relative; }
    positionne sous l'encoche du mockup (top 56px = 40 progress + 16). */
 .story-card .story-header {
   position: absolute;
-  top: 56px;
-  left: 12px;
+  top: 4.67em;
+  left: 1em;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.67em;
   z-index: 5;
 }
 .story-card .story-avatar {
-  width: 28px;
-  height: 28px;
+  width: 2.33em;
+  height: 2.33em;
   border-radius: 50%;
   background: #fff;
   flex-shrink: 0;
 }
 .story-card .story-account {
   color: #fff;
-  font: 500 11px/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font: 500 0.92em/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
 }
 .story-card .story-namebar {
-  height: 8px;
-  border-radius: 4px;
+  height: 0.67em;
+  border-radius: 0.33em;
   background: rgba(255,255,255,0.7);
 }
 
 /* Label "Sponsorisé" pose sous le header */
 .story-sponsor .story-label {
   position: absolute;
-  top: 96px;
-  left: 12px;
+  top: 8em;
+  left: 1em;
   background: rgba(0,0,0,0.35);
   color: #fff;
-  font: 500 16px/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-  padding: 6px 14px;
-  border-radius: 20px;
+  font: 500 1.33em/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  padding: 0.38em 0.88em;
+  border-radius: 1.25em;
   letter-spacing: 0.2px;
   z-index: 5;
 }
@@ -1178,44 +1184,44 @@ section { padding: 120px 24px; position: relative; }
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 0 8px;
+  padding: 0 0.67em;
   width: 95%;
   box-sizing: border-box;
 }
 .story-overlay-icon {
-  width: 44px;
-  height: 44px;
+  width: 3.67em;
+  height: 3.67em;
   border: 1.5px solid rgba(28, 28, 26, 0.55);
   border-radius: 50%;
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 1.67em;
 }
 .story-overlay-icon::before {
   content: '';
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 38px;
+  width: 3.17em;
   height: 1.5px;
   background: rgba(28, 28, 26, 0.55);
   transform: translate(-50%, -50%) rotate(45deg);
 }
 .story-overlay-title {
   color: #1c1c1a;
-  font: 600 16px/1.2 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font: 600 1.33em/1.2 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   letter-spacing: -0.2px;
-  margin-bottom: 6px;
+  margin-bottom: 0.5em;
   white-space: nowrap;
 }
 .story-overlay-subtitle {
   color: #6b6a65;
-  font: 400 11px/1.4 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font: 400 0.92em/1.4 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   white-space: nowrap;
 }
 .story-overlay-arch {
-  width: 24px;
-  height: 26px;
-  margin-top: 14px;
+  width: 2em;
+  height: 2.17em;
+  margin-top: 1.17em;
   opacity: 0.6;
 }
 .story-overlay-arch svg { width: 100%; height: 100%; display: block; }
@@ -1244,33 +1250,33 @@ section { padding: 120px 24px; position: relative; }
 .iphone-screen--search {
   background: #ffffff;
   overflow: hidden;
-  padding-top: 44px;
+  padding-top: 3.67em;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
 }
 .iphone-screen--search .search-bar {
-  margin: 0 8px 8px;
-  height: 36px;
+  margin: 0 0.67em 0.67em;
+  height: 3em;
   background: #f0f0f0;
-  border-radius: 10px;
+  border-radius: 0.83em;
   display: flex;
   align-items: center;
-  padding: 0 12px;
-  gap: 8px;
+  padding: 0 1em;
+  gap: 0.67em;
   box-sizing: border-box;
   flex-shrink: 0;
 }
 .search-icon {
-  width: 14px;
-  height: 14px;
+  width: 1.17em;
+  height: 1.17em;
   color: #999;
   flex-shrink: 0;
   display: block;
 }
 .search-placeholder {
   color: #999;
-  font: 400 13px/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font: 400 1.08em/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
 }
 .search-track-wrap {
   flex: 1;
@@ -1297,10 +1303,10 @@ section { padding: 120px 24px; position: relative; }
 .search-row--A,
 .search-row--B,
 .search-row--D {
-  grid-template-rows: repeat(2, 75px);
+  grid-template-rows: repeat(2, 6.25em);
 }
 .search-row--C {
-  grid-template-rows: 75px;
+  grid-template-rows: 6.25em;
 }
 .search-tile {
   position: relative;
@@ -1312,14 +1318,14 @@ section { padding: 120px 24px; position: relative; }
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 22px;
-  height: 22px;
+  width: 1.83em;
+  height: 1.83em;
   color: #fff;
   opacity: 0.85;
 }
 .search-tile--big .search-tile-play {
-  width: 30px;
-  height: 30px;
+  width: 2.5em;
+  height: 2.5em;
 }
 
 /* Mockup overlay "Rien a voir." (slide 4 droite) — replique
@@ -1332,17 +1338,17 @@ section { padding: 120px 24px; position: relative; }
 }
 .iphone-screen--search-empty .search-bar {
   position: absolute;
-  top: 44px;
-  left: 8px;
-  right: 8px;
+  top: 3.67em;
+  left: 0.67em;
+  right: 0.67em;
   margin: 0;
-  height: 36px;
+  height: 3em;
   background: #f0f0f0;
-  border-radius: 10px;
+  border-radius: 0.83em;
   display: flex;
   align-items: center;
-  padding: 0 12px;
-  gap: 8px;
+  padding: 0 1em;
+  gap: 0.67em;
   box-sizing: border-box;
   z-index: 5;
 }
@@ -1355,29 +1361,29 @@ section { padding: 120px 24px; position: relative; }
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 0 18px;
+  padding: 0 1.5em;
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
 }
 .search-empty-title {
   display: block;
-  font-size: 16px;
+  font-size: 1.33em;
   font-weight: 600;
   color: #1c1c1a;
-  margin-bottom: 8px;
+  margin-bottom: 0.67em;
   letter-spacing: -0.2px;
 }
 .search-empty-body {
   display: block;
-  font-size: 12px;
+  font-size: 1em;
   font-weight: 400;
   color: #6b6a65;
   line-height: 1.5;
 }
 .search-empty-arch {
-  margin-top: 14px;
-  width: 22px;
-  height: 24px;
+  margin-top: 1.17em;
+  width: 1.83em;
+  height: 2em;
   opacity: 0.6;
 }
 .search-empty-arch svg { width: 100%; height: 100%; display: block; }
@@ -1388,32 +1394,32 @@ section { padding: 120px 24px; position: relative; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 18px;
+  padding: 0 1.5em;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   text-align: center;
 }
 .reels-overlay-title {
   display: block;
-  font-size: 13px;
+  font-size: 1.08em;
   font-weight: 600;
   color: #1c1c1a;
-  margin-bottom: 10px;
+  margin-bottom: 0.83em;
   letter-spacing: -0.2px;
   line-height: 1.25;
 }
 .reels-overlay-body {
   display: block;
-  font-size: 11px;
+  font-size: 0.92em;
   font-weight: 400;
   color: #6b6a65;
   line-height: 1.45;
-  margin-bottom: 6px;
+  margin-bottom: 0.5em;
 }
 .reels-overlay-body:last-of-type { margin-bottom: 0; }
 .reels-overlay-arch {
-  margin-top: 12px;
-  width: 22px;
-  height: 24px;
+  margin-top: 1em;
+  width: 1.83em;
+  height: 2em;
   opacity: 0.6;
 }
 .reels-overlay-arch svg { width: 100%; height: 100%; display: block; }
@@ -1430,42 +1436,42 @@ section { padding: 120px 24px; position: relative; }
 /* Header haut-gauche : avatar + nom simule + bouton Suivre */
 .reel-header {
   position: absolute;
-  top: 36px;
-  left: 10px;
+  top: 3em;
+  left: 0.83em;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 0.5em;
   z-index: 5;
 }
 .reel-avatar {
-  width: 24px;
-  height: 24px;
+  width: 2em;
+  height: 2em;
   border-radius: 50%;
   background: #fff;
   flex-shrink: 0;
 }
 .reel-namebar {
-  height: 7px;
-  border-radius: 3px;
+  height: 0.58em;
+  border-radius: 0.25em;
   background: rgba(255,255,255,0.85);
 }
 .reel-follow {
-  font: 600 8px/1 -apple-system, sans-serif;
+  font: 600 0.67em/1 -apple-system, sans-serif;
   color: #fff;
   border: 1px solid #fff;
-  border-radius: 4px;
-  padding: 3px 8px;
+  border-radius: 0.5em;
+  padding: 0.38em 1em;
   letter-spacing: 0.2px;
 }
 .reel-label {
   position: absolute;
-  top: 70px;
-  left: 10px;
+  top: 5.83em;
+  left: 0.83em;
   background: rgba(0,0,0,0.35);
   color: #fff;
-  font: 500 12px/1 -apple-system, sans-serif;
-  padding: 5px 10px;
-  border-radius: 20px;
+  font: 500 1em/1 -apple-system, sans-serif;
+  padding: 0.42em 0.83em;
+  border-radius: 1.67em;
   letter-spacing: 0.2px;
   z-index: 5;
 }
@@ -1473,44 +1479,46 @@ section { padding: 120px 24px; position: relative; }
 /* Description en bas-gauche : 2 barres simulees */
 .reel-desc {
   position: absolute;
-  bottom: 50px;
-  left: 10px;
-  right: 60px;
+  bottom: 4.17em;
+  left: 0.83em;
+  right: 5em;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 0.42em;
   z-index: 5;
 }
 .reel-desc-bar {
-  height: 8px;
-  border-radius: 4px;
+  height: 0.67em;
+  border-radius: 0.33em;
   background: rgba(255,255,255,0.7);
 }
 .reel-desc-bar:nth-child(2) {
-  height: 6px;
+  height: 0.5em;
   background: rgba(255,255,255,0.55);
 }
 
 /* Colonne d'icones a droite, centree verticalement */
 .reel-actions {
   position: absolute;
-  right: 12px;
+  right: 1em;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 1.67em;
   z-index: 5;
 }
 .reel-action {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
+  gap: 0.25em;
 }
 .reel-action svg {
   display: block;
+  width: 2.17em;
+  height: 2.17em;
   fill: none;
   stroke: #fff;
   stroke-width: 1.8;
@@ -1519,7 +1527,7 @@ section { padding: 120px 24px; position: relative; }
 }
 .reel-action.reel-action--more svg { stroke: none; fill: #fff; }
 .reel-action-count {
-  font: 600 10px/1 -apple-system, sans-serif;
+  font: 600 0.83em/1 -apple-system, sans-serif;
   color: #fff;
 }
 
