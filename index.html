@@ -1831,8 +1831,32 @@ footer {
   section { padding: 80px 20px; }
   .section-problem .problem-grid { grid-template-columns: 1fr; gap: 48px; }
   .features-grid { grid-template-columns: 1fr; }
-  .sticky-slide-content { grid-template-columns: 1fr; gap: 32px; padding: 0 16px; }
-  .sticky-slide:nth-child(2) .sticky-slide-content > .screen-col--phones { order: 0; }
+  /* Sticky scroll mobile : phones EN HAUT, titre + texte EN BAS.
+     Evite que le titre soit coupe par le header sticky qui descend
+     dans le viewport. */
+  .sticky-slide-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    gap: 24px;
+    padding: 0 16px;
+  }
+  .screen-col--phones { order: 1; }
+  .screen-col--text { order: 2; }
+  /* Override de l'ordre desktop pour le slide 2 (qui inverse phones
+     a gauche). Sur mobile on force phones en haut pour tous. */
+  .sticky-slide:nth-child(2) .sticky-slide-content > .screen-col--phones { order: 1; }
+  /* Header sticky compact sur mobile : moins de padding + tailles
+     reduites pour que les titres des slides arrivent plus tot dans
+     le viewport et que le sticky scroll se declenche au bon moment. */
+  .screens-header {
+    padding: 16px 16px 8px;
+  }
+  .screens-header h2 {
+    font-size: clamp(20px, 4vw, 28px);
+  }
+  .screens-header p {
+    font-size: clamp(12px, 2.5vw, 16px);
+  }
   .sticky-dots { bottom: 24px; }
   /* Mobile : on contraint le conteneur .screen-col--phones plutot que
      .iphone directement. Le selecteur .screen-col--phones .iphone est
