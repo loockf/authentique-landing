@@ -593,7 +593,17 @@ section { padding: 120px 24px; position: relative; }
   display: flex;
   flex-direction: column;
   flex: 1;
+  /* Centre verticalement les enfants (titre + bloc fusionne) en
+     groupe, avec un gap entre eux. Necessite que .wellbeing-merged
+     ne soit pas flex:1 (override ci-dessous) sinon il occupe tout
+     l'espace et neutralise le centrage. */
+  justify-content: center;
+  gap: clamp(24px, 4vh, 48px);
 }
+/* Override de flex:1 sur .wellbeing-merged dans ce contexte : sans
+   ca, il pousserait le titre tout en haut et le centrage de
+   .wellbeing-inner ne s'appliquerait pas. */
+.wellbeing-inner > .wellbeing-merged { flex: initial; }
 /* wellbeing-top : flex:1 + flex-start (header pin top) + margin
    auto sur .ally-grid (en CSS ci-dessous) → header reste en haut,
    cartes centrees verticalement dans l'espace disponible entre le
@@ -858,7 +868,10 @@ section { padding: 120px 24px; position: relative; }
   width: 100%;
   max-width: 100%;
   margin: 0;
-  padding: 96px 24px 16px;
+  /* padding-top reduit pour que le titre ne soit pas colle si haut
+     dans le sticky panel. Il doit rester en haut (sticky scroll
+     reference) mais avec moins d'espace mort au-dessus. */
+  padding: clamp(32px, 5vh, 64px) 24px 16px;
   background: var(--bg);
   flex-shrink: 0;
   align-self: center;
