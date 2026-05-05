@@ -1626,14 +1626,12 @@ section { padding: 120px 24px; position: relative; }
 }
 .philosophy-inner p { color: var(--text-soft); font-size: clamp(14px, 1.5vw, 18px); max-width: 540px; margin: 0 auto; line-height: 1.5; }
 
-/* FINAL CTA — 100vh strict. Layout : top-half (h2 + thanks + button)
-   + hr (centre vertical, 50% via flex:1 sur les deux moities) +
-   bottom-half (prompt + form + email). HR est pile au milieu car
-   les deux halves ont flex:1 (taille egale). Top et bottom group
-   centrent leur contenu. */
+/* FINAL CTA — flux unique vertical : titre + 3 cards (3 piliers
+   du projet) + bouton Kickstarter + form contact + email. Tout
+   centre verticalement dans 100vh, gaps reduits pour densifier. */
 .section-cta {
   background: var(--bg);
-  padding: 48px 24px clamp(48px, 8vh, 100px);
+  padding: clamp(24px, 4vh, 48px) 24px clamp(48px, 8vh, 100px);
   text-align: center;
   min-height: 100vh;
   box-sizing: border-box;
@@ -1641,58 +1639,63 @@ section { padding: 120px 24px; position: relative; }
   flex-direction: column;
 }
 .cta-inner {
-  max-width: 640px;
+  max-width: 1100px;
   margin: 0 auto;
   width: 100%;
   display: flex;
   flex-direction: column;
   flex: 1;
-}
-.cta-top-half {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.cta-bottom-half {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 24px;
+  gap: clamp(16px, 2.5vh, 28px);
 }
-.cta-bottom-half .suggest-form { width: 100%; }
-.cta-top-half h2 {
+.cta-inner h2 {
   margin: 0;
-  padding-top: 64px;
   font-size: clamp(24px, 3.5vw, 48px);
   line-height: 1.1;
   flex-shrink: 0;
 }
-.cta-top-group {
-  flex: 1;
+.cta-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 1000px;
+}
+.cta-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 32px;
-  width: 100%;
+  gap: 12px;
 }
-.cta-thanks {
-  color: var(--text-soft);
-  font-size: clamp(14px, 1.5vw, 18px);
-  line-height: 1.55;
-  margin: 0;
-}
-.cta-action { margin: 0; }
-.cta-separator {
-  border: none;
-  border-top: 1px solid #d0d0cc;
-  width: 60%;
-  margin: 0 auto;
+.cta-card-icon {
+  width: 44px;
+  height: 44px;
+  background: rgba(25,211,130,0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
 }
+.cta-card h3 {
+  margin: 0;
+  color: #141414;
+  font-size: clamp(16px, 2vw, 24px);
+  line-height: 1.2;
+}
+.cta-card p {
+  margin: 0;
+  color: #666;
+  font-size: clamp(14px, 1.5vw, 18px);
+  line-height: 1.5;
+}
+.cta-action { margin: 0; }
 .cta-prompt {
   color: var(--text-soft);
   font-size: clamp(14px, 1.5vw, 18px);
@@ -1700,11 +1703,12 @@ section { padding: 120px 24px; position: relative; }
   margin: 0;
 }
 .cta-email-line {
-  margin-top: 18px;
+  margin-top: 0;
   font-size: 14px;
   color: var(--text-mute);
 }
 .cta-email-line a { color: var(--green); text-decoration: underline; }
+.cta-inner .suggest-form { width: 100%; max-width: 600px; margin-bottom: 0; }
 
 /* FOOTER */
 footer {
@@ -1867,6 +1871,7 @@ footer {
   section { padding: 80px 20px; }
   .section-problem .problem-grid { grid-template-columns: 1fr; gap: 48px; }
   .features-grid { grid-template-columns: 1fr; }
+  .cta-cards { grid-template-columns: 1fr; }
   /* Sticky scroll mobile : phones EN HAUT, titre + texte EN BAS.
      Evite que le titre soit coupe par le header sticky qui descend
      dans le viewport. */
@@ -2529,39 +2534,64 @@ footer {
 <!-- FINAL CTA -->
 <section class="section-cta" id="cta">
   <div class="cta-inner">
-    <div class="cta-top-half">
-      <h2 class="reveal" data-i18n="cta_title">On construit<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;ensemble.</h2>
-      <div class="cta-top-group">
-        <p class="cta-thanks reveal" data-i18n="cta_thanks">Merci pour ton intérêt et ton soutien. Chaque contribution nous aide à construire l'app que Instagram aurait dû être.</p>
-        <div class="cta-action reveal">
-          <a href="#" class="btn-primary">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M5 4h3.5v6.5L13 4h4.2l-5.4 8 5.7 8h-4.4L8.5 13.4V20H5z"/>
-            </svg>
-            <span data-i18n="hero_cta">Soutenir sur Kickstarter</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </a>
+    <h2 class="reveal" data-i18n="cta_title">On construit<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;ensemble.</h2>
+    <div class="cta-cards reveal">
+      <div class="cta-card">
+        <div class="cta-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+          </svg>
         </div>
+        <h3 data-i18n="cta_card1_title">Zéro publicité, zéro investisseur</h3>
+        <p data-i18n="cta_card1_desc">Authentique ne se financera jamais par la pub. Pas question de reproduire le modèle qu'on combat.</p>
+      </div>
+      <div class="cta-card">
+        <div class="cta-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <h3 data-i18n="cta_card2_title">Une communauté, pas des actionnaires</h3>
+        <p data-i18n="cta_card2_desc">C'est toi qui décides si ce projet existe. Chaque contribution, même petite, compte.</p>
+      </div>
+      <div class="cta-card">
+        <div class="cta-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </div>
+        <h3 data-i18n="cta_card3_title">100% gratuit pour toujours</h3>
+        <p data-i18n="cta_card3_desc">Kickstarter nous permet de financer le développement sans jamais facturer l'app.</p>
       </div>
     </div>
-    <hr class="cta-separator reveal" aria-hidden="true">
-    <div class="cta-bottom-half">
-      <p class="cta-prompt reveal" data-i18n="cta_prompt">Tu as une idée, une question ou une suggestion ? On veut l'entendre.</p>
-      <form class="suggest-form reveal" id="suggestForm" onsubmit="return submitSuggestion(event)">
-        <input type="email" class="suggest-email" id="suggestEmail" data-i18n-placeholder="suggest_email_placeholder" placeholder="Ton adresse email (optionnel)" />
-        <textarea class="suggest-textarea" id="suggestText" rows="4" data-i18n-placeholder="suggest_placeholder" placeholder="Ton idée ou suggestion..." required></textarea>
-        <button type="submit" class="btn-primary suggest-btn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="22" y1="2" x2="11" y2="13"/>
-            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-          </svg>
-          <span data-i18n="suggest_btn">Envoyer</span>
-        </button>
-      </form>
-      <p class="cta-email-line reveal" data-i18n="cta_email_line">ou écris-nous directement à <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a></p>
+    <div class="cta-action reveal">
+      <a href="#" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M5 4h3.5v6.5L13 4h4.2l-5.4 8 5.7 8h-4.4L8.5 13.4V20H5z"/>
+        </svg>
+        <span data-i18n="hero_cta">Soutenir sur Kickstarter</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
     </div>
+    <p class="cta-prompt reveal" data-i18n="cta_prompt">Tu as une idée, une question ou une suggestion ? On veut l'entendre.</p>
+    <form class="suggest-form reveal" id="suggestForm" onsubmit="return submitSuggestion(event)">
+      <input type="email" class="suggest-email" id="suggestEmail" data-i18n-placeholder="suggest_email_placeholder" placeholder="Ton adresse email (optionnel)" />
+      <textarea class="suggest-textarea" id="suggestText" rows="4" data-i18n-placeholder="suggest_placeholder" placeholder="Ton idée ou suggestion..." required></textarea>
+      <button type="submit" class="btn-primary suggest-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+        <span data-i18n="suggest_btn">Envoyer</span>
+      </button>
+    </form>
+    <p class="cta-email-line reveal" data-i18n="cta_email_line">ou écris-nous directement à <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a></p>
     <button class="section-scroll" data-scroll-to="#faq" aria-label="Section suivante" type="button">
       <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="6 9 12 15 18 9"/>
@@ -2696,6 +2726,12 @@ const translations = {
     philosophy_text: "Authentique ne collecte aucune donnée. Aucun serveur. Aucun tracking. Juste une fenêtre filtrée sur Instagram, tel qu'il aurait toujours dû être.",
     cta_title: 'On construit<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;ensemble.',
     cta_thanks: "Merci pour ton intérêt et ton soutien. Chaque contribution nous aide à construire l'app que Instagram aurait dû être.",
+    cta_card1_title: "Zéro publicité, zéro investisseur",
+    cta_card1_desc: "Authentique ne se financera jamais par la pub. Pas question de reproduire le modèle qu'on combat.",
+    cta_card2_title: "Une communauté, pas des actionnaires",
+    cta_card2_desc: "C'est toi qui décides si ce projet existe. Chaque contribution, même petite, compte.",
+    cta_card3_title: "100% gratuit pour toujours",
+    cta_card3_desc: "Kickstarter nous permet de financer le développement sans jamais facturer l'app.",
     cta_prompt: "Tu as une idée, une question ou une suggestion ? On veut l'entendre.",
     cta_email_line: 'ou écris-nous directement à <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
     hidden_count_format: "{n} éléments masqués",
@@ -2806,6 +2842,12 @@ const translations = {
     philosophy_text: "Authentique collects no data. No server. No tracking. Just a filtered window into Instagram, as it should always have been.",
     cta_title: 'We are building<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;together.',
     cta_thanks: "Thank you for your interest and support. Every contribution helps us build the app Instagram should have been.",
+    cta_card1_title: "Zero ads, zero investors",
+    cta_card1_desc: "Authentique will never be funded by advertising. We won't reproduce the model we're fighting against.",
+    cta_card2_title: "A community, not shareholders",
+    cta_card2_desc: "You decide whether this project exists. Every contribution, even small, matters.",
+    cta_card3_title: "100% free forever",
+    cta_card3_desc: "Kickstarter lets us fund development without ever charging for the app.",
     cta_prompt: "Got an idea, a question or a suggestion? We want to hear it.",
     cta_email_line: 'or write to us directly at <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
     hidden_count_format: "{n} items hidden",
@@ -2916,6 +2958,12 @@ const translations = {
     philosophy_text: "Authentique no recopila ningún dato. Sin servidor. Sin seguimiento. Solo una ventana filtrada a Instagram, como siempre debió haber sido.",
     cta_title: 'Construimos<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;juntos.',
     cta_thanks: "Gracias por tu interés y tu apoyo. Cada contribución nos ayuda a construir la app que Instagram debería haber sido.",
+    cta_card1_title: "Cero publicidad, cero inversores",
+    cta_card1_desc: "Authentique nunca se financiará con publicidad. No vamos a reproducir el modelo contra el que luchamos.",
+    cta_card2_title: "Una comunidad, no accionistas",
+    cta_card2_desc: "Tú decides si este proyecto existe. Cada contribución, incluso pequeña, cuenta.",
+    cta_card3_title: "100% gratuito para siempre",
+    cta_card3_desc: "Kickstarter nos permite financiar el desarrollo sin cobrar nunca por la app.",
     cta_prompt: "¿Tienes una idea, una pregunta o una sugerencia? Queremos escucharla.",
     cta_email_line: 'o escríbenos directamente a <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
     hidden_count_format: "{n} elementos ocultos",
@@ -3026,6 +3074,12 @@ const translations = {
     philosophy_text: "Authentique non raccoglie nessun dato. Nessun server. Nessun tracciamento. Solo una finestra filtrata su Instagram, come avrebbe sempre dovuto essere.",
     cta_title: 'Costruiamo<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;insieme.',
     cta_thanks: "Grazie per il tuo interesse e il tuo supporto. Ogni contributo ci aiuta a costruire l'app che Instagram avrebbe dovuto essere.",
+    cta_card1_title: "Zero pubblicità, zero investitori",
+    cta_card1_desc: "Authentique non sarà mai finanziata dalla pubblicità. Non riprodurremo il modello che combattiamo.",
+    cta_card2_title: "Una comunità, non azionisti",
+    cta_card2_desc: "Sei tu a decidere se questo progetto esiste. Ogni contributo, anche piccolo, conta.",
+    cta_card3_title: "100% gratuito per sempre",
+    cta_card3_desc: "Kickstarter ci permette di finanziare lo sviluppo senza mai far pagare l'app.",
     cta_prompt: "Hai un'idea, una domanda o un suggerimento? Vogliamo sentirlo.",
     cta_email_line: 'oppure scrivici direttamente a <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
     hidden_count_format: "{n} elementi nascosti",
@@ -3136,6 +3190,12 @@ const translations = {
     philosophy_text: "O Authentique não recolhe nenhum dado. Sem servidor. Sem rastreio. Apenas uma janela filtrada para o Instagram, como sempre deveria ter sido.",
     cta_title: 'Construímos<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;juntos.',
     cta_thanks: "Obrigado pelo teu interesse e apoio. Cada contribuição ajuda-nos a construir a app que o Instagram devia ter sido.",
+    cta_card1_title: "Zero publicidade, zero investidores",
+    cta_card1_desc: "O Authentique nunca será financiado por publicidade. Não vamos reproduzir o modelo que combatemos.",
+    cta_card2_title: "Uma comunidade, não acionistas",
+    cta_card2_desc: "És tu que decides se este projeto existe. Cada contribuição, mesmo pequena, conta.",
+    cta_card3_title: "100% gratuito para sempre",
+    cta_card3_desc: "O Kickstarter permite-nos financiar o desenvolvimento sem nunca cobrar pela app.",
     cta_prompt: "Tens uma ideia, uma pergunta ou uma sugestão? Queremos ouvi-la.",
     cta_email_line: 'ou escreve-nos diretamente para <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
     hidden_count_format: "{n} elementos ocultados",
@@ -3246,6 +3306,12 @@ const translations = {
     philosophy_text: "Authentique не собирает данных. Никаких серверов. Никакой слежки. Только отфильтрованное окно в Instagram, каким он всегда должен был быть.",
     cta_title: 'Мы создаём<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;вместе.',
     cta_thanks: "Спасибо за интерес и поддержку. Каждый вклад помогает нам создать приложение, которым должен был быть Instagram.",
+    cta_card1_title: "Ноль рекламы, ноль инвесторов",
+    cta_card1_desc: "Authentique никогда не будет финансироваться за счёт рекламы. Мы не воспроизведём модель, с которой боремся.",
+    cta_card2_title: "Сообщество, не акционеры",
+    cta_card2_desc: "Ты решаешь, существует ли этот проект. Каждый вклад, даже небольшой, имеет значение.",
+    cta_card3_title: "100% бесплатно навсегда",
+    cta_card3_desc: "Kickstarter позволяет нам финансировать разработку, никогда не взимая плату за приложение.",
     cta_prompt: "У тебя есть идея, вопрос или предложение? Мы хотим услышать.",
     cta_email_line: 'или напиши нам напрямую на <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
     hidden_count_format: "{n} элементов скрыто",
