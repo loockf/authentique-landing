@@ -1737,8 +1737,14 @@ footer {
   background: var(--white);
   padding: 120px 24px;
   min-height: calc(100vh - 91px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.faq-inner { max-width: 760px; margin: 0 auto; }
+/* width: 100% pour que .faq-inner remplisse l'espace centre par
+   align-items, jusqu'a max-width 760px (sinon shrink to content). */
+.faq-inner { max-width: 760px; margin: 0 auto; width: 100%; }
 .faq-inner .section-label { display: block; text-align: center; }
 .faq-inner h2 {
   margin-bottom: 48px;
