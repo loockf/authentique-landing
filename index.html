@@ -630,8 +630,19 @@ section { padding: 120px 24px; position: relative; }
 }
 .wellbeing-merged .philosophy-inner { flex: initial; }
 .wellbeing-merged .ally-grid { margin: 0; }
-.ally-header { text-align: center; max-width: 720px; margin: 0 auto; }
-.ally-header h2 { margin: 8px 0 0; font-size: clamp(24px, 3.5vw, 48px); line-height: 1.1; text-align: center; }
+/* align-self: center force le centrage horizontal dans le flex
+   column parent (sinon align-items:stretch peut deborder le
+   max-width selon le browser). text-align: center !important sur
+   les enfants pour forcer le centrage du texte malgre l'heritage. */
+.ally-header {
+  text-align: center !important;
+  max-width: 720px;
+  margin: 0 auto;
+  align-self: center;
+  width: 100%;
+}
+.ally-header h2 { margin: 8px 0 0; font-size: clamp(24px, 3.5vw, 48px); line-height: 1.1; text-align: center !important; }
+.ally-header .section-label { text-align: center !important; }
 .ally-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -843,16 +854,18 @@ section { padding: 120px 24px; position: relative; }
 .screens-header {
   position: relative;
   z-index: 5;
-  text-align: center;
+  text-align: center !important;
   width: 100%;
   max-width: 100%;
   margin: 0;
   padding: 96px 24px 16px;
   background: var(--bg);
   flex-shrink: 0;
+  align-self: center;
 }
 .screens-header > * { max-width: 760px; margin-left: auto; margin-right: auto; }
-.screens-header h2 { margin-bottom: 0; text-align: center; }
+.screens-header h2 { margin-bottom: 0; text-align: center !important; }
+.screens-header .section-label { text-align: center !important; }
 
 /* Sticky scroll : outer = 3 × 100vh d'espace de scroll, inner reste
    en sticky top:0 pendant tout le scroll. Le header (label + h2)
