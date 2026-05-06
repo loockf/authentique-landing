@@ -862,20 +862,9 @@ section { padding: 120px 24px; position: relative; }
 /* SCREENSHOTS */
 .section-screens { padding: 0; }
 .screens-header {
-  position: relative;
-  z-index: 5;
-  text-align: center !important;
+  text-align: center;
   width: 100%;
-  max-width: 100%;
-  /* margin auto vertical : centre le header dans .sticky-inner via
-     le mecanisme flex auto-margin (consomme l'espace residuel
-     equitablement haut/bas). */
-  margin-top: auto;
-  margin-bottom: auto;
   padding: 16px 24px;
-  background: var(--bg);
-  flex-shrink: 0;
-  align-self: center;
 }
 .screens-header > * { max-width: 760px; margin-left: auto; margin-right: auto; }
 /* Titre plus impactant : taille augmentee pour compenser l'absence
