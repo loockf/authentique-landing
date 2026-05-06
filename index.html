@@ -868,16 +868,22 @@ section { padding: 120px 24px; position: relative; }
   width: 100%;
   max-width: 100%;
   margin: 0;
-  /* padding-top reduit pour que le titre ne soit pas colle si haut
-     dans le sticky panel. Il doit rester en haut (sticky scroll
-     reference) mais avec moins d'espace mort au-dessus. */
-  padding: clamp(32px, 5vh, 64px) 24px 16px;
+  /* padding-top fixe 32px : le titre reste pinned en haut du sticky
+     panel (necessaire pour rester visible pendant tout le scroll des
+     slides) mais sans espace mort excessif au-dessus. */
+  padding: 32px 24px 16px;
   background: var(--bg);
   flex-shrink: 0;
   align-self: center;
 }
 .screens-header > * { max-width: 760px; margin-left: auto; margin-right: auto; }
-.screens-header h2 { margin-bottom: 0; text-align: center !important; }
+/* Titre plus impactant : taille augmentee pour compenser l'absence
+   de centrage vertical et donner du poids visuel. */
+.screens-header h2 {
+  margin-bottom: 0;
+  text-align: center !important;
+  font-size: clamp(32px, 4vw, 56px);
+}
 .screens-header .section-label { text-align: center !important; }
 
 /* Sticky scroll : outer = 3 × 100vh d'espace de scroll, inner reste
