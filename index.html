@@ -903,22 +903,30 @@ section { padding: 120px 24px; position: relative; }
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .sticky-slides-area {
   flex: 1;
   position: relative;
   overflow: hidden;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .sticky-slide {
   position: absolute;
   inset: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   /* padding-bottom: 100px reserve la zone occupee par les dots
-     (bottom 78) + bouton scroll (bottom 32). Le contenu (phones +
-     texte) est ainsi centre verticalement dans l'espace utile,
-     entre le header sticky en haut et les dots/bouton en bas. */
+     (bottom 78) + bouton scroll (bottom 32). Le contenu (header +
+     phones + texte) est ainsi centre verticalement dans l'espace
+     utile, entre le top du sticky panel et les dots/bouton en bas. */
   padding: 24px 0 100px;
   box-sizing: border-box;
   opacity: 0;
@@ -2279,13 +2287,13 @@ footer {
        en haut pendant tous les slides. -->
   <div class="sticky-outer">
     <div class="sticky-inner">
-      <div class="screens-header">
-        <p class="section-label" data-i18n="screens_label">L'app en images</p>
-        <h2 data-i18n="screens_title">Vois la différence<br><em>par toi-même</em>.</h2>
-      </div>
       <div class="sticky-slides-area">
       <!-- Slide 1 : Zéro publicité — 2 mockups (chaos + calm + counter) -->
       <div class="sticky-slide is-active" data-slide="0">
+        <div class="screens-header">
+          <p class="section-label" data-i18n="screens_label">L'app en images</p>
+          <h2 data-i18n="screens_title">Vois la différence<br><em>par toi-même</em>.</h2>
+        </div>
         <div class="sticky-slide-content">
           <div class="screen-col screen-col--text">
             <h3 data-i18n="s1_title">Zéro publicité dans ton fil</h3>
@@ -2319,6 +2327,10 @@ footer {
 
       <!-- Slide 2 : Fini les stories publicitaires. -->
       <div class="sticky-slide" data-slide="1">
+        <div class="screens-header">
+          <p class="section-label" data-i18n="screens_label">L'app en images</p>
+          <h2 data-i18n="screens_title">Vois la différence<br><em>par toi-même</em>.</h2>
+        </div>
         <div class="sticky-slide-content">
           <div class="screen-col screen-col--text">
             <h3 data-i18n="s_stories_title">Fini les stories publicitaires.</h3>
@@ -2343,6 +2355,10 @@ footer {
 
       <!-- Slide 3 : Les Reels, à ta façon. -->
       <div class="sticky-slide" data-slide="2">
+        <div class="screens-header">
+          <p class="section-label" data-i18n="screens_label">L'app en images</p>
+          <h2 data-i18n="screens_title">Vois la différence<br><em>par toi-même</em>.</h2>
+        </div>
         <div class="sticky-slide-content">
           <div class="screen-col screen-col--text">
             <h3 data-i18n="s_reels_title">Les Reels, à ta façon.</h3>
@@ -2378,6 +2394,10 @@ footer {
 
       <!-- Slide 4 : L'onglet Recherche épuré. -->
       <div class="sticky-slide" data-slide="3">
+        <div class="screens-header">
+          <p class="section-label" data-i18n="screens_label">L'app en images</p>
+          <h2 data-i18n="screens_title">Vois la différence<br><em>par toi-même</em>.</h2>
+        </div>
         <div class="sticky-slide-content">
           <div class="screen-col screen-col--text">
             <h3 data-i18n="s2_title">L'onglet Recherche épuré.</h3>
