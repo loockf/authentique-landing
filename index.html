@@ -1940,6 +1940,15 @@ footer {
   .iphone--featured { transform: none; }
   footer { flex-direction: column; text-align: center; }
 }
+
+/* iPad : remonte le bouton scroll de toutes les sections de 50px
+   pour eviter qu'il soit trop colle au bas du viewport sur tablette
+   (qui n'a ni le chrome navigateur mobile ni la place desktop). */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .section-scroll {
+    bottom: 82px;
+  }
+}
 </style>
 </head>
 <body>
