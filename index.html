@@ -326,20 +326,6 @@ nav {
   font-weight: 500;
   letter-spacing: -1px;
   font-size: 65%;
-  margin-top: 20px;
-}
-/* Ligne 3 : meme typo que la ligne 2 (police systeme, font-weight
-   500, letter-spacing -1px). Couleur heritee de .hero-title
-   (var(--text)) — identique a la ligne 2. font-size a 39% du H1
-   = 60% × 65% (ligne 2 = 65% du H1, ligne 3 = 60% de la ligne 2,
-   donc 40% plus petite). margin-top:8px pour aerer vis-a-vis de
-   la ligne 2. Pas d'id : fitHeroTitle() ne la cible pas. */
-.hero-title-line--small {
-  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 500;
-  letter-spacing: -1px;
-  font-size: 39%;
-  margin-top: 8px;
 }
 .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-top: 80px; }
 .btn-primary {
@@ -2030,7 +2016,7 @@ footer {
         stroke="#ffffff" stroke-width="30" stroke-linecap="round" fill="none"/>
     </svg>
   </span>
-  <h1 class="hero-title" data-i18n="hero_title"><span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Instagram, sans les <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">pubs</span><span style="color:#141414">.</span></span><span class="hero-title-line hero-title-line--small">Et bien <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">plus</span><span style="color:#141414">.</span></span></h1>
+  <h1 class="hero-title" data-i18n="hero_title"><span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Instagram, sans les <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">pubs</span><span style="color:#141414">.</span></span></h1>
   <div class="hero-platforms-wrap">
     <span class="hero-platforms-caption" data-i18n="platforms_caption">Bientôt disponible sur :</span>
     <div class="hero-platforms">
@@ -2736,7 +2722,7 @@ footer {
 const translations = {
   fr: {
     nav_cta: "Soutenir sur Kickstarter",
-    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Instagram, sans les <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">pubs</span><span style="color:#141414">.</span></span><span class="hero-title-line hero-title-line--small">Et bien <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">plus</span><span style="color:#141414">.</span></span>',
+    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Instagram, sans les <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">pubs</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
     hero_cta: "Soutenir sur Kickstarter",
     hero_tagline: "Sois parmi les premiers à découvrir Authentique.",
@@ -2852,7 +2838,7 @@ const translations = {
   },
   en: {
     nav_cta: "Back on Kickstarter",
-    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Instagram, without the <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">ads</span><span style="color:#141414">.</span></span><span class="hero-title-line hero-title-line--small">And so much <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">more</span><span style="color:#141414">.</span></span>',
+    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Instagram, without the <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">ads</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
     hero_cta: "Back on Kickstarter",
     hero_tagline: "Be among the first to discover Authentique.",
@@ -2968,7 +2954,7 @@ const translations = {
   },
   es: {
     nav_cta: "Apoyar en Kickstarter",
-    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Instagram, sin <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">anuncios</span><span style="color:#141414">.</span></span><span class="hero-title-line hero-title-line--small">Y mucho <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">más</span><span style="color:#141414">.</span></span>',
+    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Instagram, sin <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">anuncios</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
     hero_cta: "Apoyar en Kickstarter",
     hero_tagline: "Sé de los primeros en descubrir Authentique.",
@@ -3084,7 +3070,7 @@ const translations = {
   },
   it: {
     nav_cta: "Sostieni su Kickstarter",
-    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Instagram, senza <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">pubblicità</span><span style="color:#141414">.</span></span><span class="hero-title-line hero-title-line--small">E molto <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">altro</span><span style="color:#141414">.</span></span>',
+    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Instagram, senza <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">pubblicità</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
     hero_cta: "Sostieni su Kickstarter",
     hero_tagline: "Sii tra i primi a scoprire Authentique.",
@@ -3200,7 +3186,7 @@ const translations = {
   },
   pt: {
     nav_cta: "Apoiar no Kickstarter",
-    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Instagram, sem <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">anúncios</span><span style="color:#141414">.</span></span><span class="hero-title-line hero-title-line--small">E muito <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">mais</span><span style="color:#141414">.</span></span>',
+    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Instagram, sem <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">anúncios</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
     hero_cta: "Apoiar no Kickstarter",
     hero_tagline: "Sê dos primeiros a descobrir Authentique.",
@@ -3316,7 +3302,7 @@ const translations = {
   },
   ru: {
     nav_cta: "Поддержать на Kickstarter",
-    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Instagram, без <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">рекламы</span><span style="color:#141414">.</span></span><span class="hero-title-line hero-title-line--small">И многое <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">другое</span><span style="color:#141414">.</span></span>',
+    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Instagram, без <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">рекламы</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
     hero_cta: "Поддержать на Kickstarter",
     hero_tagline: "Будь среди первых, кто откроет Authentique.",
