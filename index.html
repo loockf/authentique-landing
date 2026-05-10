@@ -964,14 +964,26 @@ section { padding: 120px 24px; position: relative; }
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+.features-step-head h3 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
 }
 .features-step .feature-icon {
   width: 24px; height: 24px;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
+/* Taille reduite pour que "Masquer les posts sponsorises" (30
+   chars) tienne sur une ligne a cote de l'icone 24px sans
+   declencher l'ellipsis sur desktop. */
 .features-step h3 {
-  font-size: clamp(20px, 2.4vw, 28px);
+  font-size: clamp(15px, 1.7vw, 20px);
   margin: 0;
 }
 .features-step p {
@@ -2295,7 +2307,7 @@ footer {
               <h3 data-i18n="f1_title">Masquer les posts sponsorisés</h3>
             </div>
             <p data-i18n="f1_desc">Les publications sponsorisées et bandeaux publicitaires disparaissent automatiquement de ton fil.</p>
-            <div class="feature-step-on" data-i18n="toggle_on_sponsored">Pour un fil plus authentique.</div>
+            <div class="feature-step-on" data-i18n="toggle_on_sponsored">Pour un fil plus Authentique.</div>
           </div>
         </div>
       </div>
@@ -2821,7 +2833,7 @@ const translations = {
     f5_desc: "Les stories sponsorisées sont bloquées avec un overlay clair. Tu ne vois que les stories de tes amis.",
     f6_title: "Bloquer le scroll infini",
     f6_desc: "Bloque le scroll vers les Reels suivants lors de la lecture d'un Reel dans les DM, dans l'onglet Recherche et dans l'onglet Reels.",
-    toggle_on_sponsored: "Pour un fil plus authentique.",
+    toggle_on_sponsored: "Pour un fil plus Authentique.",
     toggle_on_accounts: "Pour mieux profiter de tes amis.",
     toggle_on_search: "Pour se concentrer sur l'essentiel.",
     toggle_on_reels: "Pour éviter les distractions.",
