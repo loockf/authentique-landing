@@ -978,17 +978,12 @@ section { padding: 120px 24px; position: relative; }
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-/* display:block sur le SVG sinon il est inline (baseline)
-   et son ascender visuel le decale vers le haut par rapport a
-   la hauteur x du h3, malgre align-items:center du parent. */
-.features-step .feature-icon svg { display: block; }
-/* Taille calee pour que "Masquer les posts sponsorises" (30 chars)
-   tienne sur une ligne a cote de l'icone 24px sans wrap.
-   Container max ~384px (420 - 24 icone - 12 gap). 22px * 30 chars
-   * 0.55 (avg char width) ≈ 363px ✓. Au-dela de 22px, wrap a
-   cause du dernier mot. */
+/* Taille calee pour que "Masquer les stories sponsorisees" (32
+   chars, plus long parmi les 6 titres) tienne sur une ligne a
+   cote de l'icone 24px sans wrap. Container ~384px (420 - 24
+   icone - 12 gap). 19px * 32 chars * 0.55 ≈ 335px, marge OK. */
 .features-step h3 {
-  font-size: clamp(17px, 2vw, 22px);
+  font-size: clamp(14px, 1.7vw, 19px);
   margin: 0;
 }
 .features-step p {
@@ -4035,20 +4030,19 @@ function pickDifferent(arr, lastIdx) {
     // Logique split :
     //  - Step text (alternatif) : un seul step a is-active a la fois,
     //    les autres fadent a opacity 0. index === -1 = aucun actif.
-    //  - Switch phone (cumulatif) : add('is-on') seulement, jamais
-    //    remove. Tous les toggles 0..index restent ON, meme si
-    //    l'utilisateur scrolle en arriere. index === -1 ne touche
-    //    pas aux toggles (on garde l'etat accumule).
+    //  - Switch phone (cumulatif bidirectionnel) :
+    //      switches 0..index : ON ; switches > index : OFF.
+    //    Scroll forward → switches s'allument un par un. Scroll back
+    //    → ceux au-dela du step courant repassent OFF. Au pre-engage
+    //    (index === -1), tous OFF (i <= -1 false pour tout i >= 0).
     steps.forEach(function (s, i) {
       s.classList.toggle('is-active', i === index);
-      if (index >= 0 && i <= index) {
-        var toggleKey = s.getAttribute('data-toggle');
-        if (toggleKey) {
-          var label = phone.querySelector('[data-i18n="' + toggleKey + '"]');
-          if (label && label.parentElement) {
-            var sw = label.parentElement.querySelector('.settings-switch');
-            if (sw) sw.classList.add('is-on');
-          }
+      var toggleKey = s.getAttribute('data-toggle');
+      if (toggleKey) {
+        var label = phone.querySelector('[data-i18n="' + toggleKey + '"]');
+        if (label && label.parentElement) {
+          var sw = label.parentElement.querySelector('.settings-switch');
+          if (sw) sw.classList.toggle('is-on', i <= index);
         }
       }
     });
