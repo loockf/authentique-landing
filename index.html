@@ -699,6 +699,8 @@ section { padding: 120px 24px; position: relative; }
 }
 .control-continuation {
   max-width: 600px;
+  width: 100%;
+  text-align: center;
   margin: 0 auto;
   flex-shrink: 0;            /* dans le flex column de sticky-inner */
 }
@@ -851,12 +853,14 @@ section { padding: 120px 24px; position: relative; }
 }
 /* Wrapper qui empile les 3 blocs (header, phone+steps, continuation)
    et les centre ensemble verticalement dans la viewport sticky.
-   gap:32px pour l'espacement uniforme entre les trois. */
+   gap:48px = meme valeur que .screens-header margin-bottom (section
+   "L'app en images"), pour un espacement coherent entre titre et
+   contenu sticky. */
 .features-content-block {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
+  gap: 48px;
   width: 100%;
 }
 .features-sticky-group {
@@ -868,6 +872,14 @@ section { padding: 120px 24px; position: relative; }
 }
 .features-sticky-phone {
   flex-shrink: 0;
+}
+/* Override : dans la section "La solution", l'iphone reprend les
+   dimensions de .phone-frame (section "Le probleme") pour rester
+   coherent visuellement avec le mockup principal du dessus. */
+.features-sticky-phone .iphone {
+  width: clamp(220px, 28vw, 280px);
+  border-radius: 36px;
+  padding: 8px;
 }
 .features-sticky-steps {
   width: 500px;
@@ -2243,6 +2255,17 @@ footer {
         <h3 data-i18n="suggest_title">Et ce n'est que le <em>début</em>.</h3>
         <p data-i18n="suggest_sub">De nouvelles fonctionnalités arrivent régulièrement.</p>
       </div>
+      </div><!-- /.features-content-block -->
+      <!-- Dots : 1 par step (6). Reutilise .sticky-dots de "L'app en
+           images" (position:absolute bottom:100px). is-active toggle
+           via l'IIFE features ci-dessous, en miroir du step actif. -->
+      <div class="sticky-dots" aria-hidden="true">
+        <span class="sticky-dot" data-dot="0"></span>
+        <span class="sticky-dot" data-dot="1"></span>
+        <span class="sticky-dot" data-dot="2"></span>
+        <span class="sticky-dot" data-dot="3"></span>
+        <span class="sticky-dot" data-dot="4"></span>
+        <span class="sticky-dot" data-dot="5"></span>
       </div>
     </div>
   </div>
@@ -3829,6 +3852,7 @@ function pickDifferent(arr, lastIdx) {
   var outer = document.querySelector('.features-sticky-outer');
   if (!outer) return;
   var steps = outer.querySelectorAll('.features-step');
+  var dots = outer.querySelectorAll('.sticky-dot');
   var phone = outer.querySelector('.iphone');
   if (steps.length === 0 || !phone) return;
   var nbSteps = steps.length;
@@ -3870,6 +3894,11 @@ function pickDifferent(arr, lastIdx) {
           if (sw) sw.classList.toggle('is-on', i <= index);
         }
       }
+    });
+    // Dots : meme logique que les steps (i === index). Au pre-engage
+    // (index === -1), tous OFF — dots tous gris, aucun en vert.
+    dots.forEach(function (d, i) {
+      d.classList.toggle('is-active', i === index);
     });
   }
   window.addEventListener('scroll', update, { passive: true });
