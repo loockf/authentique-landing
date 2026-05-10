@@ -939,11 +939,11 @@ section { padding: 120px 24px; position: relative; }
   flex-shrink: 0;   /* ne se reduit pas dans le flex */
 }
 .features-sticky-steps {
-  /* flex: 2 (vs flex: 0 du phone) → prend la majorite de l'espace
-     restant dans le row. max-width 600px borne sur desktop large. */
-  flex: 2;
+  /* flex:1 → prend tout l'espace disponible a droite du phone
+     (qui a flex-shrink:0 et reste a sa taille naturelle). Pas de
+     max-width : pas de raison de contraindre la largeur du texte. */
+  flex: 1;
   position: relative;
-  max-width: 600px;
   min-height: 320px;
 }
 .features-step {
