@@ -918,10 +918,11 @@ section { padding: 120px 24px; position: relative; }
    au centre, les steps a droite apparaissent en fade. */
 .features-sticky-outer {
   position: relative;
-  /* 60vh par step pour un scroll plus rapide. Avec 6 steps : 360vh.
-     scrollable = 360vh - 100vh = 260vh, divise par 6 ≈ 43vh par
-     step. Bumper si trop rapide, reduire si trop long. */
-  height: 360vh;
+  /* 300vh = 100vh d'entree (pre-sticky) + 200vh de scroll-budget
+     pendant le sticky, divise par 6 steps ≈ 33vh par step.
+     Pacing rapide pour reduire l'espacement vertical perçu entre
+     header (au-dessus) et continuation (en-dessous). */
+  height: 300vh;
   margin-bottom: 64px;
 }
 .features-sticky-inner {
