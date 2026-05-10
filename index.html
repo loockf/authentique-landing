@@ -681,44 +681,10 @@ section { padding: 120px 24px; position: relative; }
   .ally-grid { grid-template-columns: 1fr; gap: 12px; }
 }
 
-/* CONTROL — Tu contrôles tout. */
-.section-control {
-  padding: 48px 24px clamp(48px, 8vh, 100px);
-  background: var(--bg);
-  text-align: center;
-  min-height: 100vh;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-}
-.control-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  align-items: center;
-  /* center + gap : groupe titre/sub + phones + continuation au
-     centre vertical de la section. Title descendu (pas pinned au
-     top), continuation remontee (pas pinned au bottom), phones
-     au milieu visuel. */
-  justify-content: center;
-  gap: 56px;
-}
-.control-head { width: 100%; }
-.control-head h2 {
-  font-size: clamp(24px, 3.5vw, 48px);
-  line-height: 1.1;
-  margin: 0 0 16px;
-}
-.control-sub {
-  color: var(--text-soft);
-  font-size: clamp(14px, 1.5vw, 18px);
-  line-height: 1.55;
-  max-width: 600px;
-  margin: 0 auto;
-}
+/* CONTROL — classes residuelles de l'ancienne section CONTROL,
+   maintenant fusionnee dans FEATURES. .control-phones et
+   .control-continuation sont reutilisees par le mockup Settings
+   et le bloc "Et ce n'est que le debut" dans la section features. */
 .control-phones {
   display: flex;
   gap: 20px;
@@ -2167,9 +2133,54 @@ footer {
 <section class="section-features" id="section-features">
   <div class="features-inner">
     <div class="features-header reveal">
-      <p class="section-label" data-i18n="features_label">Ce qu'Authentique fait</p>
-      <h2 data-i18n="features_title">Conçu pour te <em>libérer</em>.</h2>
-      <p data-i18n="features_sub">Chaque fonctionnalité a été pensée pour te redonner le contrôle de ton expérience Instagram — tu choisis ce que tu vois, et ce que tu ignores.</p>
+      <p class="section-label" data-i18n="features_label">Sur-mesure</p>
+      <h2 data-i18n="features_title">Tu choisis. Tu <span class="authentique-gradient-text">contrôles</span>.</h2>
+      <p data-i18n="features_sub">Chaque fonctionnalité a été pensée pour te redonner le contrôle de ton expérience Instagram — tu choisis ce que tu vois, et ce que tu ignores. Active ou désactive ce que tu veux, quand tu veux.</p>
+    </div>
+    <!-- iPhone Settings mockup en hero visuel (recupere de l'ancienne
+         section CONTROL fusionnee ici). Montre l'ecran reel des
+         Parametres : preuve concrete que chaque filtre est togglable. -->
+    <div class="control-phones reveal">
+      <div class="iphone">
+        <div class="iphone-frame">
+          <div class="iphone-dynamic-island"></div>
+          <div class="iphone-screen iphone-screen--light iphone-screen--settings">
+            <div class="settings-mockup">
+              <div class="settings-title" data-i18n="settings_title">Paramètres</div>
+              <div class="settings-list">
+                <div class="settings-row">
+                  <span class="settings-label" data-i18n="settings_label_sponsored">Masquer les posts sponsorisés</span>
+                  <span class="settings-switch is-on" aria-hidden="true"></span>
+                </div>
+                <div class="settings-row">
+                  <span class="settings-label" data-i18n="settings_label_suggested">Masquer les publications suggérées</span>
+                  <span class="settings-switch is-on" aria-hidden="true"></span>
+                </div>
+                <div class="settings-row">
+                  <span class="settings-label" data-i18n="settings_label_accounts">Masquer les suggestions de comptes</span>
+                  <span class="settings-switch is-on" aria-hidden="true"></span>
+                </div>
+                <div class="settings-row">
+                  <span class="settings-label" data-i18n="settings_label_reels">Masquer les Reels</span>
+                  <span class="settings-switch" aria-hidden="true"></span>
+                </div>
+                <div class="settings-row">
+                  <span class="settings-label" data-i18n="settings_label_stories">Masquer les stories sponsorisées</span>
+                  <span class="settings-switch is-on" aria-hidden="true"></span>
+                </div>
+                <div class="settings-row">
+                  <span class="settings-label" data-i18n="settings_label_scroll">Bloquer le scroll infini</span>
+                  <span class="settings-switch is-on" aria-hidden="true"></span>
+                </div>
+                <div class="settings-row">
+                  <span class="settings-label" data-i18n="settings_label_search">Section Recherche épurée</span>
+                  <span class="settings-switch is-on" aria-hidden="true"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="features-grid">
       <div class="feature-card reveal">
@@ -2269,6 +2280,13 @@ footer {
           <div class="card-on" data-i18n="toggle_on_scroll">Pour reprendre le contrôle de ton temps.</div>
         </div>
       </div>
+    </div>
+    <!-- Continuation recuperee de l'ancienne section CONTROL : ouvre
+         la porte aux fonctionnalites futures sans en creer une section
+         supplementaire. -->
+    <div class="control-continuation reveal">
+      <h3 data-i18n="suggest_title">Et ce n'est que le <em>début</em>.</h3>
+      <p data-i18n="suggest_sub">De nouvelles fonctionnalités arrivent régulièrement.</p>
     </div>
   </div>
   <button class="section-scroll" data-scroll-to="#screens" aria-label="Section suivante" type="button">
@@ -2460,73 +2478,12 @@ footer {
       <!-- Bouton scroll : meme position que les autres sections.
            Click : avance au slide suivant si pas le dernier, sinon
            scroll vers la section suivante. -->
-      <button class="sticky-scroll" data-scroll-to="#control" aria-label="Section suivante" type="button">
+      <button class="sticky-scroll" data-scroll-to="#wellbeing" aria-label="Section suivante" type="button">
         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="6 9 12 15 18 9"/>
         </svg>
       </button>
     </div>
-  </div>
-</section>
-
-<!-- CONTROL — Tu contrôles tout. -->
-<section class="section-control" id="control">
-  <div class="control-inner">
-    <div class="control-head reveal">
-      <h2 data-i18n="s4_title">Tu contrôles <span class="authentique-gradient-text">tout</span>.</h2>
-      <p class="control-sub" data-i18n="s4_desc">Chaque filtre est configurable depuis l'écran Paramètres. Active ou désactive ce que tu veux, quand tu veux.</p>
-    </div>
-    <div class="control-phones reveal">
-      <div class="iphone">
-        <div class="iphone-frame">
-          <div class="iphone-dynamic-island"></div>
-          <div class="iphone-screen iphone-screen--light iphone-screen--settings">
-            <div class="settings-mockup">
-              <div class="settings-title" data-i18n="settings_title">Paramètres</div>
-              <div class="settings-list">
-                <div class="settings-row">
-                  <span class="settings-label" data-i18n="settings_label_sponsored">Masquer les posts sponsorisés</span>
-                  <span class="settings-switch is-on" aria-hidden="true"></span>
-                </div>
-                <div class="settings-row">
-                  <span class="settings-label" data-i18n="settings_label_suggested">Masquer les publications suggérées</span>
-                  <span class="settings-switch is-on" aria-hidden="true"></span>
-                </div>
-                <div class="settings-row">
-                  <span class="settings-label" data-i18n="settings_label_accounts">Masquer les suggestions de comptes</span>
-                  <span class="settings-switch is-on" aria-hidden="true"></span>
-                </div>
-                <div class="settings-row">
-                  <span class="settings-label" data-i18n="settings_label_reels">Masquer les Reels</span>
-                  <span class="settings-switch" aria-hidden="true"></span>
-                </div>
-                <div class="settings-row">
-                  <span class="settings-label" data-i18n="settings_label_stories">Masquer les stories sponsorisées</span>
-                  <span class="settings-switch is-on" aria-hidden="true"></span>
-                </div>
-                <div class="settings-row">
-                  <span class="settings-label" data-i18n="settings_label_scroll">Bloquer le scroll infini</span>
-                  <span class="settings-switch is-on" aria-hidden="true"></span>
-                </div>
-                <div class="settings-row">
-                  <span class="settings-label" data-i18n="settings_label_search">Section Recherche épurée</span>
-                  <span class="settings-switch is-on" aria-hidden="true"></span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="control-continuation reveal">
-      <h3 data-i18n="suggest_title">Et ce n'est que le <em>début</em>.</h3>
-      <p data-i18n="suggest_sub">De nouvelles fonctionnalités arrivent régulièrement.</p>
-    </div>
-    <button class="section-scroll" data-scroll-to="#wellbeing" aria-label="Section suivante" type="button">
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="6 9 12 15 18 9"/>
-      </svg>
-    </button>
   </div>
 </section>
 
@@ -2746,9 +2703,9 @@ const translations = {
     ally_card3_title: "Plus de liens vrais",
     ally_card3_desc: "Tes amis, ta famille, les comptes que tu as vraiment choisis.",
     platforms_caption: "Bientôt disponible sur :",
-    features_label: "Ce qu'Authentique fait",
-    features_title: "Conçu pour te <em>libérer</em>.",
-    features_sub: "Chaque fonctionnalité a été pensée pour te redonner le contrôle de ton expérience Instagram — tu choisis ce que tu vois, et ce que tu ignores.",
+    features_label: "Sur-mesure",
+    features_title: 'Tu choisis. Tu <span class="authentique-gradient-text">contrôles</span>.',
+    features_sub: "Chaque fonctionnalité a été pensée pour te redonner le contrôle de ton expérience Instagram — tu choisis ce que tu vois, et ce que tu ignores. Active ou désactive ce que tu veux, quand tu veux.",
     f1_title: "Masquer les posts sponsorisés",
     f1_desc: "Les publications sponsorisées et bandeaux publicitaires disparaissent automatiquement de ton fil.",
     f2_title: "Masquer les suggestions de comptes",
@@ -2779,8 +2736,6 @@ const translations = {
     s_reels_desc: "L'onglet Reels affiche un message honnête à la place du scroll infini algorithmique. Tu gardes le contrôle sur ce que tu consommes.",
     s3_title: "Reels et stories protégés",
     s3_desc: "L'onglet Reels affiche un message honnête. Les stories sponsorisées sont bloquées. Tu ne vois que ce qui vient vraiment de tes amis.",
-    s4_title: 'Tu contrôles <span class="authentique-gradient-text">tout</span>.',
-    s4_desc: "Chaque filtre est configurable depuis l'écran Paramètres. Active ou désactive ce que tu veux, quand tu veux.",
     philosophy_quote: '"Les réseaux sociaux devraient te connecter à tes amis, pas t\'<em>en éloigner</em>."',
     philosophy_text: "Authentique ne collecte aucune donnée. Aucun serveur. Aucun tracking. Juste une fenêtre filtrée sur Instagram, tel qu'il aurait toujours dû être.",
     cta_title: 'On construit<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;ensemble.',
@@ -2862,9 +2817,9 @@ const translations = {
     ally_card3_title: "More real connections",
     ally_card3_desc: "Your friends, your family, the accounts you actually chose.",
     platforms_caption: "Coming soon on:",
-    features_label: "What Authentique does",
-    features_title: "Designed to <em>free</em> you.",
-    features_sub: "Every feature was designed to give you back control of your Instagram experience — you choose what you see, and what you ignore.",
+    features_label: "Tailored",
+    features_title: 'You choose. You <span class="authentique-gradient-text">control</span>.',
+    features_sub: "Every feature was designed to give you back control of your Instagram experience — you choose what you see, and what you ignore. Enable or disable whatever you want, whenever you want.",
     f1_title: "Hide sponsored posts",
     f1_desc: "Sponsored posts and ad banners disappear automatically from your feed.",
     f2_title: "Hide account suggestions",
@@ -2895,8 +2850,6 @@ const translations = {
     s_reels_desc: "The Reels tab shows an honest message instead of the algorithmic infinite scroll. You stay in control of what you consume.",
     s3_title: "Reels and stories protected",
     s3_desc: "The Reels tab shows an honest message. Sponsored stories are blocked. You only see what truly comes from your friends.",
-    s4_title: 'You control <span class="authentique-gradient-text">everything</span>.',
-    s4_desc: "Every filter is configurable from the Settings screen. Enable or disable what you want, when you want.",
     philosophy_quote: '"Social media should connect you to your friends, not <em>push you away</em> from them."',
     philosophy_text: "Authentique collects no data. No server. No tracking. Just a filtered window into Instagram, as it should always have been.",
     cta_title: 'We are building<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;together.',
@@ -2978,9 +2931,9 @@ const translations = {
     ally_card3_title: "Más vínculos reales",
     ally_card3_desc: "Tus amigos, tu familia, las cuentas que realmente elegiste.",
     platforms_caption: "Próximamente en:",
-    features_label: "Lo que hace Authentique",
-    features_title: "Diseñado para <em>liberarte</em>.",
-    features_sub: "Cada función fue diseñada para darte de vuelta el control de tu experiencia en Instagram — tú eliges lo que ves, y lo que ignoras.",
+    features_label: "A medida",
+    features_title: 'Tú eliges. Tú <span class="authentique-gradient-text">controlas</span>.',
+    features_sub: "Cada función fue diseñada para darte de vuelta el control de tu experiencia en Instagram — tú eliges lo que ves, y lo que ignoras. Activa o desactiva lo que quieras, cuando quieras.",
     f1_title: "Ocultar posts patrocinados",
     f1_desc: "Las publicaciones patrocinadas y banners publicitarios desaparecen automáticamente.",
     f2_title: "Ocultar sugerencias de cuentas",
@@ -3011,8 +2964,6 @@ const translations = {
     s_reels_desc: "La pestaña Reels muestra un mensaje honesto en lugar del scroll infinito algorítmico. Tú mantienes el control sobre lo que consumes.",
     s3_title: "Reels e historias protegidas",
     s3_desc: "La pestaña Reels muestra un mensaje honesto. Las historias patrocinadas están bloqueadas.",
-    s4_title: 'Tú controlas <span class="authentique-gradient-text">todo</span>.',
-    s4_desc: "Cada filtro es configurable desde la pantalla de Ajustes. Activa o desactiva lo que quieras.",
     philosophy_quote: '"Las redes sociales deberían conectarte con tus amigos, no <em>alejarte</em> de ellos."',
     philosophy_text: "Authentique no recopila ningún dato. Sin servidor. Sin seguimiento. Solo una ventana filtrada a Instagram, como siempre debió haber sido.",
     cta_title: 'Construimos<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;juntos.',
@@ -3094,9 +3045,9 @@ const translations = {
     ally_card3_title: "Più legami veri",
     ally_card3_desc: "I tuoi amici, la tua famiglia, gli account che hai davvero scelto.",
     platforms_caption: "Presto disponibile su:",
-    features_label: "Cosa fa Authentique",
-    features_title: "Pensato per <em>liberarti</em>.",
-    features_sub: "Ogni funzione è stata progettata per restituirti il controllo della tua esperienza Instagram — tu scegli cosa vedi e cosa ignori.",
+    features_label: "Su misura",
+    features_title: 'Tu scegli. Tu <span class="authentique-gradient-text">controlli</span>.',
+    features_sub: "Ogni funzione è stata progettata per restituirti il controllo della tua esperienza Instagram — tu scegli cosa vedi e cosa ignori. Attiva o disattiva ciò che vuoi, quando vuoi.",
     f1_title: "Nascondi i post sponsorizzati",
     f1_desc: "I post sponsorizzati e i banner pubblicitari spariscono automaticamente dal tuo feed.",
     f2_title: "Nascondi i suggerimenti di account",
@@ -3127,8 +3078,6 @@ const translations = {
     s_reels_desc: "La scheda Reels mostra un messaggio onesto al posto dello scroll infinito algoritmico. Tu mantieni il controllo su ciò che consumi.",
     s3_title: "Reels e storie protetti",
     s3_desc: "La scheda Reels mostra un messaggio onesto. Le storie sponsorizzate sono bloccate. Vedi solo ciò che viene davvero dai tuoi amici.",
-    s4_title: 'Tu controlli <span class="authentique-gradient-text">tutto</span>.',
-    s4_desc: "Ogni filtro è configurabile dalla schermata Impostazioni. Attiva o disattiva ciò che vuoi, quando vuoi.",
     philosophy_quote: '"I social media dovrebbero connetterti ai tuoi amici, non <em>allontanarti</em> da loro."',
     philosophy_text: "Authentique non raccoglie nessun dato. Nessun server. Nessun tracciamento. Solo una finestra filtrata su Instagram, come avrebbe sempre dovuto essere.",
     cta_title: 'Costruiamo<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;insieme.',
@@ -3210,9 +3159,9 @@ const translations = {
     ally_card3_title: "Mais ligações reais",
     ally_card3_desc: "Os teus amigos, a tua família, as contas que realmente escolheste.",
     platforms_caption: "Em breve em:",
-    features_label: "O que o Authentique faz",
-    features_title: "Concebido para te <em>libertar</em>.",
-    features_sub: "Cada funcionalidade foi pensada para te devolver o controlo da tua experiência no Instagram — tu escolhes o que vês, e o que ignoras.",
+    features_label: "Personalizado",
+    features_title: 'Tu escolhes. Tu <span class="authentique-gradient-text">controlas</span>.',
+    features_sub: "Cada funcionalidade foi pensada para te devolver o controlo da tua experiência no Instagram — tu escolhes o que vês, e o que ignoras. Ativa ou desativa o que quiseres, quando quiseres.",
     f1_title: "Ocultar posts patrocinados",
     f1_desc: "As publicações patrocinadas e banners publicitários desaparecem automaticamente do teu feed.",
     f2_title: "Ocultar sugestões de contas",
@@ -3243,8 +3192,6 @@ const translations = {
     s_reels_desc: "A aba Reels mostra uma mensagem honesta em vez do scroll infinito algorítmico. Mantens o controlo sobre o que consomes.",
     s3_title: "Reels e stories protegidos",
     s3_desc: "O separador Reels mostra uma mensagem honesta. Os stories patrocinados estão bloqueados. Só vês o que vem realmente dos teus amigos.",
-    s4_title: 'Tu controlas <span class="authentique-gradient-text">tudo</span>.',
-    s4_desc: "Cada filtro é configurável a partir do ecrã Definições. Ativa ou desativa o que quiseres, quando quiseres.",
     philosophy_quote: '"As redes sociais deviam conectar-te aos teus amigos, não <em>afastar-te</em> deles."',
     philosophy_text: "O Authentique não recolhe nenhum dado. Sem servidor. Sem rastreio. Apenas uma janela filtrada para o Instagram, como sempre deveria ter sido.",
     cta_title: 'Construímos<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;juntos.',
@@ -3326,9 +3273,9 @@ const translations = {
     ally_card3_title: "Больше настоящих связей",
     ally_card3_desc: "Твои друзья, семья, аккаунты, которые ты действительно выбрал.",
     platforms_caption: "Скоро на:",
-    features_label: "Что делает Authentique",
-    features_title: "Создан, чтобы <em>освободить</em> тебя.",
-    features_sub: "Каждая функция разработана для того, чтобы вернуть тебе контроль над Instagram — ты выбираешь, что видеть, а что игнорировать.",
+    features_label: "Индивидуально",
+    features_title: 'Ты выбираешь. Ты <span class="authentique-gradient-text">контролируешь</span>.',
+    features_sub: "Каждая функция разработана для того, чтобы вернуть тебе контроль над Instagram — ты выбираешь, что видеть, а что игнорировать. Включай или отключай что хочешь, когда хочешь.",
     f1_title: "Скрыть рекламные посты",
     f1_desc: "Спонсированные посты и рекламные баннеры автоматически исчезают из ленты.",
     f2_title: "Скрыть рекомендации аккаунтов",
@@ -3359,8 +3306,6 @@ const translations = {
     s_reels_desc: "Вкладка Reels показывает честное сообщение вместо алгоритмической бесконечной прокрутки. Ты сохраняешь контроль над тем, что потребляешь.",
     s3_title: "Reels и истории защищены",
     s3_desc: "Вкладка Reels показывает честное сообщение. Спонсированные истории заблокированы.",
-    s4_title: 'Ты контролируешь <span class="authentique-gradient-text">всё</span>.',
-    s4_desc: "Каждый фильтр настраивается в экране Настроек. Включай или выключай что хочешь.",
     philosophy_quote: '"Социальные сети должны соединять тебя с друзьями, а не <em>отдалять</em> от них."',
     philosophy_text: "Authentique не собирает данных. Никаких серверов. Никакой слежки. Только отфильтрованное окно в Instagram, каким он всегда должен был быть.",
     cta_title: 'Мы создаём<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;вместе.',
