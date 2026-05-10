@@ -970,6 +970,7 @@ section { padding: 120px 24px; position: relative; }
   height: 7px;
   border-radius: 50%;
   background: #ccc;
+  cursor: pointer;
   transition: background 0.3s ease, width 0.3s ease, height 0.3s ease;
 }
 .sticky-dot.is-active {
@@ -2253,7 +2254,7 @@ footer {
       <!-- Continuation : 3eme item du .features-content-block. -->
       <div class="control-continuation reveal">
         <h3 data-i18n="suggest_title">Et ce n'est que le <em>début</em>.</h3>
-        <p data-i18n="suggest_sub">De nouvelles fonctionnalités arrivent régulièrement.</p>
+        <p data-i18n="suggest_sub">De nouvelles fonctionnalités sont en cours de développement.</p>
       </div>
       </div><!-- /.features-content-block -->
       <!-- Dots : 1 par step (6). Reutilise .sticky-dots de "L'app en
@@ -2752,7 +2753,7 @@ const translations = {
     faq_q8: "Authentique peut-il m'aider à moins dépendre d'Instagram ?",
     faq_a8: "<b>Oui</b>. En supprimant le contenu conçu pour te garder — publicités, suggestions algorithmiques, scroll infini — Authentique <b>réduit les mécanismes d'addiction</b> intégrés par Meta. <b>Tu restes maître</b> de ce que tu consommes et du temps que tu y passes.",
     suggest_title: "Et ce n'est que le <em>début</em>.",
-    suggest_sub: "De nouvelles fonctionnalités arrivent régulièrement.",
+    suggest_sub: "De nouvelles fonctionnalités sont en cours de développement.",
     suggest_placeholder: "Ton idée ou suggestion...",
     suggest_email_placeholder: "Ton adresse email (optionnel)",
     suggest_btn: "Envoyer",
@@ -2866,7 +2867,7 @@ const translations = {
     faq_q8: "Can Authentique help me depend less on Instagram?",
     faq_a8: "<b>Yes</b>. By removing the content designed to keep you hooked — ads, algorithmic suggestions, infinite scroll — Authentique <b>reduces the addiction mechanisms</b> built in by Meta. <b>You stay in control</b> of what you consume and the time you spend on it.",
     suggest_title: "And this is just the <em>beginning</em>.",
-    suggest_sub: "New features are coming regularly.",
+    suggest_sub: "New features are in development.",
     suggest_placeholder: "Your idea or suggestion...",
     suggest_email_placeholder: "Your email address (optional)",
     suggest_btn: "Send",
@@ -2980,7 +2981,7 @@ const translations = {
     faq_q8: "¿Puede Authentique ayudarme a depender menos de Instagram?",
     faq_a8: "<b>Sí</b>. Al eliminar el contenido diseñado para mantenerte enganchado — anuncios, sugerencias algorítmicas, scroll infinito — Authentique <b>reduce los mecanismos de adicción</b> incorporados por Meta. <b>Sigues siendo dueño</b> de lo que consumes y del tiempo que dedicas.",
     suggest_title: "Y esto es solo el <em>comienzo</em>.",
-    suggest_sub: "Nuevas funciones llegan regularmente.",
+    suggest_sub: "Nuevas funciones están en desarrollo.",
     suggest_placeholder: "Tu idea o sugerencia...",
     suggest_email_placeholder: "Tu correo electrónico (opcional)",
     suggest_btn: "Enviar",
@@ -3094,7 +3095,7 @@ const translations = {
     faq_q8: "Authentique può aiutarmi a dipendere meno da Instagram?",
     faq_a8: "<b>Sì</b>. Eliminando i contenuti pensati per tenerti agganciato — pubblicità, suggerimenti algoritmici, scroll infinito — Authentique <b>riduce i meccanismi di dipendenza</b> integrati da Meta. <b>Tu resti padrone</b> di ciò che consumi e del tempo che vi dedichi.",
     suggest_title: "Ed è solo l'<em>inizio</em>.",
-    suggest_sub: "Nuove funzionalità arrivano regolarmente.",
+    suggest_sub: "Nuove funzionalità sono in fase di sviluppo.",
     suggest_placeholder: "La tua idea o suggerimento...",
     suggest_email_placeholder: "La tua email (opzionale)",
     suggest_btn: "Invia",
@@ -3208,7 +3209,7 @@ const translations = {
     faq_q8: "O Authentique pode ajudar-me a depender menos do Instagram?",
     faq_a8: "<b>Sim</b>. Ao remover o conteúdo concebido para te prender — anúncios, sugestões algorítmicas, scroll infinito — o Authentique <b>reduz os mecanismos de dependência</b> integrados pela Meta. <b>Permaneces dono</b> do que consomes e do tempo que dedicas.",
     suggest_title: "E isto é só o <em>começo</em>.",
-    suggest_sub: "Novas funcionalidades chegam regularmente.",
+    suggest_sub: "Novas funcionalidades estão em desenvolvimento.",
     suggest_placeholder: "Sua ideia ou sugestão...",
     suggest_email_placeholder: "Seu e-mail (opcional)",
     suggest_btn: "Enviar",
@@ -3322,7 +3323,7 @@ const translations = {
     faq_q8: "Может ли Authentique помочь мне меньше зависеть от Instagram?",
     faq_a8: "<b>Да</b>. Удаляя контент, созданный чтобы держать тебя на крючке — рекламу, алгоритмические рекомендации, бесконечную прокрутку — Authentique <b>снижает механизмы зависимости</b>, встроенные Meta. <b>Ты остаёшься хозяином</b> того, что потребляешь и сколько времени на это тратишь.",
     suggest_title: "И это только <em>начало</em>.",
-    suggest_sub: "Новые функции появляются регулярно.",
+    suggest_sub: "Новые функции находятся в разработке.",
     suggest_placeholder: "Твоя идея или предложение...",
     suggest_email_placeholder: "Ваш email (необязательно)",
     suggest_btn: "Отправить",
@@ -3913,6 +3914,19 @@ function pickDifferent(arr, lastIdx) {
   // Meme contrat que .sticky-outer (section "L'app en images") :
   // getCurrentIndex retourne -1 avant engage, sinon 0..nbSteps-1.
   outer.__getStickyIndex = getCurrentIndex;
+
+  // Dots cliquables : scroll smooth jusqu'au step N. Formule miroir
+  // de getCurrentIndex : on cible la position ou floor(progress * n)
+  // donne i, soit i/nbSteps + petit offset (10px) pour franchir le
+  // seuil et garantir floor(...) === i.
+  dots.forEach(function (d, i) {
+    d.addEventListener('click', function () {
+      var outerTop = outer.getBoundingClientRect().top + window.scrollY;
+      var scrollable = outer.offsetHeight - window.innerHeight;
+      var targetY = outerTop + (i / nbSteps) * scrollable + 10;
+      window.scrollTo({ top: targetY, behavior: 'smooth' });
+    });
+  });
 })();
 
 // Section "L'app en images" — sticky scroll. Pendant que .sticky-outer
@@ -3953,6 +3967,17 @@ function pickDifferent(arr, lastIdx) {
 
   // Expose getCurrentIndex pour le handler du bouton sticky-scroll.
   outer.__getStickyIndex = getCurrentIndex;
+
+  // Dots cliquables : scroll smooth jusqu'au slide N, meme formule
+  // que la version features (i/nbSlides + 10px buffer).
+  dots.forEach(function (d, i) {
+    d.addEventListener('click', function () {
+      var outerTop = outer.getBoundingClientRect().top + window.scrollY;
+      var scrollable = outer.offsetHeight - window.innerHeight;
+      var targetY = outerTop + (i / nbSlides) * scrollable + 10;
+      window.scrollTo({ top: targetY, behavior: 'smooth' });
+    });
+  });
 })();
 
 // Boutons de scroll inter-sections (.section-scroll + .sticky-scroll).
