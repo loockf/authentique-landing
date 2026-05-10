@@ -918,10 +918,10 @@ section { padding: 120px 24px; position: relative; }
    au centre, les steps a droite apparaissent en fade. */
 .features-sticky-outer {
   position: relative;
-  /* 100vh par step + 100vh de buffer pour avoir du scroll-budget
-     pendant que l'inner est sticky. Pour 1 step : 200vh = 100vh
-     d'entree (pre-sticky) + 100vh de scroll dans le step.
-     Quand on ajoutera des steps : (N + 1) * 100vh. */
+  /* 200vh = 100vh d'entree (pre-sticky) + 100vh de scroll-budget
+     pendant le sticky, divise entre les N steps (= 100vh / N par
+     step). Avec 2 steps : 50vh par step (transition rapide).
+     Bumper a 300vh+ si on veut plus d'air par step. */
   height: 200vh;
   margin-bottom: 64px;
 }
@@ -2311,26 +2311,25 @@ footer {
             <p data-i18n="f1_desc">Les publications sponsorisées et bandeaux publicitaires disparaissent automatiquement de ton fil.</p>
             <div class="feature-step-on" data-i18n="toggle_on_sponsored">Pour un fil plus Authentique.</div>
           </div>
+          <!-- Step 1 : suggestions de comptes. Reuse cle existante
+               toggle_on_sponsored pour l'accent (slogan brand commun
+               a tous les steps : "Pour un fil plus Authentique."). -->
+          <div class="features-step" data-step="1" data-toggle="settings_label_accounts">
+            <div class="features-step-head">
+              <div class="feature-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+                </svg>
+              </div>
+              <h3 data-i18n="f2_title">Masquer les suggestions de comptes</h3>
+            </div>
+            <p data-i18n="f2_desc">Les suggestions «Pour vous» et comptes algorithmiques sont filtrés. Tu ne vois que les gens que tu suis.</p>
+            <div class="feature-step-on" data-i18n="toggle_on_sponsored">Pour un fil plus Authentique.</div>
+          </div>
         </div>
       </div>
     </div>
     <div class="features-grid">
-      <div class="feature-card reveal" style="transition-delay: 0.08s">
-        <div class="feature-toggle"><label><input type="checkbox" aria-label="Activer cette fonctionnalité"><span class="feature-switch"></span></label></div>
-        <div class="card-body">
-          <div class="feature-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-            </svg>
-          </div>
-          <div class="card-content">
-            <h3 data-i18n="f2_title">Masquer les suggestions de comptes</h3>
-            <p data-i18n="f2_desc">Les suggestions "Pour vous" et comptes algorithmiques sont filtrés. Tu ne vois que les gens que tu suis.</p>
-          </div>
-          <div class="card-on" data-i18n="toggle_on_accounts">Pour mieux profiter de tes amis.</div>
-        </div>
-      </div>
       <div class="feature-card reveal" style="transition-delay: 0.16s">
         <div class="feature-toggle"><label><input type="checkbox" aria-label="Activer cette fonctionnalité"><span class="feature-switch"></span></label></div>
         <div class="card-body">
@@ -4041,16 +4040,23 @@ function pickDifferent(arr, lastIdx) {
     var index = getCurrentIndex();
     if (index === lastIndex) return;
     lastIndex = index;
-    // index === -1 (pre-engagement) : tous les steps deactive (i ===
-    // -1 est false pour tout i >= 0), tous les toggles passent OFF.
+    // Logique split :
+    //  - Step text (alternatif) : un seul step a is-active a la fois,
+    //    les autres fadent a opacity 0. index === -1 = aucun actif.
+    //  - Switch phone (cumulatif) : add('is-on') seulement, jamais
+    //    remove. Tous les toggles 0..index restent ON, meme si
+    //    l'utilisateur scrolle en arriere. index === -1 ne touche
+    //    pas aux toggles (on garde l'etat accumule).
     steps.forEach(function (s, i) {
       s.classList.toggle('is-active', i === index);
-      var toggleKey = s.getAttribute('data-toggle');
-      if (toggleKey) {
-        var label = phone.querySelector('[data-i18n="' + toggleKey + '"]');
-        if (label && label.parentElement) {
-          var sw = label.parentElement.querySelector('.settings-switch');
-          if (sw) sw.classList.toggle('is-on', i === index);
+      if (index >= 0 && i <= index) {
+        var toggleKey = s.getAttribute('data-toggle');
+        if (toggleKey) {
+          var label = phone.querySelector('[data-i18n="' + toggleKey + '"]');
+          if (label && label.parentElement) {
+            var sw = label.parentElement.querySelector('.settings-switch');
+            if (sw) sw.classList.add('is-on');
+          }
         }
       }
     });
