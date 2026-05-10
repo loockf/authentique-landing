@@ -700,7 +700,7 @@ section { padding: 120px 24px; position: relative; }
 .control-continuation {
   max-width: 600px;
   margin: 0 auto;
-  padding: 0 24px 100px;     /* padding deplace depuis .section-features */
+  flex-shrink: 0;            /* dans le flex column de sticky-inner */
 }
 .control-continuation h3 {
   font-size: clamp(16px, 2vw, 24px);
@@ -715,9 +715,9 @@ section { padding: 120px 24px; position: relative; }
 
 /* FEATURES */
 /* padding:0 + display:block (default) sur la section : meme pattern
-   que .section-screens. Le sticky-outer enfant DIRECT de la section
-   peut prendre toute la largeur du viewport sans contrainte parent.
-   Le header et la continuation portent leur propre padding/margin. */
+   que .section-screens. Header + group + continuation sont DANS le
+   sticky-inner (flex column) — l'utilisateur voit tout figer pendant
+   l'animation des steps. */
 .section-features {
   background: var(--bg);
   padding: 0;
@@ -725,8 +725,8 @@ section { padding: 120px 24px; position: relative; }
 .features-header {
   text-align: center;
   max-width: 600px;
-  margin: 0 auto 64px;
-  padding: 60px 24px 0;     /* padding deplace depuis la section */
+  margin: 0 auto;
+  flex-shrink: 0;            /* dans le flex column de sticky-inner */
 }
 .features-header h2 { margin-bottom: 16px; }
 /* :not(.section-label) sinon cette regle ecrase la couleur green
@@ -823,11 +823,10 @@ section { padding: 120px 24px; position: relative; }
    au centre, les steps a droite apparaissent en fade. */
 .features-sticky-outer {
   position: relative;
-  /* 300vh = 100vh d'entree (pre-sticky) + 200vh de scroll-budget
-     pendant le sticky, divise par 6 steps ≈ 33vh par step.
-     Pacing rapide pour reduire l'espacement vertical perçu entre
-     header (au-dessus) et continuation (en-dessous). */
-  height: 300vh;
+  /* 360vh : header + group + continuation tous fixes pendant le
+     sticky, l'animation des 6 steps se joue sur le scroll-budget
+     de 260vh (= ~43vh par step). */
+  height: 360vh;
   margin-bottom: 64px;
 }
 .features-sticky-inner {
@@ -835,20 +834,27 @@ section { padding: 120px 24px; position: relative; }
   top: 0;
   height: 100vh;
   width: 100%;
+  /* flex column : header (top) + group (centre, flex:1) + continuation
+     (bottom). Pas de justify-content/align-items au niveau racine,
+     remplaces par la structure column + le centrage interne du group. */
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 32px;
+  flex-direction: column;
   padding: 0 8%;
   box-sizing: border-box;
 }
+.features-sticky-group {
+  /* Au centre vertical (flex:1 du parent column). Phone + steps
+     centres horizontalement. */
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
 .features-sticky-phone {
-  flex-shrink: 0;   /* ne se reduit pas dans le flex */
+  flex-shrink: 0;
 }
 .features-sticky-steps {
-  /* Largeur fixe 500px (pas de flex:1, pas de %). Le groupe phone
-     (240) + gap (32) + steps (500) = 772px est centre dans inner
-     via justify-content:center du parent. */
   width: 500px;
   position: relative;
   min-height: 320px;
@@ -2086,17 +2092,20 @@ footer {
 
 <!-- FEATURES -->
 <section class="section-features" id="section-features">
-  <!-- Header centre (max-width applique directement, pas via wrapper). -->
-  <div class="features-header reveal">
-    <p class="section-label" data-i18n="features_label">La solution</p>
-    <h2 data-i18n="features_title">Tu choisis. Tu <span class="authentique-gradient-text">contrôles</span>.</h2>
-    <p data-i18n="features_sub">Chaque fonctionnalité a été pensée pour te redonner le contrôle de ton expérience Instagram — tu choisis ce que tu vois, et ce que tu ignores.</p>
-  </div>
-  <!-- Sticky scroll demo (enfant DIRECT de la section, plus dans
-       .features-inner) : prend toute la largeur du viewport comme
-       la section "L'app en images", sans contrainte parent 1100px. -->
+  <!-- Sticky scroll : header + group (phone+steps) + continuation
+       sont TOUS dans .features-sticky-inner avec flex-direction:column.
+       Pendant le sticky, l'utilisateur voit le bloc complet (header
+       en haut, contenu animé au centre, continuation en bas) qui
+       reste fige pendant que les steps s'animent au scroll. Pattern
+       identique a la section "L'app en images". -->
   <div class="features-sticky-outer">
-      <div class="features-sticky-inner">
+    <div class="features-sticky-inner">
+      <div class="features-header reveal">
+        <p class="section-label" data-i18n="features_label">La solution</p>
+        <h2 data-i18n="features_title">Tu choisis. Tu <span class="authentique-gradient-text">contrôles</span>.</h2>
+        <p data-i18n="features_sub">Chaque fonctionnalité a été pensée pour te redonner le contrôle de ton expérience Instagram — tu choisis ce que tu vois, et ce que tu ignores.</p>
+      </div>
+      <div class="features-sticky-group">
         <div class="features-sticky-phone">
           <div class="iphone">
             <div class="iphone-frame">
@@ -2214,14 +2223,14 @@ footer {
           </div>
         </div>
       </div>
+      <!-- Continuation INSIDE sticky-inner (en bas via flex column).
+           Visible uniquement quand l'utilisateur arrive a la fin du
+           scroll de la section. -->
+      <div class="control-continuation reveal">
+        <h3 data-i18n="suggest_title">Et ce n'est que le <em>début</em>.</h3>
+        <p data-i18n="suggest_sub">De nouvelles fonctionnalités arrivent régulièrement.</p>
+      </div>
     </div>
-  <!-- Continuation recuperee de l'ancienne section CONTROL : ouvre
-       la porte aux fonctionnalites futures sans en creer une section
-       supplementaire. Enfant DIRECT de la section (plus dans
-       .features-inner). -->
-  <div class="control-continuation reveal">
-    <h3 data-i18n="suggest_title">Et ce n'est que le <em>début</em>.</h3>
-    <p data-i18n="suggest_sub">De nouvelles fonctionnalités arrivent régulièrement.</p>
   </div>
   <button class="section-scroll" data-scroll-to="#screens" aria-label="Section suivante" type="button">
     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
