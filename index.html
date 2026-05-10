@@ -723,14 +723,13 @@ section { padding: 120px 24px; position: relative; }
   padding: 0;
 }
 /* Pattern identique a .screens-header : width 100%, padding interne,
-   margin-bottom pour spacing au group, max-width sur les enfants
-   via > *. Pas de max-width sur le parent (sinon le bloc reste
-   etroit independamment du contenu). */
+   max-width sur les enfants via > *. Pas de margin-bottom : c'est
+   le gap:32px de .features-content-block qui gere l'espacement avec
+   le group. */
 .features-header {
   text-align: center;
   width: 100%;
   padding: 16px 24px;
-  margin-bottom: 48px;
   flex-shrink: 0;
   box-sizing: border-box;
 }
@@ -841,18 +840,27 @@ section { padding: 120px 24px; position: relative; }
   top: 0;
   height: 100vh;
   width: 100%;
-  /* flex column : header (top) + group (centre, flex:1) + continuation
-     (bottom). Pas de justify-content/align-items au niveau racine,
-     remplaces par la structure column + le centrage interne du group. */
+  /* Centrage du bloc complet (.features-content-block) dans la
+     viewport sticky. Pas de flex-direction column ici : c'est le
+     content-block enfant qui empile header / group / continuation. */
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 0 8%;
   box-sizing: border-box;
 }
+/* Wrapper qui empile les 3 blocs (header, phone+steps, continuation)
+   et les centre ensemble verticalement dans la viewport sticky.
+   gap:32px pour l'espacement uniforme entre les trois. */
+.features-content-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+}
 .features-sticky-group {
-  /* Au centre vertical (flex:1 du parent column). Phone + steps
-     centres horizontalement. */
-  flex: 1;
+  /* Phone + steps cote a cote, centres horizontalement. */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2100,13 +2108,13 @@ footer {
 <!-- FEATURES -->
 <section class="section-features" id="section-features">
   <!-- Sticky scroll : header + group (phone+steps) + continuation
-       sont TOUS dans .features-sticky-inner avec flex-direction:column.
-       Pendant le sticky, l'utilisateur voit le bloc complet (header
-       en haut, contenu animé au centre, continuation en bas) qui
-       reste fige pendant que les steps s'animent au scroll. Pattern
-       identique a la section "L'app en images". -->
+       sont wrappes dans .features-content-block (flex column) lui-meme
+       centre verticalement dans .features-sticky-inner (100vh). L'user
+       voit le bloc complet centre, qui reste fige pendant que les
+       steps s'animent au scroll. -->
   <div class="features-sticky-outer">
     <div class="features-sticky-inner">
+      <div class="features-content-block">
       <div class="features-header reveal">
         <p class="section-label" data-i18n="features_label">La solution</p>
         <h2 data-i18n="features_title">Tu choisis. Tu <span class="authentique-gradient-text">contrôles</span>.</h2>
@@ -2230,12 +2238,11 @@ footer {
           </div>
         </div>
       </div>
-      <!-- Continuation INSIDE sticky-inner (en bas via flex column).
-           Visible uniquement quand l'utilisateur arrive a la fin du
-           scroll de la section. -->
+      <!-- Continuation : 3eme item du .features-content-block. -->
       <div class="control-continuation reveal">
         <h3 data-i18n="suggest_title">Et ce n'est que le <em>début</em>.</h3>
         <p data-i18n="suggest_sub">De nouvelles fonctionnalités arrivent régulièrement.</p>
+      </div>
       </div>
     </div>
   </div>
