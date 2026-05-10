@@ -959,36 +959,28 @@ section { padding: 120px 24px; position: relative; }
   opacity: 1;
   pointer-events: auto;
 }
+/* Pas de flex : on utilise inline-block + vertical-align:middle,
+   alignement baseline natif du navigateur, plus fiable que flex
+   pour aligner une icone fixe-size avec un texte de ligne variable. */
 .features-step-head {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;   /* icon top-aligne avec la 1ere ligne du h3 */
-  gap: 12px;
-  flex-wrap: nowrap;
-  min-width: 0;
-}
-.features-step-head h3 {
-  /* Pas de nowrap : on autorise le wrap sur 2 lignes plutot que de
-     tronquer. flex:1 + min-width:0 pour permettre au h3 de prendre
-     l'espace restant et de wrap si besoin. */
-  flex: 1;
-  min-width: 0;
+  display: block;
 }
 .features-step .feature-icon {
   width: 24px; height: 24px;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  /* Nudge manuel pour aligner visuellement le centre de l'icone
-     avec la ligne de capitales du h3 (line-height ≠ cap-height).
-     Ajuster a 1-3px selon rendu. */
-  margin-top: 2px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 12px;   /* remplace le gap du flex */
 }
-/* Taille calee pour que "Masquer les stories sponsorisees" (32
-   chars, plus long parmi les 6 titres) tienne sur une ligne a
-   cote de l'icone 24px sans wrap. Container ~384px (420 - 24
-   icone - 12 gap). 19px * 32 chars * 0.55 ≈ 335px, marge OK. */
+.features-step-head h3 {
+  display: inline;
+  vertical-align: middle;
+}
+/* Meme font-size que les h3 de la section "L'app en images"
+   (.screen-col--text h3 = clamp(16, 2vw, 24)). Le reste (font-
+   family GrosVentre, weight 400, letter-spacing -0.5px, line-
+   height 1.2) est herite des regles globales h1,h2,h3 et h3. */
 .features-step h3 {
-  font-size: clamp(14px, 1.7vw, 19px);
+  font-size: clamp(16px, 2vw, 24px);
   margin: 0;
 }
 .features-step p {
