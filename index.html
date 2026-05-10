@@ -969,15 +969,6 @@ section { padding: 120px 24px; position: relative; }
   align-items: center;
   gap: 12px;
 }
-.features-step .feature-icon {
-  width: 24px; height: 24px;
-  /* Reset des styles de la regle globale .feature-icon (background
-     vert tinte, border-radius, margin-bottom). Le display:flex
-     herite de la globale centre le SVG dans le 24x24. */
-  background: none;
-  border-radius: 0;
-  margin-bottom: 0;
-}
 /* Titre h3 : block normal en flex item, pas de overflow/ellipsis,
    wrap libre sur 2 lignes si necessaire. font-family GrosVentre,
    weight 400, letter-spacing -0.5px, line-height 1.2 herites des
@@ -2298,12 +2289,10 @@ footer {
                la section n'est pas sticky-engaged. -->
           <div class="features-step" data-step="0" data-toggle="settings_label_sponsored">
             <div class="features-step-head">
-              <div class="feature-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"/>
-                  <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
-                </svg>
-              </div>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+              </svg>
               <h3 data-i18n="f1_title">Masquer les posts sponsorisés</h3>
             </div>
             <p data-i18n="f1_desc">Les publications sponsorisées et bandeaux publicitaires disparaissent automatiquement de ton fil.</p>
@@ -2312,11 +2301,9 @@ footer {
           <!-- Step 1 : suggestions de comptes. -->
           <div class="features-step" data-step="1" data-toggle="settings_label_accounts">
             <div class="features-step-head">
-              <div class="feature-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
-                </svg>
-              </div>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+              </svg>
               <h3 data-i18n="f2_title">Masquer les suggestions de comptes</h3>
             </div>
             <p data-i18n="f2_desc">Les suggestions «Pour vous» et comptes algorithmiques sont filtrés. Tu ne vois que les gens que tu suis.</p>
@@ -2326,14 +2313,12 @@ footer {
                type tic-tac-toe (recuperee de l'ancienne card f4). -->
           <div class="features-step" data-step="2" data-toggle="settings_label_reels">
             <div class="features-step-head">
-              <div class="feature-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
-                  <line x1="7" y1="2" x2="7" y2="22"/>
-                  <line x1="17" y1="2" x2="17" y2="22"/>
-                  <line x1="2" y1="12" x2="22" y2="12"/>
-                </svg>
-              </div>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
+                <line x1="7" y1="2" x2="7" y2="22"/>
+                <line x1="17" y1="2" x2="17" y2="22"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+              </svg>
               <h3 data-i18n="f4_title">Masquer les Reels</h3>
             </div>
             <p data-i18n="f4_desc">L'onglet Reels est remplacé par un message honnête. Les Reels de tes amis restent visibles dans ton fil.</p>
@@ -2342,11 +2327,9 @@ footer {
           <!-- Step 3 : Stories sponsorisees. Icone bouclier (de f5). -->
           <div class="features-step" data-step="3" data-toggle="settings_label_stories">
             <div class="features-step-head">
-              <div class="feature-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                </svg>
-              </div>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
               <h3 data-i18n="f5_title">Masquer les stories sponsorisées</h3>
             </div>
             <p data-i18n="f5_desc">Les stories sponsorisées sont bloquées avec un overlay clair. Tu ne vois que les stories de tes amis.</p>
@@ -2355,13 +2338,11 @@ footer {
           <!-- Step 4 : Bloquer scroll infini. Icone fleche+ligne (de f6). -->
           <div class="features-step" data-step="4" data-toggle="settings_label_scroll">
             <div class="features-step-head">
-              <div class="feature-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="12" y1="4" x2="12" y2="14"/>
-                  <polyline points="7 10 12 14 17 10"/>
-                  <line x1="4" y1="20" x2="20" y2="20"/>
-                </svg>
-              </div>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="4" x2="12" y2="14"/>
+                <polyline points="7 10 12 14 17 10"/>
+                <line x1="4" y1="20" x2="20" y2="20"/>
+              </svg>
               <h3 data-i18n="f6_title">Bloquer le scroll infini</h3>
             </div>
             <p data-i18n="f6_desc">Bloque le scroll vers les Reels suivants lors de la lecture d'un Reel dans les DM, dans l'onglet Recherche et dans l'onglet Reels.</p>
@@ -2370,12 +2351,10 @@ footer {
           <!-- Step 5 : Section Recherche epuree. Icone loupe (de f3). -->
           <div class="features-step" data-step="5" data-toggle="settings_label_search">
             <div class="features-step-head">
-              <div class="feature-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="11" cy="11" r="8"/>
-                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-                </svg>
-              </div>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
               <h3 data-i18n="f3_title">Section Recherche épurée</h3>
             </div>
             <p data-i18n="f3_desc">L'onglet Recherche n'affiche que la barre de recherche. La grille de suggestions algorithmiques disparaît.</p>
