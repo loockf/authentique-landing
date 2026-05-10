@@ -977,6 +977,15 @@ section { padding: 120px 24px; position: relative; }
   font-size: clamp(16px, 1.8vw, 22px);
   margin: 0;
 }
+/* Force le h3 a se contraindre a l'espace disponible dans le flex
+   row (.features-step-head) au lieu de prendre sa largeur naturelle.
+   flex:1 = grow + basis 0 → prend tout l'espace restant.
+   min-width:0 = autorise a shrink sous min-content (= longest word)
+   sinon le h3 reste large meme si le wrap est techniquement possible. */
+.features-step-head h3 {
+  flex: 1;
+  min-width: 0;
+}
 .features-step p {
   color: var(--text-soft);
   font-size: clamp(13px, 1.3vw, 16px);
