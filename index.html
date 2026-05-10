@@ -931,17 +931,19 @@ section { padding: 120px 24px; position: relative; }
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 60px;
+  gap: 32px;
   padding: 0 24px;
   box-sizing: border-box;
 }
 .features-sticky-phone {
-  flex-shrink: 0;
+  flex-shrink: 0;   /* ne se reduit pas dans le flex */
 }
 .features-sticky-steps {
-  flex: 1;
+  /* flex: 2 (vs flex: 0 du phone) → prend la majorite de l'espace
+     restant dans le row. max-width 600px borne sur desktop large. */
+  flex: 2;
   position: relative;
-  max-width: 520px;
+  max-width: 600px;
   min-height: 320px;
 }
 .features-step {
@@ -981,12 +983,12 @@ section { padding: 120px 24px; position: relative; }
    weight 400, letter-spacing -0.5px, line-height 1.2 herites des
    regles globales h1,h2,h3 et h3. */
 .features-step h3 {
-  font-size: clamp(18px, 2.2vw, 26px);
+  font-size: clamp(16px, 1.8vw, 22px);
   margin: 0;
 }
 .features-step p {
   color: var(--text-soft);
-  font-size: clamp(14px, 1.5vw, 18px);
+  font-size: clamp(13px, 1.3vw, 16px);
   line-height: 1.5;
   margin: 0;
 }
