@@ -413,7 +413,12 @@ section { padding: 120px 24px; position: relative; }
 .problem-text h2 { margin-bottom: clamp(16px, 6vh, 70px); font-size: clamp(24px, 3.5vw, 48px); }
 .problem-text p { margin-bottom: 8px; }
 .section-problem .problem-pains { margin-top: clamp(16px, 6vh, 70px); }
-.problem-text p { color: var(--text-soft); font-size: clamp(14px, 1.5vw, 18px); margin-bottom: 12px; max-width: 480px; line-height: 1.5; }
+/* :not(.section-label) sinon cette regle ecrase la taille du label
+   "Le problème" (specificite .problem-text p > .section-label).
+   La couleur soft du label est restauree juste apres pour ne pas
+   le passer en vert (.section-label natif = green). */
+.problem-text p:not(.section-label) { color: var(--text-soft); font-size: clamp(14px, 1.5vw, 18px); margin-bottom: 12px; max-width: 480px; line-height: 1.5; }
+.problem-text .section-label { color: var(--text-soft); }
 .problem-pains {
   margin-top: 24px;
   display: grid;
