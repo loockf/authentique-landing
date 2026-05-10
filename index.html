@@ -926,14 +926,22 @@ section { padding: 120px 24px; position: relative; }
   margin-bottom: 64px;
 }
 .features-sticky-inner {
-  position: sticky;
+  position: sticky;       /* on PRESERVE sticky (sinon JS animation cassee) */
   top: 0;
   height: 100vh;
+  /* Full-bleed escape : on deborde du .features-inner (max 1100px)
+     pour prendre toute la largeur du viewport, comme la section
+     "L'app en images" qui n'est pas contrainte par max-width parent.
+     left:50% + translateX(-50%) recadre horizontalement.
+     padding: 0 10% donne ~144px de respiration laterale a 1440vw. */
+  width: 100vw;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 10%;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 32px;
-  padding: 0 24px;
   box-sizing: border-box;
 }
 .features-sticky-phone {
@@ -968,7 +976,7 @@ section { padding: 120px 24px; position: relative; }
 .features-step-head {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 /* Titre h3 : block normal en flex item, pas de overflow/ellipsis,
    wrap libre sur 2 lignes si necessaire. font-family GrosVentre,
