@@ -918,11 +918,10 @@ section { padding: 120px 24px; position: relative; }
    au centre, les steps a droite apparaissent en fade. */
 .features-sticky-outer {
   position: relative;
-  /* 200vh = 100vh d'entree (pre-sticky) + 100vh de scroll-budget
-     pendant le sticky, divise entre les N steps (= 100vh / N par
-     step). Avec 2 steps : 50vh par step (transition rapide).
-     Bumper a 300vh+ si on veut plus d'air par step. */
-  height: 200vh;
+  /* 100vh par step (cf. section "L'app en images" qui suit le meme
+     pattern). Avec 6 steps : 600vh. scrollable = 600vh - 100vh =
+     500vh, divise par 6 steps ≈ 83vh par step. Bonne respiration. */
+  height: 600vh;
   margin-bottom: 64px;
 }
 .features-sticky-inner {
@@ -979,6 +978,10 @@ section { padding: 120px 24px; position: relative; }
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
+/* display:block sur le SVG sinon il est inline (baseline)
+   et son ascender visuel le decale vers le haut par rapport a
+   la hauteur x du h3, malgre align-items:center du parent. */
+.features-step .feature-icon svg { display: block; }
 /* Taille calee pour que "Masquer les posts sponsorises" (30 chars)
    tienne sur une ligne a cote de l'icone 24px sans wrap.
    Container max ~384px (420 - 24 icone - 12 gap). 22px * 30 chars
@@ -2311,9 +2314,7 @@ footer {
             <p data-i18n="f1_desc">Les publications sponsorisées et bandeaux publicitaires disparaissent automatiquement de ton fil.</p>
             <div class="feature-step-on" data-i18n="toggle_on_sponsored">Pour un fil plus Authentique.</div>
           </div>
-          <!-- Step 1 : suggestions de comptes. Reuse cle existante
-               toggle_on_sponsored pour l'accent (slogan brand commun
-               a tous les steps : "Pour un fil plus Authentique."). -->
+          <!-- Step 1 : suggestions de comptes. -->
           <div class="features-step" data-step="1" data-toggle="settings_label_accounts">
             <div class="features-step-head">
               <div class="feature-icon">
@@ -2324,76 +2325,67 @@ footer {
               <h3 data-i18n="f2_title">Masquer les suggestions de comptes</h3>
             </div>
             <p data-i18n="f2_desc">Les suggestions «Pour vous» et comptes algorithmiques sont filtrés. Tu ne vois que les gens que tu suis.</p>
-            <div class="feature-step-on" data-i18n="toggle_on_sponsored">Pour un fil plus Authentique.</div>
+            <div class="feature-step-on" data-i18n="toggle_on_accounts">Pour mieux profiter de tes amis.</div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="features-grid">
-      <div class="feature-card reveal" style="transition-delay: 0.16s">
-        <div class="feature-toggle"><label><input type="checkbox" aria-label="Activer cette fonctionnalité"><span class="feature-switch"></span></label></div>
-        <div class="card-body">
-          <div class="feature-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2">
-              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            </svg>
-          </div>
-          <div class="card-content">
-            <h3 data-i18n="f3_title">Section Recherche épurée</h3>
-            <p data-i18n="f3_desc">L'onglet Recherche n'affiche que la barre de recherche. La grille de suggestions algorithmiques disparaît.</p>
-          </div>
-          <div class="card-on" data-i18n="toggle_on_search">Pour se concentrer sur l'essentiel.</div>
-        </div>
-      </div>
-      <div class="feature-card reveal" style="transition-delay: 0.04s">
-        <div class="feature-toggle"><label><input type="checkbox" aria-label="Activer cette fonctionnalité"><span class="feature-switch"></span></label></div>
-        <div class="card-body">
-          <div class="feature-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2">
-              <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
-              <line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/>
-              <line x1="2" y1="12" x2="22" y2="12"/>
-            </svg>
-          </div>
-          <div class="card-content">
-            <h3 data-i18n="f4_title">Masquer les Reels</h3>
+          <!-- Step 2 : Reels (= position 3 dans le phone). Icone grille
+               type tic-tac-toe (recuperee de l'ancienne card f4). -->
+          <div class="features-step" data-step="2" data-toggle="settings_label_reels">
+            <div class="features-step-head">
+              <div class="feature-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
+                  <line x1="7" y1="2" x2="7" y2="22"/>
+                  <line x1="17" y1="2" x2="17" y2="22"/>
+                  <line x1="2" y1="12" x2="22" y2="12"/>
+                </svg>
+              </div>
+              <h3 data-i18n="f4_title">Masquer les Reels</h3>
+            </div>
             <p data-i18n="f4_desc">L'onglet Reels est remplacé par un message honnête. Les Reels de tes amis restent visibles dans ton fil.</p>
+            <div class="feature-step-on" data-i18n="toggle_on_reels">Pour éviter les distractions.</div>
           </div>
-          <div class="card-on" data-i18n="toggle_on_reels">Pour éviter les distractions.</div>
-        </div>
-      </div>
-      <div class="feature-card reveal" style="transition-delay: 0.12s">
-        <div class="feature-toggle"><label><input type="checkbox" aria-label="Activer cette fonctionnalité"><span class="feature-switch"></span></label></div>
-        <div class="card-body">
-          <div class="feature-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-          </div>
-          <div class="card-content">
-            <h3 data-i18n="f5_title">Masquer les stories sponsorisées</h3>
+          <!-- Step 3 : Stories sponsorisees. Icone bouclier (de f5). -->
+          <div class="features-step" data-step="3" data-toggle="settings_label_stories">
+            <div class="features-step-head">
+              <div class="feature-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+              </div>
+              <h3 data-i18n="f5_title">Masquer les stories sponsorisées</h3>
+            </div>
             <p data-i18n="f5_desc">Les stories sponsorisées sont bloquées avec un overlay clair. Tu ne vois que les stories de tes amis.</p>
+            <div class="feature-step-on" data-i18n="toggle_on_stories">Pour des stories vraiment choisies.</div>
           </div>
-          <div class="card-on" data-i18n="toggle_on_stories">Pour des stories vraiment choisies.</div>
-        </div>
-      </div>
-      <div class="feature-card reveal" style="transition-delay: 0.2s">
-        <div class="feature-toggle"><label><input type="checkbox" aria-label="Activer cette fonctionnalité"><span class="feature-switch"></span></label></div>
-        <div class="card-body">
-          <div class="feature-icon">
-            <!-- Icone "scroll bloque" : fleche vers le bas qui bute
-                 sur une ligne horizontale (= barriere de stop). -->
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="12" y1="4" x2="12" y2="14"/>
-              <polyline points="7 10 12 14 17 10"/>
-              <line x1="4" y1="20" x2="20" y2="20"/>
-            </svg>
-          </div>
-          <div class="card-content">
-            <h3 data-i18n="f6_title">Bloquer le scroll infini</h3>
+          <!-- Step 4 : Bloquer scroll infini. Icone fleche+ligne (de f6). -->
+          <div class="features-step" data-step="4" data-toggle="settings_label_scroll">
+            <div class="features-step-head">
+              <div class="feature-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="4" x2="12" y2="14"/>
+                  <polyline points="7 10 12 14 17 10"/>
+                  <line x1="4" y1="20" x2="20" y2="20"/>
+                </svg>
+              </div>
+              <h3 data-i18n="f6_title">Bloquer le scroll infini</h3>
+            </div>
             <p data-i18n="f6_desc">Bloque le scroll vers les Reels suivants lors de la lecture d'un Reel dans les DM, dans l'onglet Recherche et dans l'onglet Reels.</p>
+            <div class="feature-step-on" data-i18n="toggle_on_scroll">Pour reprendre le contrôle de ton temps.</div>
           </div>
-          <div class="card-on" data-i18n="toggle_on_scroll">Pour reprendre le contrôle de ton temps.</div>
+          <!-- Step 5 : Section Recherche epuree. Icone loupe (de f3). -->
+          <div class="features-step" data-step="5" data-toggle="settings_label_search">
+            <div class="features-step-head">
+              <div class="feature-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"/>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+              </div>
+              <h3 data-i18n="f3_title">Section Recherche épurée</h3>
+            </div>
+            <p data-i18n="f3_desc">L'onglet Recherche n'affiche que la barre de recherche. La grille de suggestions algorithmiques disparaît.</p>
+            <div class="feature-step-on" data-i18n="toggle_on_search">Pour se concentrer sur l'essentiel.</div>
+          </div>
         </div>
       </div>
     </div>
