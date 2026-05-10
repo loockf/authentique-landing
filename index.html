@@ -979,11 +979,13 @@ section { padding: 120px 24px; position: relative; }
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-/* Taille reduite pour que "Masquer les posts sponsorises" (30
-   chars) tienne sur une ligne a cote de l'icone 24px sans
-   declencher l'ellipsis sur desktop. */
+/* Taille calee pour que "Masquer les posts sponsorises" (30 chars)
+   tienne sur une ligne a cote de l'icone 24px sans wrap.
+   Container max ~384px (420 - 24 icone - 12 gap). 22px * 30 chars
+   * 0.55 (avg char width) ≈ 363px ✓. Au-dela de 22px, wrap a
+   cause du dernier mot. */
 .features-step h3 {
-  font-size: clamp(15px, 1.7vw, 20px);
+  font-size: clamp(17px, 2vw, 22px);
   margin: 0;
 }
 .features-step p {
@@ -2947,7 +2949,7 @@ const translations = {
     f5_desc: "Sponsored stories are blocked with a clear overlay. You only see stories from your friends.",
     f6_title: "Block infinite scroll",
     f6_desc: "Blocks scrolling to the next Reels when watching a Reel in DMs, the Search tab, and the Reels tab.",
-    toggle_on_sponsored: "For a more authentic feed.",
+    toggle_on_sponsored: "For a more Authentique feed.",
     toggle_on_accounts: "To better enjoy your friends.",
     toggle_on_search: "To focus on what matters.",
     toggle_on_reels: "To avoid distractions.",
@@ -3061,7 +3063,7 @@ const translations = {
     f5_desc: "Las stories patrocinadas se bloquean con una superposición clara. Solo ves stories de tus amigos.",
     f6_title: "Bloquear scroll infinito",
     f6_desc: "Bloquea el scroll hacia los siguientes Reels mientras ves un Reel en los DM, la pestaña Búsqueda y la pestaña Reels.",
-    toggle_on_sponsored: "Para un feed más auténtico.",
+    toggle_on_sponsored: "Para un feed más Authentique.",
     toggle_on_accounts: "Para disfrutar mejor de tus amigos.",
     toggle_on_search: "Para centrarte en lo esencial.",
     toggle_on_reels: "Para evitar distracciones.",
@@ -3175,7 +3177,7 @@ const translations = {
     f5_desc: "Le storie sponsorizzate sono bloccate con un overlay chiaro. Vedi solo le storie dei tuoi amici.",
     f6_title: "Blocca lo scroll infinito",
     f6_desc: "Blocca lo scroll verso i Reels successivi quando guardi un Reel nei DM, nella scheda Cerca e nella scheda Reels.",
-    toggle_on_sponsored: "Per un feed più autentico.",
+    toggle_on_sponsored: "Per un feed più Authentique.",
     toggle_on_accounts: "Per godere meglio dei tuoi amici.",
     toggle_on_search: "Per concentrarti sull'essenziale.",
     toggle_on_reels: "Per evitare le distrazioni.",
@@ -3289,7 +3291,7 @@ const translations = {
     f5_desc: "Os stories patrocinados são bloqueados com uma sobreposição clara. Só vês stories dos teus amigos.",
     f6_title: "Bloquear scroll infinito",
     f6_desc: "Bloqueia o scroll para os próximos Reels ao ver um Reel nos DMs, no separador Pesquisa e no separador Reels.",
-    toggle_on_sponsored: "Para um feed mais autêntico.",
+    toggle_on_sponsored: "Para um feed mais Authentique.",
     toggle_on_accounts: "Para aproveitar melhor seus amigos.",
     toggle_on_search: "Para focar no essencial.",
     toggle_on_reels: "Para evitar distrações.",
@@ -3403,7 +3405,7 @@ const translations = {
     f5_desc: "Спонсированные истории блокируются. Ты видишь только истории друзей.",
     f6_title: "Блокировать бесконечную ленту",
     f6_desc: "Блокирует прокрутку к следующим Reels при просмотре Reel в DM, во вкладке Поиск и во вкладке Reels.",
-    toggle_on_sponsored: "Для более подлинной ленты.",
+    toggle_on_sponsored: "Для более Authentique ленты.",
     toggle_on_accounts: "Чтобы лучше наслаждаться друзьями.",
     toggle_on_search: "Чтобы сосредоточиться на главном.",
     toggle_on_reels: "Чтобы избежать отвлечений.",
