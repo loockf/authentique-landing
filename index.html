@@ -912,6 +912,85 @@ section { padding: 120px 24px; position: relative; }
 }
 .sticky-slide:nth-child(2) .sticky-slide-content > .screen-col--phones { order: -1; }
 
+/* Sticky scroll pour la section "La solution" (features). Pattern
+   identique a .sticky-outer mais classes prefixees pour ne pas
+   collisionner avec la section "L'app en images". Le phone reste
+   au centre, les steps a droite apparaissent en fade. */
+.features-sticky-outer {
+  position: relative;
+  height: 100vh;        /* 1 step pour l'instant ; +100vh par step ajoute */
+  margin-bottom: 64px;
+}
+.features-sticky-inner {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+.features-sticky-phone {
+  flex-shrink: 0;
+}
+.features-sticky-steps {
+  flex: 1;
+  position: relative;
+  max-width: 420px;
+  min-height: 280px;
+}
+.features-step {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+.features-step.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.features-step .feature-icon {
+  width: 48px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+}
+.features-step h3 {
+  font-size: clamp(20px, 2.4vw, 28px);
+  margin: 0;
+}
+.features-step p {
+  color: var(--text-soft);
+  font-size: clamp(14px, 1.5vw, 18px);
+  line-height: 1.5;
+  margin: 0;
+}
+.features-step .feature-step-on {
+  color: var(--green);
+  font-weight: 500;
+  font-size: clamp(13px, 1.4vw, 16px);
+  margin-top: 4px;
+}
+@media (max-width: 768px) {
+  .features-sticky-inner {
+    flex-direction: column;
+    gap: 32px;
+    overflow: hidden;
+  }
+  .features-sticky-steps {
+    max-width: 100%;
+    min-height: 200px;
+    text-align: center;
+    align-items: center;
+  }
+  .features-step { align-items: center; }
+}
+
 /* Dots : centres horizontalement, JUSTE AU-DESSUS du bouton scroll
    (qui est lui aussi centre, position from .sticky-scroll rule). */
 .sticky-dots {
@@ -2145,63 +2224,68 @@ footer {
       <h2 data-i18n="features_title">Tu choisis. Tu <span class="authentique-gradient-text">contrôles</span>.</h2>
       <p data-i18n="features_sub">Chaque fonctionnalité a été pensée pour te redonner le contrôle de ton expérience Instagram — tu choisis ce que tu vois, et ce que tu ignores.</p>
     </div>
-    <!-- iPhone Settings mockup en hero visuel (recupere de l'ancienne
-         section CONTROL fusionnee ici). Montre l'ecran reel des
-         Parametres : preuve concrete que chaque filtre est togglable. -->
-    <div class="control-phones reveal">
-      <div class="iphone">
-        <div class="iphone-frame">
-          <div class="iphone-dynamic-island"></div>
-          <div class="iphone-screen iphone-screen--light iphone-screen--settings">
-            <div class="settings-mockup">
-              <div class="settings-title" data-i18n="settings_title">Paramètres</div>
-              <div class="settings-list">
-                <div class="settings-row">
-                  <span class="settings-label" data-i18n="settings_label_sponsored">Masquer les posts sponsorisés</span>
-                  <span class="settings-switch" aria-hidden="true"></span>
-                </div>
-                <div class="settings-row">
-                  <span class="settings-label" data-i18n="settings_label_accounts">Masquer les suggestions de comptes</span>
-                  <span class="settings-switch" aria-hidden="true"></span>
-                </div>
-                <div class="settings-row">
-                  <span class="settings-label" data-i18n="settings_label_reels">Masquer les Reels</span>
-                  <span class="settings-switch" aria-hidden="true"></span>
-                </div>
-                <div class="settings-row">
-                  <span class="settings-label" data-i18n="settings_label_stories">Masquer les stories sponsorisées</span>
-                  <span class="settings-switch" aria-hidden="true"></span>
-                </div>
-                <div class="settings-row">
-                  <span class="settings-label" data-i18n="settings_label_scroll">Bloquer le scroll infini</span>
-                  <span class="settings-switch" aria-hidden="true"></span>
-                </div>
-                <div class="settings-row">
-                  <span class="settings-label" data-i18n="settings_label_search">Section Recherche épurée</span>
-                  <span class="settings-switch" aria-hidden="true"></span>
+    <!-- Sticky scroll demo : phone Settings au centre, steps a droite
+         qui apparaissent en fade au fil du scroll. Chaque step active
+         son toggle correspondant dans le phone via data-toggle (= key
+         i18n du label). Pour l'instant 1 seul step ; l'ajout d'autres
+         steps demande +100vh par step sur .features-sticky-outer. -->
+    <div class="features-sticky-outer">
+      <div class="features-sticky-inner">
+        <div class="features-sticky-phone">
+          <div class="iphone">
+            <div class="iphone-frame">
+              <div class="iphone-dynamic-island"></div>
+              <div class="iphone-screen iphone-screen--light iphone-screen--settings">
+                <div class="settings-mockup">
+                  <div class="settings-title" data-i18n="settings_title">Paramètres</div>
+                  <div class="settings-list">
+                    <div class="settings-row">
+                      <span class="settings-label" data-i18n="settings_label_sponsored">Masquer les posts sponsorisés</span>
+                      <span class="settings-switch" aria-hidden="true"></span>
+                    </div>
+                    <div class="settings-row">
+                      <span class="settings-label" data-i18n="settings_label_accounts">Masquer les suggestions de comptes</span>
+                      <span class="settings-switch" aria-hidden="true"></span>
+                    </div>
+                    <div class="settings-row">
+                      <span class="settings-label" data-i18n="settings_label_reels">Masquer les Reels</span>
+                      <span class="settings-switch" aria-hidden="true"></span>
+                    </div>
+                    <div class="settings-row">
+                      <span class="settings-label" data-i18n="settings_label_stories">Masquer les stories sponsorisées</span>
+                      <span class="settings-switch" aria-hidden="true"></span>
+                    </div>
+                    <div class="settings-row">
+                      <span class="settings-label" data-i18n="settings_label_scroll">Bloquer le scroll infini</span>
+                      <span class="settings-switch" aria-hidden="true"></span>
+                    </div>
+                    <div class="settings-row">
+                      <span class="settings-label" data-i18n="settings_label_search">Section Recherche épurée</span>
+                      <span class="settings-switch" aria-hidden="true"></span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <div class="features-sticky-steps">
+          <!-- Step 0 : sponsorises -->
+          <div class="features-step is-active" data-step="0" data-toggle="settings_label_sponsored">
+            <div class="feature-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+              </svg>
+            </div>
+            <h3 data-i18n="f1_title">Masquer les posts sponsorisés</h3>
+            <p data-i18n="f1_desc">Les publications sponsorisées et bandeaux publicitaires disparaissent automatiquement de ton fil.</p>
+            <div class="feature-step-on" data-i18n="toggle_on_sponsored">Pour un fil plus authentique.</div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="features-grid">
-      <div class="feature-card reveal">
-        <div class="feature-toggle"><label><input type="checkbox" aria-label="Activer cette fonctionnalité"><span class="feature-switch"></span></label></div>
-        <div class="card-body">
-          <div class="feature-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2">
-              <circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
-            </svg>
-          </div>
-          <div class="card-content">
-            <h3 data-i18n="f1_title">Masquer les posts sponsorisés</h3>
-            <p data-i18n="f1_desc">Les publications sponsorisées et bandeaux publicitaires disparaissent automatiquement de ton fil.</p>
-          </div>
-          <div class="card-on" data-i18n="toggle_on_sponsored">Pour un fil plus authentique.</div>
-        </div>
-      </div>
       <div class="feature-card reveal" style="transition-delay: 0.08s">
         <div class="feature-toggle"><label><input type="checkbox" aria-label="Activer cette fonctionnalité"><span class="feature-switch"></span></label></div>
         <div class="card-body">
@@ -3893,6 +3977,51 @@ function pickDifferent(arr, lastIdx) {
       if (!isNaN(idx) && labels[idx]) el.textContent = labels[idx];
     });
   };
+})();
+
+// Section "La solution" — sticky scroll dedie. Synchrone avec le
+// scroll natif : chaque step toggle la classe is-active sur lui-meme
+// ET active le toggle correspondant dans le phone Settings (via
+// data-toggle = key i18n du label, ex: 'settings_label_sponsored').
+// Selecteur prefixe .features-sticky-* pour ne pas collisionner avec
+// l'IIFE .sticky-outer ci-dessous (section "L'app en images").
+(function () {
+  var outer = document.querySelector('.features-sticky-outer');
+  if (!outer) return;
+  var steps = outer.querySelectorAll('.features-step');
+  var phone = outer.querySelector('.iphone');
+  if (steps.length === 0 || !phone) return;
+  var nbSteps = steps.length;
+  var lastIndex = -1;
+
+  function getCurrentIndex() {
+    var rect = outer.getBoundingClientRect();
+    var scrolled = -rect.top;
+    var scrollable = outer.offsetHeight - window.innerHeight;
+    if (scrollable <= 0) return 0;
+    var progress = Math.max(0, Math.min(0.999, scrolled / scrollable));
+    return Math.min(nbSteps - 1, Math.floor(progress * nbSteps));
+  }
+
+  function update() {
+    var index = getCurrentIndex();
+    if (index === lastIndex) return;
+    lastIndex = index;
+    steps.forEach(function (s, i) {
+      s.classList.toggle('is-active', i === index);
+      var toggleKey = s.getAttribute('data-toggle');
+      if (toggleKey) {
+        var label = phone.querySelector('[data-i18n="' + toggleKey + '"]');
+        if (label && label.parentElement) {
+          var sw = label.parentElement.querySelector('.settings-switch');
+          if (sw) sw.classList.toggle('is-on', i === index);
+        }
+      }
+    });
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
 })();
 
 // Section "L'app en images" — sticky scroll. Pendant que .sticky-outer
