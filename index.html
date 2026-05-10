@@ -327,13 +327,17 @@ nav {
   letter-spacing: -1px;
   font-size: 65%;
 }
-/* Ligne 3 : meme typo que le titre (GrosVentre, font-weight 400,
-   letter-spacing -0.5px herites de h1), juste plus petit. font-size
-   a 60% du H1 (40% plus petit) et margin-top:8px pour aerer
-   vis-a-vis de la ligne 2. Pas d'id : fitHeroTitle() ne la cible
-   pas. Pas de color override : herite de .hero-title (var(--text)). */
+/* Ligne 3 : meme typo que la ligne 2 (police systeme, font-weight
+   500, letter-spacing -1px). Couleur heritee de .hero-title
+   (var(--text)) — identique a la ligne 2. font-size a 39% du H1
+   = 60% × 65% (ligne 2 = 65% du H1, ligne 3 = 60% de la ligne 2,
+   donc 40% plus petite). margin-top:8px pour aerer vis-a-vis de
+   la ligne 2. Pas d'id : fitHeroTitle() ne la cible pas. */
 .hero-title-line--small {
-  font-size: 60%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  letter-spacing: -1px;
+  font-size: 39%;
   margin-top: 8px;
 }
 .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-top: 80px; }
