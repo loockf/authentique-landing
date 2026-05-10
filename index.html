@@ -722,12 +722,19 @@ section { padding: 120px 24px; position: relative; }
   background: var(--bg);
   padding: 0;
 }
+/* Pattern identique a .screens-header : width 100%, padding interne,
+   margin-bottom pour spacing au group, max-width sur les enfants
+   via > *. Pas de max-width sur le parent (sinon le bloc reste
+   etroit independamment du contenu). */
 .features-header {
   text-align: center;
-  max-width: 600px;
-  margin: 0 auto;
-  flex-shrink: 0;            /* dans le flex column de sticky-inner */
+  width: 100%;
+  padding: 16px 24px;
+  margin-bottom: 48px;
+  flex-shrink: 0;
+  box-sizing: border-box;
 }
+.features-header > * { max-width: 760px; margin-left: auto; margin-right: auto; }
 .features-header h2 { margin-bottom: 16px; }
 /* :not(.section-label) sinon cette regle ecrase la couleur green
    et la taille clamp(16px, 2vw, 24px) du label "La solution"
