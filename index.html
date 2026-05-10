@@ -941,8 +941,8 @@ section { padding: 120px 24px; position: relative; }
 .features-sticky-steps {
   flex: 1;
   position: relative;
-  max-width: 480px;
-  min-height: 280px;
+  max-width: 520px;
+  min-height: 320px;
 }
 .features-step {
   position: absolute;
@@ -959,28 +959,29 @@ section { padding: 120px 24px; position: relative; }
   opacity: 1;
   pointer-events: auto;
 }
-/* Pas de flex : on utilise inline-block + vertical-align:middle,
-   alignement baseline natif du navigateur, plus fiable que flex
-   pour aligner une icone fixe-size avec un texte de ligne variable. */
+/* Flex row standard : icone + titre cote a cote, centres
+   verticalement. align-items:center centre le bloc 24px de
+   l'icone avec le bloc h3 (de hauteur variable selon wrap). */
 .features-step-head {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 .features-step .feature-icon {
   width: 24px; height: 24px;
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 12px;   /* remplace le gap du flex */
+  /* Reset des styles de la regle globale .feature-icon (background
+     vert tinte, border-radius, margin-bottom). Le display:flex
+     herite de la globale centre le SVG dans le 24x24. */
+  background: none;
+  border-radius: 0;
+  margin-bottom: 0;
 }
-.features-step-head h3 {
-  display: inline;
-  vertical-align: middle;
-}
-/* Meme font-size que les h3 de la section "L'app en images"
-   (.screen-col--text h3 = clamp(16, 2vw, 24)). Le reste (font-
-   family GrosVentre, weight 400, letter-spacing -0.5px, line-
-   height 1.2) est herite des regles globales h1,h2,h3 et h3. */
+/* Titre h3 : block normal en flex item, pas de overflow/ellipsis,
+   wrap libre sur 2 lignes si necessaire. font-family GrosVentre,
+   weight 400, letter-spacing -0.5px, line-height 1.2 herites des
+   regles globales h1,h2,h3 et h3. */
 .features-step h3 {
-  font-size: clamp(16px, 2vw, 24px);
+  font-size: clamp(18px, 2.2vw, 26px);
   margin: 0;
 }
 .features-step p {
