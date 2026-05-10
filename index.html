@@ -926,23 +926,23 @@ section { padding: 120px 24px; position: relative; }
   margin-bottom: 64px;
 }
 .features-sticky-inner {
-  position: sticky;       /* on PRESERVE sticky (sinon JS animation cassee) */
+  position: sticky;       /* PRESERVE sticky (sinon JS animation cassee) */
   top: 0;
   height: 100vh;
-  /* Full-bleed escape : on deborde du .features-inner (max 1100px)
-     pour prendre toute la largeur du viewport, comme la section
-     "L'app en images" qui n'est pas contrainte par max-width parent.
-     left:50% + translateX(-50%) recadre horizontalement.
-     padding: 0 8% donne ~115px de respiration laterale a 1440vw. */
-  width: 100vw;
-  left: 50%;
-  transform: translateX(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 0 8%;
+  box-sizing: border-box;
+}
+/* Wrapper interne phone + steps. Permet de centrer le groupe entier
+   via justify-content du parent sans gerer le full-bleed. */
+.features-sticky-group {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 32px;
-  box-sizing: border-box;
+  margin: 0 auto;
 }
 .features-sticky-phone {
   flex-shrink: 0;   /* ne se reduit pas dans le flex */
@@ -2265,6 +2265,7 @@ footer {
          steps demande +100vh par step sur .features-sticky-outer. -->
     <div class="features-sticky-outer">
       <div class="features-sticky-inner">
+       <div class="features-sticky-group">
         <div class="features-sticky-phone">
           <div class="iphone">
             <div class="iphone-frame">
@@ -2381,6 +2382,7 @@ footer {
             <div class="feature-step-on" data-i18n="toggle_on_search">Pour se concentrer sur l'essentiel.</div>
           </div>
         </div>
+       </div>
       </div>
     </div>
     <!-- Continuation recuperee de l'ancienne section CONTROL : ouvre
