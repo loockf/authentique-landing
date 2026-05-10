@@ -697,7 +697,11 @@ section { padding: 120px 24px; position: relative; }
   align-items: center;
   flex-wrap: wrap;
 }
-.control-continuation { max-width: 600px; margin: 0 auto; }
+.control-continuation {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 24px 100px;     /* padding deplace depuis .section-features */
+}
 .control-continuation h3 {
   font-size: clamp(16px, 2vw, 24px);
   margin-bottom: 12px;
@@ -710,128 +714,29 @@ section { padding: 120px 24px; position: relative; }
 }
 
 /* FEATURES */
+/* padding:0 + display:block (default) sur la section : meme pattern
+   que .section-screens. Le sticky-outer enfant DIRECT de la section
+   peut prendre toute la largeur du viewport sans contrainte parent.
+   Le header et la continuation portent leur propre padding/margin. */
 .section-features {
   background: var(--bg);
-  padding: 60px 24px 100px;
-  min-height: 100vh;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  padding: 0;
 }
-.features-inner { max-width: 1100px; margin: 0 auto; }
-.features-header { text-align: center; max-width: 600px; margin: 0 auto 64px; }
+.features-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 64px;
+  padding: 60px 24px 0;     /* padding deplace depuis la section */
+}
 .features-header h2 { margin-bottom: 16px; }
 /* :not(.section-label) sinon cette regle ecrase la couleur green
    et la taille clamp(16px, 2vw, 24px) du label "La solution"
    (specificite .features-header p > .section-label). */
 .features-header p:not(.section-label) { color: var(--text-soft); font-size: clamp(14px, 1.5vw, 18px); }
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-.feature-card {
-  position: relative;
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 32px;
-  transition: transform 0.2s, box-shadow 0.2s;
-  display: flex;
-  flex-direction: column;
-}
-.feature-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(20,20,20,0.06);
-}
-.feature-icon {
-  width: 44px; height: 44px;
-  background: rgba(25,211,130,0.1);
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 18px;
-  /* z-index pour rester visible au-dessus de .card-on quand toggle ON. */
-  position: relative;
-  z-index: 2;
-}
-.feature-card h3 { font-size: clamp(16px, 2vw, 24px); margin-bottom: 10px; color: var(--text); }
-.feature-card p { color: var(--text-soft); font-size: clamp(14px, 1.5vw, 18px); line-height: 1.55; }
-
-/* Toggle ON/OFF positionne en haut a droite de chaque feature-card,
-   sur la meme ligne visuelle que l'icone. Pur CSS via :has().
-   top: 40px = padding-card 32 + (icone 44 - toggle 28) / 2,
-   pour aligner verticalement le centre du toggle sur le centre
-   de l'icone (equivalent visuel d'un align-items: center). */
-.feature-toggle {
-  position: absolute;
-  top: 40px;
-  right: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-}
-.feature-toggle label {
-  display: inline-block;
-  position: relative;
-  width: 48px;
-  height: 28px;
-  cursor: default;
-  pointer-events: none;
-}
-.feature-toggle input {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-  pointer-events: none;
-}
-.feature-switch {
-  position: absolute;
-  inset: 0;
-  background: #e0e0e0;
-  border-radius: 14px;
-  transition: background 0.25s ease;
-}
-.feature-switch::after {
-  content: '';
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 24px;
-  height: 24px;
-  background: #ffffff;
-  border-radius: 50%;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-  transition: transform 0.25s ease;
-}
-.feature-toggle input:checked + .feature-switch { background: #19d382; }
-.feature-toggle input:checked + .feature-switch::after { transform: translateX(20px); }
-
-/* Conteneur du contenu OFF/ON. card-on overlay absolu pour fade
-   croise sans saut de hauteur. */
-.card-body { position: relative; flex: 1; }
-.card-content { transition: opacity 0.25s ease; opacity: 1; }
-.card-on {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: #19d382;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.5;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease;
-  padding: 0 8px;
-  box-sizing: border-box;
-}
-.feature-card:has(input:checked) .card-content { opacity: 0; }
-.feature-card:has(input:checked) .card-on { opacity: 1; }
+/* Cleanup : .features-grid, .feature-card, .feature-icon, .feature-
+   toggle, .feature-switch, .card-body, .card-content, .card-on
+   ont ete supprimes apres migration de toutes les cards en
+   features-step (sticky scroll). ~100 lignes de code mort retirees. */
 
 /* SCREENSHOTS */
 .section-screens { padding: 0; }
@@ -1919,70 +1824,9 @@ footer {
 }
 .reveal.visible { opacity: 1; transform: none; }
 
-/* Compact feature cards <= 1440px : tout sur une ligne horizontale
-   [icone] [titre] [toggle]. Description masquee. Quand toggle ON :
-   .card-content fade -> .card-on prend sa place inline (l'icone
-   reste visible grace a son z-index defini globalement). */
 @media (max-width: 1440px) {
-  .feature-card {
-    padding: clamp(12px, 2vh, 20px);
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-  }
-  .feature-card .feature-toggle {
-    position: static;
-    top: auto;
-    right: auto;
-    margin: 0;
-    flex-shrink: 0;
-    order: 1;
-  }
-  .feature-card .card-body {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 12px;
-  }
-  .feature-card .feature-icon {
-    margin: 0;
-    flex-shrink: 0;
-  }
-  .feature-card .card-content {
-    flex: 1;
-    min-width: 0;
-  }
-  .feature-card .card-content p,
-  .feature-card .card-content .card-description {
-    display: none;
-  }
-  .feature-card h3 {
-    text-align: left;
-    white-space: normal;
-    word-wrap: break-word;
-    margin: 0;
-    font-size: clamp(14px, 1.2vw, 18px);
-    line-height: 1.25;
-  }
-  /* .card-on absolute par defaut couvre tout .card-body (donc l'icone
-     aussi), mais l'icone a z-index:2 et reste visible par-dessus.
-     On decale le texte vert vers la droite pour qu'il s'affiche
-     a la place du titre, pas sur l'icone. */
-  .feature-card .card-on {
-    justify-content: flex-start;
-    text-align: left;
-    /* icone 44px + gap 12px + petit padding visuel */
-    padding-left: 56px;
-    padding-right: 8px;
-    font-size: clamp(13px, 1.05vw, 15px);
-  }
-  /* Mockups telephone plus compacts <= 1440px. .phone-frame (section
-     "Le probleme") reste pilote par width. .iphone (sticky scroll)
-     est pilote par max-height en global, donc plus d'override width
-     ici (le clamp casserait l'aspect-ratio combine au max-height). */
+  /* Mockup telephone plus compact <= 1440px. .iphone (sticky scrolls)
+     reste pilote par son clamp width:22vw. */
   .phone-frame { width: clamp(160px, 18vw, 220px); }
 }
 
@@ -1994,7 +1838,6 @@ footer {
   .nav-cta { padding: 9px 16px; font-size: 13px; }
   section { padding: 80px 20px; }
   .section-problem .problem-grid { grid-template-columns: 1fr; gap: 48px; }
-  .features-grid { grid-template-columns: 1fr; }
   .cta-cards { grid-template-columns: 1fr; }
   /* Sticky scroll mobile : phones EN HAUT, titre + texte EN BAS.
      Evite que le titre soit coupe par le header sticky qui descend
@@ -2252,18 +2095,16 @@ footer {
 
 <!-- FEATURES -->
 <section class="section-features" id="section-features">
-  <div class="features-inner">
-    <div class="features-header reveal">
-      <p class="section-label" data-i18n="features_label">La solution</p>
-      <h2 data-i18n="features_title">Tu choisis. Tu <span class="authentique-gradient-text">contrôles</span>.</h2>
-      <p data-i18n="features_sub">Chaque fonctionnalité a été pensée pour te redonner le contrôle de ton expérience Instagram — tu choisis ce que tu vois, et ce que tu ignores.</p>
-    </div>
-    <!-- Sticky scroll demo : phone Settings au centre, steps a droite
-         qui apparaissent en fade au fil du scroll. Chaque step active
-         son toggle correspondant dans le phone via data-toggle (= key
-         i18n du label). Pour l'instant 1 seul step ; l'ajout d'autres
-         steps demande +100vh par step sur .features-sticky-outer. -->
-    <div class="features-sticky-outer">
+  <!-- Header centre (max-width applique directement, pas via wrapper). -->
+  <div class="features-header reveal">
+    <p class="section-label" data-i18n="features_label">La solution</p>
+    <h2 data-i18n="features_title">Tu choisis. Tu <span class="authentique-gradient-text">contrôles</span>.</h2>
+    <p data-i18n="features_sub">Chaque fonctionnalité a été pensée pour te redonner le contrôle de ton expérience Instagram — tu choisis ce que tu vois, et ce que tu ignores.</p>
+  </div>
+  <!-- Sticky scroll demo (enfant DIRECT de la section, plus dans
+       .features-inner) : prend toute la largeur du viewport comme
+       la section "L'app en images", sans contrainte parent 1100px. -->
+  <div class="features-sticky-outer">
       <div class="features-sticky-inner">
        <div class="features-sticky-group">
         <div class="features-sticky-phone">
@@ -2385,13 +2226,13 @@ footer {
        </div>
       </div>
     </div>
-    <!-- Continuation recuperee de l'ancienne section CONTROL : ouvre
-         la porte aux fonctionnalites futures sans en creer une section
-         supplementaire. -->
-    <div class="control-continuation reveal">
-      <h3 data-i18n="suggest_title">Et ce n'est que le <em>début</em>.</h3>
-      <p data-i18n="suggest_sub">De nouvelles fonctionnalités arrivent régulièrement.</p>
-    </div>
+  <!-- Continuation recuperee de l'ancienne section CONTROL : ouvre
+       la porte aux fonctionnalites futures sans en creer une section
+       supplementaire. Enfant DIRECT de la section (plus dans
+       .features-inner). -->
+  <div class="control-continuation reveal">
+    <h3 data-i18n="suggest_title">Et ce n'est que le <em>début</em>.</h3>
+    <p data-i18n="suggest_sub">De nouvelles fonctionnalités arrivent régulièrement.</p>
   </div>
   <button class="section-scroll" data-scroll-to="#screens" aria-label="Section suivante" type="button">
     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
@@ -3641,39 +3482,10 @@ async function submitSuggestion(e) {
   }, { passive: true });
 })();
 
-// Toggles automatiques de la section Features. Les inputs sont
-// pilotes en JS, l'utilisateur ne peut pas cliquer (pointer-events
-// none). Ordre fixe en boucle : 1 -> 3 -> 5 -> 2 -> 4 -> 6.
-(function () {
-  var cards = Array.prototype.slice.call(
-    document.querySelectorAll('.section-features .feature-card')
-  );
-  if (cards.length === 0) return;
-  var inputs = cards
-    .map(function (c) { return c.querySelector('input[type="checkbox"]'); })
-    .filter(Boolean);
-  if (inputs.length === 0) return;
-  var ORDER = [0, 2, 4, 1, 3, 5];
-  var currentStep = 0;
-  function nextToggle() {
-    var idx = ORDER[currentStep];
-    currentStep = (currentStep + 1) % ORDER.length;
-    return idx;
-  }
-  function cycle() {
-    var idx = nextToggle();
-    if (idx >= inputs.length) { setTimeout(cycle, 100); return; }
-    var input = inputs[idx];
-    input.checked = true;
-    setTimeout(function () {
-      input.checked = false;
-      setTimeout(cycle, 1500);
-    }, 2500);
-  }
-  // Demarre apres un court delai pour laisser le reveal initial
-  // jouer avant la premiere bascule.
-  setTimeout(cycle, 1200);
-})();
+// Cleanup : IIFE "Toggles automatiques de Features" supprime apres
+// migration des feature-cards en sticky-scroll steps. Les toggles
+// sont desormais pilotes par l'IIFE features-sticky-outer (cf.
+// au-dessus) au scroll, plus en cycle automatique.
 
 // Ajuste le font-size de la 2e ligne du titre hero pour qu'elle
 // soit <= largeur de la 1ere ligne. Decremente par pas de 0.5px
