@@ -838,27 +838,18 @@ section { padding: 120px 24px; position: relative; }
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 32px;
   padding: 0 8%;
   box-sizing: border-box;
-}
-/* Wrapper interne phone + steps. Permet de centrer le groupe entier
-   via justify-content du parent sans gerer le full-bleed. */
-.features-sticky-group {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  margin: 0 auto;
 }
 .features-sticky-phone {
   flex-shrink: 0;   /* ne se reduit pas dans le flex */
 }
 .features-sticky-steps {
-  /* Largeur fixe a 500px (via width:100% + max-width pour fonctionner
-     dans le flex). Pas de flex:1 → ne grow pas. Le groupe total
-     phone (240) + gap (32) + steps (500) = 772px est centre dans
-     le viewport via justify-content:center du flex parent. */
-  width: 100%;
-  max-width: 500px;
+  /* Largeur fixe 500px (pas de flex:1, pas de %). Le groupe phone
+     (240) + gap (32) + steps (500) = 772px est centre dans inner
+     via justify-content:center du parent. */
+  width: 500px;
   position: relative;
   min-height: 320px;
 }
@@ -2106,7 +2097,6 @@ footer {
        la section "L'app en images", sans contrainte parent 1100px. -->
   <div class="features-sticky-outer">
       <div class="features-sticky-inner">
-       <div class="features-sticky-group">
         <div class="features-sticky-phone">
           <div class="iphone">
             <div class="iphone-frame">
@@ -2223,7 +2213,6 @@ footer {
             <div class="feature-step-on" data-i18n="toggle_on_search">Pour se concentrer sur l'essentiel.</div>
           </div>
         </div>
-       </div>
       </div>
     </div>
   <!-- Continuation recuperee de l'ancienne section CONTROL : ouvre
