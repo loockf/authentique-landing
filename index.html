@@ -2267,13 +2267,17 @@ footer {
         <span class="sticky-dot" data-dot="4"></span>
         <span class="sticky-dot" data-dot="5"></span>
       </div>
+      <!-- Bouton scroll : meme position que .sticky-scroll dans
+           "L'app en images" (DANS le sticky-inner, position:absolute
+           bottom:32px). Click : avance d'un step si pas le dernier,
+           sinon scroll vers #screens. -->
+      <button class="sticky-scroll" data-scroll-to="#screens" aria-label="Section suivante" type="button">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
     </div>
   </div>
-  <button class="section-scroll" data-scroll-to="#screens" aria-label="Section suivante" type="button">
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="6 9 12 15 18 9"/>
-    </svg>
-  </button>
 </section>
 
 <!-- SCREENSHOTS — sticky scroll, 4 slides -->
@@ -3904,6 +3908,11 @@ function pickDifferent(arr, lastIdx) {
   window.addEventListener('scroll', update, { passive: true });
   window.addEventListener('resize', update);
   update();
+
+  // Expose pour le handler du bouton .sticky-scroll (cf. plus bas).
+  // Meme contrat que .sticky-outer (section "L'app en images") :
+  // getCurrentIndex retourne -1 avant engage, sinon 0..nbSteps-1.
+  outer.__getStickyIndex = getCurrentIndex;
 })();
 
 // Section "L'app en images" — sticky scroll. Pendant que .sticky-outer
@@ -3947,29 +3956,37 @@ function pickDifferent(arr, lastIdx) {
 })();
 
 // Boutons de scroll inter-sections (.section-scroll + .sticky-scroll).
-// .sticky-scroll : si pas dernier slide -> avance au slide suivant,
-// sinon scroll vers data-scroll-to (section suivante).
+// .sticky-scroll : si pas dernier item du sticky -> avance d'un cran
+// (slide pour "L'app en images", step pour "La solution"), sinon
+// scroll vers data-scroll-to (section suivante).
 // .section-scroll : scroll smooth direct vers data-scroll-to.
 (function () {
   var btns = document.querySelectorAll('.section-scroll, .sticky-scroll');
   btns.forEach(function (btn) {
     btn.addEventListener('click', function () {
-      // Cas special sticky : on avance dans les slides avant de quitter
+      // Cas special sticky : on avance dans les items avant de quitter.
+      // closest() trouve le bon outer selon la section ou le bouton est
+      // place — .sticky-outer (screens) ou .features-sticky-outer
+      // (features). Compte les items via le selecteur correspondant.
       if (btn.classList.contains('sticky-scroll')) {
-        var outer = document.querySelector('.sticky-outer');
+        var outer = btn.closest('.sticky-outer, .features-sticky-outer');
         if (outer && typeof outer.__getStickyIndex === 'function') {
-          var slides = outer.querySelectorAll('.sticky-slide');
-          var nbSlides = slides.length;
+          var items = outer.classList.contains('features-sticky-outer')
+            ? outer.querySelectorAll('.features-step')
+            : outer.querySelectorAll('.sticky-slide');
+          var nbItems = items.length;
           var currentIdx = outer.__getStickyIndex();
-          if (currentIdx < nbSlides - 1) {
+          if (currentIdx < nbItems - 1) {
             var outerTop = outer.getBoundingClientRect().top + window.scrollY;
             var scrollable = outer.offsetHeight - window.innerHeight;
-            // +10 pour franchir le seuil floor(progress * nbSlides)
-            var targetY = outerTop + ((currentIdx + 1) / nbSlides) * scrollable + 10;
+            // +10 pour franchir le seuil floor(progress * nbItems).
+            // currentIdx peut etre -1 (features pre-engage) : (-1+1)/n = 0
+            // -> scrolle juste au top du sticky pour engager le step 0.
+            var targetY = outerTop + ((currentIdx + 1) / nbItems) * scrollable + 10;
             window.scrollTo({ top: targetY, behavior: 'smooth' });
             return;
           }
-          // Dernier slide -> fall through au scroll vers la section suivante
+          // Dernier item -> fall through au scroll vers la section suivante
         }
       }
       var sel = btn.getAttribute('data-scroll-to');
