@@ -396,7 +396,9 @@ section { padding: 120px 24px; position: relative; }
   align-items: stretch;
 }
 .problem-stats {
-  max-width: 760px;
+  /* Bump 760 -> 1000 pour que problem_stat1 tienne sur 2 lignes
+     au lieu de 3 a la taille originale (clamp 17/2vw/20px). */
+  max-width: 1000px;
   margin: clamp(32px, 4vh, 64px) auto 0;
   padding-bottom: clamp(40px, 5vh, 80px);
   display: flex;
@@ -408,7 +410,7 @@ section { padding: 120px 24px; position: relative; }
   border-radius: 16px;
   padding: 24px 28px;
   font-style: italic;
-  font-size: clamp(15px, 1.8vw, 18px);
+  font-size: clamp(17px, 2vw, 20px);
   line-height: 1.5;
   color: #141414;
   text-align: center;
