@@ -42,6 +42,12 @@
           background-clip: text;
   -webkit-text-fill-color: transparent;
           color: transparent;
+  /* Bug WebKit/Blink connu : background-clip:text ignore les
+     descenders (le "g" de "digitale", "g" de "Authentique"...) et
+     coupe leur queue. padding-bottom etend la zone peinte sous la
+     baseline d'environ une demi-x-height — la queue redevient
+     visible. Padding sur inline = pas d'impact sur le flux. */
+  padding-bottom: 0.1em;
 }
 /* Degrade orange "probleme" : reutilise pour les mots-cles dans
    la section #section-problem (titre "vois", stat "96 fois par
@@ -681,7 +687,10 @@ section { padding: 120px 24px; position: relative; }
   align-self: center;
   width: 100%;
 }
-.ally-header h2 { margin: 8px 0 0; line-height: 1.1; text-align: center !important; }
+/* line-height 1.2 (vs 1.1 global) : un peu plus d'air vertical
+   pour ne pas coller la queue du "g" de "digitale" au bord du
+   line-box (combine avec .authentique-gradient-text padding-bottom). */
+.ally-header h2 { margin: 8px 0 0; line-height: 1.2; text-align: center !important; }
 .ally-header .section-label { text-align: center !important; }
 .ally-grid {
   display: grid;
@@ -1690,9 +1699,12 @@ section { padding: 120px 24px; position: relative; }
 .philosophy-inner blockquote {
   font-family: 'GrosVentre', -apple-system, sans-serif;
   font-size: clamp(20px, 2.6vw, 30px);
-  line-height: 1.25;
+  /* line-height 1.3 (vs 1.25) + padding-bottom : evite que la
+     queue du "g" de "eloigner" colle au paragraphe suivant. */
+  line-height: 1.3;
   color: var(--text);
   letter-spacing: -0.3px;
+  padding-bottom: 0.05em;
   margin-bottom: 12px;
 }
 .philosophy-inner p { color: var(--text-soft); font-size: clamp(14px, 1.5vw, 18px); max-width: 540px; margin: 0 auto; line-height: 1.5; }
@@ -2137,7 +2149,7 @@ footer {
     </div>
   </div>
   <div class="problem-stats">
-    <p class="problem-stat reveal" data-i18n="problem_stat1">En moyenne, on consulte son téléphone <span class="problem-gradient-text">96 fois par jour</span>. Instagram est conçu pour en capturer le maximum.</p>
+    <p class="problem-stat reveal" data-i18n="problem_stat1">Ce n'est pas seulement <span class="problem-gradient-text">70%</span> de contenu non demandé — c'est <span class="problem-gradient-text">pire</span>. Instagram place délibérément les pubs et les suggestions au début de chaque ouverture de l'app, là où ton attention est maximale. Tes amis arrivent après, quand la plupart des gens ont déjà été <span class="problem-gradient-text">capturés</span> par autre chose.</p>
   </div>
   <button class="section-scroll" data-scroll-to="#section-features" aria-label="Section suivante" type="button">
     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
@@ -2706,7 +2718,7 @@ const translations = {
     pain4: "Doom-scrolling",
     pain5: "Addiction digitale",
     pain6: "Anxiété numérique",
-    problem_stat1: 'En moyenne, on consulte son téléphone <span class="problem-gradient-text">96 fois par jour</span>. Instagram est conçu pour en capturer le maximum.',
+    problem_stat1: 'Ce n\'est pas seulement <span class="problem-gradient-text">70%</span> de contenu non demandé — c\'est <span class="problem-gradient-text">pire</span>. Instagram place délibérément les pubs et les suggestions au début de chaque ouverture de l\'app, là où ton attention est maximale. Tes amis arrivent après, quand la plupart des gens ont déjà été <span class="problem-gradient-text">capturés</span> par autre chose.',
     ally_label: "Bien-être numérique",
     ally_title: 'Ton allié contre<br>l\'<span class="authentique-gradient-text">addiction digitale</span>.',
     ally_card1_title: "Moins de stimulation",
@@ -2821,7 +2833,7 @@ const translations = {
     pain4: "Doom-scrolling",
     pain5: "Digital addiction",
     pain6: "Digital anxiety",
-    problem_stat1: 'On average, we check our phones <span class="problem-gradient-text">96 times a day</span>. Instagram is designed to capture as many as possible.',
+    problem_stat1: 'It\'s not just <span class="problem-gradient-text">70%</span> of unwanted content — it\'s <span class="problem-gradient-text">worse</span>. Instagram deliberately places ads and suggestions at the start of every app session, where your attention is at its peak. Your friends come later, once most people have already been <span class="problem-gradient-text">captured</span> by something else.',
     ally_label: "Digital wellbeing",
     ally_title: 'Your ally against<br><span class="authentique-gradient-text">digital addiction</span>.',
     ally_card1_title: "Less stimulation",
@@ -2936,7 +2948,7 @@ const translations = {
     pain4: "Doom-scrolling",
     pain5: "Adicción digital",
     pain6: "Ansiedad digital",
-    problem_stat1: 'En promedio, miramos el móvil <span class="problem-gradient-text">96 veces al día</span>. Instagram está diseñado para captar el máximo posible.',
+    problem_stat1: 'No es solo <span class="problem-gradient-text">70%</span> de contenido no solicitado — es <span class="problem-gradient-text">peor</span>. Instagram coloca deliberadamente los anuncios y sugerencias al inicio de cada apertura de la app, donde tu atención es máxima. Tus amigos llegan después, cuando la mayoría de la gente ya ha sido <span class="problem-gradient-text">capturada</span> por otra cosa.',
     ally_label: "Bienestar digital",
     ally_title: 'Tu aliado contra<br>la <span class="authentique-gradient-text">adicción digital</span>.',
     ally_card1_title: "Menos estimulación",
@@ -3051,7 +3063,7 @@ const translations = {
     pain4: "Doom-scrolling",
     pain5: "Dipendenza digitale",
     pain6: "Ansia digitale",
-    problem_stat1: 'In media, controlliamo il telefono <span class="problem-gradient-text">96 volte al giorno</span>. Instagram è progettato per catturarne il più possibile.',
+    problem_stat1: 'Non è solo <span class="problem-gradient-text">70%</span> di contenuto non richiesto — è <span class="problem-gradient-text">peggio</span>. Instagram piazza deliberatamente le pubblicità e i suggerimenti all\'inizio di ogni apertura dell\'app, dove la tua attenzione è al massimo. I tuoi amici arrivano dopo, quando la maggior parte delle persone è già stata <span class="problem-gradient-text">catturata</span> da qualcos\'altro.',
     ally_label: "Benessere digitale",
     ally_title: 'Il tuo alleato contro<br>la <span class="authentique-gradient-text">dipendenza digitale</span>.',
     ally_card1_title: "Meno stimolazione",
@@ -3166,7 +3178,7 @@ const translations = {
     pain4: "Doom-scrolling",
     pain5: "Vício digital",
     pain6: "Ansiedade digital",
-    problem_stat1: 'Em média, consultamos o telemóvel <span class="problem-gradient-text">96 vezes por dia</span>. O Instagram foi concebido para capturar o máximo possível.',
+    problem_stat1: 'Não é apenas <span class="problem-gradient-text">70%</span> de conteúdo não pedido — é <span class="problem-gradient-text">pior</span>. O Instagram coloca deliberadamente os anúncios e as sugestões no início de cada abertura da app, onde a tua atenção está no máximo. Os teus amigos chegam depois, quando a maioria das pessoas já foi <span class="problem-gradient-text">capturada</span> por outra coisa.',
     ally_label: "Bem-estar digital",
     ally_title: 'O teu aliado contra<br>a <span class="authentique-gradient-text">dependência digital</span>.',
     ally_card1_title: "Menos estímulos",
@@ -3281,7 +3293,7 @@ const translations = {
     pain4: "Doom-скроллинг",
     pain5: "Цифровая зависимость",
     pain6: "Цифровая тревожность",
-    problem_stat1: 'В среднем, мы проверяем телефон <span class="problem-gradient-text">96 раз в день</span>. Instagram создан, чтобы захватить как можно больше.',
+    problem_stat1: 'Это не просто <span class="problem-gradient-text">70%</span> ненужного контента — это <span class="problem-gradient-text">хуже</span>. Instagram намеренно ставит рекламу и рекомендации в начало каждого открытия приложения, где твоё внимание максимально. Друзья появляются позже, когда большинство людей уже <span class="problem-gradient-text">захвачены</span> чем-то другим.',
     ally_label: "Цифровое благополучие",
     ally_title: 'Твой союзник против<br><span class="authentique-gradient-text">цифровой зависимости</span>.',
     ally_card1_title: "Меньше стимуляции",
