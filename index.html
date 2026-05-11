@@ -395,10 +395,11 @@ section { padding: 120px 24px; position: relative; }
   display: grid;
   grid-template-columns: 1.2fr 1fr;
   gap: 60px;
-  /* stretch : la colonne gauche (.problem-text) prend la hauteur
-     du phone-frame a droite, ce qui permet de pousser les 6 cadres
-     en bas de colonne et de centrer le sous-titre en auto-margin. */
-  align-items: stretch;
+  /* center : chaque colonne est dimensionnee a son contenu et les
+     deux blocs (texte gauche + phone droite) sont alignes au centre
+     vertical du row. Le phone n'est plus colle au top, le bloc
+     texte est centre verticalement par rapport a lui. */
+  align-items: center;
 }
 .problem-stats {
   /* Bump 760 -> 1000 pour que problem_stat1 tienne sur 2 lignes
@@ -451,11 +452,10 @@ section { padding: 120px 24px; position: relative; }
    "Le problème" (specificite .problem-text p > .section-label).
    La couleur soft du label est restauree juste apres pour ne pas
    le passer en vert (.section-label natif = green). */
-/* margin:auto 0 = centrage vertical du sous-titre dans l'espace
-   restant entre le h2 (en haut) et .problem-pains (en bas). Necessite
-   align-items:stretch sur .problem-grid pour que .problem-text ait
-   une hauteur > somme du contenu naturel. */
-.problem-text p:not(.section-label) { color: var(--text-soft); font-size: clamp(14px, 1.5vw, 18px); margin: auto 0; max-width: 480px; line-height: 1.5; }
+/* Flux naturel : la colonne n'est plus stretchee (align-items:center
+   sur le grid) donc plus besoin de margin:auto pour absorber l'espace.
+   Le sous-titre suit le h2 avec un margin-bottom standard. */
+.problem-text p:not(.section-label) { color: var(--text-soft); font-size: clamp(14px, 1.5vw, 18px); margin-bottom: 12px; max-width: 480px; line-height: 1.5; }
 .problem-text .section-label { color: var(--text-soft); }
 .problem-pains {
   margin-top: 24px;
