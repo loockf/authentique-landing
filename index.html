@@ -393,12 +393,14 @@ section { padding: 120px 24px; position: relative; }
   max-width: 1100px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* Tracks auto-sized = chaque colonne fait la largeur de son
+     contenu (texte ~520px / phone ~280px). justify-content:center
+     centre l'ensemble dans le max-width — sinon 1fr 1fr forcait
+     2x520px et le phone, plus etroit que sa colonne, faisait pencher
+     la masse visuelle a gauche. */
+  grid-template-columns: auto auto;
   gap: 60px;
-  /* center : chaque colonne est dimensionnee a son contenu et les
-     deux blocs (texte gauche + phone droite) sont alignes au centre
-     vertical du row. Le phone n'est plus colle au top, le bloc
-     texte est centre verticalement par rapport a lui. */
+  justify-content: center;
   align-items: center;
 }
 .problem-stats {
