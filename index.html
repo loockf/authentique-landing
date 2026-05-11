@@ -59,6 +59,11 @@
           background-clip: text;
   -webkit-text-fill-color: transparent;
           color: transparent;
+  /* 3px de chaque cote pour que les glyphes italiques avec une
+     barre montante a gauche (le "v" de "vois") ou un descender
+     ne soient pas clippes par le bord de la zone peinte. Padding
+     sur inline = sans impact sur le flux du texte. */
+  padding: 0 3px;
 }
 .authentique-name {
   color: var(--green);
