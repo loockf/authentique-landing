@@ -393,7 +393,7 @@ section { padding: 120px 24px; position: relative; }
   max-width: 1100px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 60px;
   /* center : chaque colonne est dimensionnee a son contenu et les
      deux blocs (texte gauche + phone droite) sont alignes au centre
@@ -402,9 +402,9 @@ section { padding: 120px 24px; position: relative; }
   align-items: center;
 }
 .problem-stats {
-  /* Bump 760 -> 1000 pour que problem_stat1 tienne sur 2 lignes
-     au lieu de 3 a la taille originale (clamp 17/2vw/20px). */
-  max-width: 1000px;
+  /* max-width 1100 aligne sur .problem-grid pour eviter le flottement
+     horizontal entre les deux blocs empiles. */
+  max-width: 1100px;
   margin: clamp(32px, 4vh, 64px) auto 0;
   padding-bottom: clamp(40px, 5vh, 80px);
   display: flex;
@@ -432,12 +432,13 @@ section { padding: 120px 24px; position: relative; }
   justify-content: flex-start;
 }
 .section-problem {
-  padding: clamp(48px, 18vh, 200px) 24px clamp(48px, 8vh, 100px);
+  /* Padding symetrique haut/bas + flux naturel (sans justify-content
+     center qui ajoutait encore plus de vide quand contenu < 100vh). */
+  padding: clamp(48px, 8vh, 100px) 24px clamp(48px, 8vh, 100px);
   min-height: 100vh;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 .section-problem .problem-grid {
   /* align-items defini dans la premiere regle (stretch) — pas
