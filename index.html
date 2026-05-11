@@ -431,14 +431,25 @@ section { padding: 120px 24px; position: relative; }
   flex-direction: column;
   justify-content: flex-start;
 }
+/* Colonne droite du .problem-grid : centre le .phone-mockup
+   (et donc le .phone-frame) horizontalement ET verticalement
+   dans la cellule du grid. Sans ca, le phone se collait en
+   haut-gauche de la colonne, laissant un grand vide a droite. */
+.problem-phone-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .section-problem {
-  /* Padding symetrique haut/bas + flux naturel (sans justify-content
-     center qui ajoutait encore plus de vide quand contenu < 100vh). */
+  /* Padding symetrique haut/bas + centrage vertical du contenu dans
+     le 100vh : sans justify-content center, le contenu se collait
+     en haut a cause du flux normal. */
   padding: clamp(48px, 8vh, 100px) 24px clamp(48px, 8vh, 100px);
   min-height: 100vh;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 .section-problem .problem-grid {
   /* align-items defini dans la premiere regle (stretch) — pas
@@ -2143,7 +2154,7 @@ footer {
         </div>
       </div>
     </div>
-    <div class="reveal" style="transition-delay: 0.15s">
+    <div class="problem-phone-col reveal" style="transition-delay: 0.15s">
       <div class="phone-mockup">
         <div class="phone-frame">
           <div class="phone-notch"></div>
