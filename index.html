@@ -2784,6 +2784,7 @@ const translations = {
     suggest_placeholder: "Ton idée ou suggestion...",
     suggest_email_placeholder: "Ton adresse email (optionnel)",
     suggest_btn: "Envoyer",
+    reels_follow_btn: "Suivre",
     settings_title: "Paramètres",
     settings_label_sponsored: "Masquer les posts sponsorisés",
     settings_label_suggested: "Masquer les publications suggérées",
@@ -2898,6 +2899,7 @@ const translations = {
     suggest_placeholder: "Your idea or suggestion...",
     suggest_email_placeholder: "Your email address (optional)",
     suggest_btn: "Send",
+    reels_follow_btn: "Follow",
     settings_title: "Settings",
     settings_label_sponsored: "Hide sponsored posts",
     settings_label_suggested: "Hide suggested posts",
@@ -3012,6 +3014,7 @@ const translations = {
     suggest_placeholder: "Tu idea o sugerencia...",
     suggest_email_placeholder: "Tu correo electrónico (opcional)",
     suggest_btn: "Enviar",
+    reels_follow_btn: "Seguir",
     settings_title: "Ajustes",
     settings_label_sponsored: "Ocultar posts patrocinados",
     settings_label_suggested: "Ocultar publicaciones sugeridas",
@@ -3126,6 +3129,7 @@ const translations = {
     suggest_placeholder: "La tua idea o suggerimento...",
     suggest_email_placeholder: "La tua email (opzionale)",
     suggest_btn: "Invia",
+    reels_follow_btn: "Segui",
     settings_title: "Impostazioni",
     settings_label_sponsored: "Nascondi post sponsorizzati",
     settings_label_suggested: "Nascondi post suggeriti",
@@ -3240,6 +3244,7 @@ const translations = {
     suggest_placeholder: "Sua ideia ou sugestão...",
     suggest_email_placeholder: "Seu e-mail (opcional)",
     suggest_btn: "Enviar",
+    reels_follow_btn: "Seguir",
     settings_title: "Configurações",
     settings_label_sponsored: "Ocultar posts patrocinados",
     settings_label_suggested: "Ocultar publicações sugeridas",
@@ -3354,6 +3359,7 @@ const translations = {
     suggest_placeholder: "Твоя идея или предложение...",
     suggest_email_placeholder: "Ваш email (необязательно)",
     suggest_btn: "Отправить",
+    reels_follow_btn: "Подписаться",
     settings_title: "Настройки",
     settings_label_sponsored: "Скрыть рекламные посты",
     settings_label_suggested: "Скрыть рекомендуемые посты",
@@ -4324,7 +4330,14 @@ function pickDifferent(arr, lastIdx) {
     nm.style.width = rand(50, 80) + 'px';
     const follow = document.createElement('span');
     follow.className = 'reel-follow';
-    follow.textContent = REEL_FOLLOW;
+    // data-i18n : setLang() le retraduira en place via son
+    // querySelectorAll('[data-i18n]'). Texte initial resolu
+    // dynamiquement pour matcher la langue active au moment ou
+    // la card est generee (cas reels regeneres apres un setLang).
+    follow.setAttribute('data-i18n', 'reels_follow_btn');
+    follow.textContent =
+      (typeof translations !== 'undefined' && translations[currentLang] && translations[currentLang].reels_follow_btn)
+      || REEL_FOLLOW;
     header.appendChild(av);
     header.appendChild(nm);
     header.appendChild(follow);
