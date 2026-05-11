@@ -43,6 +43,17 @@
   -webkit-text-fill-color: transparent;
           color: transparent;
 }
+/* Degrade orange "probleme" : reutilise pour les mots-cles dans
+   la section #section-problem (titre "vois", stat "96 fois par
+   jour"). Meme palette que les pain-icons (linearGradient SVG
+   #problemGrad) et que la 1ere entree de SPONSOR_GRADS. */
+.problem-gradient-text {
+  background: linear-gradient(135deg, #ffb088 0%, #ee6a2c 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+          color: transparent;
+}
 .authentique-name {
   color: var(--green);
 }
@@ -1921,6 +1932,13 @@ footer {
       <stop offset="72%" stop-color="#10c89e"/>
       <stop offset="100%" stop-color="#0aaa8e"/>
     </linearGradient>
+    <!-- Dégradé orange "problème" : reproduit la 1ere entree de
+         SPONSOR_GRADS (animation chaos du feed cote droit). Utilise
+         par les 6 pain-icons via stroke="url(#problemGrad)". -->
+    <linearGradient id="problemGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffb088"/>
+      <stop offset="100%" stop-color="#ee6a2c"/>
+    </linearGradient>
   </defs>
 </svg>
 
@@ -2039,12 +2057,12 @@ footer {
   <div class="problem-grid">
     <div class="problem-text reveal">
       <p class="section-label" data-i18n="problem_label">Le problème</p>
-      <h2 data-i18n="problem_title">Instagram décide ce que tu <em>vois</em>.</h2>
+      <h2 data-i18n="problem_title">Instagram décide ce que tu <span class="problem-gradient-text">vois</span>.</h2>
       <p data-i18n="problem_p2">Ce n'est pas un manque de volonté. Instagram est conçu pour être addictif — votre attention est leur produit.</p>
       <div class="problem-pains">
         <div class="pain-card">
           <div class="pain-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="url(#problemGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M3 11l18-5v12L3 13z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>
             </svg>
           </div>
@@ -2052,7 +2070,7 @@ footer {
         </div>
         <div class="pain-card">
           <div class="pain-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="url(#problemGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <rect x="4" y="6" width="16" height="14" rx="2"/><circle cx="9" cy="11" r="1.2"/><circle cx="15" cy="11" r="1.2"/>
               <path d="M9 16h6"/><path d="M9 4l-1 2"/><path d="M15 4l1 2"/>
             </svg>
@@ -2061,7 +2079,7 @@ footer {
         </div>
         <div class="pain-card">
           <div class="pain-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="url(#problemGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>
             </svg>
           </div>
@@ -2069,7 +2087,7 @@ footer {
         </div>
         <div class="pain-card">
           <div class="pain-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="url(#problemGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 6h4"/><path d="M12 18v.01"/>
             </svg>
           </div>
@@ -2077,7 +2095,7 @@ footer {
         </div>
         <div class="pain-card">
           <div class="pain-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="url(#problemGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/>
               <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/>
             </svg>
@@ -2086,7 +2104,7 @@ footer {
         </div>
         <div class="pain-card">
           <div class="pain-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" fill="none" stroke="url(#problemGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/>
               <circle cx="12" cy="12" r="3"/>
             </svg>
@@ -2109,7 +2127,7 @@ footer {
     </div>
   </div>
   <div class="problem-stats">
-    <p class="problem-stat reveal" data-i18n="problem_stat1">En moyenne, on consulte son téléphone <strong>96 fois par jour</strong>. Instagram est conçu pour en capturer le maximum.</p>
+    <p class="problem-stat reveal" data-i18n="problem_stat1">En moyenne, on consulte son téléphone <span class="problem-gradient-text">96 fois par jour</span>. Instagram est conçu pour en capturer le maximum.</p>
   </div>
   <button class="section-scroll" data-scroll-to="#section-features" aria-label="Section suivante" type="button">
     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
@@ -2670,7 +2688,7 @@ const translations = {
     hero_cta: "Soutenir sur Kickstarter",
     hero_tagline: "Sois parmi les premiers à découvrir Authentique.",
     problem_label: "Le problème",
-    problem_title: "Instagram décide ce que tu <em>vois</em>.",
+    problem_title: 'Instagram décide ce que tu <span class="problem-gradient-text">vois</span>.',
     problem_p2: "Ce n'est pas un manque de volonté. Instagram est conçu pour être addictif — votre attention est leur produit.",
     pain1: "Posts sponsorisés",
     pain2: "Contenus suggérés",
@@ -2678,7 +2696,7 @@ const translations = {
     pain4: "Doom-scrolling",
     pain5: "Addiction digitale",
     pain6: "Anxiété numérique",
-    problem_stat1: "En moyenne, on consulte son téléphone <strong>96 fois par jour</strong>. Instagram est conçu pour en capturer le maximum.",
+    problem_stat1: 'En moyenne, on consulte son téléphone <span class="problem-gradient-text">96 fois par jour</span>. Instagram est conçu pour en capturer le maximum.',
     ally_label: "Bien-être numérique",
     ally_title: 'Ton allié contre<br>l\'<span class="authentique-gradient-text">addiction digitale</span>.',
     ally_card1_title: "Moins de stimulation",
@@ -2784,7 +2802,7 @@ const translations = {
     hero_cta: "Back on Kickstarter",
     hero_tagline: "Be among the first to discover Authentique.",
     problem_label: "The problem",
-    problem_title: "Instagram decides what you <em>see</em>.",
+    problem_title: 'Instagram decides what you <span class="problem-gradient-text">see</span>.',
     problem_p2: "It's not a lack of willpower. Instagram is designed to be addictive — your attention is their product.",
     pain1: "Sponsored posts",
     pain2: "Suggested content",
@@ -2792,7 +2810,7 @@ const translations = {
     pain4: "Doom-scrolling",
     pain5: "Digital addiction",
     pain6: "Digital anxiety",
-    problem_stat1: "On average, we check our phones <strong>96 times a day</strong>. Instagram is designed to capture as many as possible.",
+    problem_stat1: 'On average, we check our phones <span class="problem-gradient-text">96 times a day</span>. Instagram is designed to capture as many as possible.',
     ally_label: "Digital wellbeing",
     ally_title: 'Your ally against<br><span class="authentique-gradient-text">digital addiction</span>.',
     ally_card1_title: "Less stimulation",
@@ -2898,7 +2916,7 @@ const translations = {
     hero_cta: "Apoyar en Kickstarter",
     hero_tagline: "Sé de los primeros en descubrir Authentique.",
     problem_label: "El problema",
-    problem_title: "Instagram decide lo que <em>ves</em>.",
+    problem_title: 'Instagram decide lo que <span class="problem-gradient-text">ves</span>.',
     problem_p2: "No es falta de voluntad. Instagram está diseñado para ser adictivo — tu atención es su producto.",
     pain1: "Posts patrocinados",
     pain2: "Contenido sugerido",
@@ -2906,7 +2924,7 @@ const translations = {
     pain4: "Doom-scrolling",
     pain5: "Adicción digital",
     pain6: "Ansiedad digital",
-    problem_stat1: "En promedio, miramos el móvil <strong>96 veces al día</strong>. Instagram está diseñado para captar el máximo posible.",
+    problem_stat1: 'En promedio, miramos el móvil <span class="problem-gradient-text">96 veces al día</span>. Instagram está diseñado para captar el máximo posible.',
     ally_label: "Bienestar digital",
     ally_title: 'Tu aliado contra<br>la <span class="authentique-gradient-text">adicción digital</span>.',
     ally_card1_title: "Menos estimulación",
@@ -3012,7 +3030,7 @@ const translations = {
     hero_cta: "Sostieni su Kickstarter",
     hero_tagline: "Sii tra i primi a scoprire Authentique.",
     problem_label: "Il problema",
-    problem_title: "Instagram decide cosa <em>vedi</em>.",
+    problem_title: 'Instagram decide cosa <span class="problem-gradient-text">vedi</span>.',
     problem_p2: "Non è una mancanza di volontà. Instagram è progettato per creare dipendenza — la tua attenzione è il loro prodotto.",
     pain1: "Post sponsorizzati",
     pain2: "Contenuti suggeriti",
@@ -3020,7 +3038,7 @@ const translations = {
     pain4: "Doom-scrolling",
     pain5: "Dipendenza digitale",
     pain6: "Ansia digitale",
-    problem_stat1: "In media, controlliamo il telefono <strong>96 volte al giorno</strong>. Instagram è progettato per catturarne il più possibile.",
+    problem_stat1: 'In media, controlliamo il telefono <span class="problem-gradient-text">96 volte al giorno</span>. Instagram è progettato per catturarne il più possibile.',
     ally_label: "Benessere digitale",
     ally_title: 'Il tuo alleato contro<br>la <span class="authentique-gradient-text">dipendenza digitale</span>.',
     ally_card1_title: "Meno stimolazione",
@@ -3126,7 +3144,7 @@ const translations = {
     hero_cta: "Apoiar no Kickstarter",
     hero_tagline: "Sê dos primeiros a descobrir Authentique.",
     problem_label: "O problema",
-    problem_title: "O Instagram decide o que <em>vês</em>.",
+    problem_title: 'O Instagram decide o que <span class="problem-gradient-text">vês</span>.',
     problem_p2: "Não é falta de vontade. O Instagram foi concebido para ser viciante — a tua atenção é o produto deles.",
     pain1: "Posts patrocinados",
     pain2: "Conteúdos sugeridos",
@@ -3134,7 +3152,7 @@ const translations = {
     pain4: "Doom-scrolling",
     pain5: "Vício digital",
     pain6: "Ansiedade digital",
-    problem_stat1: "Em média, consultamos o telemóvel <strong>96 vezes por dia</strong>. O Instagram foi concebido para capturar o máximo possível.",
+    problem_stat1: 'Em média, consultamos o telemóvel <span class="problem-gradient-text">96 vezes por dia</span>. O Instagram foi concebido para capturar o máximo possível.',
     ally_label: "Bem-estar digital",
     ally_title: 'O teu aliado contra<br>a <span class="authentique-gradient-text">dependência digital</span>.',
     ally_card1_title: "Menos estímulos",
@@ -3240,7 +3258,7 @@ const translations = {
     hero_cta: "Поддержать на Kickstarter",
     hero_tagline: "Будь среди первых, кто откроет Authentique.",
     problem_label: "Проблема",
-    problem_title: "Instagram решает, что ты <em>видишь</em>.",
+    problem_title: 'Instagram решает, что ты <span class="problem-gradient-text">видишь</span>.',
     problem_p2: "Это не недостаток воли. Instagram создан, чтобы вызывать зависимость — твоё внимание — их продукт.",
     pain1: "Спонсированные посты",
     pain2: "Рекомендации",
@@ -3248,7 +3266,7 @@ const translations = {
     pain4: "Doom-скроллинг",
     pain5: "Цифровая зависимость",
     pain6: "Цифровая тревожность",
-    problem_stat1: "В среднем, мы проверяем телефон <strong>96 раз в день</strong>. Instagram создан, чтобы захватить как можно больше.",
+    problem_stat1: 'В среднем, мы проверяем телефон <span class="problem-gradient-text">96 раз в день</span>. Instagram создан, чтобы захватить как можно больше.',
     ally_label: "Цифровое благополучие",
     ally_title: 'Твой союзник против<br><span class="authentique-gradient-text">цифровой зависимости</span>.',
     ally_card1_title: "Меньше стимуляции",
