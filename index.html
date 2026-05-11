@@ -334,13 +334,15 @@ nav {
   display: block;
   white-space: nowrap;
 }
-/* Ligne 2 : meme typo que les h2 de la landing (font-family
-   GrosVentre, weight 400, letter-spacing -0.5px herites de la
-   regle "h1, h2, h3" du haut). Seul reste l'override de font-size :
-   65% comme point de depart pour fitHeroTitle(), qui shrinke ensuite
-   jusqu'a matcher la largeur de la ligne 1. */
+/* Ligne 2 : meme typo ET meme taille que les h2 de la landing
+   (font-family GrosVentre, weight 400, letter-spacing -0.5px,
+   font-size clamp(32px, 4vw, 56px) — tout herite des regles
+   globales h1/h2). Plus de shrink-to-fit : fitHeroTitle() est
+   neutralise pour preserver cette taille. white-space:normal
+   pour autoriser le wrap si trop large (line 1 garde son nowrap
+   via .hero-title-line, override ici). */
 .hero-title-line--regular {
-  font-size: 65%;
+  white-space: normal;
 }
 .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-top: 80px; }
 .btn-primary {
@@ -3563,19 +3565,14 @@ async function submitSuggestion(e) {
 // Ajuste le font-size de la 2e ligne du titre hero pour qu'elle
 // soit <= largeur de la 1ere ligne. Decremente par pas de 0.5px
 // jusqu'a ce que la ligne 2 tienne, plancher a 8px.
+// Neutralise depuis l'alignement de la ligne 2 sur la taille h2 :
+// la ligne 2 doit garder sa taille CSS (clamp 32/4vw/56) sans etre
+// retrecie pour matcher la largeur de "Authentique.". Reset d'un
+// eventuel inline style.fontSize laisse par une version precedente
+// du code (utile au rechargement post-deploy).
 function fitHeroTitle() {
-  var line1 = document.getElementById('hero-line1');
   var line2 = document.getElementById('hero-line2');
-  if (!line1 || !line2) return;
-  // Reset avant mesure pour ne pas heriter d'un ajustement precedent
-  // (sinon le font-size derive a chaque appel resize / setLang).
-  line2.style.fontSize = '';
-  var targetWidth = line1.getBoundingClientRect().width;
-  var fontSize = parseFloat(window.getComputedStyle(line2).fontSize);
-  while (line2.getBoundingClientRect().width > targetWidth && fontSize > 8) {
-    fontSize -= 0.5;
-    line2.style.fontSize = fontSize + 'px';
-  }
+  if (line2) line2.style.fontSize = '';
 }
 
 // Premier ajustement quand les fontes sont chargees (GrosVentre
