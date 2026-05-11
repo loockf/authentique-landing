@@ -94,8 +94,14 @@ h1, h2, h3, .gv, .footer-name {
    utilisent clamp() pour scaler fluide entre mobile et desktop sans
    media query. Les overrides specifiques par section sont alignes
    sur ces valeurs. */
-h1 { font-size: clamp(32px, 5vw, 72px); line-height: 1.05; }
-h2 { font-size: clamp(24px, 3.5vw, 48px); line-height: 1.1; }
+/* Echelle uniformisee : tous les h1/h2 partagent la meme taille
+   clamp(32px, 4vw, 56px) — ancienne taille du .screens-header h2,
+   etendue a hero + toutes les sections pour une hierarchie visuelle
+   coherente entre pages. Les overrides section-par-section ont ete
+   retires (cf. .problem-text h2, .ally-header h2, .cta-inner h2,
+   .faq-inner h2, .screens-header h2 plus bas). */
+h1 { font-size: clamp(32px, 4vw, 56px); line-height: 1.05; }
+h2 { font-size: clamp(32px, 4vw, 56px); line-height: 1.1; }
 h3 { font-size: clamp(16px, 2vw, 24px); line-height: 1.2; }
 
 em { font-style: normal; color: var(--green); }
@@ -426,7 +432,7 @@ section { padding: 120px 24px; position: relative; }
      d'un item flex (la grille est elle-meme item de .section-problem). */
   flex: 0 1 auto;
 }
-.problem-text h2 { margin-bottom: clamp(16px, 6vh, 70px); font-size: clamp(24px, 3.5vw, 48px); }
+.problem-text h2 { margin-bottom: clamp(16px, 6vh, 70px); }
 .problem-text p { margin-bottom: 8px; }
 .section-problem .problem-pains { margin-top: clamp(16px, 6vh, 70px); }
 /* :not(.section-label) sinon cette regle ecrase la taille du label
@@ -676,7 +682,7 @@ section { padding: 120px 24px; position: relative; }
   align-self: center;
   width: 100%;
 }
-.ally-header h2 { margin: 8px 0 0; font-size: clamp(24px, 3.5vw, 48px); line-height: 1.1; text-align: center !important; }
+.ally-header h2 { margin: 8px 0 0; line-height: 1.1; text-align: center !important; }
 .ally-header .section-label { text-align: center !important; }
 .ally-grid {
   display: grid;
@@ -775,12 +781,10 @@ section { padding: 120px 24px; position: relative; }
   margin-bottom: 48px;
 }
 .screens-header > * { max-width: 760px; margin-left: auto; margin-right: auto; }
-/* Titre plus impactant : taille augmentee pour compenser l'absence
-   de centrage vertical et donner du poids visuel. */
+/* Taille heritee de la regle globale h2 (clamp 32px/4vw/56px). */
 .screens-header h2 {
   margin-bottom: 0;
   text-align: center !important;
-  font-size: clamp(32px, 4vw, 56px);
 }
 .screens-header .section-label { text-align: center !important; }
 
@@ -1719,7 +1723,6 @@ section { padding: 120px 24px; position: relative; }
 }
 .cta-inner h2 {
   margin: 0;
-  font-size: clamp(24px, 3.5vw, 48px);
   line-height: 1.1;
   flex-shrink: 0;
 }
@@ -1817,7 +1820,6 @@ footer {
 .faq-inner h2 {
   margin-bottom: 48px;
   text-align: center;
-  font-size: clamp(24px, 3.5vw, 48px);
 }
 .faq-list { display: flex; flex-direction: column; gap: 12px; }
 .faq-item {
