@@ -1743,8 +1743,6 @@ section { padding: 120px 24px; position: relative; }
    centre verticalement dans 100vh, gaps reduits pour densifier. */
 .section-cta {
   background: var(--bg);
-  /* padding-top aligne sur .section-wellbeing (clamp 32/6vh/80) :
-     point de depart commun pour les sections "100vh-ish" du site. */
   padding: clamp(32px, 6vh, 80px) 24px clamp(48px, 8vh, 100px);
   text-align: center;
   min-height: 100vh;
@@ -1760,16 +1758,12 @@ section { padding: 120px 24px; position: relative; }
   flex-direction: column;
   flex: 1;
   align-items: center;
-  /* flex-start (au lieu de center) : le h2 s'accroche en haut de
-     l'inner au lieu d'etre centre verticalement. Sans ca, le gros
-     volume de contenu (3 stats + boutons + form + email + scroll)
-     poussait le h2 BIEN PLUS HAUT que les h2 des autres sections
-     (wellbeing, features...) qui ont moins de contenu et donc un
-     offset de centrage plus important. Le padding-top de l'inner
-     descend ensuite le h2 a une hauteur visuellement comparable
-     a celle des autres sections. */
-  justify-content: flex-start;
-  padding-top: clamp(60px, 12vh, 120px);
+  /* Centrage vertical du bloc complet (h2 + stats + button + form +
+     email + scroll) — meme pattern que .wellbeing-inner. Le h2 peut
+     se retrouver legerement plus haut que les h2 des autres sections
+     parce que la CTA contient plus d'elements, mais le bloc reste
+     centre comme partout ailleurs. */
+  justify-content: center;
   gap: clamp(16px, 2.5vh, 28px);
 }
 .cta-inner h2 {
