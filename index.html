@@ -1766,54 +1766,76 @@ section { padding: 120px 24px; position: relative; }
   line-height: 1.1;
   flex-shrink: 0;
 }
-.cta-cards {
+/* Section CTA — 3 compteurs animes (publicite / transparent /
+   gratuit). Layout texte pur : pas de card box, juste un grand
+   chiffre + petit titre + description. Anime au scroll via
+   IntersectionObserver (cf. IIFE en bas du script). */
+.cta-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 32px;
   width: 100%;
   max-width: 1000px;
 }
-.cta-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 24px;
+.cta-stat {
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
-.cta-card-icon {
-  width: 44px;
-  height: 44px;
-  background: rgba(25,211,130,0.1);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+/* Compteur : superpose 2 layers (solide noir + gradient vert) qui
+   cross-fadent en 0.8s ease quand le compteur atteint sa valeur
+   pivot (data-gradient-at). Le JS met a jour le textContent des
+   DEUX layers a chaque tick. */
+.cta-counter {
+  position: relative;
+  font-family: 'GrosVentre', -apple-system, sans-serif;
+  font-size: clamp(56px, 8vw, 96px);
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: -1px;
+  margin-bottom: 8px;
+  /* Reserve une box de la taille du layer solide ; le layer gradient
+     est position:absolute par-dessus. */
+  display: inline-block;
 }
-.cta-card h3 {
-  margin: 0;
+.cta-counter-layer {
+  display: block;
+  transition: opacity 0.8s ease;
+}
+.cta-counter-solid {
   color: #141414;
-  font-size: clamp(16px, 2vw, 24px);
-  line-height: 1.2;
-  /* min-height : reserve la place de 2 lignes (= 2 * line-height en
-     em) meme pour les titres qui n'en font qu'une. Sans ca, les
-     descriptions en dessous demarrent a des Y differents selon la
-     hauteur reelle du titre, ce qui casse l'alignement horizontal
-     entre les 3 cartes. */
-  min-height: calc(2 * 1.2em);
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
-.cta-card p {
+.cta-counter-gradient {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  opacity: 0;
+  background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+          color: transparent;
+}
+.cta-counter.is-gradient .cta-counter-solid { opacity: 0; }
+.cta-counter.is-gradient .cta-counter-gradient { opacity: 1; }
+.cta-stat h3 {
   margin: 0;
-  color: #666;
-  font-size: clamp(14px, 1.5vw, 18px);
+  color: var(--text);
+  font-size: clamp(15px, 1.5vw, 18px);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.2;
+  /* Famille systeme : on veut un petit label sobre, pas un titre
+     GrosVentre qui rivaliserait avec le compteur au-dessus. */
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.cta-stat p {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: clamp(13px, 1.3vw, 15px);
   line-height: 1.5;
+  max-width: 280px;
 }
 .cta-action { margin: 48px 0; }
 .cta-prompt {
@@ -2617,37 +2639,35 @@ footer {
 <section class="section-cta" id="cta">
   <div class="cta-inner">
     <h2 class="reveal" data-i18n="cta_title">On construit<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;ensemble.</h2>
-    <div class="cta-cards reveal">
-      <div class="cta-card">
-        <div class="cta-card-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
-          </svg>
+    <!-- 3 compteurs animes (publicite, transparent, gratuit). Les
+         layers solid/gradient sont superposes : le JS met a jour
+         textContent sur les deux a chaque tick, puis toggle la
+         classe .is-gradient quand la valeur atteint data-gradient-at
+         (5 pour le 1er qui descend vers 0, 95 pour les 2 autres qui
+         montent vers 100). Cross-fade opacity 0.8s en CSS. -->
+    <div class="cta-stats reveal">
+      <div class="cta-stat">
+        <div class="cta-counter" data-from="100" data-to="0" data-suffix="" data-gradient-at="5" aria-hidden="true">
+          <span class="cta-counter-layer cta-counter-solid">100</span>
+          <span class="cta-counter-layer cta-counter-gradient">100</span>
         </div>
-        <h3 data-i18n="cta_card1_title">Zéro publicité, zéro investisseur</h3>
+        <h3 data-i18n="cta_card1_title">publicité</h3>
         <p data-i18n="cta_card1_desc">Authentique ne se financera jamais par la pub. Pas question de reproduire le modèle qu'on combat.</p>
       </div>
-      <div class="cta-card">
-        <div class="cta-card-icon">
-          <!-- Icone bouclier + checkmark : symbolise la confiance,
-               la protection des donnees, la transparence. Meme
-               degrade authGrad que les autres cartes. -->
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            <path d="m9 12 2 2 4-4"/>
-          </svg>
+      <div class="cta-stat">
+        <div class="cta-counter" data-from="0" data-to="100" data-suffix="%" data-gradient-at="95" aria-hidden="true">
+          <span class="cta-counter-layer cta-counter-solid">0%</span>
+          <span class="cta-counter-layer cta-counter-gradient">0%</span>
         </div>
-        <h3 data-i18n="cta_card2_title">100% transparent</h3>
+        <h3 data-i18n="cta_card2_title">transparent</h3>
         <p data-i18n="cta_card2_desc">Authentique ne collecte aucune donnée. Aucun serveur. Aucun tracking.</p>
       </div>
-      <div class="cta-card">
-        <div class="cta-card-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-          </svg>
+      <div class="cta-stat">
+        <div class="cta-counter" data-from="0" data-to="100" data-suffix="%" data-gradient-at="95" aria-hidden="true">
+          <span class="cta-counter-layer cta-counter-solid">0%</span>
+          <span class="cta-counter-layer cta-counter-gradient">0%</span>
         </div>
-        <h3 data-i18n="cta_card3_title">100% gratuit pour toujours</h3>
+        <h3 data-i18n="cta_card3_title">gratuit pour toujours</h3>
         <p data-i18n="cta_card3_desc">Kickstarter nous permet de financer le développement sans jamais facturer l'app.</p>
       </div>
     </div>
@@ -2806,11 +2826,11 @@ const translations = {
     philosophy_quote: '"Tout commence par <em>décider</em> ce qui entre dans ton feed."',
     cta_title: 'On construit<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;ensemble.',
     cta_thanks: "Merci pour ton intérêt et ton soutien. Chaque contribution nous aide à construire l'app que Instagram aurait dû être.",
-    cta_card1_title: "Zéro publicité, zéro investisseur",
+    cta_card1_title: "publicité",
     cta_card1_desc: "Authentique ne se financera jamais par la pub. Pas question de reproduire le modèle qu'on combat.",
-    cta_card2_title: "100% transparent",
+    cta_card2_title: "transparent",
     cta_card2_desc: "Authentique ne collecte aucune donnée. Aucun serveur. Aucun tracking.",
-    cta_card3_title: "100% gratuit pour toujours",
+    cta_card3_title: "gratuit pour toujours",
     cta_card3_desc: "Kickstarter nous permet de financer le développement sans jamais facturer l'app.",
     cta_prompt: "Tu as une idée, une question ou une suggestion ? On veut l'entendre.",
     cta_email_line: 'ou écris-nous directement à <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
@@ -2920,11 +2940,11 @@ const translations = {
     philosophy_quote: '"It all starts with <em>deciding</em> what enters your feed."',
     cta_title: 'We are building<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;together.',
     cta_thanks: "Thank you for your interest and support. Every contribution helps us build the app Instagram should have been.",
-    cta_card1_title: "Zero ads, zero investors",
+    cta_card1_title: "advertising",
     cta_card1_desc: "Authentique will never be funded by advertising. We won't reproduce the model we're fighting against.",
-    cta_card2_title: "100% transparent",
+    cta_card2_title: "transparent",
     cta_card2_desc: "Authentique collects no data. No server. No tracking.",
-    cta_card3_title: "100% free forever",
+    cta_card3_title: "free forever",
     cta_card3_desc: "Kickstarter lets us fund development without ever charging for the app.",
     cta_prompt: "Got an idea, a question or a suggestion? We want to hear it.",
     cta_email_line: 'or write to us directly at <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
@@ -3034,11 +3054,11 @@ const translations = {
     philosophy_quote: '"Todo empieza por <em>decidir</em> lo que entra en tu feed."',
     cta_title: 'Construimos<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;juntos.',
     cta_thanks: "Gracias por tu interés y tu apoyo. Cada contribución nos ayuda a construir la app que Instagram debería haber sido.",
-    cta_card1_title: "Cero publicidad, cero inversores",
+    cta_card1_title: "publicidad",
     cta_card1_desc: "Authentique nunca se financiará con publicidad. No vamos a reproducir el modelo contra el que luchamos.",
-    cta_card2_title: "100% transparente",
+    cta_card2_title: "transparente",
     cta_card2_desc: "Authentique no recopila ningún dato. Sin servidor. Sin seguimiento.",
-    cta_card3_title: "100% gratuito para siempre",
+    cta_card3_title: "gratuito para siempre",
     cta_card3_desc: "Kickstarter nos permite financiar el desarrollo sin cobrar nunca por la app.",
     cta_prompt: "¿Tienes una idea, una pregunta o una sugerencia? Queremos escucharla.",
     cta_email_line: 'o escríbenos directamente a <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
@@ -3148,11 +3168,11 @@ const translations = {
     philosophy_quote: '"Tutto inizia <em>decidendo</em> cosa entra nel tuo feed."',
     cta_title: 'Costruiamo<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;insieme.',
     cta_thanks: "Grazie per il tuo interesse e il tuo supporto. Ogni contributo ci aiuta a costruire l'app che Instagram avrebbe dovuto essere.",
-    cta_card1_title: "Zero pubblicità, zero investitori",
+    cta_card1_title: "pubblicità",
     cta_card1_desc: "Authentique non sarà mai finanziata dalla pubblicità. Non riprodurremo il modello che combattiamo.",
-    cta_card2_title: "100% trasparente",
+    cta_card2_title: "trasparente",
     cta_card2_desc: "Authentique non raccoglie alcun dato. Nessun server. Nessun tracciamento.",
-    cta_card3_title: "100% gratuito per sempre",
+    cta_card3_title: "gratuito per sempre",
     cta_card3_desc: "Kickstarter ci permette di finanziare lo sviluppo senza mai far pagare l'app.",
     cta_prompt: "Hai un'idea, una domanda o un suggerimento? Vogliamo sentirlo.",
     cta_email_line: 'oppure scrivici direttamente a <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
@@ -3262,11 +3282,11 @@ const translations = {
     philosophy_quote: '"Tudo começa por <em>decidir</em> o que entra no teu feed."',
     cta_title: 'Construímos<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;juntos.',
     cta_thanks: "Obrigado pelo teu interesse e apoio. Cada contribuição ajuda-nos a construir a app que o Instagram devia ter sido.",
-    cta_card1_title: "Zero publicidade, zero investidores",
+    cta_card1_title: "publicidade",
     cta_card1_desc: "O Authentique nunca será financiado por publicidade. Não vamos reproduzir o modelo que combatemos.",
-    cta_card2_title: "100% transparente",
+    cta_card2_title: "transparente",
     cta_card2_desc: "O Authentique não recolhe nenhum dado. Sem servidor. Sem rastreio.",
-    cta_card3_title: "100% gratuito para sempre",
+    cta_card3_title: "gratuito para sempre",
     cta_card3_desc: "O Kickstarter permite-nos financiar o desenvolvimento sem nunca cobrar pela app.",
     cta_prompt: "Tens uma ideia, uma pergunta ou uma sugestão? Queremos ouvi-la.",
     cta_email_line: 'ou escreve-nos diretamente para <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
@@ -3376,11 +3396,11 @@ const translations = {
     philosophy_quote: '"Всё начинается с того, что ты <em>решаешь</em>, что попадает в твою ленту."',
     cta_title: 'Мы создаём<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;вместе.',
     cta_thanks: "Спасибо за интерес и поддержку. Каждый вклад помогает нам создать приложение, которым должен был быть Instagram.",
-    cta_card1_title: "Ноль рекламы, ноль инвесторов",
+    cta_card1_title: "рекламы",
     cta_card1_desc: "Authentique никогда не будет финансироваться за счёт рекламы. Мы не воспроизведём модель, с которой боремся.",
-    cta_card2_title: "100% прозрачно",
+    cta_card2_title: "прозрачно",
     cta_card2_desc: "Authentique не собирает данные. Без сервера. Без отслеживания.",
-    cta_card3_title: "100% бесплатно навсегда",
+    cta_card3_title: "бесплатно навсегда",
     cta_card3_desc: "Kickstarter позволяет нам финансировать разработку, никогда не взимая плату за приложение.",
     cta_prompt: "У тебя есть идея, вопрос или предложение? Мы хотим услышать.",
     cta_email_line: 'или напиши нам напрямую на <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>',
@@ -3645,6 +3665,66 @@ document.querySelectorAll('.reveal').forEach(el => {
   const rect = el.getBoundingClientRect();
   if (rect.top < window.innerHeight) el.classList.add('visible');
 });
+
+// === Animation des compteurs CTA (publicite / transparent / gratuit) ===
+// Quand la section #cta entre dans le viewport, les 3 compteurs
+// demarrent simultanement : duree 1600ms, easing cubic out. Le
+// "fondu vers gradient" s'enclenche quand la valeur courante
+// atteint data-gradient-at (5 pour 1er qui descend vers 0,
+// 95 pour les 2 autres qui montent vers 100), via une classe
+// .is-gradient qui cross-fade les 2 layers (CSS 0.8s ease).
+(function () {
+  var counters = document.querySelectorAll('.cta-counter');
+  if (!counters.length) return;
+  var section = document.getElementById('cta');
+  if (!section) return;
+  var started = false;
+  function startAll() {
+    if (started) return;
+    started = true;
+    var startTime = performance.now();
+    var duration = 1600;
+    counters.forEach(function (el) {
+      var from = parseFloat(el.dataset.from);
+      var to = parseFloat(el.dataset.to);
+      var suffix = el.dataset.suffix || '';
+      var gradientAt = parseFloat(el.dataset.gradientAt);
+      var descending = to < from;
+      var solid = el.querySelector('.cta-counter-solid');
+      var gradient = el.querySelector('.cta-counter-gradient');
+      function tick(now) {
+        var elapsed = now - startTime;
+        var t = Math.min(1, elapsed / duration);
+        // Ease-out cubic : demarre vite, ralentit a la fin.
+        var eased = 1 - Math.pow(1 - t, 3);
+        var current = Math.round(from + (to - from) * eased);
+        var txt = current + suffix;
+        if (solid) solid.textContent = txt;
+        if (gradient) gradient.textContent = txt;
+        var shouldGradient = descending ? current <= gradientAt : current >= gradientAt;
+        if (shouldGradient && !el.classList.contains('is-gradient')) {
+          el.classList.add('is-gradient');
+        }
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+  if (typeof IntersectionObserver === 'function') {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          startAll();
+          io.disconnect();
+        }
+      });
+    }, { threshold: 0.3 });
+    io.observe(section);
+  } else {
+    // Fallback : pas d'IntersectionObserver -> demarre immediatement.
+    startAll();
+  }
+})();
 
 // === Helpers globaux partages par les IIFE de mockups ===
 // rand(min,max)        -> entier aleatoire dans [min,max]
