@@ -2559,7 +2559,6 @@ footer {
       <blockquote data-i18n="philosophy_quote">
         "Les réseaux sociaux devraient te connecter à tes amis, pas t'<em>en éloigner</em>."
       </blockquote>
-      <p data-i18n="philosophy_text">Authentique ne collecte aucune donnée. Aucun serveur. Aucun tracking. Juste une fenêtre filtrée sur Instagram, tel qu'il aurait toujours dû être.</p>
     </div>
     <div class="ally-grid">
       <div class="ally-card reveal">
@@ -2618,15 +2617,19 @@ footer {
       </div>
       <div class="cta-card">
         <div class="cta-card-icon">
+          <!-- Icone Incognito : chapeau + lunettes de soleil. Symbolise
+               l'absence de tracking / de collecte. Meme degrade vert
+               authGrad que les autres cartes. -->
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-            <circle cx="9" cy="7" r="4"/>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            <path d="M3 12h18"/>
+            <path d="M6 12C6 7 8 5 12 5C16 5 18 7 18 12"/>
+            <circle cx="7.5" cy="16.5" r="2.5"/>
+            <circle cx="16.5" cy="16.5" r="2.5"/>
+            <path d="M10 16.5h4"/>
           </svg>
         </div>
-        <h3 data-i18n="cta_card2_title">Une communauté, pas des actionnaires</h3>
-        <p data-i18n="cta_card2_desc">C'est toi qui décides si ce projet existe. Chaque contribution, même petite, compte.</p>
+        <h3 data-i18n="cta_card2_title">Authentique ne collecte aucune donnée.</h3>
+        <p data-i18n="cta_card2_desc">Aucun serveur. Aucun tracking.</p>
       </div>
       <div class="cta-card">
         <div class="cta-card-icon">
@@ -2791,13 +2794,12 @@ const translations = {
     s3_title: "Reels et stories protégés",
     s3_desc: "L'onglet Reels affiche un message honnête. Les stories sponsorisées sont bloquées. Tu ne vois que ce qui vient vraiment de tes amis.",
     philosophy_quote: '"Les réseaux sociaux devraient te connecter à tes amis, pas t\'<em>en éloigner</em>."',
-    philosophy_text: "Authentique ne collecte aucune donnée. Aucun serveur. Aucun tracking. Juste une fenêtre filtrée sur Instagram, tel qu'il aurait toujours dû être.",
     cta_title: 'On construit<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;ensemble.',
     cta_thanks: "Merci pour ton intérêt et ton soutien. Chaque contribution nous aide à construire l'app que Instagram aurait dû être.",
     cta_card1_title: "Zéro publicité, zéro investisseur",
     cta_card1_desc: "Authentique ne se financera jamais par la pub. Pas question de reproduire le modèle qu'on combat.",
-    cta_card2_title: "Une communauté, pas des actionnaires",
-    cta_card2_desc: "C'est toi qui décides si ce projet existe. Chaque contribution, même petite, compte.",
+    cta_card2_title: "Authentique ne collecte aucune donnée.",
+    cta_card2_desc: "Aucun serveur. Aucun tracking.",
     cta_card3_title: "100% gratuit pour toujours",
     cta_card3_desc: "Kickstarter nous permet de financer le développement sans jamais facturer l'app.",
     cta_prompt: "Tu as une idée, une question ou une suggestion ? On veut l'entendre.",
@@ -2906,13 +2908,12 @@ const translations = {
     s3_title: "Reels and stories protected",
     s3_desc: "The Reels tab shows an honest message. Sponsored stories are blocked. You only see what truly comes from your friends.",
     philosophy_quote: '"Social media should connect you to your friends, not <em>push you away</em> from them."',
-    philosophy_text: "Authentique collects no data. No server. No tracking. Just a filtered window into Instagram, as it should always have been.",
     cta_title: 'We are building<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;together.',
     cta_thanks: "Thank you for your interest and support. Every contribution helps us build the app Instagram should have been.",
     cta_card1_title: "Zero ads, zero investors",
     cta_card1_desc: "Authentique will never be funded by advertising. We won't reproduce the model we're fighting against.",
-    cta_card2_title: "A community, not shareholders",
-    cta_card2_desc: "You decide whether this project exists. Every contribution, even small, matters.",
+    cta_card2_title: "Authentique collects no data.",
+    cta_card2_desc: "No server. No tracking.",
     cta_card3_title: "100% free forever",
     cta_card3_desc: "Kickstarter lets us fund development without ever charging for the app.",
     cta_prompt: "Got an idea, a question or a suggestion? We want to hear it.",
@@ -3021,13 +3022,12 @@ const translations = {
     s3_title: "Reels e historias protegidas",
     s3_desc: "La pestaña Reels muestra un mensaje honesto. Las historias patrocinadas están bloqueadas.",
     philosophy_quote: '"Las redes sociales deberían conectarte con tus amigos, no <em>alejarte</em> de ellos."',
-    philosophy_text: "Authentique no recopila ningún dato. Sin servidor. Sin seguimiento. Solo una ventana filtrada a Instagram, como siempre debió haber sido.",
     cta_title: 'Construimos<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;juntos.',
     cta_thanks: "Gracias por tu interés y tu apoyo. Cada contribución nos ayuda a construir la app que Instagram debería haber sido.",
     cta_card1_title: "Cero publicidad, cero inversores",
     cta_card1_desc: "Authentique nunca se financiará con publicidad. No vamos a reproducir el modelo contra el que luchamos.",
-    cta_card2_title: "Una comunidad, no accionistas",
-    cta_card2_desc: "Tú decides si este proyecto existe. Cada contribución, incluso pequeña, cuenta.",
+    cta_card2_title: "Authentique no recopila ningún dato.",
+    cta_card2_desc: "Sin servidor. Sin seguimiento.",
     cta_card3_title: "100% gratuito para siempre",
     cta_card3_desc: "Kickstarter nos permite financiar el desarrollo sin cobrar nunca por la app.",
     cta_prompt: "¿Tienes una idea, una pregunta o una sugerencia? Queremos escucharla.",
@@ -3136,13 +3136,12 @@ const translations = {
     s3_title: "Reels e storie protetti",
     s3_desc: "La scheda Reels mostra un messaggio onesto. Le storie sponsorizzate sono bloccate. Vedi solo ciò che viene davvero dai tuoi amici.",
     philosophy_quote: '"I social media dovrebbero connetterti ai tuoi amici, non <em>allontanarti</em> da loro."',
-    philosophy_text: "Authentique non raccoglie nessun dato. Nessun server. Nessun tracciamento. Solo una finestra filtrata su Instagram, come avrebbe sempre dovuto essere.",
     cta_title: 'Costruiamo<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;insieme.',
     cta_thanks: "Grazie per il tuo interesse e il tuo supporto. Ogni contributo ci aiuta a costruire l'app che Instagram avrebbe dovuto essere.",
     cta_card1_title: "Zero pubblicità, zero investitori",
     cta_card1_desc: "Authentique non sarà mai finanziata dalla pubblicità. Non riprodurremo il modello che combattiamo.",
-    cta_card2_title: "Una comunità, non azionisti",
-    cta_card2_desc: "Sei tu a decidere se questo progetto esiste. Ogni contributo, anche piccolo, conta.",
+    cta_card2_title: "Authentique non raccoglie alcun dato.",
+    cta_card2_desc: "Nessun server. Nessun tracciamento.",
     cta_card3_title: "100% gratuito per sempre",
     cta_card3_desc: "Kickstarter ci permette di finanziare lo sviluppo senza mai far pagare l'app.",
     cta_prompt: "Hai un'idea, una domanda o un suggerimento? Vogliamo sentirlo.",
@@ -3251,13 +3250,12 @@ const translations = {
     s3_title: "Reels e stories protegidos",
     s3_desc: "O separador Reels mostra uma mensagem honesta. Os stories patrocinados estão bloqueados. Só vês o que vem realmente dos teus amigos.",
     philosophy_quote: '"As redes sociais deviam conectar-te aos teus amigos, não <em>afastar-te</em> deles."',
-    philosophy_text: "O Authentique não recolhe nenhum dado. Sem servidor. Sem rastreio. Apenas uma janela filtrada para o Instagram, como sempre deveria ter sido.",
     cta_title: 'Construímos<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;juntos.',
     cta_thanks: "Obrigado pelo teu interesse e apoio. Cada contribuição ajuda-nos a construir a app que o Instagram devia ter sido.",
     cta_card1_title: "Zero publicidade, zero investidores",
     cta_card1_desc: "O Authentique nunca será financiado por publicidade. Não vamos reproduzir o modelo que combatemos.",
-    cta_card2_title: "Uma comunidade, não acionistas",
-    cta_card2_desc: "És tu que decides se este projeto existe. Cada contribuição, mesmo pequena, conta.",
+    cta_card2_title: "O Authentique não recolhe nenhum dado.",
+    cta_card2_desc: "Sem servidor. Sem rastreio.",
     cta_card3_title: "100% gratuito para sempre",
     cta_card3_desc: "O Kickstarter permite-nos financiar o desenvolvimento sem nunca cobrar pela app.",
     cta_prompt: "Tens uma ideia, uma pergunta ou uma sugestão? Queremos ouvi-la.",
@@ -3366,13 +3364,12 @@ const translations = {
     s3_title: "Reels и истории защищены",
     s3_desc: "Вкладка Reels показывает честное сообщение. Спонсированные истории заблокированы.",
     philosophy_quote: '"Социальные сети должны соединять тебя с друзьями, а не <em>отдалять</em> от них."',
-    philosophy_text: "Authentique не собирает данных. Никаких серверов. Никакой слежки. Только отфильтрованное окно в Instagram, каким он всегда должен был быть.",
     cta_title: 'Мы создаём<br><span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;padding:0 6px;">Authentique</span>&nbsp;вместе.',
     cta_thanks: "Спасибо за интерес и поддержку. Каждый вклад помогает нам создать приложение, которым должен был быть Instagram.",
     cta_card1_title: "Ноль рекламы, ноль инвесторов",
     cta_card1_desc: "Authentique никогда не будет финансироваться за счёт рекламы. Мы не воспроизведём модель, с которой боремся.",
-    cta_card2_title: "Сообщество, не акционеры",
-    cta_card2_desc: "Ты решаешь, существует ли этот проект. Каждый вклад, даже небольшой, имеет значение.",
+    cta_card2_title: "Authentique не собирает данные.",
+    cta_card2_desc: "Без сервера. Без отслеживания.",
     cta_card3_title: "100% бесплатно навсегда",
     cta_card3_desc: "Kickstarter позволяет нам финансировать разработку, никогда не взимая плату за приложение.",
     cta_prompt: "У тебя есть идея, вопрос или предложение? Мы хотим услышать.",
