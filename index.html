@@ -1799,6 +1799,15 @@ section { padding: 120px 24px; position: relative; }
   color: #141414;
   font-size: clamp(16px, 2vw, 24px);
   line-height: 1.2;
+  /* min-height : reserve la place de 2 lignes (= 2 * line-height en
+     em) meme pour les titres qui n'en font qu'une. Sans ca, les
+     descriptions en dessous demarrent a des Y differents selon la
+     hauteur reelle du titre, ce qui casse l'alignement horizontal
+     entre les 3 cartes. */
+  min-height: calc(2 * 1.2em);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .cta-card p {
   margin: 0;
