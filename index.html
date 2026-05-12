@@ -1777,7 +1777,15 @@ section { padding: 120px 24px; position: relative; }
    IntersectionObserver (cf. IIFE en bas du script). */
 .cta-stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  /* minmax(0, 1fr) au lieu de 1fr : sans le min:0 explicite, chaque
+     colonne 1fr est en realite minmax(auto, 1fr) — son min-content
+     depend de la largeur du compteur a l'interieur. "100" (3 chars)
+     a un min-content > "0%" (2 chars), donc les 3 colonnes finissent
+     a des largeurs DIFFERENTES. Et pendant l'animation, le min-content
+     recalcule a chaque tick (text change) → cards qui jitter en
+     largeur. minmax(0, 1fr) force la distribution equitable
+     independamment du contenu. */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 32px;
   width: 100%;
   max-width: 1000px;
@@ -1962,7 +1970,7 @@ footer {
   .nav-cta { padding: 9px 16px; font-size: 13px; }
   section { padding: 80px 20px; }
   .section-problem .problem-grid { grid-template-columns: 1fr; gap: 48px; }
-  .cta-cards { grid-template-columns: 1fr; }
+  .cta-stats { grid-template-columns: 1fr; }
   /* Sticky scroll mobile : phones EN HAUT, titre + texte EN BAS.
      Evite que le titre soit coupe par le header sticky qui descend
      dans le viewport. */
