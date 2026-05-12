@@ -1778,6 +1778,10 @@ section { padding: 120px 24px; position: relative; }
   max-width: 1000px;
 }
 .cta-stat {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -1822,13 +1826,10 @@ section { padding: 120px 24px; position: relative; }
 .cta-stat h3 {
   margin: 0;
   color: var(--text);
-  font-size: clamp(15px, 1.5vw, 18px);
-  font-weight: 500;
-  letter-spacing: 0;
+  font-size: clamp(16px, 1.8vw, 20px);
   line-height: 1.2;
-  /* Famille systeme : on veut un petit label sobre, pas un titre
-     GrosVentre qui rivaliserait avec le compteur au-dessus. */
-  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* font-family/weight/letter-spacing herites de la regle globale
+     h1, h2, h3 (GrosVentre, 400, -0.5px). */
 }
 .cta-stat p {
   margin: 0;
