@@ -756,7 +756,7 @@ section { padding: 120px 24px; position: relative; }
   max-width: 600px;
   width: 100%;
   text-align: center;
-  margin: 0 auto;
+  margin: 56px auto 0;
   flex-shrink: 0;            /* dans le flex column de sticky-inner */
 }
 .control-continuation h3 {
@@ -1163,14 +1163,14 @@ section { padding: 120px 24px; position: relative; }
 /* Nouveau settings mockup : structure fidele a l'app Authentique. */
 .settings-mockup { padding: 3.2em 0.9em 0; overflow: hidden; }
 .sm-wordmark {
-  display: flex; align-items: center; gap: 0.6em;
-  justify-content: center; margin-bottom: 0.7em;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 0.25em; margin-bottom: 0.7em;
 }
+.sm-wordmark-main { display: flex; align-items: center; gap: 0.45em; }
 .sm-logo-svg {
   width: 2.6em; height: 2.6em; border-radius: 50%;
   flex-shrink: 0; overflow: hidden;
 }
-.sm-wordmark-text { display: flex; flex-direction: column; }
 .sm-app-name {
   font-family: 'GrosVentre', -apple-system, sans-serif;
   font-size: 1.25em; font-weight: 300; color: #1c1c1a;
@@ -2303,14 +2303,14 @@ footer {
                 <div class="settings-mockup">
                   <!-- Wordmark -->
                   <div class="sm-wordmark">
-                    <svg class="sm-logo-svg" viewBox="0 0 200 200" aria-hidden="true">
-                      <circle cx="100" cy="100" r="100" fill="url(#authGrad)"/>
-                      <path d="M 45,162 L 63,93 Q 74,55 100,55 Q 126,55 137,93 L 155,162" fill="none" stroke="#fff" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <div class="sm-wordmark-text">
+                    <div class="sm-wordmark-main">
+                      <svg class="sm-logo-svg" viewBox="0 0 200 200" aria-hidden="true">
+                        <circle cx="100" cy="100" r="100" fill="url(#authGrad)"/>
+                        <path d="M 50,157 L 66,94 Q 76,60 100,60 Q 124,60 134,94 L 150,157" fill="none" stroke="#fff" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
                       <span class="sm-app-name">Authentique</span>
-                      <span class="sm-app-tagline" data-i18n="sm_tagline">Instagram, sans les pubs.</span>
                     </div>
+                    <span class="sm-app-tagline" data-i18n="sm_tagline">Instagram, sans les pubs.</span>
                   </div>
                   <!-- Label groupe -->
                   <div class="sm-group-label" data-i18n="sm_group_label">Choisir quoi masquer</div>
@@ -2402,8 +2402,7 @@ footer {
               </svg>
               <h3 data-i18n="f1_title">Stories sponsorisées</h3>
             </div>
-            <p data-i18n="f1_desc">Les stories sponsorisées disparaissent de ta barre. Tu ne vois que les stories des gens que tu suis.</p>
-            <div class="feature-step-on" data-i18n="toggle_on_stories">Pour des stories vraiment choisies.</div>
+            <p data-i18n="f1_desc">Les stories sponsorisées sont remplacées par un message <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;">Authentique</span>.</p>
           </div>
           <!-- Step 1 : Publications sponsorisees. -->
           <div class="features-step" data-step="1" data-toggle="settings_label_sponsored">
@@ -2456,15 +2455,12 @@ footer {
           <!-- Step 5 : Bloquer le Doom-scrolling. -->
           <div class="features-step" data-step="5" data-toggle="settings_label_scroll">
             <div class="features-step-head">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="12" y1="4" x2="12" y2="14"/>
-                <polyline points="7 10 12 14 17 10"/>
-                <line x1="4" y1="20" x2="20" y2="20"/>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round">
+                <path d="M12 12 m0-7 a7 7 0 1 1-0.01 0 m0 2 a5 5 0 1 0 0.01 0 m0 2 a3 3 0 1 1-0.01 0 m0 2 a1 1 0 1 0 0.01 0"/>
               </svg>
               <h3 data-i18n="f6_title">Bloquer le Doom-scrolling</h3>
             </div>
-            <p data-i18n="f6_desc">Bloque le scroll vers les Reels suivants lors de la lecture d'un Reel reçu par DM et dans l'onglet Recherche.</p>
-            <div class="feature-step-on" data-i18n="toggle_on_scroll">Pour reprendre le contrôle de ton temps.</div>
+            <p data-i18n="f6_desc">Empêche de passer au contenu suivant lors de l'ouverture d'un Post/Reels.</p>
           </div>
         </div>
       </div>
@@ -2911,7 +2907,7 @@ const translations = {
     features_title: 'Choisir quoi <span class="authentique-gradient-text">masquer</span>.',
     features_sub: "Chaque fonctionnalité a été pensée pour te redonner le contrôle de ton expérience Instagram.",
     f1_title: "Stories sponsorisées",
-    f1_desc: "Les stories sponsorisées disparaissent de ta barre. Tu ne vois que les stories des gens que tu suis.",
+    f1_desc: 'Les stories sponsorisées sont remplacées par un message <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;">Authentique</span>.',
     f2_title: "Publications sponsorisées",
     f2_desc: "Les publications sponsorisées et bandeaux publicitaires disparaissent automatiquement de ton fil.",
     f3_title: "Mode niveaux de gris",
@@ -2921,7 +2917,7 @@ const translations = {
     f5_title: "Les suggestions",
     f5_desc: "La grille de suggestions disparaît de l'onglet Recherche. Seule la barre de recherche reste.",
     f6_title: "Bloquer le Doom-scrolling",
-    f6_desc: "Bloque le scroll vers les Reels suivants lors de la lecture d'un Reel reçu par DM et dans l'onglet Recherche.",
+    f6_desc: "Empêche de passer au contenu suivant lors de l'ouverture d'un Post/Reels.",
     f7_title: "Publications suggérées",
     f7_desc: "Les suggestions «Pour vous» et contenus algorithmiques disparaissent de ton fil.",
     f8_title: "Suggestions de comptes",
@@ -3042,7 +3038,7 @@ const translations = {
     features_title: 'Choose what to <span class="authentique-gradient-text">hide</span>.',
     features_sub: "Every feature was designed to give you back control of your Instagram experience.",
     f1_title: "Sponsored stories",
-    f1_desc: "Sponsored stories disappear from your bar. You only see stories from the people you follow.",
+    f1_desc: 'Sponsored stories are replaced by an <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;">Authentique</span> message.',
     f2_title: "Sponsored posts",
     f2_desc: "Sponsored posts and ad banners disappear automatically from your feed.",
     f3_title: "Grayscale mode",
@@ -3052,7 +3048,7 @@ const translations = {
     f5_title: "Suggestions",
     f5_desc: "The suggestion grid disappears from the Search tab. Only the search bar remains.",
     f6_title: "Block Doom-scrolling",
-    f6_desc: "Blocks scrolling to the next Reels when watching a Reel received in DMs and in the Search tab.",
+    f6_desc: "Prevents switching to the next content when opening a Post or Reel.",
     f7_title: "Suggested posts",
     f7_desc: "«For you» suggestions and algorithmic content disappear from your feed.",
     f8_title: "Account suggestions",
@@ -3173,7 +3169,7 @@ const translations = {
     features_title: 'Elige qué <span class="authentique-gradient-text">ocultar</span>.',
     features_sub: "Cada función fue diseñada para darte de vuelta el control de tu experiencia en Instagram.",
     f1_title: "Stories patrocinadas",
-    f1_desc: "Las stories patrocinadas desaparecen de tu barra. Solo ves las stories de las personas que sigues.",
+    f1_desc: 'Las stories patrocinadas son reemplazadas por un mensaje <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;">Authentique</span>.',
     f2_title: "Publicaciones patrocinadas",
     f2_desc: "Las publicaciones patrocinadas y banners publicitarios desaparecen automáticamente de tu feed.",
     f3_title: "Modo escala de grises",
@@ -3183,7 +3179,7 @@ const translations = {
     f5_title: "Las sugerencias",
     f5_desc: "La cuadrícula de sugerencias desaparece de la pestaña Búsqueda. Solo queda la barra de búsqueda.",
     f6_title: "Bloquear el Doom-scrolling",
-    f6_desc: "Bloquea el scroll hacia los siguientes Reels al ver un Reel recibido en los DM y en la pestaña Búsqueda.",
+    f6_desc: "Impide pasar al contenido siguiente al abrir un Post o Reel.",
     f7_title: "Publicaciones sugeridas",
     f7_desc: "Las sugerencias «Para ti» y el contenido algorítmico desaparecen de tu feed.",
     f8_title: "Sugerencias de cuentas",
@@ -3304,7 +3300,7 @@ const translations = {
     features_title: 'Scegli cosa <span class="authentique-gradient-text">nascondere</span>.',
     features_sub: "Ogni funzione è stata progettata per restituirti il controllo della tua esperienza Instagram.",
     f1_title: "Storie sponsorizzate",
-    f1_desc: "Le storie sponsorizzate spariscono dalla tua barra. Vedi solo le storie delle persone che segui.",
+    f1_desc: 'Le storie sponsorizzate vengono sostituite da un messaggio <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;">Authentique</span>.',
     f2_title: "Pubblicazioni sponsorizzate",
     f2_desc: "I post sponsorizzati e i banner pubblicitari spariscono automaticamente dal tuo feed.",
     f3_title: "Modalità scala di grigi",
@@ -3314,7 +3310,7 @@ const translations = {
     f5_title: "I suggerimenti",
     f5_desc: "La griglia di suggerimenti sparisce dalla scheda Cerca. Resta solo la barra di ricerca.",
     f6_title: "Blocca il Doom-scrolling",
-    f6_desc: "Blocca lo scroll verso i Reels successivi quando guardi un Reel ricevuto nei DM e nella scheda Cerca.",
+    f6_desc: "Impedisce di passare al contenuto successivo all'apertura di un Post o Reel.",
     f7_title: "Post suggeriti",
     f7_desc: "I suggerimenti «Per te» e i contenuti algoritmici spariscono dal tuo feed.",
     f8_title: "Suggerimenti account",
@@ -3435,7 +3431,7 @@ const translations = {
     features_title: 'Escolhe o que <span class="authentique-gradient-text">esconder</span>.',
     features_sub: "Cada funcionalidade foi pensada para te devolver o controlo da tua experiência no Instagram.",
     f1_title: "Stories patrocinados",
-    f1_desc: "Os stories patrocinados desaparecem da tua barra. Só vês os stories das pessoas que segues.",
+    f1_desc: 'Os stories patrocinados são substituídos por uma mensagem <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;">Authentique</span>.',
     f2_title: "Publicações patrocinadas",
     f2_desc: "As publicações patrocinadas e banners publicitários desaparecem automaticamente do teu feed.",
     f3_title: "Modo escala de cinza",
@@ -3445,7 +3441,7 @@ const translations = {
     f5_title: "As sugestões",
     f5_desc: "A grelha de sugestões desaparece do separador Pesquisa. Só fica a barra de pesquisa.",
     f6_title: "Bloquear o Doom-scrolling",
-    f6_desc: "Bloqueia o scroll para os próximos Reels ao ver um Reel recebido nos DMs e no separador Pesquisa.",
+    f6_desc: "Impede de passar para o próximo conteúdo ao abrir um Post ou Reel.",
     f7_title: "Publicações sugeridas",
     f7_desc: "As sugestões «Para ti» e os conteúdos algorítmicos desaparecem do teu feed.",
     f8_title: "Sugestões de contas",
@@ -3566,7 +3562,7 @@ const translations = {
     features_title: 'Выбери, что <span class="authentique-gradient-text">скрыть</span>.',
     features_sub: "Каждая функция разработана для того, чтобы вернуть тебе контроль над Instagram.",
     f1_title: "Рекламные истории",
-    f1_desc: "Рекламные истории исчезают из панели. Ты видишь только истории людей, на которых подписан.",
+    f1_desc: 'Рекламные истории заменяются сообщением <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;">Authentique</span>.',
     f2_title: "Рекламные публикации",
     f2_desc: "Спонсированные посты и рекламные баннеры автоматически исчезают из ленты.",
     f3_title: "Режим оттенков серого",
@@ -3576,7 +3572,7 @@ const translations = {
     f5_title: "Рекомендации",
     f5_desc: "Сетка рекомендаций исчезает из вкладки Поиск. Остаётся только строка поиска.",
     f6_title: "Блокировать Doom-scrolling",
-    f6_desc: "Блокирует прокрутку к следующим Reels при просмотре Reel, полученного в DM, и во вкладке Поиск.",
+    f6_desc: "Не позволяет переходить к следующему контенту при открытии поста или Reel.",
     f7_title: "Рекомендуемые посты",
     f7_desc: "Рекомендации «Для вас» и алгоритмический контент исчезают из ленты.",
     f8_title: "Предложения аккаунтов",
