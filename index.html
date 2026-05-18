@@ -1860,15 +1860,14 @@ section { padding: 120px 24px; position: relative; }
   line-height: 1;
   font-weight: 400;
   letter-spacing: -1px;
-  margin-bottom: 8px;
   /* min-height preserve les dimensions des cadres independamment de
      la taille de la typo. flex-end colle le numero vers le bas du
-     cadre, juste au-dessus du titre (au lieu de centre). */
+     cadre. Pas de margin/padding : le gap:8px du parent assure un
+     espace numero→titre identique a l'espace titre→description. */
   min-height: clamp(56px, 8vw, 96px);
   display: inline-flex;
   align-items: flex-end;
   justify-content: center;
-  padding-bottom: 10px;
 }
 .cta-counter-layer {
   display: block;
@@ -1883,7 +1882,6 @@ section { padding: 120px 24px; position: relative; }
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding-bottom: 10px;
   opacity: 0;
   background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%);
   -webkit-background-clip: text;
