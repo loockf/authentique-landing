@@ -1862,10 +1862,11 @@ section { padding: 120px 24px; position: relative; }
   letter-spacing: -1px;
   margin-bottom: 8px;
   /* min-height preserve les dimensions des cadres independamment de
-     la taille de la typo. inline-flex centre le texte verticalement. */
+     la taille de la typo. flex-end colle le numero vers le bas du
+     cadre, juste au-dessus du titre (au lieu de centre). */
   min-height: clamp(56px, 8vw, 96px);
   display: inline-flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
 }
 .cta-counter-layer {
