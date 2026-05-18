@@ -1160,6 +1160,52 @@ section { padding: 120px 24px; position: relative; }
 .settings-switch.is-on { background: #19d382; }
 .settings-switch.is-on::after { transform: translateX(1.08em); }
 
+/* Nouveau settings mockup : structure fidele a l'app Authentique. */
+.settings-mockup { padding: 2.2em 0.9em 0; overflow: hidden; }
+.sm-wordmark {
+  display: flex; align-items: center; gap: 0.6em;
+  justify-content: center; margin-bottom: 0.7em;
+}
+.sm-logo-svg {
+  width: 2.6em; height: 2.6em; border-radius: 50%;
+  flex-shrink: 0; overflow: hidden;
+}
+.sm-wordmark-text { display: flex; flex-direction: column; }
+.sm-app-name {
+  font-size: 1.25em; font-weight: 300; color: #1c1c1a;
+  letter-spacing: -0.2px; line-height: 1.1;
+}
+.sm-app-tagline { font-size: 0.64em; color: #9c9a93; margin-top: 0.2em; }
+.sm-group-label {
+  font-size: 0.68em; font-weight: 600; color: #19d382;
+  text-transform: uppercase; letter-spacing: 0.8px;
+  text-align: center; margin-bottom: 0.6em;
+}
+.sm-section {
+  background: #fff; border-radius: 0.85em;
+  border: 1px solid rgba(20,20,20,0.06);
+  overflow: hidden; margin-bottom: 0.55em;
+}
+.sm-section-head {
+  display: flex; align-items: center; gap: 0.5em;
+  padding: 0.42em 0.7em;
+  border-bottom: 1px solid rgba(20,20,20,0.06);
+}
+.sm-section-icon { width: 1.25em; height: 1.25em; flex-shrink: 0; overflow: visible; display: block; }
+.sm-section-title {
+  font-size: 0.6em; font-weight: 600; color: #6b6a65;
+  letter-spacing: 0.8px; text-transform: uppercase;
+}
+.sm-row {
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 0.4em;
+  padding: 0.5em 0.7em;
+  border-bottom: 1px solid rgba(20,20,20,0.06);
+}
+.sm-row:last-child { border-bottom: none; }
+.sm-row .settings-label { font-size: 0.75em; padding: 0; }
+.sm-sep { display: flex; justify-content: center; padding: 0.15em 0 0.25em; }
+
 /* Track interne du feed scrollant pour les mockups iphone (s1). */
 .iphone-screen--demo .phone-feed-track {
   display: flex;
@@ -2244,7 +2290,7 @@ footer {
       <div class="features-content-block">
       <div class="features-header reveal">
         <p class="section-label" data-i18n="features_label">La solution</p>
-        <h2 data-i18n="features_title">Tu choisis. Tu <span class="authentique-gradient-text">contrôles</span>.</h2>
+        <h2 data-i18n="features_title">Choisir quoi <span class="authentique-gradient-text">masquer</span>.</h2>
         <p data-i18n="features_sub">Chaque fonctionnalité a été pensée pour te redonner le contrôle de ton expérience Instagram.</p>
       </div>
       <div class="features-sticky-group">
@@ -2254,30 +2300,114 @@ footer {
               <div class="iphone-dynamic-island"></div>
               <div class="iphone-screen iphone-screen--light iphone-screen--settings">
                 <div class="settings-mockup">
-                  <div class="settings-title" data-i18n="settings_title">Paramètres</div>
-                  <div class="settings-list">
-                    <div class="settings-row">
-                      <span class="settings-label" data-i18n="settings_label_sponsored">Masquer les posts sponsorisés</span>
-                      <span class="settings-switch" aria-hidden="true"></span>
+                  <!-- Wordmark -->
+                  <div class="sm-wordmark">
+                    <svg class="sm-logo-svg" viewBox="0 0 200 200" aria-hidden="true">
+                      <circle cx="100" cy="100" r="100" fill="url(#authGrad)"/>
+                      <path d="M 28,178 L 52,88 Q 66,38 100,38 Q 134,38 148,88 L 172,178" fill="none" stroke="#fff" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div class="sm-wordmark-text">
+                      <span class="sm-app-name">Authentique</span>
+                      <span class="sm-app-tagline">Instagram, sans les pubs.</span>
                     </div>
-                    <div class="settings-row">
-                      <span class="settings-label" data-i18n="settings_label_accounts">Masquer les suggestions de comptes</span>
-                      <span class="settings-switch" aria-hidden="true"></span>
+                  </div>
+                  <!-- Label groupe -->
+                  <div class="sm-group-label">Choisir quoi masquer</div>
+                  <!-- STORIES -->
+                  <div class="sm-section">
+                    <div class="sm-section-head">
+                      <svg class="sm-section-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <circle cx="12" cy="12" r="5.5" stroke="#c8c7c2" stroke-width="1.8"/>
+                        <circle cx="12" cy="12" r="10.5" stroke="url(#authGrad)" stroke-width="1.8"/>
+                      </svg>
+                      <span class="sm-section-title">STORIES</span>
                     </div>
-                    <div class="settings-row">
-                      <span class="settings-label" data-i18n="settings_label_reels">Masquer les Reels</span>
-                      <span class="settings-switch" aria-hidden="true"></span>
+                    <div class="sm-row">
+                      <span class="settings-label" data-i18n="settings_label_stories">Stories sponsorisées</span>
+                      <span class="settings-switch is-on" aria-hidden="true"></span>
                     </div>
-                    <div class="settings-row">
-                      <span class="settings-label" data-i18n="settings_label_stories">Masquer les stories sponsorisées</span>
-                      <span class="settings-switch" aria-hidden="true"></span>
+                  </div>
+                  <!-- FIL D'ACTUALITÉ -->
+                  <div class="sm-section">
+                    <div class="sm-section-head">
+                      <svg class="sm-section-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-5h-6v5H4a1 1 0 0 1-1-1v-9.5z" stroke="url(#authGrad)" stroke-width="1.8" stroke-linejoin="round"/>
+                      </svg>
+                      <span class="sm-section-title">FIL D'ACTUALITÉ</span>
                     </div>
-                    <div class="settings-row">
-                      <span class="settings-label" data-i18n="settings_label_scroll">Bloquer le scroll infini</span>
-                      <span class="settings-switch" aria-hidden="true"></span>
+                    <div class="sm-row">
+                      <span class="settings-label" data-i18n="settings_label_sponsored">Publications sponsorisées</span>
+                      <span class="settings-switch is-on" aria-hidden="true"></span>
                     </div>
-                    <div class="settings-row">
-                      <span class="settings-label" data-i18n="settings_label_search">Section Recherche épurée</span>
+                    <div class="sm-row">
+                      <span class="settings-label">Publications suggérées</span>
+                      <span class="settings-switch is-on" aria-hidden="true"></span>
+                    </div>
+                    <div class="sm-row">
+                      <span class="settings-label">Suggestions de comptes</span>
+                      <span class="settings-switch is-on" aria-hidden="true"></span>
+                    </div>
+                    <div class="sm-row">
+                      <span class="settings-label">Reposts</span>
+                      <span class="settings-switch is-on" aria-hidden="true"></span>
+                    </div>
+                  </div>
+                  <!-- RECHERCHE -->
+                  <div class="sm-section">
+                    <div class="sm-section-head">
+                      <svg class="sm-section-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <circle cx="10.5" cy="10.5" r="7.5" stroke="url(#authGrad)" stroke-width="1.8"/>
+                        <line x1="16.5" y1="16.5" x2="22" y2="22" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round"/>
+                      </svg>
+                      <span class="sm-section-title">RECHERCHE</span>
+                    </div>
+                    <div class="sm-row">
+                      <span class="settings-label" data-i18n="settings_label_search">Les suggestions</span>
+                      <span class="settings-switch is-on" aria-hidden="true"></span>
+                    </div>
+                  </div>
+                  <!-- REELS -->
+                  <div class="sm-section">
+                    <div class="sm-section-head">
+                      <svg class="sm-section-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <rect x="2" y="2" width="20" height="20" rx="5" stroke="url(#authGrad)" stroke-width="1.8"/>
+                        <polygon points="9.5,8 9.5,16 17,12" stroke="url(#authGrad)" stroke-width="1.4" stroke-linejoin="round" fill="url(#authGrad)"/>
+                      </svg>
+                      <span class="sm-section-title">REELS</span>
+                    </div>
+                    <div class="sm-row">
+                      <span class="settings-label" data-i18n="settings_label_reels">Les Reels</span>
+                      <span class="settings-switch is-on" aria-hidden="true"></span>
+                    </div>
+                  </div>
+                  <!-- Séparateur -->
+                  <div class="sm-sep" aria-hidden="true">
+                    <svg width="60%" height="1" viewBox="0 0 100 1" preserveAspectRatio="none">
+                      <defs>
+                        <linearGradient id="smSepGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                          <stop offset="0%" stop-color="#19d382" stop-opacity="0"/>
+                          <stop offset="50%" stop-color="#19d382" stop-opacity="1"/>
+                          <stop offset="100%" stop-color="#19d382" stop-opacity="0"/>
+                        </linearGradient>
+                      </defs>
+                      <rect x="0" y="0" width="100" height="1" fill="url(#smSepGrad)"/>
+                    </svg>
+                  </div>
+                  <!-- INTERFACE -->
+                  <div class="sm-section">
+                    <div class="sm-section-head">
+                      <svg class="sm-section-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <circle cx="12" cy="12" r="3.2" stroke="url(#authGrad)" stroke-width="1.8"/>
+                        <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="url(#authGrad)" stroke-width="1.6" stroke-linecap="round"/>
+                      </svg>
+                      <span class="sm-section-title">INTERFACE</span>
+                    </div>
+                    <div class="sm-row">
+                      <span class="settings-label" data-i18n="settings_label_scroll">Bloquer le Doom-scrolling</span>
+                      <span class="settings-switch is-on" aria-hidden="true"></span>
+                    </div>
+                    <div class="sm-row">
+                      <span class="settings-label" data-i18n="settings_label_grayscale">Mode niveaux de gris</span>
                       <span class="settings-switch" aria-hidden="true"></span>
                     </div>
                   </div>
@@ -2290,24 +2420,25 @@ footer {
           <!-- Step 0 : sponsorises. Pas d'is-active en HTML : l'IIFE
                ci-dessous met l'etat initial a "rien d'actif" tant que
                la section n'est pas sticky-engaged. -->
-          <div class="features-step" data-step="0" data-toggle="settings_label_sponsored">
+          <div class="features-step" data-step="0" data-toggle="settings_label_stories">
             <div class="features-step-head">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+                <circle cx="12" cy="12" r="5.5" stroke="#c8c7c2"/>
+                <circle cx="12" cy="12" r="10.5"/>
               </svg>
-              <h3 data-i18n="f1_title">Masquer les posts sponsorisés</h3>
+              <h3 data-i18n="f1_title">Stories sponsorisées</h3>
             </div>
             <p data-i18n="f1_desc">Les publications sponsorisées et bandeaux publicitaires disparaissent automatiquement de ton fil.</p>
             <div class="feature-step-on" data-i18n="toggle_on_sponsored">Pour un fil plus Authentique.</div>
           </div>
           <!-- Step 1 : suggestions de comptes. -->
-          <div class="features-step" data-step="1" data-toggle="settings_label_accounts">
+          <div class="features-step" data-step="1" data-toggle="settings_label_sponsored">
             <div class="features-step-head">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
               </svg>
-              <h3 data-i18n="f2_title">Masquer les suggestions de comptes</h3>
+              <h3 data-i18n="f2_title">Publications sponsorisées</h3>
             </div>
             <p data-i18n="f2_desc">Les suggestions «Pour vous» et comptes algorithmiques sont filtrés. Tu ne vois que les gens que tu suis.</p>
             <div class="feature-step-on" data-i18n="toggle_on_accounts">Pour mieux profiter de tes amis.</div>
@@ -2317,23 +2448,22 @@ footer {
           <div class="features-step" data-step="2" data-toggle="settings_label_reels">
             <div class="features-step-head">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
-                <line x1="7" y1="2" x2="7" y2="22"/>
-                <line x1="17" y1="2" x2="17" y2="22"/>
-                <line x1="2" y1="12" x2="22" y2="12"/>
+                <rect x="2" y="2" width="20" height="20" rx="5"/>
+                <polygon points="9.5,8 9.5,16 17,12" stroke="url(#authGrad)" stroke-width="1.4" fill="url(#authGrad)" stroke-linejoin="round"/>
               </svg>
-              <h3 data-i18n="f4_title">Masquer les Reels</h3>
+              <h3 data-i18n="f4_title">Les Reels</h3>
             </div>
             <p data-i18n="f4_desc">L'onglet Reels est remplacé par un message clair.<br>Les Reels de tes amis restent dans ton fil.</p>
             <div class="feature-step-on" data-i18n="toggle_on_reels">Pour éviter les distractions.</div>
           </div>
           <!-- Step 3 : Stories sponsorisees. Icone bouclier (de f5). -->
-          <div class="features-step" data-step="3" data-toggle="settings_label_stories">
+          <div class="features-step" data-step="3" data-toggle="settings_label_search">
             <div class="features-step-head">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <circle cx="10.5" cy="10.5" r="7.5"/>
+                <line x1="16.5" y1="16.5" x2="22" y2="22"/>
               </svg>
-              <h3 data-i18n="f5_title">Masquer les stories sponsorisées</h3>
+              <h3 data-i18n="f5_title">Les suggestions</h3>
             </div>
             <p data-i18n="f5_desc">Les stories sponsorisées disparaissent de ta barre.<br>Tu ne vois que les stories des gens que tu suis.</p>
             <div class="feature-step-on" data-i18n="toggle_on_stories">Pour des stories vraiment choisies.</div>
@@ -2346,19 +2476,20 @@ footer {
                 <polyline points="7 10 12 14 17 10"/>
                 <line x1="4" y1="20" x2="20" y2="20"/>
               </svg>
-              <h3 data-i18n="f6_title">Bloquer le scroll infini</h3>
+              <h3 data-i18n="f6_title">Bloquer le Doom-scrolling</h3>
             </div>
             <p data-i18n="f6_desc">Bloque le scroll vers les Reels suivants lors de la lecture d'un Reel reçu par DM et dans l'onglet Recherche.</p>
             <div class="feature-step-on" data-i18n="toggle_on_scroll">Pour reprendre le contrôle de ton temps.</div>
           </div>
           <!-- Step 5 : Section Recherche epuree. Icone loupe (de f3). -->
-          <div class="features-step" data-step="5" data-toggle="settings_label_search">
+          <div class="features-step" data-step="5" data-toggle="settings_label_grayscale">
             <div class="features-step-head">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"/>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 3v18M3 12h18" stroke-width="1.4"/>
+                <path d="M5.6 5.6a9 9 0 0 1 12.8 12.8" stroke-width="1.4"/>
               </svg>
-              <h3 data-i18n="f3_title">Section Recherche épurée</h3>
+              <h3 data-i18n="f3_title">Mode niveaux de gris</h3>
             </div>
             <p data-i18n="f3_desc">La grille de suggestions disparaît. Seule la barre de recherche reste.</p>
             <div class="feature-step-on" data-i18n="toggle_on_search">Pour se concentrer sur l'essentiel.</div>
@@ -2805,19 +2936,19 @@ const translations = {
     ally_card3_desc: "Ton feed redevient un espace que tu reconnais.",
     platforms_caption: "Bientôt disponible sur :",
     features_label: "La solution",
-    features_title: 'Tu choisis. Tu <span class="authentique-gradient-text">contrôles</span>.',
+    features_title: 'Choisir quoi <span class="authentique-gradient-text">masquer</span>.',
     features_sub: "Chaque fonctionnalité a été pensée pour te redonner le contrôle de ton expérience Instagram.",
-    f1_title: "Masquer les posts sponsorisés",
-    f1_desc: "Les publications sponsorisées et bandeaux publicitaires disparaissent automatiquement de ton fil.",
-    f2_title: "Masquer les suggestions de comptes",
-    f2_desc: 'Les suggestions «Pour vous» et comptes algorithmiques sont filtrés. Tu ne vois que les gens que tu suis.',
-    f3_title: "Section Recherche épurée",
-    f3_desc: "La grille de suggestions disparaît. Seule la barre de recherche reste.",
-    f4_title: "Masquer les Reels",
+    f1_title: "Stories sponsorisées",
+    f1_desc: "Les stories sponsorisées disparaissent de ta barre. Tu ne vois que les stories des gens que tu suis.",
+    f2_title: "Publications sponsorisées",
+    f2_desc: "Les publications sponsorisées et bandeaux publicitaires disparaissent automatiquement de ton fil.",
+    f3_title: "Mode niveaux de gris",
+    f3_desc: "Réduis la saturation de l'écran pour un usage plus conscient de l'app.",
+    f4_title: "Les Reels",
     f4_desc: "L'onglet Reels est remplacé par un message clair.<br>Les Reels de tes amis restent dans ton fil.",
-    f5_title: "Masquer les stories sponsorisées",
-    f5_desc: "Les stories sponsorisées disparaissent de ta barre.<br>Tu ne vois que les stories des gens que tu suis.",
-    f6_title: "Bloquer le scroll infini",
+    f5_title: "Les suggestions",
+    f5_desc: "La grille de suggestions disparaît de l'onglet Recherche. Seule la barre de recherche reste.",
+    f6_title: "Bloquer le Doom-scrolling",
     f6_desc: "Bloque le scroll vers les Reels suivants lors de la lecture d'un Reel reçu par DM et dans l'onglet Recherche.",
     toggle_on_sponsored: "Pour un fil plus Authentique.",
     toggle_on_accounts: "Pour mieux profiter de tes amis.",
@@ -2874,13 +3005,14 @@ const translations = {
     suggest_btn: "Envoyer",
     reels_follow_btn: "Suivre",
     settings_title: "Paramètres",
-    settings_label_sponsored: "Masquer les posts sponsorisés",
+    settings_label_sponsored: "Publications sponsorisées",
     settings_label_suggested: "Masquer les publications suggérées",
     settings_label_accounts: "Masquer les suggestions de comptes",
-    settings_label_reels: "Masquer les Reels",
-    settings_label_stories: "Masquer les stories sponsorisées",
-    settings_label_scroll: "Bloquer le scroll infini",
-    settings_label_search: "Section Recherche épurée",
+    settings_label_reels: "Les Reels",
+    settings_label_stories: "Stories sponsorisées",
+    settings_label_scroll: "Bloquer le Doom-scrolling",
+    settings_label_search: "Les suggestions",
+    settings_label_grayscale: "Mode niveaux de gris",
     search_placeholder: "Rechercher",
     search_empty_title: "Rien à voir.",
     search_empty_body: "Et c'est exactement ce qu'on voulait. Tape ce que tu cherches dans la barre ci-dessus.",
@@ -2919,19 +3051,19 @@ const translations = {
     ally_card3_desc: "Your feed becomes a space you recognize again.",
     platforms_caption: "Coming soon on:",
     features_label: "The solution",
-    features_title: 'You choose. You <span class="authentique-gradient-text">control</span>.',
+    features_title: 'Choose what to <span class="authentique-gradient-text">hide</span>.',
     features_sub: "Every feature was designed to give you back control of your Instagram experience.",
-    f1_title: "Hide sponsored posts",
-    f1_desc: "Sponsored posts and ad banners disappear automatically from your feed.",
-    f2_title: "Hide account suggestions",
-    f2_desc: '"For you" suggestions and algorithmic accounts are filtered. You only see people you follow.',
-    f3_title: "Clean Search section",
-    f3_desc: "The suggestion grid disappears. Only the search bar remains.",
-    f4_title: "Hide Reels",
+    f1_title: "Sponsored stories",
+    f1_desc: "Sponsored stories disappear from your bar. You only see stories from the people you follow.",
+    f2_title: "Sponsored posts",
+    f2_desc: "Sponsored posts and ad banners disappear automatically from your feed.",
+    f3_title: "Grayscale mode",
+    f3_desc: "Reduce screen saturation for a more conscious use of the app.",
+    f4_title: "Reels",
     f4_desc: "The Reels tab is replaced with a clear message.<br>Your friends' Reels remain in your feed.",
-    f5_title: "Hide sponsored stories",
-    f5_desc: "Sponsored stories disappear from your bar.<br>You only see stories from the people you follow.",
-    f6_title: "Block infinite scroll",
+    f5_title: "Suggestions",
+    f5_desc: "The suggestion grid disappears from the Search tab. Only the search bar remains.",
+    f6_title: "Block Doom-scrolling",
     f6_desc: "Blocks scrolling to the next Reels when watching a Reel received in DMs and in the Search tab.",
     toggle_on_sponsored: "For a more Authentique feed.",
     toggle_on_accounts: "To better enjoy your friends.",
@@ -2988,13 +3120,14 @@ const translations = {
     suggest_btn: "Send",
     reels_follow_btn: "Follow",
     settings_title: "Settings",
-    settings_label_sponsored: "Hide sponsored posts",
+    settings_label_sponsored: "Sponsored posts",
     settings_label_suggested: "Hide suggested posts",
     settings_label_accounts: "Hide account suggestions",
-    settings_label_reels: "Hide Reels",
-    settings_label_stories: "Hide sponsored stories",
-    settings_label_scroll: "Block infinite scroll",
-    settings_label_search: "Clean Search tab",
+    settings_label_reels: "Reels",
+    settings_label_stories: "Sponsored stories",
+    settings_label_scroll: "Block Doom-scrolling",
+    settings_label_search: "Suggestions",
+    settings_label_grayscale: "Grayscale mode",
     search_placeholder: "Search",
     search_empty_title: "Nothing to see.",
     search_empty_body: "And that's exactly what we wanted. Type what you're looking for in the bar above.",
@@ -3033,19 +3166,19 @@ const translations = {
     ally_card3_desc: "Tu feed vuelve a ser un espacio que reconoces.",
     platforms_caption: "Próximamente en:",
     features_label: "La solución",
-    features_title: 'Tú eliges. Tú <span class="authentique-gradient-text">controlas</span>.',
+    features_title: 'Elige qué <span class="authentique-gradient-text">ocultar</span>.',
     features_sub: "Cada función fue diseñada para darte de vuelta el control de tu experiencia en Instagram.",
-    f1_title: "Ocultar posts patrocinados",
-    f1_desc: "Las publicaciones patrocinadas y banners publicitarios desaparecen automáticamente.",
-    f2_title: "Ocultar sugerencias de cuentas",
-    f2_desc: 'Las sugerencias «Para ti» y cuentas algorítmicas se filtran. Solo ves a las personas que sigues.',
-    f3_title: "Sección Búsqueda depurada",
-    f3_desc: "La cuadrícula de sugerencias desaparece. Solo queda la barra de búsqueda.",
-    f4_title: "Ocultar los Reels",
+    f1_title: "Stories patrocinadas",
+    f1_desc: "Las stories patrocinadas desaparecen de tu barra. Solo ves las stories de las personas que sigues.",
+    f2_title: "Publicaciones patrocinadas",
+    f2_desc: "Las publicaciones patrocinadas y banners publicitarios desaparecen automáticamente de tu feed.",
+    f3_title: "Modo escala de grises",
+    f3_desc: "Reduce la saturación de la pantalla para un uso más consciente de la app.",
+    f4_title: "Los Reels",
     f4_desc: "La pestaña Reels se reemplaza con un mensaje claro.<br>Los Reels de tus amigos siguen en tu feed.",
-    f5_title: "Ocultar stories patrocinadas",
-    f5_desc: "Las stories patrocinadas desaparecen de tu barra.<br>Solo ves las stories de las personas que sigues.",
-    f6_title: "Bloquear scroll infinito",
+    f5_title: "Las sugerencias",
+    f5_desc: "La cuadrícula de sugerencias desaparece de la pestaña Búsqueda. Solo queda la barra de búsqueda.",
+    f6_title: "Bloquear el Doom-scrolling",
     f6_desc: "Bloquea el scroll hacia los siguientes Reels al ver un Reel recibido en los DM y en la pestaña Búsqueda.",
     toggle_on_sponsored: "Para un feed más Authentique.",
     toggle_on_accounts: "Para disfrutar mejor de tus amigos.",
@@ -3102,13 +3235,14 @@ const translations = {
     suggest_btn: "Enviar",
     reels_follow_btn: "Seguir",
     settings_title: "Ajustes",
-    settings_label_sponsored: "Ocultar posts patrocinados",
+    settings_label_sponsored: "Publicaciones patrocinadas",
     settings_label_suggested: "Ocultar publicaciones sugeridas",
     settings_label_accounts: "Ocultar sugerencias de cuentas",
-    settings_label_reels: "Ocultar Reels",
-    settings_label_stories: "Ocultar stories patrocinadas",
-    settings_label_scroll: "Bloquear scroll infinito",
-    settings_label_search: "Búsqueda limpia",
+    settings_label_reels: "Los Reels",
+    settings_label_stories: "Stories patrocinadas",
+    settings_label_scroll: "Bloquear el Doom-scrolling",
+    settings_label_search: "Las sugerencias",
+    settings_label_grayscale: "Modo escala de grises",
     search_placeholder: "Buscar",
     search_empty_title: "Nada que ver.",
     search_empty_body: "Y eso es exactamente lo que queríamos. Escribe lo que buscas en la barra de arriba.",
@@ -3147,19 +3281,19 @@ const translations = {
     ally_card3_desc: "Il tuo feed torna a essere uno spazio che riconosci.",
     platforms_caption: "Presto disponibile su:",
     features_label: "La soluzione",
-    features_title: 'Tu scegli. Tu <span class="authentique-gradient-text">controlli</span>.',
+    features_title: 'Scegli cosa <span class="authentique-gradient-text">nascondere</span>.',
     features_sub: "Ogni funzione è stata progettata per restituirti il controllo della tua esperienza Instagram.",
-    f1_title: "Nascondi i post sponsorizzati",
-    f1_desc: "I post sponsorizzati e i banner pubblicitari spariscono automaticamente dal tuo feed.",
-    f2_title: "Nascondi i suggerimenti di account",
-    f2_desc: 'I suggerimenti «Per te» e gli account algoritmici vengono filtrati. Vedi solo le persone che segui.',
-    f3_title: "Sezione Cerca pulita",
-    f3_desc: "La griglia di suggerimenti sparisce. Resta solo la barra di ricerca.",
-    f4_title: "Nascondi i Reels",
+    f1_title: "Storie sponsorizzate",
+    f1_desc: "Le storie sponsorizzate spariscono dalla tua barra. Vedi solo le storie delle persone che segui.",
+    f2_title: "Pubblicazioni sponsorizzate",
+    f2_desc: "I post sponsorizzati e i banner pubblicitari spariscono automaticamente dal tuo feed.",
+    f3_title: "Modalità scala di grigi",
+    f3_desc: "Riduci la saturazione dello schermo per un uso più consapevole dell'app.",
+    f4_title: "I Reels",
     f4_desc: "La scheda Reels viene sostituita da un messaggio chiaro.<br>I Reels dei tuoi amici restano nel tuo feed.",
-    f5_title: "Nascondi le storie sponsorizzate",
-    f5_desc: "Le storie sponsorizzate spariscono dalla tua barra.<br>Vedi solo le storie delle persone che segui.",
-    f6_title: "Blocca lo scroll infinito",
+    f5_title: "I suggerimenti",
+    f5_desc: "La griglia di suggerimenti sparisce dalla scheda Cerca. Resta solo la barra di ricerca.",
+    f6_title: "Blocca il Doom-scrolling",
     f6_desc: "Blocca lo scroll verso i Reels successivi quando guardi un Reel ricevuto nei DM e nella scheda Cerca.",
     toggle_on_sponsored: "Per un feed più Authentique.",
     toggle_on_accounts: "Per godere meglio dei tuoi amici.",
@@ -3216,13 +3350,14 @@ const translations = {
     suggest_btn: "Invia",
     reels_follow_btn: "Segui",
     settings_title: "Impostazioni",
-    settings_label_sponsored: "Nascondi post sponsorizzati",
+    settings_label_sponsored: "Pubblicazioni sponsorizzate",
     settings_label_suggested: "Nascondi post suggeriti",
     settings_label_accounts: "Nascondi suggerimenti account",
-    settings_label_reels: "Nascondi Reels",
-    settings_label_stories: "Nascondi storie sponsorizzate",
-    settings_label_scroll: "Blocca scroll infinito",
-    settings_label_search: "Ricerca pulita",
+    settings_label_reels: "I Reels",
+    settings_label_stories: "Storie sponsorizzate",
+    settings_label_scroll: "Blocca il Doom-scrolling",
+    settings_label_search: "I suggerimenti",
+    settings_label_grayscale: "Modalità scala di grigi",
     search_placeholder: "Cerca",
     search_empty_title: "Niente da vedere.",
     search_empty_body: "Ed è esattamente quello che volevamo. Digita quello che cerchi nella barra sopra.",
@@ -3261,19 +3396,19 @@ const translations = {
     ally_card3_desc: "O teu feed volta a ser um espaço que reconheces.",
     platforms_caption: "Em breve em:",
     features_label: "A solução",
-    features_title: 'Tu escolhes. Tu <span class="authentique-gradient-text">controlas</span>.',
+    features_title: 'Escolhe o que <span class="authentique-gradient-text">esconder</span>.',
     features_sub: "Cada funcionalidade foi pensada para te devolver o controlo da tua experiência no Instagram.",
-    f1_title: "Ocultar posts patrocinados",
-    f1_desc: "As publicações patrocinadas e banners publicitários desaparecem automaticamente do teu feed.",
-    f2_title: "Ocultar sugestões de contas",
-    f2_desc: 'As sugestões «Para ti» e contas algorítmicas são filtradas. Só vês as pessoas que segues.',
-    f3_title: "Secção Pesquisa limpa",
-    f3_desc: "A grelha de sugestões desaparece. Só fica a barra de pesquisa.",
-    f4_title: "Ocultar os Reels",
+    f1_title: "Stories patrocinados",
+    f1_desc: "Os stories patrocinados desaparecem da tua barra. Só vês os stories das pessoas que segues.",
+    f2_title: "Publicações patrocinadas",
+    f2_desc: "As publicações patrocinadas e banners publicitários desaparecem automaticamente do teu feed.",
+    f3_title: "Modo escala de cinza",
+    f3_desc: "Reduz a saturação do ecrã para um uso mais consciente da app.",
+    f4_title: "Os Reels",
     f4_desc: "O separador Reels é substituído por uma mensagem clara.<br>Os Reels dos teus amigos continuam no teu feed.",
-    f5_title: "Ocultar stories patrocinados",
-    f5_desc: "Os stories patrocinados desaparecem da tua barra.<br>Só vês os stories das pessoas que segues.",
-    f6_title: "Bloquear scroll infinito",
+    f5_title: "As sugestões",
+    f5_desc: "A grelha de sugestões desaparece do separador Pesquisa. Só fica a barra de pesquisa.",
+    f6_title: "Bloquear o Doom-scrolling",
     f6_desc: "Bloqueia o scroll para os próximos Reels ao ver um Reel recebido nos DMs e no separador Pesquisa.",
     toggle_on_sponsored: "Para um feed mais Authentique.",
     toggle_on_accounts: "Para aproveitar melhor seus amigos.",
@@ -3330,13 +3465,14 @@ const translations = {
     suggest_btn: "Enviar",
     reels_follow_btn: "Seguir",
     settings_title: "Configurações",
-    settings_label_sponsored: "Ocultar posts patrocinados",
+    settings_label_sponsored: "Publicações patrocinadas",
     settings_label_suggested: "Ocultar publicações sugeridas",
     settings_label_accounts: "Ocultar sugestões de contas",
-    settings_label_reels: "Ocultar Reels",
-    settings_label_stories: "Ocultar stories patrocinadas",
-    settings_label_scroll: "Bloquear scroll infinito",
-    settings_label_search: "Pesquisa limpa",
+    settings_label_reels: "Os Reels",
+    settings_label_stories: "Stories patrocinados",
+    settings_label_scroll: "Bloquear o Doom-scrolling",
+    settings_label_search: "As sugestões",
+    settings_label_grayscale: "Modo escala de cinza",
     search_placeholder: "Pesquisar",
     search_empty_title: "Nada para ver.",
     search_empty_body: "E é exatamente o que queríamos. Digite o que procura na barra acima.",
@@ -3375,19 +3511,19 @@ const translations = {
     ally_card3_desc: "Твоя лента снова становится пространством, которое ты узнаёшь.",
     platforms_caption: "Скоро на:",
     features_label: "Решение",
-    features_title: 'Ты выбираешь.<br>Ты <span class="authentique-gradient-text">контролируешь</span>.',
+    features_title: 'Выбери, что <span class="authentique-gradient-text">скрыть</span>.',
     features_sub: "Каждая функция разработана для того, чтобы вернуть тебе контроль над Instagram.",
-    f1_title: "Скрыть рекламные посты",
-    f1_desc: "Спонсированные посты и рекламные баннеры автоматически исчезают из ленты.",
-    f2_title: "Скрыть рекомендации аккаунтов",
-    f2_desc: 'Рекомендации "Для вас" и алгоритмические аккаунты фильтруются.',
-    f3_title: "Чистая вкладка Поиск",
-    f3_desc: "Сетка рекомендаций исчезает. Остаётся только строка поиска.",
-    f4_title: "Скрыть Reels",
+    f1_title: "Рекламные истории",
+    f1_desc: "Рекламные истории исчезают из панели. Ты видишь только истории людей, на которых подписан.",
+    f2_title: "Рекламные публикации",
+    f2_desc: "Спонсированные посты и рекламные баннеры автоматически исчезают из ленты.",
+    f3_title: "Режим оттенков серого",
+    f3_desc: "Снижает насыщенность экрана для более осознанного использования приложения.",
+    f4_title: "Reels",
     f4_desc: "Вкладка Reels заменяется ясным сообщением.<br>Reels твоих друзей остаются в ленте.",
-    f5_title: "Скрыть рекламные истории",
-    f5_desc: "Спонсированные истории исчезают из твоей панели.<br>Ты видишь только истории людей, на которых подписан.",
-    f6_title: "Блокировать бесконечную ленту",
+    f5_title: "Рекомендации",
+    f5_desc: "Сетка рекомендаций исчезает из вкладки Поиск. Остаётся только строка поиска.",
+    f6_title: "Блокировать Doom-scrolling",
     f6_desc: "Блокирует прокрутку к следующим Reels при просмотре Reel, полученного в DM, и во вкладке Поиск.",
     toggle_on_sponsored: "Для более Authentique ленты.",
     toggle_on_accounts: "Чтобы лучше наслаждаться друзьями.",
@@ -3444,13 +3580,14 @@ const translations = {
     suggest_btn: "Отправить",
     reels_follow_btn: "Подписаться",
     settings_title: "Настройки",
-    settings_label_sponsored: "Скрыть рекламные посты",
+    settings_label_sponsored: "Рекламные публикации",
     settings_label_suggested: "Скрыть рекомендуемые посты",
     settings_label_accounts: "Скрыть предложения аккаунтов",
-    settings_label_reels: "Скрыть Reels",
-    settings_label_stories: "Скрыть рекламные истории",
-    settings_label_scroll: "Блокировать бесконечную прокрутку",
-    settings_label_search: "Чистый поиск",
+    settings_label_reels: "Reels",
+    settings_label_stories: "Рекламные истории",
+    settings_label_scroll: "Блокировать Doom-scrolling",
+    settings_label_search: "Рекомендации",
+    settings_label_grayscale: "Режим оттенков серого",
     search_placeholder: "Поиск",
     search_empty_title: "Ничего нет.",
     search_empty_body: "И это именно то, чего мы хотели. Введите то, что ищете, в строку выше.",
@@ -4052,7 +4189,7 @@ function pickDifferent(arr, lastIdx) {
       if (!key) return;
       var label = phone.querySelector('[data-i18n="' + key + '"]');
       if (!label) return;
-      var row = label.closest('.settings-row');
+      var row = label.closest('.sm-row, .settings-row');
       if (!row) return;
       var rowRect = row.getBoundingClientRect();
       var head = s.querySelector('.features-step-head');
