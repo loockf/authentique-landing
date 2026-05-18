@@ -2304,10 +2304,12 @@ footer {
                   <!-- Wordmark -->
                   <div class="sm-wordmark">
                     <div class="sm-wordmark-main">
-                      <svg class="sm-logo-svg" viewBox="0 0 200 200" aria-hidden="true">
-                        <circle cx="100" cy="100" r="100" fill="url(#authGrad)"/>
-                        <path d="M 54,160 L 68,93 Q 78,57 100,57 Q 122,57 132,93 L 146,160" fill="none" stroke="#fff" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
+                      <span class="arch-icon sm-logo-svg" aria-hidden="true">
+                        <svg viewBox="0 0 200 200" fill="none">
+                          <path d="M 28,178 L 52,88 Q 66,38 100,38 Q 134,38 148,88 L 172,178"
+                            stroke="#ffffff" stroke-width="30" stroke-linecap="round" fill="none"/>
+                        </svg>
+                      </span>
                       <span class="sm-app-name">Authentique</span>
                     </div>
                     <span class="sm-app-tagline" data-i18n="sm_tagline">Instagram, sans les pubs.</span>
@@ -2402,7 +2404,7 @@ footer {
               </svg>
               <h3 data-i18n="f1_title">Stories sponsorisées</h3>
             </div>
-            <p data-i18n="f1_desc">Les stories sponsorisées sont remplacées par un message <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;">Authentique</span>.</p>
+            <p data-i18n="f1_desc">Les stories sponsorisées sont remplacées par un message <span style="color: #19d382; font-family: GrosVentre, sans-serif;">Authentique</span>.</p>
           </div>
           <!-- Step 1 : Publications sponsorisees. -->
           <div class="features-step" data-step="1" data-toggle="settings_label_sponsored">
@@ -2907,7 +2909,7 @@ const translations = {
     features_title: 'Choisir quoi <span class="authentique-gradient-text">masquer</span>.',
     features_sub: "Chaque fonctionnalité a été pensée pour te redonner le contrôle de ton expérience Instagram.",
     f1_title: "Stories sponsorisées",
-    f1_desc: 'Les stories sponsorisées sont remplacées par un message <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;">Authentique</span>.',
+    f1_desc: 'Les stories sponsorisées sont remplacées par un message <span style="color: #19d382; font-family: GrosVentre, sans-serif;">Authentique</span>.',
     f2_title: "Publications sponsorisées",
     f2_desc: "Les publications sponsorisées et bandeaux publicitaires disparaissent automatiquement de ton fil.",
     f3_title: "Mode niveaux de gris",
@@ -3038,7 +3040,7 @@ const translations = {
     features_title: 'Choose what to <span class="authentique-gradient-text">hide</span>.',
     features_sub: "Every feature was designed to give you back control of your Instagram experience.",
     f1_title: "Sponsored stories",
-    f1_desc: 'Sponsored stories are replaced by an <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;">Authentique</span> message.',
+    f1_desc: 'Sponsored stories are replaced by an <span style="color: #19d382; font-family: GrosVentre, sans-serif;">Authentique</span> message.',
     f2_title: "Sponsored posts",
     f2_desc: "Sponsored posts and ad banners disappear automatically from your feed.",
     f3_title: "Grayscale mode",
@@ -3169,7 +3171,7 @@ const translations = {
     features_title: 'Elige qué <span class="authentique-gradient-text">ocultar</span>.',
     features_sub: "Cada función fue diseñada para darte de vuelta el control de tu experiencia en Instagram.",
     f1_title: "Stories patrocinadas",
-    f1_desc: 'Las stories patrocinadas son reemplazadas por un mensaje <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;">Authentique</span>.',
+    f1_desc: 'Las stories patrocinadas son reemplazadas por un mensaje <span style="color: #19d382; font-family: GrosVentre, sans-serif;">Authentique</span>.',
     f2_title: "Publicaciones patrocinadas",
     f2_desc: "Las publicaciones patrocinadas y banners publicitarios desaparecen automáticamente de tu feed.",
     f3_title: "Modo escala de grises",
@@ -3300,7 +3302,7 @@ const translations = {
     features_title: 'Scegli cosa <span class="authentique-gradient-text">nascondere</span>.',
     features_sub: "Ogni funzione è stata progettata per restituirti il controllo della tua esperienza Instagram.",
     f1_title: "Storie sponsorizzate",
-    f1_desc: 'Le storie sponsorizzate vengono sostituite da un messaggio <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;">Authentique</span>.',
+    f1_desc: 'Le storie sponsorizzate vengono sostituite da un messaggio <span style="color: #19d382; font-family: GrosVentre, sans-serif;">Authentique</span>.',
     f2_title: "Pubblicazioni sponsorizzate",
     f2_desc: "I post sponsorizzati e i banner pubblicitari spariscono automaticamente dal tuo feed.",
     f3_title: "Modalità scala di grigi",
@@ -3431,7 +3433,7 @@ const translations = {
     features_title: 'Escolhe o que <span class="authentique-gradient-text">esconder</span>.',
     features_sub: "Cada funcionalidade foi pensada para te devolver o controlo da tua experiência no Instagram.",
     f1_title: "Stories patrocinados",
-    f1_desc: 'Os stories patrocinados são substituídos por uma mensagem <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;">Authentique</span>.',
+    f1_desc: 'Os stories patrocinados são substituídos por uma mensagem <span style="color: #19d382; font-family: GrosVentre, sans-serif;">Authentique</span>.',
     f2_title: "Publicações patrocinadas",
     f2_desc: "As publicações patrocinadas e banners publicitários desaparecem automaticamente do teu feed.",
     f3_title: "Modo escala de cinza",
@@ -3562,7 +3564,7 @@ const translations = {
     features_title: 'Выбери, что <span class="authentique-gradient-text">скрыть</span>.',
     features_sub: "Каждая функция разработана для того, чтобы вернуть тебе контроль над Instagram.",
     f1_title: "Рекламные истории",
-    f1_desc: 'Рекламные истории заменяются сообщением <span class="authentique-gradient-text" style="font-family:GrosVentre,sans-serif;">Authentique</span>.',
+    f1_desc: 'Рекламные истории заменяются сообщением <span style="color: #19d382; font-family: GrosVentre, sans-serif;">Authentique</span>.',
     f2_title: "Рекламные публикации",
     f2_desc: "Спонсированные посты и рекламные баннеры автоматически исчезают из ленты.",
     f3_title: "Режим оттенков серого",
