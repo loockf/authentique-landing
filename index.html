@@ -1789,6 +1789,44 @@ section { padding: 120px 24px; position: relative; }
 /* FINAL CTA — flux unique vertical : titre + 3 cards (3 piliers
    du projet) + bouton Kickstarter + form contact + email. Tout
    centre verticalement dans 100vh, gaps reduits pour densifier. */
+/* LIMITATIONS (note de transparence) */
+.section-limitations {
+  background: #e8e8e3;
+  text-align: center;
+}
+.limitations-inner {
+  max-width: 680px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.limitations-inner h2 { margin-bottom: 20px; line-height: 1.15; }
+/* Override vert du .section-label : cette section est une note sobre,
+   pas un argument de vente — on reste dans le registre mute. */
+.limitations-label { color: var(--text-mute); }
+.limitations-subtitle {
+  color: var(--text-soft);
+  font-size: clamp(15px, 1.4vw, 18px);
+  line-height: 1.6;
+  max-width: 580px;
+  margin-bottom: 40px;
+}
+.limitations-list { list-style: none; text-align: left; max-width: 520px; width: 100%; }
+.limitations-item {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-soft);
+  font-size: clamp(14px, 1.2vw, 16px);
+  line-height: 1.5;
+}
+.limitations-item:first-child { border-top: 1px solid var(--border); }
+.limits-icon { color: var(--text-mute); flex-shrink: 0; }
+
 .section-cta {
   background: var(--bg);
   padding: clamp(32px, 6vh, 80px) 24px clamp(48px, 8vh, 100px);
@@ -2748,6 +2786,42 @@ footer {
     </div>
     </div><!-- /wellbeing-merged -->
   </div>
+  <button class="section-scroll" data-scroll-to="#limitations" aria-label="Section suivante" type="button">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"/>
+    </svg>
+  </button>
+</section>
+
+<!-- LIMITATIONS -->
+<section class="section-limitations" id="limitations">
+  <div class="limitations-inner">
+    <p class="section-label limitations-label reveal" data-i18n="limits_label">Transparence</p>
+    <h2 class="reveal" data-i18n="limits_title">Ce qu'Authentique ne peut pas faire</h2>
+    <p class="limitations-subtitle reveal" data-i18n="limits_subtitle">Authentique utilise la version web d'Instagram. C'est ce qui nous permet de filtrer ce que tu vois — mais certaines fonctions de l'app native ne sont pas disponibles.</p>
+    <ul class="limitations-list">
+      <li class="limitations-item reveal">
+        <svg class="limits-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="1" y1="1" x2="11" y2="11"/><line x1="11" y1="1" x2="1" y2="11"/></svg>
+        <span data-i18n="limits_item1">Pas de musique dans les stories (lien Spotify non disponible)</span>
+      </li>
+      <li class="limitations-item reveal" style="transition-delay:0.06s">
+        <svg class="limits-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="1" y1="1" x2="11" y2="11"/><line x1="11" y1="1" x2="1" y2="11"/></svg>
+        <span data-i18n="limits_item2">Pas les Instantanées dans les DM</span>
+      </li>
+      <li class="limitations-item reveal" style="transition-delay:0.12s">
+        <svg class="limits-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="1" y1="1" x2="11" y2="11"/><line x1="11" y1="1" x2="1" y2="11"/></svg>
+        <span data-i18n="limits_item3">Pas de notifications push</span>
+      </li>
+      <li class="limitations-item reveal" style="transition-delay:0.18s">
+        <svg class="limits-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="1" y1="1" x2="11" y2="11"/><line x1="11" y1="1" x2="1" y2="11"/></svg>
+        <span data-i18n="limits_item4">Certaines nouvelles fonctions IG arrivent d'abord sur l'app native</span>
+      </li>
+      <li class="limitations-item reveal" style="transition-delay:0.24s">
+        <svg class="limits-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="1" y1="1" x2="11" y2="11"/><line x1="11" y1="1" x2="1" y2="11"/></svg>
+        <span data-i18n="limits_item5">La qualité vidéo peut différer de l'app native</span>
+      </li>
+    </ul>
+  </div>
   <button class="section-scroll" data-scroll-to="#cta" aria-label="Section suivante" type="button">
     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
       <polyline points="6 9 12 15 18 9"/>
@@ -2909,6 +2983,14 @@ const translations = {
     ally_card2_desc: "Tu vois ce que tu veux, tu pars quand tu veux.",
     ally_card3_title: "Plus de clarté",
     ally_card3_desc: "Ton feed redevient un espace que tu reconnais.",
+    limits_label: "Transparence",
+    limits_title: "Ce qu'Authentique ne peut pas faire",
+    limits_subtitle: "Authentique utilise la version web d'Instagram. C'est ce qui nous permet de filtrer ce que tu vois — mais certaines fonctions de l'app native ne sont pas disponibles.",
+    limits_item1: "Pas de musique dans les stories (lien Spotify non disponible)",
+    limits_item2: "Pas les Instantanées dans les DM",
+    limits_item3: "Pas de notifications push",
+    limits_item4: "Certaines nouvelles fonctions IG arrivent d'abord sur l'app native",
+    limits_item5: "La qualité vidéo peut différer de l'app native",
     platforms_caption: "Bientôt disponible sur :",
     features_label: "La solution",
     features_title: 'Choisir quoi <span class="authentique-gradient-text">masquer</span>.',
@@ -3040,6 +3122,14 @@ const translations = {
     ally_card2_desc: "You see what you want, you leave when you want.",
     ally_card3_title: "More clarity",
     ally_card3_desc: "Your feed becomes a space you recognize again.",
+    limits_label: "Transparency",
+    limits_title: "What Authentique can't do",
+    limits_subtitle: "Authentique uses Instagram's web version. That's what allows us to filter what you see — but some features of the native app are not available.",
+    limits_item1: "No music in stories (Spotify link not available)",
+    limits_item2: "No Vanish Mode in DMs",
+    limits_item3: "No push notifications",
+    limits_item4: "Some new IG features arrive on the native app first",
+    limits_item5: "Video quality may differ from the native app",
     platforms_caption: "Coming soon on:",
     features_label: "The solution",
     features_title: 'Choose what to <span class="authentique-gradient-text">hide</span>.',
@@ -3171,6 +3261,14 @@ const translations = {
     ally_card2_desc: "Ves lo que quieres, te vas cuando quieres.",
     ally_card3_title: "Más claridad",
     ally_card3_desc: "Tu feed vuelve a ser un espacio que reconoces.",
+    limits_label: "Transparencia",
+    limits_title: "Lo que Authentique no puede hacer",
+    limits_subtitle: "Authentique usa la versión web de Instagram. Esto es lo que nos permite filtrar lo que ves — pero algunas funciones de la app nativa no están disponibles.",
+    limits_item1: "Sin música en las stories (enlace de Spotify no disponible)",
+    limits_item2: "Sin Mensajes que desaparecen en los DM",
+    limits_item3: "Sin notificaciones push",
+    limits_item4: "Algunas funciones nuevas de IG llegan primero a la app nativa",
+    limits_item5: "La calidad de vídeo puede diferir de la app nativa",
     platforms_caption: "Próximamente en:",
     features_label: "La solución",
     features_title: 'Elige qué <span class="authentique-gradient-text">ocultar</span>.',
@@ -3302,6 +3400,14 @@ const translations = {
     ally_card2_desc: "Vedi quello che vuoi, te ne vai quando vuoi.",
     ally_card3_title: "Più chiarezza",
     ally_card3_desc: "Il tuo feed torna a essere uno spazio che riconosci.",
+    limits_label: "Trasparenza",
+    limits_title: "Cosa Authentique non può fare",
+    limits_subtitle: "Authentique usa la versione web di Instagram. È questo che ci permette di filtrare ciò che vedi — ma alcune funzioni dell'app nativa non sono disponibili.",
+    limits_item1: "Nessuna musica nelle storie (link Spotify non disponibile)",
+    limits_item2: "Nessun Svani nei DM",
+    limits_item3: "Nessuna notifica push",
+    limits_item4: "Alcune nuove funzioni di IG arrivano prima sull'app nativa",
+    limits_item5: "La qualità video può differire dall'app nativa",
     platforms_caption: "Presto disponibile su:",
     features_label: "La soluzione",
     features_title: 'Scegli cosa <span class="authentique-gradient-text">nascondere</span>.',
@@ -3433,6 +3539,14 @@ const translations = {
     ally_card2_desc: "Vês o que queres, sais quando queres.",
     ally_card3_title: "Mais clareza",
     ally_card3_desc: "O teu feed volta a ser um espaço que reconheces.",
+    limits_label: "Transparência",
+    limits_title: "O que o Authentique não consegue fazer",
+    limits_subtitle: "O Authentique usa a versão web do Instagram. É isso que nos permite filtrar o que vês — mas algumas funções da app nativa não estão disponíveis.",
+    limits_item1: "Sem música nas stories (link do Spotify não disponível)",
+    limits_item2: "Sem Modo Desaparecer nas DMs",
+    limits_item3: "Sem notificações push",
+    limits_item4: "Algumas novas funções do IG chegam primeiro à app nativa",
+    limits_item5: "A qualidade do vídeo pode diferir da app nativa",
     platforms_caption: "Em breve em:",
     features_label: "A solução",
     features_title: 'Escolhe o que <span class="authentique-gradient-text">esconder</span>.',
@@ -3564,6 +3678,14 @@ const translations = {
     ally_card2_desc: "Видишь то, что хочешь, уходишь когда хочешь.",
     ally_card3_title: "Больше ясности",
     ally_card3_desc: "Твоя лента снова становится пространством, которое ты узнаёшь.",
+    limits_label: "Прозрачность",
+    limits_title: "Что Authentique не может делать",
+    limits_subtitle: "Authentique использует веб-версию Instagram. Именно это позволяет нам фильтровать то, что ты видишь — но некоторые функции нативного приложения недоступны.",
+    limits_item1: "Нет музыки в историях (ссылка Spotify недоступна)",
+    limits_item2: "Нет Исчезающих сообщений в DM",
+    limits_item3: "Нет push-уведомлений",
+    limits_item4: "Некоторые новые функции IG сначала появляются в нативном приложении",
+    limits_item5: "Качество видео может отличаться от нативного приложения",
     platforms_caption: "Скоро на:",
     features_label: "Решение",
     features_title: 'Выбери, что <span class="authentique-gradient-text">скрыть</span>.',
