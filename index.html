@@ -1834,36 +1834,27 @@ section { padding: 120px 24px; position: relative; }
   position: relative;
 }
 .lim-ig-logo {
-  position: absolute;
-  z-index: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 5em;
-  height: 5em;
+  gap: 0.7em;
 }
-.lim-ig-logo svg { width: 100%; height: 100%; }
-/* Barre diagonale dégradé vert haut-gauche → bas-droite */
-.lim-diagonal-bar {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background: linear-gradient(
-    to bottom right,
-    transparent 28%,
-    rgba(173, 245, 216, 0.9) 28%,
-    #19d382 48%,
-    rgba(10, 170, 142, 0.9) 68%,
-    transparent 68%
-  );
+.lim-ig-logo svg { width: 5em; height: 5em; }
+.lim-ig-app-label {
+  font-family: 'GrosVentre', -apple-system, sans-serif;
+  font-size: 0.85em;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-mute);
 }
-/* Milieu — séparateur vertical */
+/* Milieu — séparateur oblique ~15° */
 .lim-separator {
   width: 2px;
   height: clamp(300px, 36vw, 420px);
   background: linear-gradient(to bottom, #adf5d8, #19d382, #0aaa8e);
   flex-shrink: 0;
   border-radius: 1px;
+  transform: rotate(15deg);
 }
 /* Droite — mockup Safari */
 .lim-safari-col { flex: 1; min-width: 0; max-width: 400px; }
@@ -2908,13 +2899,23 @@ footer {
                 <div class="iphone-dynamic-island"></div>
                 <div class="iphone-screen lim-iphone-screen">
                   <div class="lim-ig-logo" aria-hidden="true">
-                    <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <rect x="4" y="4" width="44" height="44" rx="13" stroke="#141414" stroke-width="3.5"/>
-                      <circle cx="26" cy="26" r="10" stroke="#141414" stroke-width="3.5"/>
-                      <circle cx="38.5" cy="13.5" r="3" fill="#141414"/>
+                    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                      <defs>
+                        <linearGradient id="igGradLim" x1="0%" y1="100%" x2="100%" y2="0%">
+                          <stop offset="0%" stop-color="#f09433"/>
+                          <stop offset="25%" stop-color="#e6683c"/>
+                          <stop offset="50%" stop-color="#dc2743"/>
+                          <stop offset="75%" stop-color="#cc2366"/>
+                          <stop offset="100%" stop-color="#bc1888"/>
+                        </linearGradient>
+                      </defs>
+                      <rect width="48" height="48" rx="11" fill="url(#igGradLim)"/>
+                      <path d="M9 17a3 3 0 0 1 3-3h4.5l1.5-3h9l1.5 3H33a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3H12a3 3 0 0 1-3-3V17z" fill="none" stroke="white" stroke-width="2.2" stroke-linejoin="round"/>
+                      <circle cx="24" cy="24" r="5.5" fill="none" stroke="white" stroke-width="2.2"/>
+                      <circle cx="35" cy="15" r="2" fill="white"/>
                     </svg>
+                    <span class="lim-ig-app-label">APP</span>
                   </div>
-                  <div class="lim-diagonal-bar" aria-hidden="true"></div>
                 </div>
               </div>
             </div>
