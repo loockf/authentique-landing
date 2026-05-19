@@ -1793,6 +1793,12 @@ section { padding: 120px 24px; position: relative; }
 .section-limitations {
   background: #e8e8e3;
   text-align: center;
+  padding: clamp(32px, 6vh, 80px) 24px clamp(48px, 8vh, 100px);
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .limitations-inner {
   max-width: 680px;
@@ -1800,18 +1806,17 @@ section { padding: 120px 24px; position: relative; }
   width: 100%;
   display: flex;
   flex-direction: column;
+  flex: 1;
   align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 2.5vh, 28px);
 }
-.limitations-inner h2 { margin-bottom: 20px; line-height: 1.15; }
-/* Override vert du .section-label : cette section est une note sobre,
-   pas un argument de vente — on reste dans le registre mute. */
-.limitations-label { color: var(--text-mute); }
+.limitations-inner h2 { line-height: 1.15; }
 .limitations-subtitle {
   color: var(--text-soft);
   font-size: clamp(15px, 1.4vw, 18px);
   line-height: 1.6;
   max-width: 580px;
-  margin-bottom: 40px;
 }
 .limitations-list { list-style: none; text-align: left; max-width: 520px; width: 100%; }
 .limitations-item {
