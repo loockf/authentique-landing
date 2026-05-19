@@ -1794,7 +1794,7 @@ section { padding: 120px 24px; position: relative; }
    .features-sticky-outer). 500vh = 7 items × ~60vh + ~80vh buffer.
    Sur mobile : phone + séparateur masqués, seul le safari reste. */
 .section-limitations { background: #e8e8e3; padding: 0; }
-.lim-sticky-outer { position: relative; height: 500vh; }
+.lim-sticky-outer { position: relative; height: 100vh; }
 .lim-sticky-inner {
   position: sticky;
   top: 0;
@@ -1903,17 +1903,13 @@ section { padding: 120px 24px; position: relative; }
   border-bottom: 1px solid rgba(20,20,20,0.06);
   color: var(--text-soft);
   font-size: clamp(12px, 1.1vw, 14px);
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.35s ease, transform 0.35s ease;
 }
 .lim-item:last-child { border-bottom: none; }
-.lim-item--visible { opacity: 1; transform: none; }
 .lim-cross { color: var(--text-mute); font-size: 11px; font-weight: 700; flex-shrink: 0; line-height: 1; }
 @media (max-width: 768px) {
   .lim-phone-col, .lim-separator { display: none; }
   .lim-safari-col { max-width: 100%; }
-  .lim-sticky-outer { height: 400vh; }
+  .lim-sticky-outer { height: 100vh; }
 }
 
 .section-cta {
@@ -2899,23 +2895,15 @@ footer {
                 <div class="iphone-dynamic-island"></div>
                 <div class="iphone-screen lim-iphone-screen">
                   <div class="lim-ig-logo" aria-hidden="true">
-                    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
                       <defs>
-                        <linearGradient id="igGradLim" x1="0%" y1="100%" x2="100%" y2="0%">
-                          <stop offset="0%" stop-color="#f09433"/>
-                          <stop offset="25%" stop-color="#e6683c"/>
-                          <stop offset="50%" stop-color="#dc2743"/>
-                          <stop offset="75%" stop-color="#cc2366"/>
-                          <stop offset="100%" stop-color="#bc1888"/>
+                        <linearGradient id="appGradLim" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stop-color="#f5a623"/>
+                          <stop offset="100%" stop-color="#e8472a"/>
                         </linearGradient>
                       </defs>
-                      <rect width="48" height="48" rx="11" fill="url(#igGradLim)"/>
-                      <g transform="translate(12,12)">
-                        <path stroke="white" stroke-width="2" stroke-linecap="round" fill="none"
-                          d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-                        <circle cx="12" cy="13" r="4" stroke="white" stroke-width="2" fill="none"/>
-                        <circle cx="18.5" cy="9.5" r="1" fill="white"/>
-                      </g>
+                      <rect width="80" height="80" rx="18" fill="url(#appGradLim)"/>
+                      <circle cx="40" cy="40" r="17" fill="none" stroke="white" stroke-width="7"/>
                     </svg>
                     <span class="lim-ig-app-label">APP</span>
                   </div>
@@ -5238,42 +5226,6 @@ function pickDifferent(arr, lastIdx) {
   }
 })();
 
-// === Limitations : apparition des items au scroll (même mécanique que features) ===
-// .lim-sticky-outer height:500vh → progress 0→1 sur le scroll-budget.
-// Items 0..index deviennent .lim-item--visible de façon cumulative.
-(function () {
-  var outer = document.querySelector('.lim-sticky-outer');
-  if (!outer) return;
-  var items = outer.querySelectorAll('.lim-item');
-  if (items.length === 0) return;
-  var nbItems = items.length;
-  var lastIndex = -2;
-
-  function getCurrentIndex() {
-    var rect = outer.getBoundingClientRect();
-    if (rect.top >= 0) return -1;
-    var scrolled = -rect.top;
-    var scrollable = outer.offsetHeight - window.innerHeight;
-    if (scrollable <= 0) return 0;
-    var progress = Math.max(0, Math.min(0.999, scrolled / scrollable));
-    return Math.min(nbItems - 1, Math.floor(progress * nbItems));
-  }
-
-  function update() {
-    var index = getCurrentIndex();
-    if (index === lastIndex) return;
-    lastIndex = index;
-    items.forEach(function (item, i) {
-      item.classList.toggle('lim-item--visible', i <= index);
-    });
-  }
-
-  window.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', update);
-  update();
-
-  outer.__getStickyIndex = getCurrentIndex;
-})();
 </script>
 </body>
 </html>
