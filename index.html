@@ -1790,47 +1790,140 @@ section { padding: 120px 24px; position: relative; }
    du projet) + bouton Kickstarter + form contact + email. Tout
    centre verticalement dans 100vh, gaps reduits pour densifier. */
 /* LIMITATIONS (note de transparence) */
-.section-limitations {
-  background: #e8e8e3;
-  text-align: center;
-  padding: clamp(32px, 6vh, 80px) 24px clamp(48px, 8vh, 100px);
-  min-height: 100vh;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.limitations-inner {
-  max-width: 680px;
-  margin: 0 auto;
+/* LIMITATIONS — layout 3 colonnes sticky scroll (même mécanique que
+   .features-sticky-outer). 500vh = 7 items × ~60vh + ~80vh buffer.
+   Sur mobile : phone + séparateur masqués, seul le safari reste. */
+.section-limitations { background: #e8e8e3; padding: 0; }
+.lim-sticky-outer { position: relative; height: 500vh; }
+.lim-sticky-inner {
+  position: sticky;
+  top: 0;
+  height: 100vh;
   width: 100%;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 8%;
+  box-sizing: border-box;
+}
+.lim-content-block {
+  display: flex;
   flex-direction: column;
-  flex: 1;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  max-width: 1100px;
+}
+.lim-header { text-align: center; width: 100%; }
+.lim-header h2 { margin: 0; line-height: 1.15; }
+.lim-group {
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(16px, 2.5vh, 28px);
+  gap: clamp(24px, 4vw, 56px);
+  width: 100%;
 }
-.limitations-inner h2 { line-height: 1.15; }
-.limitations-subtitle {
-  color: var(--text-soft);
-  font-size: clamp(15px, 1.4vw, 18px);
-  line-height: 1.6;
-  max-width: 580px;
-}
-.limitations-list { list-style: none; text-align: left; max-width: 520px; width: 100%; }
-.limitations-item {
+/* Gauche — iPhone */
+.lim-phone-col { flex-shrink: 0; }
+.lim-iphone { width: clamp(150px, 18vw, 210px); }
+.lim-iphone-screen {
+  background: #fff;
   display: flex;
-  align-items: baseline;
-  gap: 12px;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--border);
-  color: var(--text-soft);
-  font-size: clamp(14px, 1.2vw, 16px);
-  line-height: 1.5;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
-.limitations-item:first-child { border-top: 1px solid var(--border); }
-.limits-icon { color: var(--text-mute); flex-shrink: 0; }
+.lim-ig-logo {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5em;
+  height: 5em;
+}
+.lim-ig-logo svg { width: 100%; height: 100%; }
+/* Barre diagonale dégradé vert haut-gauche → bas-droite */
+.lim-diagonal-bar {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    to bottom right,
+    transparent 28%,
+    rgba(173, 245, 216, 0.9) 28%,
+    #19d382 48%,
+    rgba(10, 170, 142, 0.9) 68%,
+    transparent 68%
+  );
+}
+/* Milieu — séparateur vertical */
+.lim-separator {
+  width: 2px;
+  height: clamp(300px, 36vw, 420px);
+  background: linear-gradient(to bottom, #adf5d8, #19d382, #0aaa8e);
+  flex-shrink: 0;
+  border-radius: 1px;
+}
+/* Droite — mockup Safari */
+.lim-safari-col { flex: 1; min-width: 0; max-width: 400px; }
+.lim-safari {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(20,20,20,0.12);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.lim-safari-chrome {
+  background: #f0f0ec;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.lim-safari-dots { display: flex; gap: 6px; flex-shrink: 0; }
+.lim-dot { display: block; width: 12px; height: 12px; border-radius: 50%; }
+.lim-dot--red    { background: #ff5f57; }
+.lim-dot--yellow { background: #febc2e; }
+.lim-dot--green  { background: #28c840; }
+.lim-safari-url {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 12px;
+  color: var(--text-soft);
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.lim-safari-body { padding: 16px 20px 20px; }
+.lim-items { list-style: none; margin: 0; padding: 0; }
+.lim-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(20,20,20,0.06);
+  color: var(--text-soft);
+  font-size: clamp(12px, 1.1vw, 14px);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.lim-item:last-child { border-bottom: none; }
+.lim-item--visible { opacity: 1; transform: none; }
+.lim-cross { color: var(--text-mute); font-size: 11px; font-weight: 700; flex-shrink: 0; line-height: 1; }
+@media (max-width: 768px) {
+  .lim-phone-col, .lim-separator { display: none; }
+  .lim-safari-col { max-width: 100%; }
+  .lim-sticky-outer { height: 400vh; }
+}
 
 .section-cta {
   background: var(--bg);
@@ -2800,38 +2893,74 @@ footer {
 
 <!-- LIMITATIONS -->
 <section class="section-limitations" id="limitations">
-  <div class="limitations-inner">
-    <p class="section-label limitations-label reveal" data-i18n="limits_label">Transparence</p>
-    <h2 class="reveal" data-i18n="limits_title">Ce qu'Authentique ne peut pas faire</h2>
-    <p class="limitations-subtitle reveal" data-i18n="limits_subtitle">Authentique utilise la version web d'Instagram. C'est ce qui nous permet de filtrer ce que tu vois — mais certaines fonctions de l'app native ne sont pas disponibles.</p>
-    <ul class="limitations-list">
-      <li class="limitations-item reveal">
-        <svg class="limits-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="1" y1="1" x2="11" y2="11"/><line x1="11" y1="1" x2="1" y2="11"/></svg>
-        <span data-i18n="limits_item1">Pas de musique dans les stories (lien Spotify non disponible)</span>
-      </li>
-      <li class="limitations-item reveal" style="transition-delay:0.06s">
-        <svg class="limits-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="1" y1="1" x2="11" y2="11"/><line x1="11" y1="1" x2="1" y2="11"/></svg>
-        <span data-i18n="limits_item2">Pas les Instantanées dans les DM</span>
-      </li>
-      <li class="limitations-item reveal" style="transition-delay:0.12s">
-        <svg class="limits-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="1" y1="1" x2="11" y2="11"/><line x1="11" y1="1" x2="1" y2="11"/></svg>
-        <span data-i18n="limits_item3">Pas de notifications push</span>
-      </li>
-      <li class="limitations-item reveal" style="transition-delay:0.18s">
-        <svg class="limits-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="1" y1="1" x2="11" y2="11"/><line x1="11" y1="1" x2="1" y2="11"/></svg>
-        <span data-i18n="limits_item4">Certaines nouvelles fonctions IG arrivent d'abord sur l'app native</span>
-      </li>
-      <li class="limitations-item reveal" style="transition-delay:0.24s">
-        <svg class="limits-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="1" y1="1" x2="11" y2="11"/><line x1="11" y1="1" x2="1" y2="11"/></svg>
-        <span data-i18n="limits_item5">La qualité vidéo peut différer de l'app native</span>
-      </li>
-    </ul>
+  <div class="lim-sticky-outer">
+    <div class="lim-sticky-inner">
+      <div class="lim-content-block">
+        <div class="lim-header">
+          <p class="section-label" data-i18n="limits_label">Transparence</p>
+          <h2 data-i18n="limits_title">Ce qu'Authentique ne peut pas faire</h2>
+        </div>
+        <div class="lim-group">
+          <!-- Gauche : iPhone avec logo Instagram + barre diagonale dégradé -->
+          <div class="lim-phone-col">
+            <div class="iphone lim-iphone">
+              <div class="iphone-frame">
+                <div class="iphone-dynamic-island"></div>
+                <div class="iphone-screen lim-iphone-screen">
+                  <div class="lim-ig-logo" aria-hidden="true">
+                    <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="4" y="4" width="44" height="44" rx="13" stroke="#141414" stroke-width="3.5"/>
+                      <circle cx="26" cy="26" r="10" stroke="#141414" stroke-width="3.5"/>
+                      <circle cx="38.5" cy="13.5" r="3" fill="#141414"/>
+                    </svg>
+                  </div>
+                  <div class="lim-diagonal-bar" aria-hidden="true"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Milieu : séparateur vertical en dégradé vert -->
+          <div class="lim-separator" aria-hidden="true"></div>
+          <!-- Droite : mockup navigateur Safari -->
+          <div class="lim-safari-col">
+            <div class="lim-safari">
+              <div class="lim-safari-chrome">
+                <div class="lim-safari-dots" aria-hidden="true">
+                  <span class="lim-dot lim-dot--red"></span>
+                  <span class="lim-dot lim-dot--yellow"></span>
+                  <span class="lim-dot lim-dot--green"></span>
+                </div>
+                <div class="lim-safari-url">
+                  <svg width="10" height="12" viewBox="0 0 10 12" fill="none" aria-hidden="true">
+                    <rect x="1" y="5" width="8" height="7" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
+                    <path d="M3 5V3.5a2 2 0 0 1 4 0V5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+                  </svg>
+                  <span>www.instagram.com</span>
+                </div>
+              </div>
+              <div class="lim-safari-body">
+                <ul class="lim-items">
+                  <li class="lim-item" data-lim="0"><span class="lim-cross" aria-hidden="true">✕</span><span data-i18n="limits_item1">Musique dans les stories</span></li>
+                  <li class="lim-item" data-lim="1"><span class="lim-cross" aria-hidden="true">✕</span><span data-i18n="limits_item2">Stickers / GIF / sondages dans les stories</span></li>
+                  <li class="lim-item" data-lim="2"><span class="lim-cross" aria-hidden="true">✕</span><span data-i18n="limits_item3">Vidéos dans les stories</span></li>
+                  <li class="lim-item" data-lim="3"><span class="lim-cross" aria-hidden="true">✕</span><span data-i18n="limits_item4">Live</span></li>
+                  <li class="lim-item" data-lim="4"><span class="lim-cross" aria-hidden="true">✕</span><span data-i18n="limits_item5">Appels vidéo / audio</span></li>
+                  <li class="lim-item" data-lim="5"><span class="lim-cross" aria-hidden="true">✕</span><span data-i18n="limits_item6">Les Instantanées dans les DM</span></li>
+                  <li class="lim-item" data-lim="6"><span class="lim-cross" aria-hidden="true">✕</span><span data-i18n="limits_item7">Nouvelles fonctions en avant-première</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Bouton scroll dans le sticky-inner (position:absolute bottom:32px) -->
+      <button class="sticky-scroll" data-scroll-to="#cta" aria-label="Section suivante" type="button">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+    </div>
   </div>
-  <button class="section-scroll" data-scroll-to="#cta" aria-label="Section suivante" type="button">
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="6 9 12 15 18 9"/>
-    </svg>
-  </button>
 </section>
 
 <!-- FINAL CTA -->
@@ -2991,11 +3120,13 @@ const translations = {
     limits_label: "Transparence",
     limits_title: "Ce qu'Authentique ne peut pas faire",
     limits_subtitle: "Authentique utilise la version web d'Instagram. C'est ce qui nous permet de filtrer ce que tu vois — mais certaines fonctions de l'app native ne sont pas disponibles.",
-    limits_item1: "Pas de musique dans les stories (lien Spotify non disponible)",
-    limits_item2: "Pas les Instantanées dans les DM",
-    limits_item3: "Pas de notifications push",
-    limits_item4: "Certaines nouvelles fonctions IG arrivent d'abord sur l'app native",
-    limits_item5: "La qualité vidéo peut différer de l'app native",
+    limits_item1: "Musique dans les stories",
+    limits_item2: "Stickers / GIF / sondages dans les stories",
+    limits_item3: "Vidéos dans les stories",
+    limits_item4: "Live",
+    limits_item5: "Appels vidéo / audio",
+    limits_item6: "Les Instantanées dans les DM",
+    limits_item7: "Nouvelles fonctions en avant-première",
     platforms_caption: "Bientôt disponible sur :",
     features_label: "La solution",
     features_title: 'Choisir quoi <span class="authentique-gradient-text">masquer</span>.',
@@ -3130,11 +3261,13 @@ const translations = {
     limits_label: "Transparency",
     limits_title: "What Authentique can't do",
     limits_subtitle: "Authentique uses Instagram's web version. That's what allows us to filter what you see — but some features of the native app are not available.",
-    limits_item1: "No music in stories (Spotify link not available)",
-    limits_item2: "No Vanish Mode in DMs",
-    limits_item3: "No push notifications",
-    limits_item4: "Some new IG features arrive on the native app first",
-    limits_item5: "Video quality may differ from the native app",
+    limits_item1: "Music in stories",
+    limits_item2: "Stickers / GIFs / polls in stories",
+    limits_item3: "Videos in stories",
+    limits_item4: "Live",
+    limits_item5: "Video / audio calls",
+    limits_item6: "Vanish Mode in DMs",
+    limits_item7: "New features in early access",
     platforms_caption: "Coming soon on:",
     features_label: "The solution",
     features_title: 'Choose what to <span class="authentique-gradient-text">hide</span>.',
@@ -3269,11 +3402,13 @@ const translations = {
     limits_label: "Transparencia",
     limits_title: "Lo que Authentique no puede hacer",
     limits_subtitle: "Authentique usa la versión web de Instagram. Esto es lo que nos permite filtrar lo que ves — pero algunas funciones de la app nativa no están disponibles.",
-    limits_item1: "Sin música en las stories (enlace de Spotify no disponible)",
-    limits_item2: "Sin Mensajes que desaparecen en los DM",
-    limits_item3: "Sin notificaciones push",
-    limits_item4: "Algunas funciones nuevas de IG llegan primero a la app nativa",
-    limits_item5: "La calidad de vídeo puede diferir de la app nativa",
+    limits_item1: "Música en las stories",
+    limits_item2: "Stickers / GIFs / encuestas en las stories",
+    limits_item3: "Vídeos en las stories",
+    limits_item4: "En vivo",
+    limits_item5: "Videollamadas / llamadas de audio",
+    limits_item6: "Mensajes que desaparecen en los DM",
+    limits_item7: "Nuevas funciones en acceso anticipado",
     platforms_caption: "Próximamente en:",
     features_label: "La solución",
     features_title: 'Elige qué <span class="authentique-gradient-text">ocultar</span>.',
@@ -3408,11 +3543,13 @@ const translations = {
     limits_label: "Trasparenza",
     limits_title: "Cosa Authentique non può fare",
     limits_subtitle: "Authentique usa la versione web di Instagram. È questo che ci permette di filtrare ciò che vedi — ma alcune funzioni dell'app nativa non sono disponibili.",
-    limits_item1: "Nessuna musica nelle storie (link Spotify non disponibile)",
-    limits_item2: "Nessun Svani nei DM",
-    limits_item3: "Nessuna notifica push",
-    limits_item4: "Alcune nuove funzioni di IG arrivano prima sull'app nativa",
-    limits_item5: "La qualità video può differire dall'app nativa",
+    limits_item1: "Musica nelle storie",
+    limits_item2: "Sticker / GIF / sondaggi nelle storie",
+    limits_item3: "Video nelle storie",
+    limits_item4: "Live",
+    limits_item5: "Videochiamate / chiamate audio",
+    limits_item6: "Svani nei DM",
+    limits_item7: "Nuove funzioni in accesso anticipato",
     platforms_caption: "Presto disponibile su:",
     features_label: "La soluzione",
     features_title: 'Scegli cosa <span class="authentique-gradient-text">nascondere</span>.',
@@ -3547,11 +3684,13 @@ const translations = {
     limits_label: "Transparência",
     limits_title: "O que o Authentique não consegue fazer",
     limits_subtitle: "O Authentique usa a versão web do Instagram. É isso que nos permite filtrar o que vês — mas algumas funções da app nativa não estão disponíveis.",
-    limits_item1: "Sem música nas stories (link do Spotify não disponível)",
-    limits_item2: "Sem Modo Desaparecer nas DMs",
-    limits_item3: "Sem notificações push",
-    limits_item4: "Algumas novas funções do IG chegam primeiro à app nativa",
-    limits_item5: "A qualidade do vídeo pode diferir da app nativa",
+    limits_item1: "Música nas stories",
+    limits_item2: "Stickers / GIFs / sondagens nas stories",
+    limits_item3: "Vídeos nas stories",
+    limits_item4: "Live",
+    limits_item5: "Videochamadas / chamadas de áudio",
+    limits_item6: "Modo Desaparecer nas DMs",
+    limits_item7: "Novas funções em acesso antecipado",
     platforms_caption: "Em breve em:",
     features_label: "A solução",
     features_title: 'Escolhe o que <span class="authentique-gradient-text">esconder</span>.',
@@ -3686,11 +3825,13 @@ const translations = {
     limits_label: "Прозрачность",
     limits_title: "Что Authentique не может делать",
     limits_subtitle: "Authentique использует веб-версию Instagram. Именно это позволяет нам фильтровать то, что ты видишь — но некоторые функции нативного приложения недоступны.",
-    limits_item1: "Нет музыки в историях (ссылка Spotify недоступна)",
-    limits_item2: "Нет Исчезающих сообщений в DM",
-    limits_item3: "Нет push-уведомлений",
-    limits_item4: "Некоторые новые функции IG сначала появляются в нативном приложении",
-    limits_item5: "Качество видео может отличаться от нативного приложения",
+    limits_item1: "Музыка в историях",
+    limits_item2: "Стикеры / GIF / опросы в историях",
+    limits_item3: "Видео в историях",
+    limits_item4: "Прямой эфир",
+    limits_item5: "Видеозвонки / аудиозвонки",
+    limits_item6: "Исчезающие сообщения в DM",
+    limits_item7: "Новые функции в раннем доступе",
     platforms_caption: "Скоро на:",
     features_label: "Решение",
     features_title: 'Выбери, что <span class="authentique-gradient-text">скрыть</span>.',
@@ -5091,6 +5232,43 @@ function pickDifferent(arr, lastIdx) {
   } else {
     start();
   }
+})();
+
+// === Limitations : apparition des items au scroll (même mécanique que features) ===
+// .lim-sticky-outer height:500vh → progress 0→1 sur le scroll-budget.
+// Items 0..index deviennent .lim-item--visible de façon cumulative.
+(function () {
+  var outer = document.querySelector('.lim-sticky-outer');
+  if (!outer) return;
+  var items = outer.querySelectorAll('.lim-item');
+  if (items.length === 0) return;
+  var nbItems = items.length;
+  var lastIndex = -2;
+
+  function getCurrentIndex() {
+    var rect = outer.getBoundingClientRect();
+    if (rect.top >= 0) return -1;
+    var scrolled = -rect.top;
+    var scrollable = outer.offsetHeight - window.innerHeight;
+    if (scrollable <= 0) return 0;
+    var progress = Math.max(0, Math.min(0.999, scrolled / scrollable));
+    return Math.min(nbItems - 1, Math.floor(progress * nbItems));
+  }
+
+  function update() {
+    var index = getCurrentIndex();
+    if (index === lastIndex) return;
+    lastIndex = index;
+    items.forEach(function (item, i) {
+      item.classList.toggle('lim-item--visible', i <= index);
+    });
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+
+  outer.__getStickyIndex = getCurrentIndex;
 })();
 </script>
 </body>
