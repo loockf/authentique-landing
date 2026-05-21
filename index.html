@@ -2222,12 +2222,17 @@ footer {
   footer { flex-direction: column; text-align: center; }
 }
 
-/* iPad : remonte le bouton scroll de toutes les sections de 100px
-   pour eviter qu'il soit trop colle au bas du viewport sur tablette
-   (qui n'a ni le chrome navigateur mobile ni la place desktop). */
+/* iPad : ancre le bouton au viewport plutot qu'au bas de la section.
+   bottom:Npx est relatif au bas de la section — sur les sections plus
+   hautes que 100vh (section-cta avec formulaire, section-problem), le
+   bouton se retrouvait sous le pli. top:calc(100vh - 188px) place le
+   bouton a 132px du bas du viewport quand la section demarre au top
+   (188 = 132 + 56px hauteur bouton), independamment de la hauteur
+   de la section. bottom:auto annule la valeur heritee. */
 @media (min-width: 768px) and (max-width: 1024px) {
   .section-scroll {
-    bottom: 132px;
+    top: calc(100vh - 188px);
+    bottom: auto;
   }
 }
 </style>
