@@ -2228,11 +2228,26 @@ footer {
    bouton se retrouvait sous le pli. top:calc(100vh - 188px) place le
    bouton a 132px du bas du viewport quand la section demarre au top
    (188 = 132 + 56px hauteur bouton), independamment de la hauteur
-   de la section. bottom:auto annule la valeur heritee. */
+   de la section. bottom:auto annule la valeur heritee.
+   Applique aux deux classes (section-scroll ET sticky-scroll) pour
+   que tous les boutons soient au meme endroit sur iPad. */
 @media (min-width: 768px) and (max-width: 1024px) {
-  .section-scroll {
+  .section-scroll,
+  .sticky-scroll {
     top: calc(100vh - 188px);
     bottom: auto;
+  }
+}
+/* Mobile : valeur de reference = section "Bien-etre numerique" sans
+   override specifique → bottom:32px (regle de base). top:auto remet
+   a zero le top pose par la regle iPad si un appareil borderline
+   (exactement 767px) etait concerne. max-width:767px (et non 768px)
+   evite le chevauchement avec le min-width:768px du bloc iPad. */
+@media (max-width: 767px) {
+  .section-scroll,
+  .sticky-scroll {
+    bottom: 32px;
+    top: auto;
   }
 }
 </style>
