@@ -1810,15 +1810,34 @@ section { padding: 120px 24px; position: relative; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40px;
+  /* gap: 48px — meme valeur que .features-content-block pour un
+     espacement vertical coherent entre titre/sous-titre et contenu
+     (mockup + caption). */
+  gap: 48px;
   width: 100%;
   max-width: 1100px;
 }
-.lim-header { text-align: center; width: 100%; }
-.lim-header h2 { margin: 0; line-height: 1.15; }
+/* Pattern identique a .features-header : padding interne, max-width
+   sur les enfants via > *, font-size/color du <p> du sous-titre. */
+.lim-header {
+  text-align: center;
+  width: 100%;
+  padding: 16px 24px;
+  box-sizing: border-box;
+}
+.lim-header > * { max-width: 760px; margin-left: auto; margin-right: auto; }
+.lim-header h2 { margin: 0 0 16px; line-height: 1.15; }
+.lim-header p:not(.section-label) {
+  color: var(--text-soft);
+  font-size: clamp(14px, 1.5vw, 18px);
+}
 .lim-group {
+  /* align-items: flex-end pour que le mockup Safari reste a la meme
+     position verticale meme avec un caption ajoute au-dessus de lui.
+     Sinon l'ajout de la caption decalerait le mockup vers le bas par
+     rapport a l'iPhone (qui est plus haut). */
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   gap: clamp(48px, 8vw, 112px);
   width: 100%;
@@ -1856,8 +1875,26 @@ section { padding: 120px 24px; position: relative; }
   border-radius: 1px;
   transform: rotate(15deg);
 }
-/* Droite — mockup Safari */
-.lim-safari-col { flex: 1; min-width: 0; max-width: 400px; }
+/* Droite — mockup Safari (avec caption au-dessus) */
+.lim-safari-col {
+  flex: 1;
+  min-width: 0;
+  max-width: 400px;
+  /* Empile la caption au-dessus du mockup, alignement horizontal
+     identique (meme largeur de colonne → meme largeur d'affichage). */
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+/* Caption au-dessus du mockup : largeur = celle du col = celle du
+   mockup. Meme style typographique que les sous-titres ailleurs. */
+.lim-safari-caption {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: clamp(13px, 1.3vw, 16px);
+  line-height: 1.5;
+  text-align: left;
+}
 .lim-safari {
   background: #fff;
   border-radius: 12px;
@@ -2886,6 +2923,7 @@ footer {
         <div class="lim-header">
           <p class="section-label" data-i18n="limits_label">Transparence</p>
           <h2 data-i18n="limits_title">Ce qu'Authentique ne peut pas faire</h2>
+          <p data-i18n="limits_subtitle">Authentique utilise la version web d'Instagram.</p>
         </div>
         <div class="lim-group">
           <!-- Gauche : iPhone avec logo Instagram + barre diagonale dégradé -->
@@ -2915,6 +2953,7 @@ footer {
           <div class="lim-separator" aria-hidden="true"></div>
           <!-- Droite : mockup navigateur Safari -->
           <div class="lim-safari-col">
+            <p class="lim-safari-caption" data-i18n="limits_caption">C'est ce qui nous permet de filtrer ce que tu vois — mais certaines fonctions de l'app native ne sont pas disponibles.</p>
             <div class="lim-safari">
               <div class="lim-safari-chrome">
                 <div class="lim-safari-dots" aria-hidden="true">
@@ -3111,7 +3150,8 @@ const translations = {
     ally_card3_desc: "Ton feed redevient un espace que tu reconnais.",
     limits_label: "Transparence",
     limits_title: "Ce qu'Authentique ne peut pas faire",
-    limits_subtitle: "Authentique utilise la version web d'Instagram. C'est ce qui nous permet de filtrer ce que tu vois — mais certaines fonctions de l'app native ne sont pas disponibles.",
+    limits_subtitle: "Authentique utilise la version web d'Instagram.",
+    limits_caption: "C'est ce qui nous permet de filtrer ce que tu vois — mais certaines fonctions de l'app native ne sont pas disponibles.",
     limits_item1: "Musique dans les stories",
     limits_item2: "Stickers / GIF / sondages dans les stories",
     limits_item3: "Vidéos dans les stories",
@@ -3252,7 +3292,8 @@ const translations = {
     ally_card3_desc: "Your feed becomes a space you recognize again.",
     limits_label: "Transparency",
     limits_title: "What Authentique can't do",
-    limits_subtitle: "Authentique uses Instagram's web version. That's what allows us to filter what you see — but some features of the native app are not available.",
+    limits_subtitle: "Authentique uses Instagram's web version.",
+    limits_caption: "That's what allows us to filter what you see — but some features of the native app are not available.",
     limits_item1: "Music in stories",
     limits_item2: "Stickers / GIFs / polls in stories",
     limits_item3: "Videos in stories",
@@ -3393,7 +3434,8 @@ const translations = {
     ally_card3_desc: "Tu feed vuelve a ser un espacio que reconoces.",
     limits_label: "Transparencia",
     limits_title: "Lo que Authentique no puede hacer",
-    limits_subtitle: "Authentique usa la versión web de Instagram. Esto es lo que nos permite filtrar lo que ves — pero algunas funciones de la app nativa no están disponibles.",
+    limits_subtitle: "Authentique usa la versión web de Instagram.",
+    limits_caption: "Esto es lo que nos permite filtrar lo que ves — pero algunas funciones de la app nativa no están disponibles.",
     limits_item1: "Música en las stories",
     limits_item2: "Stickers / GIFs / encuestas en las stories",
     limits_item3: "Vídeos en las stories",
@@ -3534,7 +3576,8 @@ const translations = {
     ally_card3_desc: "Il tuo feed torna a essere uno spazio che riconosci.",
     limits_label: "Trasparenza",
     limits_title: "Cosa Authentique non può fare",
-    limits_subtitle: "Authentique usa la versione web di Instagram. È questo che ci permette di filtrare ciò che vedi — ma alcune funzioni dell'app nativa non sono disponibili.",
+    limits_subtitle: "Authentique usa la versione web di Instagram.",
+    limits_caption: "È questo che ci permette di filtrare ciò che vedi — ma alcune funzioni dell'app nativa non sono disponibili.",
     limits_item1: "Musica nelle storie",
     limits_item2: "Sticker / GIF / sondaggi nelle storie",
     limits_item3: "Video nelle storie",
@@ -3675,7 +3718,8 @@ const translations = {
     ally_card3_desc: "O teu feed volta a ser um espaço que reconheces.",
     limits_label: "Transparência",
     limits_title: "O que o Authentique não consegue fazer",
-    limits_subtitle: "O Authentique usa a versão web do Instagram. É isso que nos permite filtrar o que vês — mas algumas funções da app nativa não estão disponíveis.",
+    limits_subtitle: "O Authentique usa a versão web do Instagram.",
+    limits_caption: "É isso que nos permite filtrar o que vês — mas algumas funções da app nativa não estão disponíveis.",
     limits_item1: "Música nas stories",
     limits_item2: "Stickers / GIFs / sondagens nas stories",
     limits_item3: "Vídeos nas stories",
@@ -3816,7 +3860,8 @@ const translations = {
     ally_card3_desc: "Твоя лента снова становится пространством, которое ты узнаёшь.",
     limits_label: "Прозрачность",
     limits_title: "Что Authentique не может делать",
-    limits_subtitle: "Authentique использует веб-версию Instagram. Именно это позволяет нам фильтровать то, что ты видишь — но некоторые функции нативного приложения недоступны.",
+    limits_subtitle: "Authentique использует веб-версию Instagram.",
+    limits_caption: "Именно это позволяет нам фильтровать то, что ты видишь — но некоторые функции нативного приложения недоступны.",
     limits_item1: "Музыка в историях",
     limits_item2: "Стикеры / GIF / опросы в историях",
     limits_item3: "Видео в историях",
