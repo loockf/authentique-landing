@@ -2395,9 +2395,13 @@ footer {
     justify-content: flex-start;
     padding: 20px 16px 16px;
     gap: 0;
+    overflow: hidden;
   }
-  /* Gap reduit entre les blocs (header, group). */
-  .features-content-block { gap: 16px; width: 100%; }
+  /* Header masque : libere ~168px pour agrandir le telephone.
+     L'utilisateur voit telephone + textes + dots + bouton en une vue. */
+  .section-features .features-header { display: none; }
+  /* Plus de gap entre header et group (header masque). */
+  .features-content-block { gap: 0; width: 100%; }
   /* Telephone centre au-dessus, steps superposes en dessous. */
   .features-sticky-group {
     flex-direction: column;
@@ -2405,8 +2409,9 @@ footer {
     gap: 12px;
     width: 100%;
   }
-  /* Telephone legèrement plus petit pour liberer de la hauteur. */
-  .features-sticky-phone .iphone { width: min(44vw, 170px); }
+  /* Telephone agrandi : budget = 100vh - 208px (padding+steps+dots+btn).
+     min(50vw, 200px) → 187px à 375px, 200px à 400px+. */
+  .features-sticky-phone .iphone { width: min(50vw, 200px); }
   /* Steps : pleine largeur, hauteur fixe, texte gauche.
      Tous position:absolute top:0 → superposes, seul l'actif visible. */
   .features-sticky-steps {
@@ -2429,6 +2434,19 @@ footer {
     margin: 8px 0 0;
     justify-content: center;
   }
+  /* Bouton scroll "La solution" → #screens, en flux comme .hero-scroll. */
+  .section-features .sticky-scroll {
+    display: flex;
+    position: static;
+    transform: none;
+    left: auto;
+    bottom: auto;
+    animation: heroBounceInline 1.5s ease-in-out infinite;
+    margin: 8px auto 0;
+    color: #19d382;
+    transition: opacity 0.3s ease;
+  }
+  .section-features .sticky-scroll.is-hidden { opacity: 0; pointer-events: none; }
 }
 </style>
 </head>
@@ -4344,13 +4362,20 @@ async function submitSuggestion(e) {
     window.scrollTo({ top: offset, behavior: 'smooth' });
   });
   // Cache au init pour ne pas requeter le DOM a chaque scroll.
-  var problemBtn = window.innerWidth < 768
+  var isMobile = window.innerWidth < 768;
+  var problemBtn = isMobile
     ? document.querySelector('.section-problem .section-scroll')
+    : null;
+  var solutionBtn = isMobile
+    ? document.querySelector('.section-features .sticky-scroll')
     : null;
   window.addEventListener('scroll', function () {
     arrow.classList.toggle('is-hidden', window.scrollY > 100);
     if (problemBtn) {
       problemBtn.classList.toggle('is-hidden', problemBtn.getBoundingClientRect().top < 0);
+    }
+    if (solutionBtn) {
+      solutionBtn.classList.toggle('is-hidden', solutionBtn.getBoundingClientRect().top < 0);
     }
   }, { passive: true });
 })();
