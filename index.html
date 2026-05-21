@@ -2409,9 +2409,11 @@ footer {
     gap: 12px;
     width: 100%;
   }
-  /* Telephone : min(46vw, 185px) — legèrement plus grand que l'original
-     (170px). Budget OK sur iPhone 12+ (820px+), SE clips les dots/btn. */
+  /* Telephone : hauteur = 100svh - budget fixe (420px = pad+header+gaps+steps+dots+btn).
+     Largeur = hauteur/2 via aspect-ratio. Cap 50vw pour grands écrans larges.
+     Fallback pour navigateurs sans svh : min(46vw, 185px). */
   .features-sticky-phone .iphone { width: min(46vw, 185px); padding: 6px; border-radius: 32px; }
+  .features-sticky-phone .iphone { width: min(calc((100svh - 420px) / 2), 50vw); padding: 6px; border-radius: 32px; }
   /* Bords internes alignes sur padding+border-radius ci-dessus. */
   .features-sticky-phone .iphone-frame { border-radius: 26px; }
   /* Steps : pleine largeur, hauteur fixe, texte gauche.
@@ -4775,6 +4777,7 @@ function pickDifferent(arr, lastIdx) {
   var dots = outer.querySelectorAll('.sticky-dot');
   var phone = outer.querySelector('.iphone');
   var stepsContainer = outer.querySelector('.features-sticky-steps');
+  var featHeader = outer.querySelector('.features-header');
   if (steps.length === 0 || !phone) return;
   var nbSteps = steps.length;
   var lastIndex = -1;
@@ -4808,11 +4811,13 @@ function pickDifferent(arr, lastIdx) {
 
   function getCurrentIndex() {
     var rect = outer.getBoundingClientRect();
-    // Gate : rien d'actif tant que la section n'est pas a 20px du top
-    // du viewport. Declenche le parallax 20px AVANT que la section
-    // atteigne le bord haut (rect.top = 20 → premier toggle s'allume).
-    if (rect.top >= 20) return -1;
-    var scrolled = 20 - rect.top;
+    // Sur mobile : gate decalee de headerH pour que le parallax demarre
+    // quand le header a ete "virtuellement" scrolle (20px avant la fin
+    // du header). Sur desktop : gate = 20 (inchange).
+    var headerH = (window.innerWidth < 768 && featHeader) ? featHeader.offsetHeight : 0;
+    var gate = 20 - headerH;
+    if (rect.top >= gate) return -1;
+    var scrolled = gate - rect.top;
     var scrollable = outer.offsetHeight - window.innerHeight;
     if (scrollable <= 0) return 0;
     var progress = Math.max(0, Math.min(0.999, scrolled / scrollable));
