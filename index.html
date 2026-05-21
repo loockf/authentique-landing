@@ -2344,8 +2344,11 @@ footer {
   /* flex:1 + max-height = chaque carte prend 1/6 de la hauteur
      disponible (hauteur totale - 5 gaps de 8px). */
   .section-problem .pain-card { flex: 1; min-height: 0; max-height: calc((100% - 5 * 8px) / 6); flex-direction: row; justify-content: flex-start; padding: 0 8px; }
-  /* Telephone : meme taille que "L'app en images" sur mobile */
+  /* Telephone : meme taille et meme finesse de bord que "L'app en images" sur mobile */
   .phone-frame { width: min(42vw, 180px); }
+  .section-problem .phone-frame { padding: 6px; border-radius: 32px; }
+  .section-problem .phone-screen { border-radius: 26px; }
+  .section-problem .phone-notch { width: 6.67em; border-radius: 1em; }
 
   /* ── BLOC 1 : bouton scroll "Le probleme" → #section-features ──
      Annule display:none de la regle globale .section-scroll.
