@@ -2346,6 +2346,78 @@ footer {
   .section-problem .pain-card { flex: 1; min-height: 0; max-height: calc((100% - 5 * 8px) / 6); flex-direction: row; justify-content: flex-start; padding: 0 8px; }
   /* Telephone : meme taille que "L'app en images" sur mobile */
   .phone-frame { width: min(42vw, 180px); }
+
+  /* ── BLOC 1 : bouton scroll "Le probleme" → #section-features ──
+     Annule display:none de la regle globale .section-scroll.
+     Meme style que .hero-scroll en flux (static + heroBounceInline). */
+  .section-problem .section-scroll {
+    display: flex;
+    position: static;
+    transform: none;
+    left: auto;
+    bottom: auto;
+    animation: heroBounceInline 1.5s ease-in-out infinite;
+    margin: 16px auto 0;
+  }
+
+  /* ── BLOC 3 : offset scroll depuis "Le probleme" ── */
+  .section-features { scroll-margin-top: 20px; }
+
+  /* ── BLOC 4 : alignement gauche pour tous les titres de section ──
+     features-header : text-align:center sans !important → simple override.
+     ally-header / screens-header : ont text-align:center !important → besoin
+     de !important ici aussi (meme specificite, regle ulterieure gagne). */
+  .features-header { text-align: left; }
+  .features-header > * { margin-left: 0; }
+  .ally-header,
+  .ally-header h2,
+  .ally-header .section-label { text-align: left !important; }
+  .screens-header,
+  .screens-header h2,
+  .screens-header .section-label { text-align: left !important; }
+
+  /* ── BLOC 2+5 : "La solution" — header visible + layout mobile ──
+     Outer reduit : 6 steps × ~33vh. Inner depuis le haut pour voir
+     header + telephone + texte ensemble sans debordement. */
+  .features-sticky-outer { height: 220vh; }
+  .features-sticky-inner {
+    justify-content: flex-start;
+    padding: 20px 16px 16px;
+    gap: 0;
+  }
+  /* Gap reduit entre les blocs (header, group). */
+  .features-content-block { gap: 16px; width: 100%; }
+  /* Telephone centre au-dessus, steps superposes en dessous. */
+  .features-sticky-group {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+  /* Telephone legèrement plus petit pour liberer de la hauteur. */
+  .features-sticky-phone .iphone { width: min(44vw, 170px); }
+  /* Steps : pleine largeur, hauteur fixe, texte gauche.
+     Tous position:absolute top:0 → superposes, seul l'actif visible. */
+  .features-sticky-steps {
+    width: 100%;
+    max-width: 100%;
+    min-height: 88px;
+    text-align: left;
+    align-items: flex-start;
+  }
+  .features-step { align-items: flex-start; top: 0; }
+  /* Continuation cachee sur mobile (depasse 100vh). */
+  .control-continuation { display: none; }
+  /* Dots en flux normal, sous les textes de steps.
+     Centres comme le telephone. */
+  .section-features .sticky-dots {
+    position: static;
+    transform: none;
+    left: auto;
+    bottom: auto;
+    margin: 8px 0 0;
+    justify-content: center;
+  }
 }
 </style>
 </head>
