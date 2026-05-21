@@ -2328,18 +2328,19 @@ footer {
     align-self: stretch;
     height: 100%;
     display: flex; flex-direction: column;
-    justify-content: flex-start;
-    gap: 6px;
+    justify-content: space-between;
+    gap: 0;
     max-width: none;
   }
-  /* flex:1 = toutes les cartes s'etirent a hauteur egale.
-     min-height evite que les cartes soient trop fines.
+  /* flex:1 repartit la hauteur egalement entre les 6 cartes.
+     min-height:0 permet aux cartes de se reduire librement.
      Layout horizontal : icone + label cote a cote. */
-  .section-problem .pain-card { flex: 1; min-height: 44px; flex-direction: row; justify-content: flex-start; padding: 0 8px; }
-  /* Ligne 4 droite : telephone ancre en haut de sa cellule.
-     Bord haut telephone = bord haut carte 1. */
+  .section-problem .pain-card { flex: 1; min-height: 0; flex-direction: row; justify-content: flex-start; padding: 0 8px; }
+  /* Ligne 4 droite : align-self:start ancre le telephone en haut
+     ET laisse sa hauteur naturelle definir la hauteur de la rangee. */
   .section-problem .problem-phone-col {
     grid-row: 4; grid-column: 2;
+    align-self: start;
     display: flex; align-items: flex-start;
   }
   /* Telephone : meme taille que "L'app en images" sur mobile */
