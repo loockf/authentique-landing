@@ -2301,6 +2301,7 @@ footer {
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 12px 16px;
+    align-items: stretch;
   }
   /* display:contents aplatit .problem-text : ses enfants
      participent directement a la grille parente.
@@ -2320,20 +2321,21 @@ footer {
     grid-row: 3; grid-column: 1 / -1;
   }
   /* Ligne 4 gauche : 6 cartes en colonne flex.
-     align-self:stretch = hauteur = cellule grille = telephone.
-     justify-content:space-between = gaps auto entre cartes,
-     hauteur de chaque carte inchangee (pas de flex:1). */
+     align-self:stretch + height:100% = hauteur = telephone.
+     flex:1 sur chaque carte = hauteur egale + gap fixe. */
   .section-problem .problem-pains {
     grid-row: 4; grid-column: 1;
     align-self: stretch;
+    height: 100%;
     display: flex; flex-direction: column;
-    justify-content: space-between;
-    gap: 0;
+    justify-content: flex-start;
+    gap: 6px;
     max-width: none;
   }
-  /* Hauteur naturelle conservee — pas de flex:1.
+  /* flex:1 = toutes les cartes s'etirent a hauteur egale.
+     min-height evite que les cartes soient trop fines.
      Layout horizontal : icone + label cote a cote. */
-  .section-problem .pain-card { flex-direction: row; justify-content: flex-start; padding: 0 8px; }
+  .section-problem .pain-card { flex: 1; min-height: 44px; flex-direction: row; justify-content: flex-start; padding: 0 8px; }
   /* Ligne 4 droite : telephone ancre en haut de sa cellule.
      Bord haut telephone = bord haut carte 1. */
   .section-problem .problem-phone-col {
