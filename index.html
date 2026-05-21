@@ -2320,22 +2320,25 @@ footer {
     grid-row: 3; grid-column: 1 / -1;
   }
   /* Ligne 4 gauche : 6 cartes en colonne flex.
-     Pas de hauteur fixe : la grille stretche automatiquement
-     le conteneur a la hauteur de la cellule (= telephone),
-     padding compris. Les flex:1 sur .pain-card repartissent. */
+     align-self:stretch = hauteur = cellule grille = telephone.
+     justify-content:space-between = gaps auto entre cartes,
+     hauteur de chaque carte inchangee (pas de flex:1). */
   .section-problem .problem-pains {
     grid-row: 4; grid-column: 1;
     align-self: stretch;
     display: flex; flex-direction: column;
-    gap: 6px;
+    justify-content: space-between;
+    gap: 0;
     max-width: none;
   }
-  /* Chaque carte prend 1/6 de la hauteur totale */
-  .section-problem .pain-card { flex: 1; min-height: 0; flex-direction: row; justify-content: flex-start; padding: 0 8px; }
-  /* Ligne 4 droite : telephone centre verticalement */
+  /* Hauteur naturelle conservee — pas de flex:1.
+     Layout horizontal : icone + label cote a cote. */
+  .section-problem .pain-card { flex-direction: row; justify-content: flex-start; padding: 0 8px; }
+  /* Ligne 4 droite : telephone ancre en haut de sa cellule.
+     Bord haut telephone = bord haut carte 1. */
   .section-problem .problem-phone-col {
     grid-row: 4; grid-column: 2;
-    display: flex; align-items: center;
+    display: flex; align-items: flex-start;
   }
   /* Telephone : meme taille que "L'app en images" sur mobile */
   .phone-frame { width: min(42vw, 180px); }
