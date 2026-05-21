@@ -2397,11 +2397,11 @@ footer {
     gap: 0;
     overflow: hidden;
   }
-  /* Header masque : libere ~168px pour agrandir le telephone.
-     L'utilisateur voit telephone + textes + dots + bouton en une vue. */
-  .section-features .features-header { display: none; }
-  /* Plus de gap entre header et group (header masque). */
-  .features-content-block { gap: 0; width: 100%; }
+  /* Header restaure, padding compact pour liberer de la hauteur. */
+  .section-features .features-header { padding: 8px 16px; }
+  .section-features .features-header h2 { margin-bottom: 8px; }
+  /* Gap reduit entre header et group. */
+  .features-content-block { gap: 12px; width: 100%; }
   /* Telephone centre au-dessus, steps superposes en dessous. */
   .features-sticky-group {
     flex-direction: column;
@@ -2409,9 +2409,11 @@ footer {
     gap: 12px;
     width: 100%;
   }
-  /* Telephone agrandi : budget = 100vh - 208px (padding+steps+dots+btn).
-     min(50vw, 200px) → 187px à 375px, 200px à 400px+. */
-  .features-sticky-phone .iphone { width: min(50vw, 200px); }
+  /* Telephone : min(46vw, 185px) — legèrement plus grand que l'original
+     (170px). Budget OK sur iPhone 12+ (820px+), SE clips les dots/btn. */
+  .features-sticky-phone .iphone { width: min(46vw, 185px); padding: 6px; border-radius: 32px; }
+  /* Bords internes alignes sur padding+border-radius ci-dessus. */
+  .features-sticky-phone .iphone-frame { border-radius: 26px; }
   /* Steps : pleine largeur, hauteur fixe, texte gauche.
      Tous position:absolute top:0 → superposes, seul l'actif visible. */
   .features-sticky-steps {
@@ -4806,12 +4808,11 @@ function pickDifferent(arr, lastIdx) {
 
   function getCurrentIndex() {
     var rect = outer.getBoundingClientRect();
-    // Gate : rien d'actif tant que la section n'est pas sticky-engaged
-    // (rect.top >= 0 = la section est encore en-dessous ou pile au top
-    // du viewport). Permet a l'utilisateur de scroller jusqu'a la
-    // section sans voir le toggle deja allume.
-    if (rect.top >= 0) return -1;
-    var scrolled = -rect.top;
+    // Gate : rien d'actif tant que la section n'est pas a 20px du top
+    // du viewport. Declenche le parallax 20px AVANT que la section
+    // atteigne le bord haut (rect.top = 20 → premier toggle s'allume).
+    if (rect.top >= 20) return -1;
+    var scrolled = 20 - rect.top;
     var scrollable = outer.offsetHeight - window.innerHeight;
     if (scrollable <= 0) return 0;
     var progress = Math.max(0, Math.min(0.999, scrolled / scrollable));
