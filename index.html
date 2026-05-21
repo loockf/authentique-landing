@@ -2449,6 +2449,9 @@ footer {
     transition: opacity 0.3s ease;
   }
   .section-features .sticky-scroll.is-hidden { opacity: 0; pointer-events: none; }
+  /* Espace section-features → #screens = même valeur que section-problem → section-features
+     (padding-bottom de .section-problem = clamp(48px, 8vh, 100px)). */
+  .section-features { margin-bottom: clamp(48px, 8vh, 100px); }
 }
 </style>
 </head>
@@ -4967,17 +4970,24 @@ function pickDifferent(arr, lastIdx) {
       if (btn.classList.contains('sticky-scroll')) {
         var outer = btn.closest('.sticky-outer, .features-sticky-outer');
         if (outer && typeof outer.__getStickyIndex === 'function') {
-          var items = outer.classList.contains('features-sticky-outer')
+          var isFeatures = outer.classList.contains('features-sticky-outer');
+          var items = isFeatures
             ? outer.querySelectorAll('.features-step')
             : outer.querySelectorAll('.sticky-slide');
           var nbItems = items.length;
-          var currentIdx = outer.__getStickyIndex();
+          // Features : lire le dot .is-active pour le step courant.
+          // Screens : utiliser __getStickyIndex() (slides, pas de dots actifs).
+          var currentIdx = isFeatures
+            ? (function () {
+                var d = outer.querySelector('.sticky-dot.is-active');
+                return d ? parseInt(d.getAttribute('data-dot'), 10) : -1;
+              }())
+            : outer.__getStickyIndex();
           if (currentIdx < nbItems - 1) {
             var outerTop = outer.getBoundingClientRect().top + window.scrollY;
             var scrollable = outer.offsetHeight - window.innerHeight;
             // +10 pour franchir le seuil floor(progress * nbItems).
-            // currentIdx peut etre -1 (features pre-engage) : (-1+1)/n = 0
-            // -> scrolle juste au top du sticky pour engager le step 0.
+            // currentIdx = -1 (aucun dot actif) → cible step 0 (outerTop+10).
             var targetY = outerTop + ((currentIdx + 1) / nbItems) * scrollable + 10;
             window.scrollTo({ top: targetY, behavior: 'smooth' });
             return;
