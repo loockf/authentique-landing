@@ -2388,9 +2388,9 @@ footer {
   .screens-header .section-label { text-align: left !important; }
 
   /* ── BLOC 2+5 : "La solution" — header visible + layout mobile ──
-     Outer reduit : 6 steps × ~33vh. Inner depuis le haut pour voir
-     header + telephone + texte ensemble sans debordement. */
-  .features-sticky-outer { height: 220vh; }
+     Outer augmente (260vh) : gate = headerH+20 retire ~204px de la plage
+     utile → besoin de scrollable >= 1224px pour activer les 6 steps. */
+  .features-sticky-outer { height: 260vh; }
   .features-sticky-inner {
     justify-content: flex-start;
     padding: 20px 16px 16px;
@@ -2409,11 +2409,9 @@ footer {
     gap: 12px;
     width: 100%;
   }
-  /* Telephone : hauteur = 100svh - budget fixe (420px = pad+header+gaps+steps+dots+btn).
-     Largeur = hauteur/2 via aspect-ratio. Cap 50vw pour grands écrans larges.
-     Fallback pour navigateurs sans svh : min(46vw, 185px). */
-  .features-sticky-phone .iphone { width: min(46vw, 185px); padding: 6px; border-radius: 32px; }
-  .features-sticky-phone .iphone { width: min(calc((100svh - 420px) / 2), 50vw); padding: 6px; border-radius: 32px; }
+  /* Telephone : hauteur = 100vh - 208px (pad+gaps+steps+dots+btn, hors header).
+     Largeur = hauteur/2 via aspect-ratio 1/2. Cap 50vw. */
+  .features-sticky-phone .iphone { width: min(calc((100vh - 208px) / 2), 50vw); padding: 6px; border-radius: 32px; }
   /* Bords internes alignes sur padding+border-radius ci-dessus. */
   .features-sticky-phone .iphone-frame { border-radius: 26px; }
   /* Steps : pleine largeur, hauteur fixe, texte gauche.
@@ -4815,7 +4813,7 @@ function pickDifferent(arr, lastIdx) {
     // quand le header a ete "virtuellement" scrolle (20px avant la fin
     // du header). Sur desktop : gate = 20 (inchange).
     var headerH = (window.innerWidth < 768 && featHeader) ? featHeader.offsetHeight : 0;
-    var gate = 20 - headerH;
+    var gate = -(headerH + 20);
     if (rect.top >= gate) return -1;
     var scrolled = gate - rect.top;
     var scrollable = outer.offsetHeight - window.innerHeight;
