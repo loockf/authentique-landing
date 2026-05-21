@@ -2357,7 +2357,13 @@ footer {
     left: auto;
     bottom: auto;
     animation: heroBounceInline 1.5s ease-in-out infinite;
-    margin: 16px auto 0;
+    margin: 0 auto;
+    color: #19d382;
+    transition: opacity 0.3s ease;
+  }
+  .section-problem .section-scroll.is-hidden {
+    opacity: 0;
+    pointer-events: none;
   }
 
   /* ── BLOC 3 : offset scroll depuis "Le probleme" ── */
@@ -4336,6 +4342,18 @@ async function submitSuggestion(e) {
   });
   window.addEventListener('scroll', function () {
     arrow.classList.toggle('is-hidden', window.scrollY > 100);
+  }, { passive: true });
+})();
+
+// Fondu du bouton scroll "Le probleme" sur mobile (<768px).
+// Meme logique que .hero-scroll.is-hidden : disparait quand le
+// bouton est sorti du viewport par le haut (rect.bottom < 0).
+(function () {
+  if (window.innerWidth >= 768) return;
+  var btn = document.querySelector('.section-problem .section-scroll');
+  if (!btn) return;
+  window.addEventListener('scroll', function () {
+    btn.classList.toggle('is-hidden', btn.getBoundingClientRect().bottom < 0);
   }, { passive: true });
 })();
 
