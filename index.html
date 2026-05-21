@@ -2365,9 +2365,8 @@ footer {
     opacity: 0;
     pointer-events: none;
   }
-  /* Titre "Choisir quoi masquer" : font-size reduit pour tenir sur
-     une ligne a 375px (24px ~308px de large, ok pour 343px dispo). */
-  .features-header h2 { font-size: 24px; }
+  .section-problem .problem-stats { padding-bottom: 0; }
+  .features-header h2 { font-size: clamp(32px, 4vw, 56px); }
 
   /* ── BLOC 3 : offset scroll depuis "Le probleme" ── */
   .section-features { scroll-margin-top: 20px; }
@@ -4337,20 +4336,18 @@ async function submitSuggestion(e) {
   arrow.addEventListener('click', function () {
     var section = document.querySelector('#section-problem');
     if (!section) return;
-    // Sur mobile (<768px), arriver 40px au-dessus du bord haut de la
-    // section pour laisser de l'espace visible au-dessus du label.
     var mobileOffset = window.innerWidth < 768 ? 20 : 0;
     var offset = section.getBoundingClientRect().top + window.scrollY - mobileOffset;
     window.scrollTo({ top: offset, behavior: 'smooth' });
   });
+  // Cache au init pour ne pas requeter le DOM a chaque scroll.
+  var problemBtn = window.innerWidth < 768
+    ? document.querySelector('.section-problem .section-scroll')
+    : null;
   window.addEventListener('scroll', function () {
     arrow.classList.toggle('is-hidden', window.scrollY > 100);
-    // Sur mobile : fondu du bouton scroll "Le probleme" quand son
-    // bord haut sort du viewport (top < 0). Integre ici pour partager
-    // le meme listener scroll (pas de listener redondant).
-    if (window.innerWidth < 768) {
-      var btn = document.querySelector('.section-problem .section-scroll');
-      if (btn) btn.classList.toggle('is-hidden', btn.getBoundingClientRect().top < 0);
+    if (problemBtn) {
+      problemBtn.classList.toggle('is-hidden', problemBtn.getBoundingClientRect().top < 0);
     }
   }, { passive: true });
 })();
