@@ -4260,7 +4260,7 @@ async function submitSuggestion(e) {
     if (!section) return;
     // Sur mobile (<768px), arriver 40px au-dessus du bord haut de la
     // section pour laisser de l'espace visible au-dessus du label.
-    var mobileOffset = window.innerWidth < 768 ? 40 : 0;
+    var mobileOffset = window.innerWidth < 768 ? 20 : 0;
     var offset = section.getBoundingClientRect().top + window.scrollY - mobileOffset;
     window.scrollTo({ top: offset, behavior: 'smooth' });
   });
