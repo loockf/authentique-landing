@@ -4832,8 +4832,8 @@ function pickDifferent(arr, lastIdx) {
     var rect = outer.getBoundingClientRect();
     // Gate fixe : header desormais hors du sticky sur mobile via
     // applyMobileLayout() → plus besoin de mesurer headerH.
-    if (rect.top >= 20) return -1;
-    var scrolled = 20 - rect.top;
+    if (rect.top >= 0) return -1;
+    var scrolled = -rect.top;
     var scrollable = outer.offsetHeight - window.innerHeight;
     if (scrollable <= 0) return 0;
     var progress = Math.max(0, Math.min(0.999, scrolled / scrollable));
