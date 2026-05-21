@@ -2357,7 +2357,7 @@ footer {
     left: auto;
     bottom: auto;
     animation: heroBounceInline 1.5s ease-in-out infinite;
-    margin: 0 auto;
+    margin: 8px auto 0;
     color: #19d382;
     transition: opacity 0.3s ease;
   }
@@ -2365,6 +2365,9 @@ footer {
     opacity: 0;
     pointer-events: none;
   }
+  /* Titre "Choisir quoi masquer" : font-size reduit pour tenir sur
+     une ligne a 375px (24px ~308px de large, ok pour 343px dispo). */
+  .features-header h2 { font-size: 24px; }
 
   /* ── BLOC 3 : offset scroll depuis "Le probleme" ── */
   .section-features { scroll-margin-top: 20px; }
@@ -4342,18 +4345,13 @@ async function submitSuggestion(e) {
   });
   window.addEventListener('scroll', function () {
     arrow.classList.toggle('is-hidden', window.scrollY > 100);
-  }, { passive: true });
-})();
-
-// Fondu du bouton scroll "Le probleme" sur mobile (<768px).
-// Meme logique que .hero-scroll.is-hidden : disparait quand le
-// bouton est sorti du viewport par le haut (rect.bottom < 0).
-(function () {
-  if (window.innerWidth >= 768) return;
-  var btn = document.querySelector('.section-problem .section-scroll');
-  if (!btn) return;
-  window.addEventListener('scroll', function () {
-    btn.classList.toggle('is-hidden', btn.getBoundingClientRect().bottom < 0);
+    // Sur mobile : fondu du bouton scroll "Le probleme" quand son
+    // bord haut sort du viewport (top < 0). Integre ici pour partager
+    // le meme listener scroll (pas de listener redondant).
+    if (window.innerWidth < 768) {
+      var btn = document.querySelector('.section-problem .section-scroll');
+      if (btn) btn.classList.toggle('is-hidden', btn.getBoundingClientRect().top < 0);
+    }
   }, { passive: true });
 })();
 
@@ -4945,7 +4943,10 @@ function pickDifferent(arr, lastIdx) {
       if (!sel) return;
       var target = document.querySelector(sel);
       if (!target) return;
-      var offset = target.getBoundingClientRect().top + window.scrollY;
+      // Sur mobile : soustraire la hauteur de la nav fixe (60px) pour
+      // que le titre de la section arrive juste en-dessous de la nav.
+      var navOffset = window.innerWidth < 768 ? 60 : 0;
+      var offset = target.getBoundingClientRect().top + window.scrollY - navOffset;
       window.scrollTo({ top: offset, behavior: 'smooth' });
     });
   });
