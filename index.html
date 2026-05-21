@@ -2323,21 +2323,20 @@ footer {
   /* Ligne 4 gauche : 6 cartes en colonne flex.
      align-self:stretch + height:100% = hauteur = telephone.
      flex:1 sur chaque carte = hauteur egale + gap fixe. */
+  /* Hauteur = telephone : width min(42vw,180px) * aspect-ratio 1/2
+     = min(84vw,360px). Valeur CSS pure, sans JS. */
   .section-problem .problem-pains {
     grid-row: 4; grid-column: 1;
-    align-self: stretch;
-    height: 100%;
+    height: min(84vw, 360px);
+    max-height: min(84vw, 360px);
     display: flex; flex-direction: column;
     justify-content: space-between;
     gap: 0;
     max-width: none;
   }
-  /* flex:1 repartit la hauteur egalement entre les 6 cartes.
-     min-height:0 permet aux cartes de se reduire librement.
-     Layout horizontal : icone + label cote a cote. */
-  .section-problem .pain-card { flex: 1; min-height: 0; flex-direction: row; justify-content: flex-start; padding: 0 8px; }
-  /* Ligne 4 droite : align-self:start ancre le telephone en haut
-     ET laisse sa hauteur naturelle definir la hauteur de la rangee. */
+  /* Chaque carte = 1/6 de la hauteur totale au maximum. */
+  .section-problem .pain-card { flex: 1; min-height: 0; max-height: calc(min(84vw, 360px) / 6); flex-direction: row; justify-content: flex-start; padding: 0 8px; }
+  /* align-self:start = telephone ancre en haut, hauteur naturelle. */
   .section-problem .problem-phone-col {
     grid-row: 4; grid-column: 2;
     align-self: start;
