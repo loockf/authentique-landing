@@ -2285,10 +2285,9 @@ footer {
     margin-top: 8px;
   }
   /* 2. Espace au bord haut de "Le probleme" quand on scroll vers la section */
-  /* scroll-margin-top = nav(60px) - padding-top_min(48px) + gap_label_h2(28px) = 40px.
-     Garantit un espace visible au-dessus du label >= gap label->h2 (28px)
-     sur tous les mobiles, meme le plus petit. */
-  .section-problem { scroll-margin-top: 40px; }
+  /* L'offset de 40px est gere par le handler JS du bouton hero.
+     scroll-margin-top reste a 0 pour ne pas affecter d'autres contextes. */
+  .section-problem { scroll-margin-top: 0; }
   /* Titre "Le probleme" sur 2 lignes sur mobile */
   .problem-title-break { display: block; }
   /* 3. Icones et labels reduits pour tenir sur une ligne a 390px :
@@ -2330,7 +2329,7 @@ footer {
      = min(84vw,360px). Valeur CSS pure, sans JS. */
   .section-problem .problem-pains {
     grid-row: 4; grid-column: 1;
-    align-self: end;
+    align-self: start;
     margin-top: 0;
     height: min(84vw, 360px);
     max-height: min(84vw, 360px);
@@ -4259,7 +4258,10 @@ async function submitSuggestion(e) {
   arrow.addEventListener('click', function () {
     var section = document.querySelector('#section-problem');
     if (!section) return;
-    var offset = section.getBoundingClientRect().top + window.scrollY;
+    // Sur mobile (<768px), arriver 40px au-dessus du bord haut de la
+    // section pour laisser de l'espace visible au-dessus du label.
+    var mobileOffset = window.innerWidth < 768 ? 40 : 0;
+    var offset = section.getBoundingClientRect().top + window.scrollY - mobileOffset;
     window.scrollTo({ top: offset, behavior: 'smooth' });
   });
   window.addEventListener('scroll', function () {
