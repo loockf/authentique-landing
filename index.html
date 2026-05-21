@@ -2303,7 +2303,7 @@ footer {
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 12px 16px;
-    align-items: stretch;
+    align-items: start;
   }
   /* display:contents aplatit .problem-text : ses enfants
      participent directement a la grille parente.
@@ -2322,30 +2322,28 @@ footer {
   .section-problem .problem-text p:not(.section-label) {
     grid-row: 3; grid-column: 1 / -1;
   }
-  /* Ligne 4 gauche : 6 cartes en colonne flex.
-     align-self:stretch + height:100% = hauteur = telephone.
-     flex:1 sur chaque carte = hauteur egale + gap fixe. */
-  /* Hauteur = telephone : width min(42vw,180px) * aspect-ratio 1/2
-     = min(84vw,360px). Valeur CSS pure, sans JS. */
-  .section-problem .problem-pains {
-    grid-row: 4; grid-column: 1;
-    align-self: start;
-    margin-top: 0;
-    height: min(84vw, 360px);
-    max-height: min(84vw, 360px);
-    display: flex; flex-direction: column;
-    justify-content: space-between;
-    gap: 0;
-    max-width: none;
-  }
-  /* Chaque carte = 1/6 de la hauteur totale au maximum. */
-  .section-problem .pain-card { flex: 1; min-height: 0; max-height: calc(min(84vw, 360px) / 6); flex-direction: row; justify-content: flex-start; padding: 0 8px; }
-  /* align-self:start = telephone ancre en haut, hauteur naturelle. */
+  /* phone-col align-self:start = hauteur naturelle du telephone
+     definit la hauteur de la rangee. */
   .section-problem .problem-phone-col {
     grid-row: 4; grid-column: 2;
     align-self: start;
     display: flex; align-items: flex-start;
   }
+  /* problem-pains align-self:stretch + height:100% = s'etire exactement
+     a la hauteur du telephone. space-between distribue les gaps. */
+  .section-problem .problem-pains {
+    grid-row: 4; grid-column: 1;
+    align-self: stretch;
+    height: 100%;
+    margin-top: 0;
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    gap: 0;
+    max-width: none;
+  }
+  /* flex:none = hauteur naturelle de chaque carte conservee.
+     space-between repartit l'espace restant en gaps egaux. */
+  .section-problem .pain-card { flex: none; min-height: 0; flex-direction: row; justify-content: flex-start; padding: 0 8px; }
   /* Telephone : meme taille que "L'app en images" sur mobile */
   .phone-frame { width: min(42vw, 180px); }
 }
