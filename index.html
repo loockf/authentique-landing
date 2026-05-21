@@ -800,6 +800,11 @@ section { padding: 120px 24px; position: relative; }
   padding: 16px 24px;
   flex-shrink: 0;
   box-sizing: border-box;
+  /* Sticky desktop/iPad : header reste en haut pendant le parallax de
+     .features-sticky-outer (qui suit dans le DOM). Override mobile en
+     position:static (cf. @media max-width:767px). */
+  position: sticky;
+  top: 0;
 }
 .features-header > * { max-width: 760px; margin-left: auto; margin-right: auto; }
 .features-header h2 { margin-bottom: 16px; }
@@ -2378,7 +2383,7 @@ footer {
      features-header : text-align:center sans !important → simple override.
      ally-header / screens-header : ont text-align:center !important → besoin
      de !important ici aussi (meme specificite, regle ulterieure gagne). */
-  .features-header { text-align: left; }
+  .features-header { text-align: left; position: static; }
   .features-header > * { margin-left: 0; }
   .ally-header,
   .ally-header h2,
@@ -2388,8 +2393,8 @@ footer {
   .screens-header .section-label { text-align: left !important; }
 
   /* ── BLOC 2+5 : "La solution" — layout mobile ──
-     Header deplace hors du sticky par JS → gate = 20 fixe.
-     220vh suffisant : scrollable ~1013px (iPhone 12), progress_max = 1.02. */
+     Header hors du sticky en HTML (refonte propre, plus de JS) → gate = 0.
+     220vh = 120vh scrollable = 6 steps × 20vh chacun. */
   .features-sticky-outer { height: 220vh; }
   .features-sticky-inner {
     justify-content: flex-start;
@@ -2409,9 +2414,9 @@ footer {
     gap: 12px;
     width: 100%;
   }
-  /* Telephone : hauteur = 100vh - 208px (pad+gaps+steps+dots+btn, hors header).
-     Largeur = hauteur/2 via aspect-ratio 1/2. Cap 50vw. */
-  .features-sticky-phone .iphone { width: min(calc((100vh - 208px) / 2), 50vw); padding: 6px; border-radius: 32px; }
+  /* Telephone : hauteur = 100vh - 180px (pad 36 + gap 12 + steps 88 + dots 16 + btn 28).
+     Largeur = hauteur/2 via aspect-ratio 1/2. Sans cap → max possible. */
+  .features-sticky-phone .iphone { width: calc((100vh - 180px) / 2); padding: 6px; border-radius: 32px; }
   /* Bords internes alignes sur padding+border-radius ci-dessus. */
   .features-sticky-phone .iphone-frame { border-radius: 26px; }
   /* Steps : pleine largeur, hauteur fixe, texte gauche.
@@ -2676,19 +2681,17 @@ footer {
 
 <!-- FEATURES -->
 <section class="section-features" id="section-features">
-  <!-- Sticky scroll : header + group (phone+steps) + continuation
-       sont wrappes dans .features-content-block (flex column) lui-meme
-       centre verticalement dans .features-sticky-inner (100vh). L'user
-       voit le bloc complet centre, qui reste fige pendant que les
-       steps s'animent au scroll. -->
+  <!-- Header hors du sticky-outer : sur desktop/iPad reste sticky:top:0
+       pendant tout le parallax (cf. CSS .features-header). Sur mobile, en
+       flux normal (override position:static) : defile avant le sticky. -->
+  <div class="features-header reveal">
+    <p class="section-label" data-i18n="features_label">La solution</p>
+    <h2 data-i18n="features_title">Choisir quoi <span class="authentique-gradient-text">masquer</span>.</h2>
+    <p data-i18n="features_sub">Chaque fonctionnalité a été pensée pour te redonner le contrôle de ton expérience Instagram.</p>
+  </div>
   <div class="features-sticky-outer">
     <div class="features-sticky-inner">
       <div class="features-content-block">
-      <div class="features-header reveal">
-        <p class="section-label" data-i18n="features_label">La solution</p>
-        <h2 data-i18n="features_title">Choisir quoi <span class="authentique-gradient-text">masquer</span>.</h2>
-        <p data-i18n="features_sub">Chaque fonctionnalité a été pensée pour te redonner le contrôle de ton expérience Instagram.</p>
-      </div>
       <div class="features-sticky-group">
         <div class="features-sticky-phone">
           <div class="iphone">
@@ -4778,9 +4781,6 @@ function pickDifferent(arr, lastIdx) {
   var dots = outer.querySelectorAll('.sticky-dot');
   var phone = outer.querySelector('.iphone');
   var stepsContainer = outer.querySelector('.features-sticky-steps');
-  var featHeader = outer.querySelector('.features-header');
-  var section = outer.closest('.section-features') || outer.parentElement;
-  var contentBlock = outer.querySelector('.features-content-block');
   if (steps.length === 0 || !phone) return;
   var nbSteps = steps.length;
   var lastIndex = -1;
@@ -4812,28 +4812,12 @@ function pickDifferent(arr, lastIdx) {
     });
   }
 
-  // Sur mobile : deplace .features-header HORS du sticky pour qu'il
-  // defiles normalement avant que le sticky demarre. Sur desktop :
-  // le reintegre dans .features-content-block (comportement inchange).
-  function applyMobileLayout() {
-    if (!featHeader) return;
-    if (window.innerWidth < 768) {
-      if (featHeader.parentNode !== section) {
-        section.insertBefore(featHeader, outer);
-      }
-    } else {
-      if (featHeader.parentNode !== contentBlock) {
-        contentBlock.insertBefore(featHeader, contentBlock.firstChild);
-      }
-    }
-  }
-
   function getCurrentIndex() {
     var rect = outer.getBoundingClientRect();
-    // Gate fixe : header desormais hors du sticky sur mobile via
-    // applyMobileLayout() → plus besoin de mesurer headerH.
-    if (rect.top >= 20) return -1;
-    var scrolled = 20 - rect.top;
+    // Gate = 0 : header hors du sticky en HTML, sticky engage exactement
+    // quand outer.top atteint 0 → parallax demarre immediatement.
+    if (rect.top >= 0) return -1;
+    var scrolled = -rect.top;
     var scrollable = outer.offsetHeight - window.innerHeight;
     if (scrollable <= 0) return 0;
     var progress = Math.max(0, Math.min(0.999, scrolled / scrollable));
@@ -4872,7 +4856,6 @@ function pickDifferent(arr, lastIdx) {
   window.addEventListener('scroll', update, { passive: true });
   window.addEventListener('resize', update);
   window.addEventListener('resize', alignStepsToToggles);
-  window.addEventListener('resize', applyMobileLayout);
   // Premier align quand les fontes sont chargees : GrosVentre influe
   // sur la hauteur des rows et des head, donc on attend pour mesurer.
   if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
@@ -4880,7 +4863,6 @@ function pickDifferent(arr, lastIdx) {
   } else {
     window.addEventListener('load', alignStepsToToggles);
   }
-  applyMobileLayout();
   alignStepsToToggles();
   update();
 
