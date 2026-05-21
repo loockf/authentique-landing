@@ -1837,7 +1837,7 @@ section { padding: 120px 24px; position: relative; }
      Sinon l'ajout de la caption decalerait le mockup vers le bas par
      rapport a l'iPhone (qui est plus haut). */
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   gap: clamp(48px, 8vw, 112px);
   width: 100%;
@@ -1889,9 +1889,13 @@ section { padding: 120px 24px; position: relative; }
 /* Caption au-dessus du mockup : largeur = celle du col = celle du
    mockup. Meme style typographique que les sous-titres ailleurs. */
 .lim-safari-caption {
-  margin: 0;
+  display: block;
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
   color: var(--text-soft);
-  font-size: clamp(13px, 1.3vw, 16px);
+  font-size: clamp(14px, 1.5vw, 18px);
   line-height: 1.5;
 }
 .lim-safari {
