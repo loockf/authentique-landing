@@ -260,6 +260,11 @@ nav {
   0%, 100% { transform: translateX(-50%) translateY(0); }
   50%      { transform: translateX(-50%) translateY(8px); }
 }
+/* Version sans translateX pour le hero-scroll en flux normal (mobile). */
+@keyframes heroBounceInline {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(8px); }
+}
 
 /* Bouton scroll inter-sections : meme position fixe pour toutes
    les sections — bottom-center absolu. translateX(-50%) integre
@@ -2263,10 +2268,36 @@ footer {
     bottom: 32px;
     top: auto;
   }
+  /* 1a. Masquer tous les boutons scroll inter-sections sur mobile —
+         seul le bouton hero reste (placé en flux normal). */
+  .section-scroll,
+  .sticky-scroll { display: none; }
+  /* 1b. Hero scroll en flux normal sous la tagline. La nouvelle
+         animation heroBounceInline supprime le translateX(-50%)
+         inutile en position:static. transform:none ecrase la valeur
+         de la regle de base. */
+  .hero-scroll {
+    position: static;
+    transform: none;
+    left: auto;
+    bottom: auto;
+    animation: heroBounceInline 1.5s ease-in-out infinite;
+    margin-top: 8px;
+  }
+  /* 2. Espace au bord haut de "Le probleme" quand on scroll vers la section */
+  .section-problem { scroll-margin-top: 32px; }
   /* Titre "Le probleme" sur 2 lignes sur mobile */
   .problem-title-break { display: block; }
-  /* Grille pain-cards : 3 colonnes → 2 colonnes sur mobile */
-  .problem-pains { grid-template-columns: repeat(2, 1fr); }
+  /* 3. Icones et labels reduits pour tenir sur une ligne a 390px :
+        icon 28px, font 10px, padding 8/6px, gap 8px entre cartes. */
+  .pain-icon { width: 28px; height: 28px; }
+  .pain-label { font-size: 10px; }
+  .pain-card { padding: 8px 6px; gap: 4px; }
+  .problem-pains { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  /* 4. Telephone : meme taille que les phones "L'app en images" sur
+        mobile = min(42vw, 180px). Gap reduit entre bloc texte et phone. */
+  .phone-frame { width: min(42vw, 180px); }
+  .section-problem .problem-grid { gap: 24px; }
 }
 </style>
 </head>
