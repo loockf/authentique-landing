@@ -2338,12 +2338,12 @@ footer {
     margin-top: 0;
     display: flex; flex-direction: column;
     justify-content: space-between;
-    gap: 0;
+    gap: 8px;
     max-width: none;
   }
-  /* flex:none = hauteur naturelle de chaque carte conservee.
-     space-between repartit l'espace restant en gaps egaux. */
-  .section-problem .pain-card { flex: none; min-height: 0; flex-direction: row; justify-content: flex-start; padding: 0 8px; }
+  /* flex:1 + max-height = chaque carte prend 1/6 de la hauteur
+     disponible (hauteur totale - 5 gaps de 8px). */
+  .section-problem .pain-card { flex: 1; min-height: 0; max-height: calc((100% - 5 * 8px) / 6); flex-direction: row; justify-content: flex-start; padding: 0 8px; }
   /* Telephone : meme taille que "L'app en images" sur mobile */
   .phone-frame { width: min(42vw, 180px); }
 }
