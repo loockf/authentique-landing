@@ -2387,10 +2387,10 @@ footer {
   .screens-header h2,
   .screens-header .section-label { text-align: left !important; }
 
-  /* ── BLOC 2+5 : "La solution" — header visible + layout mobile ──
-     Outer augmente (260vh) : gate = headerH+20 retire ~204px de la plage
-     utile → besoin de scrollable >= 1224px pour activer les 6 steps. */
-  .features-sticky-outer { height: 260vh; }
+  /* ── BLOC 2+5 : "La solution" — layout mobile ──
+     Header deplace hors du sticky par JS → gate = 20 fixe.
+     220vh suffisant : scrollable ~1013px (iPhone 12), progress_max = 1.02. */
+  .features-sticky-outer { height: 220vh; }
   .features-sticky-inner {
     justify-content: flex-start;
     padding: 20px 16px 16px;
@@ -4776,6 +4776,8 @@ function pickDifferent(arr, lastIdx) {
   var phone = outer.querySelector('.iphone');
   var stepsContainer = outer.querySelector('.features-sticky-steps');
   var featHeader = outer.querySelector('.features-header');
+  var section = outer.closest('.section-features') || outer.parentElement;
+  var contentBlock = outer.querySelector('.features-content-block');
   if (steps.length === 0 || !phone) return;
   var nbSteps = steps.length;
   var lastIndex = -1;
@@ -4807,15 +4809,28 @@ function pickDifferent(arr, lastIdx) {
     });
   }
 
+  // Sur mobile : deplace .features-header HORS du sticky pour qu'il
+  // defiles normalement avant que le sticky demarre. Sur desktop :
+  // le reintegre dans .features-content-block (comportement inchange).
+  function applyMobileLayout() {
+    if (!featHeader) return;
+    if (window.innerWidth < 768) {
+      if (featHeader.parentNode !== section) {
+        section.insertBefore(featHeader, outer);
+      }
+    } else {
+      if (featHeader.parentNode !== contentBlock) {
+        contentBlock.insertBefore(featHeader, contentBlock.firstChild);
+      }
+    }
+  }
+
   function getCurrentIndex() {
     var rect = outer.getBoundingClientRect();
-    // Sur mobile : gate decalee de headerH pour que le parallax demarre
-    // quand le header a ete "virtuellement" scrolle (20px avant la fin
-    // du header). Sur desktop : gate = 20 (inchange).
-    var headerH = (window.innerWidth < 768 && featHeader) ? featHeader.offsetHeight : 0;
-    var gate = -(headerH + 20);
-    if (rect.top >= gate) return -1;
-    var scrolled = gate - rect.top;
+    // Gate fixe : header desormais hors du sticky sur mobile via
+    // applyMobileLayout() → plus besoin de mesurer headerH.
+    if (rect.top >= 20) return -1;
+    var scrolled = 20 - rect.top;
     var scrollable = outer.offsetHeight - window.innerHeight;
     if (scrollable <= 0) return 0;
     var progress = Math.max(0, Math.min(0.999, scrolled / scrollable));
@@ -4854,6 +4869,7 @@ function pickDifferent(arr, lastIdx) {
   window.addEventListener('scroll', update, { passive: true });
   window.addEventListener('resize', update);
   window.addEventListener('resize', alignStepsToToggles);
+  window.addEventListener('resize', applyMobileLayout);
   // Premier align quand les fontes sont chargees : GrosVentre influe
   // sur la hauteur des rows et des head, donc on attend pour mesurer.
   if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
@@ -4861,6 +4877,7 @@ function pickDifferent(arr, lastIdx) {
   } else {
     window.addEventListener('load', alignStepsToToggles);
   }
+  applyMobileLayout();
   alignStepsToToggles();
   update();
 
