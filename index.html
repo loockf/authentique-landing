@@ -1826,7 +1826,7 @@ section { padding: 120px 24px; position: relative; }
   box-sizing: border-box;
 }
 .lim-header > * { max-width: 760px; margin-left: auto; margin-right: auto; }
-.lim-header h2 { margin: 0 0 16px; line-height: 1.15; }
+.lim-header h2 { margin: 0 0 16px; line-height: 1.15; font-size: clamp(22px, 3vw, 36px); }
 .lim-header p:not(.section-label) {
   color: var(--text-soft);
   font-size: clamp(14px, 1.5vw, 18px);
@@ -1893,7 +1893,6 @@ section { padding: 120px 24px; position: relative; }
   color: var(--text-soft);
   font-size: clamp(13px, 1.3vw, 16px);
   line-height: 1.5;
-  text-align: left;
 }
 .lim-safari {
   background: #fff;
@@ -2924,6 +2923,7 @@ footer {
           <p class="section-label" data-i18n="limits_label">Transparence</p>
           <h2 data-i18n="limits_title">Ce qu'Authentique ne peut pas faire</h2>
           <p data-i18n="limits_subtitle">Authentique utilise la version web d'Instagram.</p>
+          <p class="lim-safari-caption" data-i18n="limits_caption">C'est ce qui nous permet de filtrer ce que tu vois — mais certaines fonctions de l'app native ne sont pas disponibles.</p>
         </div>
         <div class="lim-group">
           <!-- Gauche : iPhone avec logo Instagram + barre diagonale dégradé -->
@@ -2953,7 +2953,6 @@ footer {
           <div class="lim-separator" aria-hidden="true"></div>
           <!-- Droite : mockup navigateur Safari -->
           <div class="lim-safari-col">
-            <p class="lim-safari-caption" data-i18n="limits_caption">C'est ce qui nous permet de filtrer ce que tu vois — mais certaines fonctions de l'app native ne sont pas disponibles.</p>
             <div class="lim-safari">
               <div class="lim-safari-chrome">
                 <div class="lim-safari-dots" aria-hidden="true">
