@@ -2319,13 +2319,15 @@ footer {
   .section-problem .problem-text p:not(.section-label) {
     grid-row: 3; grid-column: 1 / -1;
   }
-  /* Ligne 4 gauche : 6 cartes en colonne flex,
-     hauteur = min(42vw,180px)*2 = min(84vw,360px) = telephone */
+  /* Ligne 4 gauche : 6 cartes en colonne flex.
+     Pas de hauteur fixe : la grille stretche automatiquement
+     le conteneur a la hauteur de la cellule (= telephone),
+     padding compris. Les flex:1 sur .pain-card repartissent. */
   .section-problem .problem-pains {
     grid-row: 4; grid-column: 1;
+    align-self: stretch;
     display: flex; flex-direction: column;
     gap: 6px;
-    height: min(84vw, 360px);
     max-width: none;
   }
   /* Chaque carte prend 1/6 de la hauteur totale */
