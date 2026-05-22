@@ -2337,6 +2337,7 @@ footer {
   /* Ligne 3 : paragraphe descriptif — pleine largeur */
   .section-problem .problem-text p:not(.section-label) {
     grid-row: 3; grid-column: 1 / -1;
+    margin-bottom: 28px; /* 28 + 12px gap = 40px avant pains/phone */
   }
   /* phone-col align-self:start = hauteur naturelle du telephone
      definit la hauteur de la rangee. */
@@ -2384,7 +2385,7 @@ footer {
     opacity: 0;
     pointer-events: none;
   }
-  .section-problem .problem-stats { padding-bottom: 0; }
+  .section-problem .problem-stats { padding-bottom: 0; margin-top: 40px; }
   .features-header h2 { font-size: clamp(32px, 4vw, 56px); }
 
   /* ── BLOC 3 : offset scroll depuis "Le probleme" ── */
