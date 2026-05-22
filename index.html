@@ -2408,6 +2408,7 @@ footer {
      220vh = 120vh scrollable = 6 steps × 20vh chacun. */
   .features-sticky-outer { height: 220vh; }
   .features-sticky-inner {
+    flex-direction: column;
     justify-content: flex-start;
     padding: 20px 16px 16px;
     gap: 0;
@@ -2432,8 +2433,8 @@ footer {
      (1.2vw = 4.68px sur 390px → min). Ratio desktop = 280/12 ≈ 23, on garde
      le meme : font-size = width / 23. Tout l'interieur en em (settings-mockup,
      sm-*, dynamic-island) scale automatiquement avec ce font-size parent. */
-  /* Budget X = 180px : pad 36 + gap 22 + steps 88 + dots/continuation/btn
-     tous en position:absolute → hors du budget de hauteur du sticky. */
+  /* Budget X = 180px conserve (telephone plus grand, tout tient en ~523px/667vh).
+     Dots/continuation/bouton en flux normal → budget reel ~328px mais on garde 180. */
   .features-sticky-phone .iphone {
     width: calc(((100vh - 180px) / 2) * 0.80);
     padding: 6px;
@@ -2452,42 +2453,37 @@ footer {
     align-items: flex-start;
   }
   .features-step { align-items: flex-start; top: 0; }
-  /* Dots, continuation et bouton : tous position:absolute dans sticky-inner
-     (top:50px; height:100vh). bottom:B → element a (B-50)px du bas visible.
-     Ordre du bas vers le haut : bouton → continuation → dots.
-     Gaps : dots.bottom→continuation.top = 20px, continuation.bottom→btn.top = 20px.
-     Calcul : btn_bottom = 50+vh-66, btn_top = 50+vh-122 (h=56px).
-              cont_bottom = btn_top-20 = 50+vh-142, cont_top = 50+vh-198 (h=56px).
-              dots_bottom = cont_top-20 = 50+vh-218, dots_top = 50+vh-228 (h=10px). */
+  /* Dots, continuation, bouton : flux normal (position:static) dans le
+     flex-column de .features-sticky-inner. Ordre vertical naturel :
+     content-block → 20px → dots → 20px → continuation → 20px → bouton.
+     Les .features-step restent en position:absolute DANS .features-sticky-steps
+     (container a hauteur fixe min-height:88px) → n'affectent pas le flux. */
   .section-features .sticky-dots {
-    position: absolute;
-    bottom: 218px;
-    left: 0;
-    right: 0;
-    margin: 0;
+    position: static;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    margin: 20px auto 0;
     transform: none;
     justify-content: center;
   }
-  /* Continuation fixee : jamais affectee par la hauteur variable des steps. */
   .section-features .control-continuation {
     display: block;
-    position: absolute;
-    bottom: 142px;
-    left: 0;
-    right: 0;
-    margin: 0;
+    position: static;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    margin: 20px auto 0;
     padding: 0 16px;
-    text-align: left;
+    text-align: center;
   }
-  /* Bouton scroll : absolute pour rester a sa position meme si steps change. */
   .section-features .sticky-scroll {
     display: flex;
-    position: absolute;
-    bottom: 66px;
-    left: 0;
-    right: 0;
-    width: 56px;
-    margin: 0 auto;
+    position: static;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    margin: 20px auto 0;
     transform: none;
     animation: heroBounceInline 1.5s ease-in-out infinite;
     color: #19d382;
