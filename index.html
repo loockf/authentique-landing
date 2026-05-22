@@ -2433,13 +2433,13 @@ footer {
      (1.2vw = 4.68px sur 390px → min). Ratio desktop = 280/12 ≈ 23, on garde
      le meme : font-size = width / 23. Tout l'interieur en em (settings-mockup,
      sm-*, dynamic-island) scale automatiquement avec ce font-size parent. */
-  /* Budget X = 340px (pad 36 + gap 11 + steps-grid ~105 + dots 30 + continuation 76 + btn 66 + pad-bottom 16).
-     Telephone height = (100vh - 340) × 0.80. Sur 667px : 261px → total 601px ≤ 617px ✓ */
+  /* Budget X = 180px conserve (telephone plus grand, tout tient en ~523px/667vh).
+     Dots/continuation/bouton en flux normal → budget reel ~340px mais on garde 180. */
   .features-sticky-phone .iphone {
-    width: calc(((100vh - 340px) / 2) * 0.80);
+    width: calc(((100vh - 180px) / 2) * 0.80);
     padding: 6px;
     border-radius: 2.67em;
-    font-size: calc((100vh - 340px) / 46 * 0.80);
+    font-size: calc((100vh - 180px) / 46 * 0.80);
   }
   /* Bords internes alignes sur padding+border-radius ci-dessus. */
   .features-sticky-phone .iphone-frame { border-radius: 2.17em; }
