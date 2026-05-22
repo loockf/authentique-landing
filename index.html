@@ -2458,6 +2458,7 @@ footer {
     overflow: hidden;
     width: 100%;
     max-width: 100%;
+    text-align: left;      /* override text-align:center du bloc @media 768px */
   }
   .section-features .features-step {
     position: absolute;    /* restaure le global : tous les steps à top:0 */
@@ -2465,6 +2466,7 @@ footer {
     left: 0;
     right: 0;
     align-items: flex-start;
+    text-align: left;
   }
   /* Dots, continuation, bouton : flux normal (position:static) dans le
      flex-column de .features-sticky-inner. Ordre vertical naturel :
