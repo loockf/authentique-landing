@@ -524,7 +524,7 @@ section { padding: 120px 24px; position: relative; }
   width: clamp(220px, 28vw, 280px);
   aspect-ratio: 1 / 2;
   background: #1c1c1a;
-  border-radius: 36px;
+  border-radius: 3em;
   padding: 8px;
   box-shadow: 0 30px 60px rgba(20,20,20,0.18), 0 12px 24px rgba(20,20,20,0.08);
   position: relative;
@@ -545,7 +545,7 @@ section { padding: 120px 24px; position: relative; }
 .phone-screen {
   width: 100%; height: 100%;
   background: #1a1a1a;
-  border-radius: 28px;
+  border-radius: 2.33em;
   overflow: hidden;
   position: relative;
 }
@@ -947,7 +947,7 @@ section { padding: 120px 24px; position: relative; }
    coherent visuellement avec le mockup principal du dessus. */
 .features-sticky-phone .iphone {
   width: clamp(220px, 28vw, 280px);
-  border-radius: 36px;
+  border-radius: 3em;
   padding: 8px;
 }
 .features-sticky-steps {
@@ -1070,7 +1070,7 @@ section { padding: 120px 24px; position: relative; }
      remplit 100%/100% pour eviter un bord noir en bas. */
   width: clamp(220px, 28vw, 280px);
   aspect-ratio: 1 / 2;
-  border-radius: 32px;
+  border-radius: 2.67em;
   background: #1c1c1a;
   padding: 6px;
   box-shadow: 0 20px 40px rgba(20,20,20,0.15);
@@ -1082,7 +1082,7 @@ section { padding: 120px 24px; position: relative; }
 .iphone--featured { transform: none; z-index: auto; }
 .iphone-frame {
   position: relative;
-  border-radius: 26px;
+  border-radius: 2.17em;
   overflow: hidden;
   width: 100%;
   height: 100%;
@@ -2351,8 +2351,8 @@ footer {
   .section-problem .pain-card { flex: 1; min-height: 0; max-height: calc((100% - 5 * 8px) / 6); flex-direction: row; justify-content: flex-start; padding: 0 8px; }
   /* Telephone : meme taille et meme finesse de bord que "L'app en images" sur mobile */
   .phone-frame { width: min(42vw, 180px); }
-  .section-problem .phone-frame { padding: 6px; border-radius: 32px; }
-  .section-problem .phone-screen { border-radius: 26px; }
+  .section-problem .phone-frame { padding: 6px; border-radius: 3em; }
+  .section-problem .phone-screen { border-radius: 2.33em; }
   .section-problem .phone-notch { width: 6.67em; border-radius: 1em; }
 
   /* ── BLOC 1 : bouton scroll "Le probleme" → #section-features ──
@@ -2424,11 +2424,11 @@ footer {
   .features-sticky-phone .iphone {
     width: calc(((100vh - 180px) / 2) * 0.80);
     padding: 6px;
-    border-radius: 32px;
+    border-radius: 2.67em;
     font-size: calc((100vh - 180px) / 46 * 0.80);
   }
   /* Bords internes alignes sur padding+border-radius ci-dessus. */
-  .features-sticky-phone .iphone-frame { border-radius: 26px; }
+  .features-sticky-phone .iphone-frame { border-radius: 2.17em; }
   /* Steps : pleine largeur, hauteur fixe, texte gauche.
      Tous position:absolute top:0 → superposes, seul l'actif visible. */
   .features-sticky-steps {
