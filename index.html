@@ -780,6 +780,18 @@ section { padding: 120px 24px; position: relative; }
   font-size: clamp(14px, 1.5vw, 18px);
   line-height: 1.55;
 }
+/* Desktop/iPad : continuation position:absolute pour ne pas perturber le
+   flex-row de .features-sticky-inner (seul content-block est en flux).
+   Meme logique que .sticky-dots (bottom:100px) et .sticky-scroll (bottom:32px).
+   Sur mobile (<768px) : bottom:142px via la media query ci-dessous. */
+.section-features .control-continuation {
+  position: absolute;
+  bottom: 160px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
 /* FEATURES */
 /* padding:0 + display:block (default) sur la section : meme pattern
    que .section-screens. Header + group + continuation sont DANS le
@@ -2411,7 +2423,7 @@ footer {
   .features-sticky-group {
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 22px;
     width: 100%;
   }
   /* Telephone : hauteur = 100vh - 180px (pad 36 + gap 12 + steps 88 + dots 16 + btn 28).
@@ -2420,9 +2432,8 @@ footer {
      (1.2vw = 4.68px sur 390px → min). Ratio desktop = 280/12 ≈ 23, on garde
      le meme : font-size = width / 23. Tout l'interieur en em (settings-mockup,
      sm-*, dynamic-island) scale automatiquement avec ce font-size parent. */
-  /* Budget X = 180px : pads 36 + gap 12 + steps 88 + dots 16 + btn 28.
-     Taille d'origine — .control-continuation est en flux normal apres
-     le sticky-outer, hors du budget de hauteur du sticky. */
+  /* Budget X = 180px : pad 36 + gap 22 + steps 88 + dots/continuation/btn
+     tous en position:absolute → hors du budget de hauteur du sticky. */
   .features-sticky-phone .iphone {
     width: calc(((100vh - 180px) / 2) * 0.80);
     padding: 6px;
@@ -2441,33 +2452,44 @@ footer {
     align-items: flex-start;
   }
   .features-step { align-items: flex-start; top: 0; }
-  /* Continuation en flux normal apres .features-sticky-outer.
-     Meme padding lateral que .features-header mobile (8px 16px).
-     Jamais a l'interieur du sticky → ne bouge pas lors des steps. */
+  /* Dots, continuation et bouton : tous position:absolute dans sticky-inner
+     (top:50px; height:100vh). bottom:B → element a (B-50)px du bas visible.
+     Ordre du bas vers le haut : bouton → continuation → dots.
+     Gaps : dots.bottom→continuation.top = 20px, continuation.bottom→btn.top = 20px.
+     Calcul : btn_bottom = 50+vh-66, btn_top = 50+vh-122 (h=56px).
+              cont_bottom = btn_top-20 = 50+vh-142, cont_top = 50+vh-198 (h=56px).
+              dots_bottom = cont_top-20 = 50+vh-218, dots_top = 50+vh-228 (h=10px). */
+  .section-features .sticky-dots {
+    position: absolute;
+    bottom: 218px;
+    left: 0;
+    right: 0;
+    margin: 0;
+    transform: none;
+    justify-content: center;
+  }
+  /* Continuation fixee : jamais affectee par la hauteur variable des steps. */
   .section-features .control-continuation {
-    margin-top: 20px;
+    display: block;
+    position: absolute;
+    bottom: 142px;
+    left: 0;
+    right: 0;
+    margin: 0;
     padding: 0 16px;
     text-align: left;
   }
-  /* Dots en flux normal, sous les textes de steps.
-     Centres comme le telephone. */
-  .section-features .sticky-dots {
-    position: static;
-    transform: none;
-    left: auto;
-    bottom: auto;
-    margin: 8px 0 0;
-    justify-content: center;
-  }
-  /* Bouton scroll "La solution" → #screens, en flux comme .hero-scroll. */
+  /* Bouton scroll : absolute pour rester a sa position meme si steps change. */
   .section-features .sticky-scroll {
     display: flex;
-    position: static;
+    position: absolute;
+    bottom: 66px;
+    left: 0;
+    right: 0;
+    width: 56px;
+    margin: 0 auto;
     transform: none;
-    left: auto;
-    bottom: auto;
     animation: heroBounceInline 1.5s ease-in-out infinite;
-    margin: 20px auto 0;
     color: #19d382;
     transition: opacity 0.3s ease;
   }
@@ -2892,23 +2914,22 @@ footer {
         <span class="sticky-dot" data-dot="4"></span>
         <span class="sticky-dot" data-dot="5"></span>
       </div>
-      <!-- Bouton scroll : meme position que .sticky-scroll dans
-           "L'app en images" (DANS le sticky-inner, position:absolute
-           bottom:32px). Click : avance d'un step si pas le dernier,
-           sinon scroll vers #screens. -->
+      <!-- Continuation : position:absolute dans sticky-inner (cf. CSS mobile).
+           Sur desktop : hors du flux flex-row (position:absolute bottom:160px
+           ajoute via regle globale si necessaire — sinon flux normal). -->
+      <div class="control-continuation reveal">
+        <h3 data-i18n="suggest_title">Et ce n'est que le <em>début</em>.</h3>
+        <p data-i18n="suggest_sub">De nouvelles fonctionnalités sont en cours de développement.</p>
+      </div>
+      <!-- Bouton scroll : position:absolute bottom:32px sur desktop (regle
+           globale .sticky-scroll), bottom:66px sur mobile (override ci-dessus).
+           Click : avance d'un step si pas le dernier, sinon scroll #screens. -->
       <button class="sticky-scroll" data-scroll-to="#screens" aria-label="Section suivante" type="button">
         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="6 9 12 15 18 9"/>
         </svg>
       </button>
     </div>
-  </div>
-  <!-- Continuation : flux normal apres features-sticky-outer. Hors du
-       sticky-inner → position fixe dans la page, jamais affectee par
-       l'animation des steps. Visible apres le scroll complet de la section. -->
-  <div class="control-continuation reveal">
-    <h3 data-i18n="suggest_title">Et ce n'est que le <em>début</em>.</h3>
-    <p data-i18n="suggest_sub">De nouvelles fonctionnalités sont en cours de développement.</p>
   </div>
 </section>
 
