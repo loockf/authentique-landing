@@ -2454,6 +2454,7 @@ footer {
     grid-template-columns: 1fr;
     height: 90px;
     min-height: 0;     /* override min-height:200px du bloc @media 768px */
+    max-height: 90px;  /* verrouille la hauteur — aucun enfant ne peut l'étirer */
     overflow: hidden;
     width: 100%;
     max-width: 100%;
@@ -2488,9 +2489,9 @@ footer {
     bottom: auto;
     left: auto;
     right: auto;
-    margin: 20px auto 0;
+    margin: 40px auto 0;
     padding: 0 16px;
-    text-align: center;
+    text-align: left;
   }
   .section-features .sticky-scroll {
     display: flex;
