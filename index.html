@@ -2543,19 +2543,20 @@ footer {
     height: calc(100vh - 104px);
     width: 100%;
   }
-  /* 3. phones au top de slides-area (h2→phones = 60px via margin sur screens-header-shared).
-     padding: 0 écrase le 24px top + 100px bottom desktop.
-     gap: 20px = identique au gap phone→steps de "La solution" (.features-sticky-group). */
-  .section-screens .sticky-slide { justify-content: flex-start; padding: 0; }
-  .section-screens .sticky-slide-content { height: 100%; align-content: flex-start; gap: 20px; }
-  /* 2. Dots : flux normal, 20px sous les phrases descriptives */
+  /* 3. Contenu collé en bas de slides-area : justify-content:flex-end sur le slide,
+     height:auto sur slide-content (hauteur naturelle phones+gap+texte).
+     → texte flush contre la slides-area-bottom → dots 40px en dessous = 40px exact.
+     phones→texte = gap:20px conservé. padding:0 écrase 24px top + 100px bottom desktop. */
+  .section-screens .sticky-slide { justify-content: flex-end; padding: 0; }
+  .section-screens .sticky-slide-content { height: auto; align-content: flex-start; gap: 20px; }
+  /* 2. Dots : flux normal, 40px sous le texte explicatif */
   .section-screens .sticky-dots {
     position: static;
     bottom: auto;
     left: auto;
     right: auto;
     transform: none;
-    margin: 20px auto 0;
+    margin: 40px auto 0;
     justify-content: center;
     align-items: center;
     height: 20px;
