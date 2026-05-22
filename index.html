@@ -2401,6 +2401,7 @@ footer {
     padding: 20px 16px 16px;
     gap: 0;
     overflow: hidden;
+    top: -50px;
   }
   /* Header restaure, padding compact pour liberer de la hauteur. */
   .section-features .features-header { padding: 8px 16px; }
@@ -4825,8 +4826,8 @@ function pickDifferent(arr, lastIdx) {
     var rect = outer.getBoundingClientRect();
     // Gate = 0 : header hors du sticky en HTML, sticky engage exactement
     // quand outer.top atteint 0 → parallax demarre immediatement.
-    if (rect.top >= 0) return -1;
-    var scrolled = -rect.top;
+    if (rect.top >= -50) return -1;
+    var scrolled = -50 - rect.top;
     var scrollable = outer.offsetHeight - window.innerHeight;
     if (scrollable <= 0) return 0;
     var progress = Math.max(0, Math.min(0.999, scrolled / scrollable));
