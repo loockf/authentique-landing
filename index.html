@@ -780,18 +780,6 @@ section { padding: 120px 24px; position: relative; }
   font-size: clamp(14px, 1.5vw, 18px);
   line-height: 1.55;
 }
-/* Sur desktop/iPad : continuation desormais hors du .features-content-block
-   (elle est apres .sticky-dots dans le DOM). Position absolute pour ne pas
-   perturber le flex-row de .features-sticky-inner. Bouton et dots absolus
-   a bottom:32px et bottom:100px → continuation au-dessus. */
-.section-features .control-continuation {
-  position: absolute;
-  bottom: 160px;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-}
-
 /* FEATURES */
 /* padding:0 + display:block (default) sur la section : meme pattern
    que .section-screens. Header + group + continuation sont DANS le
@@ -2433,8 +2421,8 @@ footer {
      le meme : font-size = width / 23. Tout l'interieur en em (settings-mockup,
      sm-*, dynamic-island) scale automatiquement avec ce font-size parent. */
   /* Budget X = 180px : pads 36 + gap 12 + steps 88 + dots 16 + btn 28.
-     Taille d'origine — .control-continuation est desormais position:absolute
-     (ne fait plus partie du budget de hauteur). */
+     Taille d'origine — .control-continuation est en flux normal apres
+     le sticky-outer, hors du budget de hauteur du sticky. */
   .features-sticky-phone .iphone {
     width: calc(((100vh - 180px) / 2) * 0.80);
     padding: 6px;
@@ -2453,19 +2441,13 @@ footer {
     align-items: flex-start;
   }
   .features-step { align-items: flex-start; top: 0; }
-  /* Continuation fixee dans sticky-inner (position:absolute) pour ne jamais
-     bouger quand le texte des steps change de hauteur.
-     sticky-inner : top:50px, height:100vh → son bord bas est a 50px sous
-     l'ecran. bottom:120px → element a 120-50 = 70px du bas visible.
-     La continuation peut deborder partiellement si l'ecran est petit. */
+  /* Continuation en flux normal apres .features-sticky-outer.
+     Meme padding lateral que .features-header mobile (8px 16px).
+     Jamais a l'interieur du sticky → ne bouge pas lors des steps. */
   .section-features .control-continuation {
-    display: block;
-    position: absolute;
-    bottom: 120px;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    text-align: center;
+    margin-top: 20px;
+    padding: 0 16px;
+    text-align: left;
   }
   /* Dots en flux normal, sous les textes de steps.
      Centres comme le telephone. */
@@ -2910,13 +2892,6 @@ footer {
         <span class="sticky-dot" data-dot="4"></span>
         <span class="sticky-dot" data-dot="5"></span>
       </div>
-      <!-- Continuation : sous les dots sur mobile, au-dessus du bouton.
-           Sur desktop : position:absolute (cf. CSS .section-features
-           .control-continuation) pour rester dans la zone sticky. -->
-      <div class="control-continuation reveal">
-        <h3 data-i18n="suggest_title">Et ce n'est que le <em>début</em>.</h3>
-        <p data-i18n="suggest_sub">De nouvelles fonctionnalités sont en cours de développement.</p>
-      </div>
       <!-- Bouton scroll : meme position que .sticky-scroll dans
            "L'app en images" (DANS le sticky-inner, position:absolute
            bottom:32px). Click : avance d'un step si pas le dernier,
@@ -2927,6 +2902,13 @@ footer {
         </svg>
       </button>
     </div>
+  </div>
+  <!-- Continuation : flux normal apres features-sticky-outer. Hors du
+       sticky-inner → position fixe dans la page, jamais affectee par
+       l'animation des steps. Visible apres le scroll complet de la section. -->
+  <div class="control-continuation reveal">
+    <h3 data-i18n="suggest_title">Et ce n'est que le <em>début</em>.</h3>
+    <p data-i18n="suggest_sub">De nouvelles fonctionnalités sont en cours de développement.</p>
   </div>
 </section>
 
@@ -5027,7 +5009,7 @@ function pickDifferent(arr, lastIdx) {
       // Mobile : section-features a padding-top:72px + header 8px + label ~38px
       // = ~118px avant le titre h2. On vise h2 a 80px (20px sous la nav 60px) :
       // 80 = 118 + navOffset → navOffset = -38.
-      if (window.innerWidth < 768 && sel === '#section-features') navOffset = 38;
+      if (window.innerWidth < 768 && sel === '#section-features') navOffset = 10;
       var offset = target.getBoundingClientRect().top + window.scrollY - navOffset;
       window.scrollTo({ top: offset, behavior: 'smooth' });
     });
