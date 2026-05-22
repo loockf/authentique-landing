@@ -2450,23 +2450,20 @@ footer {
      le step actif. position:static override le absolute global ;
      l'opacity transition (globale) est conservee pour l'animation. */
   .section-features .features-sticky-steps {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: block;        /* supprime le grid — steps en position absolue */
+    position: relative;    /* bloc de positionnement pour les steps absolus */
     height: 90px;
-    min-height: 0;     /* override min-height:200px du bloc @media 768px */
-    max-height: 90px;  /* verrouille la hauteur — aucun enfant ne peut l'étirer */
+    min-height: 0;         /* override min-height:200px du bloc @media 768px */
+    max-height: 90px;      /* verrouille la hauteur */
     overflow: hidden;
     width: 100%;
     max-width: 100%;
-    text-align: left;
   }
   .section-features .features-step {
-    grid-column: 1;
-    grid-row: 1;
-    position: static;
-    top: auto;
-    left: auto;
-    right: auto;
+    position: absolute;    /* restaure le global : tous les steps à top:0 */
+    top: 0;
+    left: 0;
+    right: 0;
     align-items: flex-start;
   }
   /* Dots, continuation, bouton : flux normal (position:static) dans le
