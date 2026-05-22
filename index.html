@@ -2521,11 +2521,16 @@ footer {
   /* ── BLOC 6 : "L'app en images" — layout mobile ── */
   /* 1. Arriver 20px au-dessus du titre lors du scroll */
   #screens { scroll-margin-top: 20px; }
-  /* Header partagé visible sur mobile (défile naturellement avant sticky-outer).
-     Headers individuels dans chaque slide masqués — identiques, inutiles sur mobile. */
-  /* padding-bottom: 0 pour que le gap h2→téléphones soit exactement 60px (sans les 8px de padding). */
-  .screens-header-shared { display: block; padding: 8px 16px 0; margin-bottom: 60px; }
-  .section-screens .sticky-slide .screens-header { display: none; }
+  /* Header partagé masqué sur mobile : le titre vit dans le slide actif (en flux).
+     Le sticky-inner colle dès top:0 → titre visible en haut + tout le bloc sous lui. */
+  .screens-header-shared { display: none; }
+  /* Header in-slide affiché : padding compact pour laisser de la place au contenu. */
+  .section-screens .sticky-slide .screens-header {
+    display: block;
+    padding: 8px 16px;
+    margin-bottom: 24px;
+    text-align: left;
+  }
 
   /* Layout : sticky-inner en hauteur auto + overflow:visible pour accueillir
      dots et bouton en flux normal. Les slides restent position:absolute dans
