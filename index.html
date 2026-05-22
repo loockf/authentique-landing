@@ -780,6 +780,17 @@ section { padding: 120px 24px; position: relative; }
   font-size: clamp(14px, 1.5vw, 18px);
   line-height: 1.55;
 }
+/* Sur desktop/iPad : continuation desormais hors du .features-content-block
+   (elle est apres .sticky-dots dans le DOM). Position absolute pour ne pas
+   perturber le flex-row de .features-sticky-inner. Bouton et dots absolus
+   a bottom:32px et bottom:100px → continuation au-dessus. */
+.section-features .control-continuation {
+  position: absolute;
+  bottom: 160px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
 
 /* FEATURES */
 /* padding:0 + display:block (default) sur la section : meme pattern
@@ -2421,11 +2432,15 @@ footer {
      (1.2vw = 4.68px sur 390px → min). Ratio desktop = 280/12 ≈ 23, on garde
      le meme : font-size = width / 23. Tout l'interieur en em (settings-mockup,
      sm-*, dynamic-island) scale automatiquement avec ce font-size parent. */
+  /* Budget X = 276px : pads 36 + gap 12 + steps 88 + gap 8 + dots 10
+     + gap 20 (continuation) + continuation ~56 + gap 20 + bouton 56.
+     Telephone reduit pour laisser de la place au texte "Et ce n'est
+     que le debut" visible sous les dots. */
   .features-sticky-phone .iphone {
-    width: calc(((100vh - 180px) / 2) * 0.80);
+    width: calc(((100vh - 276px) / 2) * 0.80);
     padding: 6px;
     border-radius: 2.67em;
-    font-size: calc((100vh - 180px) / 46 * 0.80);
+    font-size: calc((100vh - 276px) / 46 * 0.80);
   }
   /* Bords internes alignes sur padding+border-radius ci-dessus. */
   .features-sticky-phone .iphone-frame { border-radius: 2.17em; }
@@ -2439,8 +2454,15 @@ footer {
     align-items: flex-start;
   }
   .features-step { align-items: flex-start; top: 0; }
-  /* Continuation cachee sur mobile (depasse 100vh). */
-  .control-continuation { display: none; }
+  /* Continuation visible sur mobile sous les dots (cf. HTML).
+     Position static pour rester dans le flux flex-column du sticky-inner.
+     Override le position:absolute ajoute pour le desktop. */
+  .section-features .control-continuation {
+    display: block;
+    position: static;
+    margin: 20px auto 0;
+    text-align: center;
+  }
   /* Dots en flux normal, sous les textes de steps.
      Centres comme le telephone. */
   .section-features .sticky-dots {
@@ -2459,7 +2481,7 @@ footer {
     left: auto;
     bottom: auto;
     animation: heroBounceInline 1.5s ease-in-out infinite;
-    margin: 8px auto 0;
+    margin: 20px auto 0;
     color: #19d382;
     transition: opacity 0.3s ease;
   }
@@ -2872,11 +2894,6 @@ footer {
           </div>
         </div>
       </div>
-      <!-- Continuation : 3eme item du .features-content-block. -->
-      <div class="control-continuation reveal">
-        <h3 data-i18n="suggest_title">Et ce n'est que le <em>début</em>.</h3>
-        <p data-i18n="suggest_sub">De nouvelles fonctionnalités sont en cours de développement.</p>
-      </div>
       </div><!-- /.features-content-block -->
       <!-- Dots : 1 par step (6). Reutilise .sticky-dots de "L'app en
            images" (position:absolute bottom:100px). is-active toggle
@@ -2888,6 +2905,13 @@ footer {
         <span class="sticky-dot" data-dot="3"></span>
         <span class="sticky-dot" data-dot="4"></span>
         <span class="sticky-dot" data-dot="5"></span>
+      </div>
+      <!-- Continuation : sous les dots sur mobile, au-dessus du bouton.
+           Sur desktop : position:absolute (cf. CSS .section-features
+           .control-continuation) pour rester dans la zone sticky. -->
+      <div class="control-continuation reveal">
+        <h3 data-i18n="suggest_title">Et ce n'est que le <em>début</em>.</h3>
+        <p data-i18n="suggest_sub">De nouvelles fonctionnalités sont en cours de développement.</p>
       </div>
       <!-- Bouton scroll : meme position que .sticky-scroll dans
            "L'app en images" (DANS le sticky-inner, position:absolute
@@ -4996,6 +5020,10 @@ function pickDifferent(arr, lastIdx) {
       // Sur mobile : soustraire la hauteur de la nav fixe (60px) pour
       // que le titre de la section arrive juste en-dessous de la nav.
       var navOffset = window.innerWidth < 768 ? 60 : 0;
+      // Mobile : section-features a padding-top:72px + header 8px + label ~38px
+      // = ~118px avant le titre h2. On vise h2 a 80px (20px sous la nav 60px) :
+      // 80 = 118 + navOffset → navOffset = -38.
+      if (window.innerWidth < 768 && sel === '#section-features') navOffset = -38;
       var offset = target.getBoundingClientRect().top + window.scrollY - navOffset;
       window.scrollTo({ top: offset, behavior: 'smooth' });
     });
