@@ -2519,29 +2519,21 @@ footer {
   /* 1. Arriver 20px au-dessus du titre lors du scroll */
   #screens { scroll-margin-top: 20px; }
 
-  /* Layout : sticky-inner hauteur auto pour dots + bouton en flux normal.
-     sticky-slides-area sans flex:1 (hauteur = slide actif).
-     sticky-slide : display:none/flex selon is-active (remplace opacity sur mobile). */
+  /* Layout : sticky-inner en hauteur auto + overflow:visible pour accueillir
+     dots et bouton en flux normal. Les slides restent position:absolute dans
+     sticky-slides-area avec leurs transitions opacity (inchangées).
+     slides-area = calc(100vh - 104px) : les 104px = dots(20+20) + bouton(20+44).
+     Total inner = (100vh-104) + 104 = 100vh exactement → sticky identique au desktop. */
   #screens .sticky-inner {
     height: auto;
-    min-height: 0;
+    min-height: 100vh;
     overflow: visible;
     justify-content: flex-start;
   }
   #screens .sticky-slides-area {
     flex: 0 0 auto;
-    height: auto;
+    height: calc(100vh - 104px);
     width: 100%;
-  }
-  .section-screens .sticky-slide {
-    position: static;
-    display: none;
-    opacity: 1;
-    pointer-events: auto;
-    justify-content: flex-start;
-  }
-  .section-screens .sticky-slide.is-active {
-    display: flex;
   }
   /* 2. Dots : flux normal, 20px sous les phrases descriptives */
   .section-screens .sticky-dots {
