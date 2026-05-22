@@ -843,6 +843,8 @@ section { padding: 120px 24px; position: relative; }
   text-align: center !important;
 }
 .screens-header .section-label { text-align: center !important; }
+/* Header partagé : masqué sur desktop (les slides ont leur propre header). */
+.screens-header-shared { display: none; }
 
 /* Sticky scroll : outer = 3 × 100vh d'espace de scroll, inner reste
    en sticky top:0 pendant tout le scroll. Le header (label + h2)
@@ -2518,6 +2520,10 @@ footer {
   /* ── BLOC 6 : "L'app en images" — layout mobile ── */
   /* 1. Arriver 20px au-dessus du titre lors du scroll */
   #screens { scroll-margin-top: 20px; }
+  /* Header partagé visible sur mobile (défile naturellement avant sticky-outer).
+     Headers individuels dans chaque slide masqués — identiques, inutiles sur mobile. */
+  .screens-header-shared { display: block; padding: 8px 16px; margin-bottom: 0; }
+  .section-screens .sticky-slide .screens-header { display: none; }
 
   /* Layout : sticky-inner en hauteur auto + overflow:visible pour accueillir
      dots et bouton en flux normal. Les slides restent position:absolute dans
@@ -3002,11 +3008,17 @@ footer {
 
 <!-- SCREENSHOTS — sticky scroll, 4 slides -->
 <section class="section-screens" id="screens">
+  <!-- Header partagé : visible sur mobile uniquement (défile naturellement).
+       Sur desktop/iPad : display:none — les slides conservent leur propre
+       header identique en position absolue dans sticky-inner. -->
+  <div class="screens-header screens-header-shared reveal">
+    <p class="section-label" data-i18n="screens_label">L'app en images</p>
+    <h2 data-i18n="screens_title">Vois la différence<br><em>par toi-même</em>.</h2>
+  </div>
   <!-- sticky-outer : hauteur = nb_slides * 100vh, capture le scroll
        pour piloter la transition entre slides via window.scrollY.
        sticky-inner : reste fixé top: 0 pendant tout le scroll de outer.
-       Le header (label + h2) est DANS le sticky pour rester visible
-       en haut pendant tous les slides. -->
+       Sur desktop : le header est dans chaque slide. Sur mobile : hors du sticky. -->
   <div class="sticky-outer">
     <div class="sticky-inner">
       <div class="sticky-slides-area">
