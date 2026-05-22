@@ -2432,15 +2432,14 @@ footer {
      (1.2vw = 4.68px sur 390px → min). Ratio desktop = 280/12 ≈ 23, on garde
      le meme : font-size = width / 23. Tout l'interieur en em (settings-mockup,
      sm-*, dynamic-island) scale automatiquement avec ce font-size parent. */
-  /* Budget X = 276px : pads 36 + gap 12 + steps 88 + gap 8 + dots 10
-     + gap 20 (continuation) + continuation ~56 + gap 20 + bouton 56.
-     Telephone reduit pour laisser de la place au texte "Et ce n'est
-     que le debut" visible sous les dots. */
+  /* Budget X = 180px : pads 36 + gap 12 + steps 88 + dots 16 + btn 28.
+     Taille d'origine — .control-continuation est desormais position:absolute
+     (ne fait plus partie du budget de hauteur). */
   .features-sticky-phone .iphone {
-    width: calc(((100vh - 276px) / 2) * 0.80);
+    width: calc(((100vh - 180px) / 2) * 0.80);
     padding: 6px;
     border-radius: 2.67em;
-    font-size: calc((100vh - 276px) / 46 * 0.80);
+    font-size: calc((100vh - 180px) / 46 * 0.80);
   }
   /* Bords internes alignes sur padding+border-radius ci-dessus. */
   .features-sticky-phone .iphone-frame { border-radius: 2.17em; }
@@ -2454,13 +2453,18 @@ footer {
     align-items: flex-start;
   }
   .features-step { align-items: flex-start; top: 0; }
-  /* Continuation visible sur mobile sous les dots (cf. HTML).
-     Position static pour rester dans le flux flex-column du sticky-inner.
-     Override le position:absolute ajoute pour le desktop. */
+  /* Continuation fixee dans sticky-inner (position:absolute) pour ne jamais
+     bouger quand le texte des steps change de hauteur.
+     sticky-inner : top:50px, height:100vh → son bord bas est a 50px sous
+     l'ecran. bottom:120px → element a 120-50 = 70px du bas visible.
+     La continuation peut deborder partiellement si l'ecran est petit. */
   .section-features .control-continuation {
     display: block;
-    position: static;
-    margin: 20px auto 0;
+    position: absolute;
+    bottom: 120px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
     text-align: center;
   }
   /* Dots en flux normal, sous les textes de steps.
@@ -5023,7 +5027,7 @@ function pickDifferent(arr, lastIdx) {
       // Mobile : section-features a padding-top:72px + header 8px + label ~38px
       // = ~118px avant le titre h2. On vise h2 a 80px (20px sous la nav 60px) :
       // 80 = 118 + navOffset → navOffset = -38.
-      if (window.innerWidth < 768 && sel === '#section-features') navOffset = -38;
+      if (window.innerWidth < 768 && sel === '#section-features') navOffset = 38;
       var offset = target.getBoundingClientRect().top + window.scrollY - navOffset;
       window.scrollTo({ top: offset, behavior: 'smooth' });
     });
