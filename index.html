@@ -2421,7 +2421,7 @@ footer {
     top: 50px;
   }
   /* Header restaure, padding compact pour liberer de la hauteur. */
-  .section-features .features-header { padding: 8px 16px; }
+  .section-features .features-header { padding: 8px 16px; margin-bottom: 60px; }
   .section-features .features-header h2 { margin-bottom: 8px; }
   /* Gap reduit entre header et group. */
   .features-content-block { gap: 12px; width: 100%; }
@@ -2522,7 +2522,7 @@ footer {
   #screens { scroll-margin-top: 20px; }
   /* Header partagé visible sur mobile (défile naturellement avant sticky-outer).
      Headers individuels dans chaque slide masqués — identiques, inutiles sur mobile. */
-  .screens-header-shared { display: block; padding: 8px 16px; margin-bottom: 0; }
+  .screens-header-shared { display: block; padding: 8px 16px; margin-bottom: 60px; }
   .section-screens .sticky-slide .screens-header { display: none; }
 
   /* Layout : sticky-inner en hauteur auto + overflow:visible pour accueillir
@@ -2541,6 +2541,8 @@ footer {
     height: calc(100vh - 104px);
     width: 100%;
   }
+  /* 3. Texte téléphones collé en bas de slides-area → gap naturel de 20px avec les dots */
+  .section-screens .sticky-slide { justify-content: flex-end; }
   /* 2. Dots : flux normal, 20px sous les phrases descriptives */
   .section-screens .sticky-dots {
     position: static;
