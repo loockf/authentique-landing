@@ -2479,6 +2479,9 @@ footer {
     margin: 20px auto 0;
     transform: none;
     justify-content: center;
+    align-items: center;  /* dots centrés verticalement */
+    height: 20px;         /* hauteur fixe — les dots (7→10px) n'étirent plus le container */
+    flex-shrink: 0;
   }
   .section-features .control-continuation {
     display: block;
