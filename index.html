@@ -2466,7 +2466,9 @@ footer {
   .section-features .sticky-scroll.is-hidden { opacity: 0; pointer-events: none; }
   /* Espace section-features → #screens = même valeur que section-problem → section-features
      (padding-bottom de .section-problem = clamp(48px, 8vh, 100px)). */
-  .section-features { margin-bottom: clamp(48px, 8vh, 100px); }
+  /* padding-top: 72px = hero.paddingBottom (80px) - features-header.paddingTop (8px)
+     → gap problem→features = clamp + 72 + 8 = clamp + 80 = gap hero→problem. */
+  .section-features { margin-bottom: clamp(48px, 8vh, 100px); padding-top: 72px; }
 }
 </style>
 </head>
