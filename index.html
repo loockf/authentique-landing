@@ -2452,6 +2452,9 @@ footer {
   .section-features .features-sticky-steps {
     display: grid;
     grid-template-columns: 1fr;
+    height: 90px;
+    min-height: 0;     /* override min-height:200px du bloc @media 768px */
+    overflow: hidden;
     width: 100%;
     max-width: 100%;
     text-align: left;
