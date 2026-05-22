@@ -2339,7 +2339,7 @@ footer {
   /* Ligne 3 : paragraphe descriptif — pleine largeur */
   .section-problem .problem-text p:not(.section-label) {
     grid-row: 3; grid-column: 1 / -1;
-    margin-bottom: 28px; /* 28 + 12px gap = 40px avant pains/phone */
+    margin-bottom: 48px; /* 48 + 12px gap = 60px avant pains/phone */
   }
   /* phone-col align-self:start = hauteur naturelle du telephone
      definit la hauteur de la rangee. */
@@ -2522,7 +2522,8 @@ footer {
   #screens { scroll-margin-top: 20px; }
   /* Header partagé visible sur mobile (défile naturellement avant sticky-outer).
      Headers individuels dans chaque slide masqués — identiques, inutiles sur mobile. */
-  .screens-header-shared { display: block; padding: 8px 16px; margin-bottom: 60px; }
+  /* padding-bottom: 0 pour que le gap h2→téléphones soit exactement 60px (sans les 8px de padding). */
+  .screens-header-shared { display: block; padding: 8px 16px 0; margin-bottom: 60px; }
   .section-screens .sticky-slide .screens-header { display: none; }
 
   /* Layout : sticky-inner en hauteur auto + overflow:visible pour accueillir
@@ -2541,8 +2542,9 @@ footer {
     height: calc(100vh - 104px);
     width: 100%;
   }
-  /* 3. Texte téléphones collé en bas de slides-area → gap naturel de 20px avec les dots */
-  .section-screens .sticky-slide { justify-content: flex-end; }
+  /* 3. Texte téléphones collé en bas de slides-area → gap naturel de 20px avec les dots.
+     padding-bottom: 0 écrase le 100px desktop (réservé pour dots/btn positionnés en abs). */
+  .section-screens .sticky-slide { justify-content: flex-end; padding-bottom: 0; }
   /* 2. Dots : flux normal, 20px sous les phrases descriptives */
   .section-screens .sticky-dots {
     position: static;
