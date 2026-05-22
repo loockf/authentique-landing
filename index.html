@@ -2421,7 +2421,8 @@ footer {
     top: 50px;
   }
   /* Header restaure, padding compact pour liberer de la hauteur. */
-  .section-features .features-header { padding: 8px 16px; margin-bottom: 60px; }
+  /* gap visuel = header.padding-bottom(8) + margin-bottom(32) + inner.padding-top(20) = 60px */
+  .section-features .features-header { padding: 8px 16px; margin-bottom: 32px; }
   .section-features .features-header h2 { margin-bottom: 8px; }
   /* Gap reduit entre header et group. */
   .features-content-block { gap: 12px; width: 100%; }
@@ -2542,9 +2543,11 @@ footer {
     height: calc(100vh - 104px);
     width: 100%;
   }
-  /* 3. Texte téléphones collé en bas de slides-area → gap naturel de 20px avec les dots.
-     padding-bottom: 0 écrase le 100px desktop (réservé pour dots/btn positionnés en abs). */
-  .section-screens .sticky-slide { justify-content: flex-end; padding-bottom: 0; }
+  /* 3. phones au top de slides-area (h2→phones = 60px via margin sur screens-header-shared).
+     padding: 0 écrase le 24px top + 100px bottom desktop.
+     slide-content height:100% + align-content:space-between → phones haut, texte bas (→dots 20px). */
+  .section-screens .sticky-slide { justify-content: flex-start; padding: 0; }
+  .section-screens .sticky-slide-content { height: 100%; align-content: space-between; gap: 0; }
   /* 2. Dots : flux normal, 20px sous les phrases descriptives */
   .section-screens .sticky-dots {
     position: static;
