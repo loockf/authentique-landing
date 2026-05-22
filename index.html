@@ -2538,16 +2538,25 @@ footer {
     overflow: visible;
     justify-content: flex-start;
   }
-  #screens .sticky-slides-area {
-    flex: 0 0 auto;
-    height: calc(100vh - 104px);
-    width: 100%;
+  /* slides-area : hauteur naturelle = slide actif (pas de hauteur fixe).
+     Slide actif : position:relative → en flux, définit la hauteur de slides-area.
+     Slides inactifs : position:absolute; height:0 → hors flux, ne contribuent pas.
+     → tout le bloc (phones + texte + dots) = 60px sous le h2 via margin-bottom
+       sur screens-header-shared. phones→texte 20px, texte→dots 40px. */
+  #screens .sticky-slides-area { flex: 0 0 auto; height: auto; width: 100%; }
+  .section-screens .sticky-slide {
+    position: relative;
+    height: auto;
+    overflow: visible;
+    justify-content: flex-start;
+    padding: 0;
   }
-  /* 3. Contenu collé en bas de slides-area : justify-content:flex-end sur le slide,
-     height:auto sur slide-content (hauteur naturelle phones+gap+texte).
-     → texte flush contre la slides-area-bottom → dots 40px en dessous = 40px exact.
-     phones→texte = gap:20px conservé. padding:0 écrase 24px top + 100px bottom desktop. */
-  .section-screens .sticky-slide { justify-content: flex-end; padding: 0; }
+  .section-screens .sticky-slide:not(.is-active) {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: auto;
+    height: 0;
+    overflow: hidden;
+  }
   .section-screens .sticky-slide-content { height: auto; align-content: flex-start; gap: 20px; }
   /* 2. Dots : flux normal, 40px sous le texte explicatif */
   .section-screens .sticky-dots {
