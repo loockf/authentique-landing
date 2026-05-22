@@ -2532,35 +2532,36 @@ footer {
     text-align: left;
   }
 
-  /* Layout : sticky-inner en hauteur auto + overflow:visible pour accueillir
-     dots et bouton en flux normal. Les slides restent position:absolute dans
-     sticky-slides-area avec leurs transitions opacity (inchangées).
-     slides-area = calc(100vh - 104px) : les 104px = dots(20+20) + bouton(20+44).
-     Total inner = (100vh-104) + 104 = 100vh exactement → sticky identique au desktop. */
+  /* Layout mobile : sticky-inner en hauteur auto, overflow:visible.
+     top:15px = espace sous la barre navigateur pour que le titre ne soit pas tronqué. */
   #screens .sticky-inner {
     height: auto;
     min-height: 100vh;
     overflow: visible;
     justify-content: flex-start;
+    top: 15px;
   }
-  /* slides-area : hauteur naturelle = slide actif (pas de hauteur fixe).
-     Slide actif : position:relative → en flux, définit la hauteur de slides-area.
-     Slides inactifs : position:absolute; height:0 → hors flux, ne contribuent pas.
-     → tout le bloc (phones + texte + dots) = 60px sous le h2 via margin-bottom
-       sur screens-header-shared. phones→texte 20px, texte→dots 40px. */
-  #screens .sticky-slides-area { flex: 0 0 auto; height: auto; width: 100%; }
+  /* CSS Grid sur slides-area : tous les slides superposés dans la même cellule
+     (grid-column:1 / grid-row:1) sans position:absolute.
+     → transition opacity conservée, zéro flash au changement de slide.
+     La hauteur de la cellule = hauteur du slide le plus grand (stabilité). */
+  #screens .sticky-slides-area {
+    flex: 0 0 auto;
+    height: auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    overflow: visible;
+  }
   .section-screens .sticky-slide {
+    grid-column: 1;
+    grid-row: 1;
     position: relative;
+    inset: auto;
     height: auto;
     overflow: visible;
     justify-content: flex-start;
     padding: 0;
-  }
-  .section-screens .sticky-slide:not(.is-active) {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: auto;
-    height: 0;
-    overflow: hidden;
   }
   .section-screens .sticky-slide-content { height: auto; align-content: flex-start; gap: 20px; }
   /* 2. Dots : flux normal, 40px sous le texte explicatif */
