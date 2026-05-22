@@ -2415,8 +2415,17 @@ footer {
     width: 100%;
   }
   /* Telephone : hauteur = 100vh - 180px (pad 36 + gap 12 + steps 88 + dots 16 + btn 28).
-     Largeur = hauteur/2 via aspect-ratio 1/2. Sans cap → max possible. */
-  .features-sticky-phone .iphone { width: calc((100vh - 180px) / 2); padding: 6px; border-radius: 32px; }
+     Largeur = hauteur/2 via aspect-ratio 1/2. Sans cap → max possible.
+     Font-size : le clamp(8px, 1.2vw, 12px) global cape a 8px sur mobile
+     (1.2vw = 4.68px sur 390px → min). Ratio desktop = 280/12 ≈ 23, on garde
+     le meme : font-size = width / 23. Tout l'interieur en em (settings-mockup,
+     sm-*, dynamic-island) scale automatiquement avec ce font-size parent. */
+  .features-sticky-phone .iphone {
+    width: calc((100vh - 180px) / 2);
+    padding: 6px;
+    border-radius: 32px;
+    font-size: calc((100vh - 180px) / 46);
+  }
   /* Bords internes alignes sur padding+border-radius ci-dessus. */
   .features-sticky-phone .iphone-frame { border-radius: 26px; }
   /* Steps : pleine largeur, hauteur fixe, texte gauche.
