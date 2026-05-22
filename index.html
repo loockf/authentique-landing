@@ -2545,9 +2545,9 @@ footer {
   }
   /* 3. phones au top de slides-area (h2→phones = 60px via margin sur screens-header-shared).
      padding: 0 écrase le 24px top + 100px bottom desktop.
-     slide-content height:100% + align-content:space-between → phones haut, texte bas (→dots 20px). */
+     gap: 20px = identique au gap phone→steps de "La solution" (.features-sticky-group). */
   .section-screens .sticky-slide { justify-content: flex-start; padding: 0; }
-  .section-screens .sticky-slide-content { height: 100%; align-content: space-between; gap: 0; }
+  .section-screens .sticky-slide-content { height: 100%; align-content: flex-start; gap: 20px; }
   /* 2. Dots : flux normal, 20px sous les phrases descriptives */
   .section-screens .sticky-dots {
     position: static;
