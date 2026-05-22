@@ -4346,7 +4346,26 @@ const translations = {
 };
 
 let currentLang = 'fr';
+
+// Détection automatique de la langue du device.
+// Priorité : 1. choix manuel mémorisé (localStorage)
+//            2. langue du navigateur/OS (navigator.languages)
+//            3. fallback français
+(function detectDeviceLang() {
+  var supported = ['fr', 'en', 'es', 'it', 'pt', 'ru'];
+  var saved = localStorage.getItem('auth_lang');
+  if (saved && supported.indexOf(saved) !== -1) { currentLang = saved; return; }
+  var langs = (navigator.languages && navigator.languages.length)
+    ? Array.from(navigator.languages)
+    : [navigator.language || navigator.userLanguage || 'fr'];
+  for (var i = 0; i < langs.length; i++) {
+    var code = langs[i].split('-')[0].toLowerCase();
+    if (supported.indexOf(code) !== -1) { currentLang = code; return; }
+  }
+})();
+
 function setLang(lang) {
+  localStorage.setItem('auth_lang', lang);
   currentLang = lang;
   document.querySelectorAll('.lang-btn').forEach(b => {
     b.classList.toggle('active', b.getAttribute('data-lang') === lang);
@@ -4439,6 +4458,10 @@ function wrapAuthentiqueOccurrences() {
 }
 
 document.addEventListener('DOMContentLoaded', wrapAuthentiqueOccurrences);
+// Applique la langue détectée si différente du français déjà rendu.
+document.addEventListener('DOMContentLoaded', function() {
+  if (currentLang !== 'fr') setLang(currentLang);
+});
 
 // Formulaire de suggestion : envoie via Formspree (POST JSON) si
 // FORMSPREE_ID est configure, sinon fallback mailto. Affiche un
