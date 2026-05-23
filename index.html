@@ -533,10 +533,12 @@ section { padding: 120px 24px; position: relative; }
   padding: 6px;
   box-shadow: 0 30px 60px rgba(20,20,20,0.18), 0 12px 24px rgba(20,20,20,0.08);
   position: relative;
-  /* Base font-size proportionnelle a la largeur du telephone : tous
-     les enfants utilisent em pour scaler avec le mockup. Meme valeur
-     que .iphone pour coherence visuelle entre tous les telephones. */
-  font-size: clamp(8px, 1.2vw, 12px);
+  /* Base font-size proportionnelle a la largeur du telephone : ratio
+     constant width/23 (reference: 280px / 12px ≈ 23.3).
+     18vw / 23 = 0.783vw ; min = 160/23 ≈ 7px ; max = 280/23 ≈ 12px.
+     Tous les enfants en em scaleront proportionnellement quelle que
+     soit la taille du phone. */
+  font-size: clamp(7px, 0.78vw, 12px);
 }
 .phone-notch {
   position: absolute;
@@ -1093,9 +1095,11 @@ section { padding: 120px 24px; position: relative; }
   padding: 6px;
   box-shadow: 0 20px 40px rgba(20,20,20,0.15);
   transition: transform 0.4s;
-  /* Base font-size proportionnelle au telephone : tous les enfants
-     (textes, icones, paddings) utilisent em pour scaler ensemble. */
-  font-size: clamp(8px, 1.2vw, 12px);
+  /* Base font-size proportionnelle au telephone : ratio constant width/23.
+     28vw / 23 = 1.217vw ; min = 220/23 ≈ 9.5px ; max = 280/23 ≈ 12px.
+     Tous les enfants en em (dynamic-island, iphone-frame, textes) scaleront
+     proportionnellement quelle que soit la taille du phone. */
+  font-size: clamp(9.5px, 1.22vw, 12px);
 }
 .iphone--featured { transform: none; z-index: auto; }
 .iphone-frame {
@@ -1878,7 +1882,11 @@ section { padding: 120px 24px; position: relative; }
 }
 /* Gauche — iPhone */
 .lim-phone-col { flex-shrink: 0; }
-.lim-iphone { width: clamp(150px, 18vw, 210px); }
+.lim-iphone {
+  width: clamp(150px, 18vw, 210px);
+  /* font-size proportionnel : 18vw/23=0.783vw ; min=150/23≈6.5px ; max=210/23≈9.1px */
+  font-size: clamp(6.5px, 0.78vw, 9.1px);
+}
 .lim-iphone-screen {
   background: #fff;
   display: flex;
@@ -1984,8 +1992,6 @@ section { padding: 120px 24px; position: relative; }
   .lim-phone-col, .lim-separator { display: none; }
   .lim-safari-col { max-width: 100%; }
   .lim-sticky-outer { height: 100vh; }
-  /* Font interne des mockups : forcer 10px sur mobile (clamp reste à 8px sinon) */
-  .phone-frame, .iphone { font-size: 10px; }
 }
 
 .section-cta {
@@ -2249,6 +2255,8 @@ footer {
   }
   .screen-col--phones .iphone {
     width: min(42vw, 180px);
+    /* font-size proportionnel : 42vw/23=1.826vw ; 180/23≈7.8px */
+    font-size: min(1.83vw, 7.8px);
   }
   .iphone--featured { transform: none; }
   footer { flex-wrap: nowrap; gap: 8px; padding: 16px 12px; }
