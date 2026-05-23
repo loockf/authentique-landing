@@ -2618,6 +2618,19 @@ footer {
   .cta-inner h2 { text-align: left; width: 100%; }
   .cta-email-line a { display: block; }
 }
+
+/* ── MOBILE LANDSCAPE : section "Le problème" réduite de 20% ──
+   max-width:932px couvre tous les phones en landscape (iPhone SE=667px,
+   iPhone 14=844px, iPhone 14 Pro Max=932px) et exclut les iPad (≥1024px).
+   orientation:landscape garantit que le mode portrait n'est pas affecté.
+   Le phone-frame réduit entraîne automatiquement .problem-pains via
+   align-self:stretch + height:100% dans la grille : les 6 cadres suivent
+   sans règle supplémentaire. */
+@media (max-width: 932px) and (orientation: landscape) {
+  .section-problem .phone-frame {
+    width: calc(min(42vw, 180px) * 0.80); /* 180px × 0.8 = 144px */
+  }
+}
 </style>
 </head>
 <body>
