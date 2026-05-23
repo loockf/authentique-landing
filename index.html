@@ -818,11 +818,8 @@ section { padding: 120px 24px; position: relative; }
   padding: 16px 24px;
   flex-shrink: 0;
   box-sizing: border-box;
-  /* Sticky desktop/iPad : header reste en haut pendant le parallax de
-     .features-sticky-outer (qui suit dans le DOM). Override mobile en
-     position:static (cf. @media max-width:767px). */
-  position: sticky;
-  top: 0;
+  /* Flux normal (static) : défile avec la page avant que le sticky-inner
+     prenne le relais. Même comportement que les autres headers de section. */
 }
 .features-header > * { max-width: 760px; margin-left: auto; margin-right: auto; }
 .features-header h2 { margin-bottom: 16px; }
@@ -2287,26 +2284,9 @@ footer {
      sur le .iphone de "La solution" (clamp(9.5px,1.22vw,12px)→12px à 1024px). */
   .phone-frame { width: 280px; font-size: 12px; }
 
-  /* ── "La solution" — iPad fixes (portrait + landscape) ──
-     C1/Q5 : features-header redevient flux normal (position:static).
-     Sur desktop il est sticky pour rester visible pendant le parallax, mais
-     sur iPad il crée un double-sticky top:0 avec features-sticky-inner
-     → le phone se superpose au header. En statique, le header défile
-     normalement avant que le sticky-inner prenne le relais. */
-  .features-header { position: static; }
-
-  /* C3/Q4 : annule le top:calc(100vh-188px) de la règle iPad générale
-     (.section-scroll, .sticky-scroll, .hero-scroll ci-dessus) pour la
-     section "La solution" uniquement. bottom:32px positionne le bouton
-     sous le phone quelle que soit la hauteur du viewport. */
+  /* "La solution" : annule le top:calc(100vh-188px) de la règle iPad générale
+     pour la section uniquement. bottom:32px positionne le bouton sous le phone. */
   .section-features .sticky-scroll { top: auto; bottom: 32px; }
-
-  /* Espacement symétrique titre→phone = phone→continuation.
-     gap:135px → margin centré dans sticky-inner (1024px) = 134.5px au-dessus
-     du content-block ET entre phone et continuation. */
-  .features-content-block { gap: 135px; }
-  /* continuation sort de l'absolu pour participer au centrage vertical */
-  .section-features .control-continuation { position: static; margin: 0; }
 }
 
 /* ── "La solution" — iPad landscape uniquement ──
@@ -2320,8 +2300,7 @@ footer {
     align-items: flex-start;
     padding-top: 16px;
   }
-  /* landscape: gap réduit (hauteur 768px limitée vs 1024px portrait) */
-  .features-content-block { gap: 20px; }
+
 }
 /* Mobile : valeur de reference = section "Bien-etre numerique" sans
    override specifique → bottom:32px (regle de base). top:auto remet
