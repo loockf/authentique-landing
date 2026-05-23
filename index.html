@@ -820,6 +820,9 @@ section { padding: 120px 24px; position: relative; }
   box-sizing: border-box;
   /* Flux normal (static) : défile avec la page avant que le sticky-inner
      prenne le relais. Même comportement que les autres headers de section. */
+  /* Même gap que .screens-header → phones dans "L'app en images" (48px).
+     Sur mobile : surchargé par .section-features .features-header { margin-bottom:32px }. */
+  margin-bottom: 48px;
 }
 .features-header > * { max-width: 760px; margin-left: auto; margin-right: auto; }
 .features-header h2 { margin-bottom: 16px; }
@@ -928,12 +931,13 @@ section { padding: 120px 24px; position: relative; }
   top: 0;
   height: 100vh;
   width: 100%;
-  /* Centrage du bloc complet (.features-content-block) dans la
-     viewport sticky. Pas de flex-direction column ici : c'est le
-     content-block enfant qui empile header / group / continuation. */
+  /* Phone en haut du sticky-inner (align:flex-start) : le margin-bottom
+     de .features-header crée le gap exact avant le phone, comme
+     .screens-header margin-bottom:48px dans "L'app en images".
+     Sur mobile/≤768px : align-items:center restauré (flex-direction:column). */
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   padding: 0 8%;
   box-sizing: border-box;
 }
@@ -1038,6 +1042,7 @@ section { padding: 120px 24px; position: relative; }
     flex-direction: column;
     gap: 32px;
     overflow: hidden;
+    align-items: center; /* restaure le centrage horizontal (base = flex-start) */
   }
   .features-sticky-steps {
     max-width: 100%;
@@ -2447,6 +2452,7 @@ footer {
   .features-sticky-inner {
     flex-direction: column;
     justify-content: flex-start;
+    align-items: center; /* restaure le centrage horizontal (base = flex-start) */
     padding: 20px 16px 16px;
     gap: 0;
     height: auto;
