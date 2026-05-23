@@ -526,7 +526,7 @@ section { padding: 120px 24px; position: relative; }
   display: flex; justify-content: center;
 }
 .phone-frame {
-  width: clamp(220px, 28vw, 280px);
+  width: clamp(160px, 18vw, 280px);
   aspect-ratio: 1 / 2;
   background: #1c1c1a;
   border-radius: 3em;
@@ -1984,6 +1984,8 @@ section { padding: 120px 24px; position: relative; }
   .lim-phone-col, .lim-separator { display: none; }
   .lim-safari-col { max-width: 100%; }
   .lim-sticky-outer { height: 100vh; }
+  /* Font interne des mockups : forcer 10px sur mobile (clamp reste à 8px sinon) */
+  .phone-frame, .iphone { font-size: 10px; }
 }
 
 .section-cta {
@@ -2209,11 +2211,7 @@ footer {
 }
 .reveal.visible { opacity: 1; transform: none; }
 
-@media (max-width: 1440px) {
-  /* Mockup telephone plus compact <= 1440px. .iphone (sticky scrolls)
-     reste pilote par son clamp width:22vw. */
-  .phone-frame { width: clamp(160px, 18vw, 220px); }
-}
+/* phone-frame: clamp unifié (160→280px sur toute la plage, sans saut à 1440px) */
 
 /* MOBILE */
 @media (max-width: 820px) {
