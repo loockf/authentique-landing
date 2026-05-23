@@ -564,7 +564,7 @@ section { padding: 120px 24px; position: relative; }
 .phone-feed-track {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 1.67em; /* 20px ÷ 12px ref = 1.67em — proportionnel à font-size du phone-frame */
   background: #1a1a1a;
   will-change: transform;
 }
@@ -2629,6 +2629,10 @@ footer {
 @media (max-width: 932px) and (orientation: landscape) {
   .section-problem .phone-frame {
     width: calc(min(42vw, 180px) * 0.80); /* 180px × 0.8 = 144px */
+    /* font-size proportionnel au width réduit : 144px / 23 ≈ 6.3px
+       min(1.46vw, 6.3px) = 42vw×0.8/23 ; 180×0.8/23
+       → border-radius, notch et contenu em scaleront correctement */
+    font-size: min(1.46vw, 6.3px);
   }
 }
 </style>
