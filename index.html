@@ -2284,6 +2284,37 @@ footer {
   .problem-pains { grid-template-columns: repeat(2, 1fr); }
   /* Telephone : conserver la taille desktop (max du clamp 28vw/280px) */
   .phone-frame { width: 280px; }
+
+  /* ── "La solution" — iPad fixes (portrait + landscape) ──
+     C1/Q5 : features-header redevient flux normal (position:static).
+     Sur desktop il est sticky pour rester visible pendant le parallax, mais
+     sur iPad il crée un double-sticky top:0 avec features-sticky-inner
+     → le phone se superpose au header. En statique, le header défile
+     normalement avant que le sticky-inner prenne le relais. */
+  .features-header { position: static; }
+
+  /* C3/Q4 : annule le top:calc(100vh-188px) de la règle iPad générale
+     (.section-scroll, .sticky-scroll, .hero-scroll ci-dessus) pour la
+     section "La solution" uniquement. bottom:32px positionne le bouton
+     sous le phone quelle que soit la hauteur du viewport. */
+  .section-features .sticky-scroll { top: auto; bottom: 32px; }
+}
+
+/* ── "La solution" — iPad landscape uniquement ──
+   En portrait (1024px hauteur) : phone centré à 232px, contrôles en bas ✓
+   En landscape (768px hauteur) : phone centré → top:104px, dans la zone
+   du header (0-150px) → align-items:flex-start + padding-top:16px passe
+   le phone à top:16px, bottom:576px, libérant 192px pour les contrôles.
+   Portrait non affecté (cette règle ne s'applique qu'en landscape). */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .section-features .features-sticky-inner {
+    align-items: flex-start;
+    padding-top: 16px;
+  }
+  /* continuation repositionnée 8px sous le phone (bottom:576px) :
+     768 - 124 - h(~60px) = 584px = top ✓
+     dots (bottom:100px) → top:661px ✓  scroll (bottom:32px) → top:680px ✓ */
+  .section-features .control-continuation { bottom: 124px; }
 }
 /* Mobile : valeur de reference = section "Bien-etre numerique" sans
    override specifique → bottom:32px (regle de base). top:auto remet
