@@ -2317,6 +2317,9 @@ footer {
     left: auto;
     transform: none;
     justify-content: center;
+    align-items: center; /* dots 7px centrés dans la hauteur fixe */
+    height: 10px;        /* = dot actif max → pas de changement de hauteur → pas de saut */
+    flex-shrink: 0;
     margin: 16px auto 0;
   }
   .section-features .sticky-scroll {
