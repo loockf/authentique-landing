@@ -2459,10 +2459,9 @@ footer {
     height: auto;
     min-height: 100vh;
     overflow: visible;
-    /* top négatif : le sticky s'engage seulement après que le sous-titre
-       a dépassé le haut du viewport. La valeur exacte est calée par JS
-       (computeGate). -90px ≈ hauteur label+h2 + padding nav. */
-    top: -110px;
+    /* top: 0 = même comportement que desktop/iPad. Le sticky s'engage
+       dès que le haut de la section atteint le haut du viewport. */
+    top: 0;
   }
   /* Header restaure, padding compact pour liberer de la hauteur. */
   /* gap visuel = header.padding-bottom(8) + margin-bottom(32) + inner.padding-top(20) = 60px */
@@ -5016,22 +5015,6 @@ function pickDifferent(arr, lastIdx) {
   var nbSteps = steps.length;
   var lastIndex = -1;
 
-  // Gate : outer.top à partir duquel les steps s'activent.
-  // Sur desktop (≥768px) : 50px (comportement original).
-  // Sur mobile (<768px) : calculé pour que les steps démarrent exactement
-  // quand le sticky s'engage, c'est-à-dire quand le téléphone atteint ~50px
-  // du haut du viewport (après que le sous-titre a défilé).
-  // gate = 50 - phone.offsetTop (offsetTop = distance phone→inner, qui ≈ outer).
-  var GATE = 50;
-  function computeGate() {
-    if (!phone || !inner) { GATE = 50; return; }
-    if (window.matchMedia('(max-width: 767px)').matches) {
-      GATE = 50 - (inner.offsetTop + phone.offsetTop);
-    } else {
-      GATE = 50;
-    }
-  }
-
   // Aligne chaque step (a droite) verticalement sur son toggle row
   // (a gauche) dans le phone. Step.top calcule pour que le centre de
   // .features-step-head (icone + h3) tombe sur le centre du toggle.
@@ -5059,14 +5042,44 @@ function pickDifferent(arr, lastIdx) {
     });
   }
 
+  // DEBUG overlay : visible uniquement sur ?dbg=1. Affiche les valeurs
+  // clés en temps réel pour diagnostiquer le comportement mobile.
+  var dbgEl = null;
+  if (window.location.search.indexOf('dbg=1') !== -1) {
+    dbgEl = document.createElement('div');
+    dbgEl.id = 'dbg-features';
+    dbgEl.style.cssText = 'position:fixed;top:0;left:0;background:rgba(0,0,0,.75);color:#0f0;font:11px/1.4 monospace;padding:6px 8px;z-index:9999;pointer-events:none;max-width:240px;white-space:pre;';
+    document.body.appendChild(dbgEl);
+  }
+
   function getCurrentIndex() {
     var rect = outer.getBoundingClientRect();
-    if (rect.top >= GATE) return -1;
-    var scrolled = GATE - rect.top;
-    var scrollable = outer.offsetHeight - window.innerHeight;
-    if (scrollable <= 0) return 0;
-    var progress = Math.max(0, Math.min(0.999, scrolled / scrollable));
-    return Math.min(nbSteps - 1, Math.floor(progress * nbSteps));
+    // GATE = 0 = CSS top du sticky-inner (top: 0). Sticky engage quand
+    // outer.top ≤ 0 → toggles s'activent au même seuil, dans les deux sens.
+    var stickyH = inner ? inner.offsetHeight : window.innerHeight;
+    var scrollable = outer.offsetHeight - stickyH;
+    var scrolled = -rect.top;
+    var idx;
+    if (rect.top >= 0) {
+      idx = -1;
+    } else if (scrollable <= 0) {
+      idx = 0;
+    } else {
+      var progress = Math.max(0, Math.min(0.999, scrolled / scrollable));
+      idx = Math.min(nbSteps - 1, Math.floor(progress * nbSteps));
+    }
+    if (dbgEl) {
+      dbgEl.textContent =
+        'rect.top: ' + Math.round(rect.top) + '\n' +
+        'scrolled: ' + Math.round(scrolled) + '\n' +
+        'inner.H:  ' + Math.round(stickyH) + '\n' +
+        'outer.H:  ' + Math.round(outer.offsetHeight) + '\n' +
+        'scrollbl: ' + Math.round(scrollable) + '\n' +
+        'win.iH:   ' + Math.round(window.innerHeight) + '\n' +
+        'scrollY:  ' + Math.round(window.scrollY) + '\n' +
+        'index:    ' + idx;
+    }
+    return idx;
   }
 
   function update() {
@@ -5099,16 +5112,16 @@ function pickDifferent(arr, lastIdx) {
     });
   }
   window.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', function () { computeGate(); update(); });
-  window.addEventListener('resize', alignStepsToToggles);
-  // Premier align + gate quand les fontes sont chargees : GrosVentre influe
-  // sur la hauteur du header (et donc sur phone.offsetTop → GATE).
+  // IMPORTANT : pas d'update() dans le resize.
+  // Sur iOS, la barre d'adresse déclenche un resize au premier scroll UP.
+  // Appeler update() ici forçait un -1 prématuré (tous les toggles off d'un coup)
+  // avant même que le premier scroll event ne soit traité.
+  window.addEventListener('resize', function () { alignStepsToToggles(); });
   if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
-    document.fonts.ready.then(function () { computeGate(); alignStepsToToggles(); update(); });
+    document.fonts.ready.then(function () { alignStepsToToggles(); update(); });
   } else {
-    window.addEventListener('load', function () { computeGate(); alignStepsToToggles(); update(); });
+    window.addEventListener('load', function () { alignStepsToToggles(); update(); });
   }
-  computeGate();
   alignStepsToToggles();
   update();
 
@@ -5124,10 +5137,12 @@ function pickDifferent(arr, lastIdx) {
   dots.forEach(function (d, i) {
     d.addEventListener('click', function () {
       var outerTop = outer.getBoundingClientRect().top + window.scrollY;
-      var scrollable = outer.offsetHeight - window.innerHeight;
-      // targetY : position de scroll où outer.top = GATE - (i/nbSteps)*scrollable
-      // → step i s'active. outerTop - GATE = scrollY quand outer.top = GATE.
-      var targetY = outerTop - GATE + (i / nbSteps) * scrollable + 10;
+      // Même formule que getCurrentIndex : stickyH = inner.offsetHeight
+      var stickyH = inner ? inner.offsetHeight : window.innerHeight;
+      var scrollable = outer.offsetHeight - stickyH;
+      // GATE = 0 → targetY = outerTop + (i/nbSteps)*scrollable + 10px
+      // pour franchir le seuil floor(progress*n) === i.
+      var targetY = outerTop + (i / nbSteps) * scrollable + 10;
       window.scrollTo({ top: targetY, behavior: 'smooth' });
     });
   });
