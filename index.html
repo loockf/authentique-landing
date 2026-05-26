@@ -2459,7 +2459,10 @@ footer {
     height: auto;
     min-height: 100vh;
     overflow: visible;
-    top: 50px;
+    /* top négatif : le sticky s'engage seulement après que le sous-titre
+       a dépassé le haut du viewport. La valeur exacte est calée par JS
+       (computeGate). -90px ≈ hauteur label+h2 + padding nav. */
+    top: -90px;
   }
   /* Header restaure, padding compact pour liberer de la hauteur. */
   /* gap visuel = header.padding-bottom(8) + margin-bottom(32) + inner.padding-top(20) = 60px */
@@ -5007,10 +5010,27 @@ function pickDifferent(arr, lastIdx) {
   var steps = outer.querySelectorAll('.features-step');
   var dots = outer.querySelectorAll('.sticky-dot');
   var phone = outer.querySelector('.iphone');
+  var inner = outer.querySelector('.features-sticky-inner');
   var stepsContainer = outer.querySelector('.features-sticky-steps');
   if (steps.length === 0 || !phone) return;
   var nbSteps = steps.length;
   var lastIndex = -1;
+
+  // Gate : outer.top à partir duquel les steps s'activent.
+  // Sur desktop (≥768px) : 50px (comportement original).
+  // Sur mobile (<768px) : calculé pour que les steps démarrent exactement
+  // quand le sticky s'engage, c'est-à-dire quand le téléphone atteint ~50px
+  // du haut du viewport (après que le sous-titre a défilé).
+  // gate = 50 - phone.offsetTop (offsetTop = distance phone→inner, qui ≈ outer).
+  var GATE = 50;
+  function computeGate() {
+    if (!phone || !inner) { GATE = 50; return; }
+    if (window.matchMedia('(max-width: 767px)').matches) {
+      GATE = 50 - (inner.offsetTop + phone.offsetTop);
+    } else {
+      GATE = 50;
+    }
+  }
 
   // Aligne chaque step (a droite) verticalement sur son toggle row
   // (a gauche) dans le phone. Step.top calcule pour que le centre de
@@ -5041,10 +5061,8 @@ function pickDifferent(arr, lastIdx) {
 
   function getCurrentIndex() {
     var rect = outer.getBoundingClientRect();
-    // Gate = 0 : header hors du sticky en HTML, sticky engage exactement
-    // quand outer.top atteint 0 → parallax demarre immediatement.
-    if (rect.top >= 50) return -1;
-    var scrolled = 50 - rect.top;
+    if (rect.top >= GATE) return -1;
+    var scrolled = GATE - rect.top;
     var scrollable = outer.offsetHeight - window.innerHeight;
     if (scrollable <= 0) return 0;
     var progress = Math.max(0, Math.min(0.999, scrolled / scrollable));
@@ -5081,15 +5099,16 @@ function pickDifferent(arr, lastIdx) {
     });
   }
   window.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', update);
+  window.addEventListener('resize', function () { computeGate(); update(); });
   window.addEventListener('resize', alignStepsToToggles);
-  // Premier align quand les fontes sont chargees : GrosVentre influe
-  // sur la hauteur des rows et des head, donc on attend pour mesurer.
+  // Premier align + gate quand les fontes sont chargees : GrosVentre influe
+  // sur la hauteur du header (et donc sur phone.offsetTop → GATE).
   if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
-    document.fonts.ready.then(alignStepsToToggles);
+    document.fonts.ready.then(function () { computeGate(); alignStepsToToggles(); update(); });
   } else {
-    window.addEventListener('load', alignStepsToToggles);
+    window.addEventListener('load', function () { computeGate(); alignStepsToToggles(); update(); });
   }
+  computeGate();
   alignStepsToToggles();
   update();
 
@@ -5106,7 +5125,9 @@ function pickDifferent(arr, lastIdx) {
     d.addEventListener('click', function () {
       var outerTop = outer.getBoundingClientRect().top + window.scrollY;
       var scrollable = outer.offsetHeight - window.innerHeight;
-      var targetY = outerTop + (i / nbSteps) * scrollable + 10;
+      // targetY : position de scroll où outer.top = GATE - (i/nbSteps)*scrollable
+      // → step i s'active. outerTop - GATE = scrollY quand outer.top = GATE.
+      var targetY = outerTop - GATE + (i / nbSteps) * scrollable + 10;
       window.scrollTo({ top: targetY, behavior: 'smooth' });
     });
   });
