@@ -2903,16 +2903,16 @@ footer {
 
 <!-- FEATURES -->
 <section class="section-features" id="section-features">
-  <!-- Header hors du sticky-outer : sur desktop/iPad reste sticky:top:0
-       pendant tout le parallax (cf. CSS .features-header). Sur mobile, en
-       flux normal (override position:static) : defile avant le sticky. -->
-  <div class="features-header reveal">
-    <p class="section-label" data-i18n="features_label">La solution</p>
-    <h2 data-i18n="features_title">Choisir quoi <span class="authentique-gradient-text">masquer</span>.</h2>
-    <p data-i18n="features_sub">Chaque fonctionnalité a été pensée pour te redonner le contrôle de ton expérience Instagram.</p>
-  </div>
   <div class="features-sticky-outer">
     <div class="features-sticky-inner">
+      <!-- Header dans le sticky-inner : centré verticalement avec le téléphone
+           et le reste du contenu (flex-column, justify:center). Visible pendant
+           tout le parallax (360vh). -->
+      <div class="features-header reveal">
+        <p class="section-label" data-i18n="features_label">La solution</p>
+        <h2 data-i18n="features_title">Choisir quoi <span class="authentique-gradient-text">masquer</span>.</h2>
+        <p data-i18n="features_sub">Chaque fonctionnalité a été pensée pour te redonner le contrôle de ton expérience Instagram.</p>
+      </div>
       <div class="features-content-block">
       <div class="features-sticky-group">
         <div class="features-sticky-phone">
