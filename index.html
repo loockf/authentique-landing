@@ -931,13 +931,13 @@ section { padding: 120px 24px; position: relative; }
   top: 0;
   height: 100vh;
   width: 100%;
-  /* Phone en haut du sticky-inner (align:flex-start) : le margin-bottom
-     de .features-header crée le gap exact avant le phone, comme
-     .screens-header margin-bottom:48px dans "L'app en images".
-     Sur mobile/≤768px : align-items:center restauré (flex-direction:column). */
+  /* Colonne centrée verticalement : content-block + continuation + dots + scroll
+     forment un bloc centré ensemble dans les 100vh sticky.
+     Sur mobile (<768px) : justify-content:flex-start, padding restaurés (MQ). */
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   padding: 0 8%;
   box-sizing: border-box;
 }
@@ -2294,19 +2294,41 @@ footer {
   .section-features .sticky-scroll { top: auto; bottom: 32px; }
 }
 
-/* ── "La solution" — iPad landscape uniquement ──
-   En portrait (1024px hauteur) : phone centré à 232px, contrôles en bas ✓
-   En landscape (768px hauteur) : phone centré → top:104px, dans la zone
-   du header (0-150px) → align-items:flex-start + padding-top:16px passe
-   le phone à top:16px, bottom:576px, libérant 192px pour les contrôles.
-   Portrait non affecté (cette règle ne s'applique qu'en landscape). */
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
-  .section-features .features-sticky-inner {
-    align-items: flex-start;
-    padding-top: 16px;
-  }
+/* iPad landscape : centrage géré par la règle ≥768px ci-dessous. */
 
+/* ── "La solution" ≥768px : tout en flux normal, centré verticalement ──
+   continuation + dots + scroll sortent de position:absolute et rejoignent
+   le flux de .features-sticky-inner (flex-column, justify:center).
+   Ordre DOM : content-block / dots / continuation / scroll.
+   Ordre visuel voulu : content-block(0) → continuation(1) → dots(2) → scroll(3). */
+@keyframes scrollBounceFeed {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(8px); }
 }
+@media (min-width: 768px) {
+  .section-features .control-continuation {
+    position: static;
+    order: 1;
+    margin: 32px auto 0;
+  }
+  .section-features .sticky-dots {
+    position: static;
+    order: 2;
+    left: auto;
+    transform: none;
+    justify-content: center;
+    margin: 16px auto 0;
+  }
+  .section-features .sticky-scroll {
+    position: static;
+    order: 3;
+    left: auto;
+    bottom: auto;
+    margin: 12px auto 0;
+    animation: scrollBounceFeed 1.5s ease-in-out infinite;
+  }
+}
+
 /* Mobile : valeur de reference = section "Bien-etre numerique" sans
    override specifique → bottom:32px (regle de base). top:auto remet
    a zero le top pose par la regle iPad si un appareil borderline
