@@ -931,8 +931,10 @@ section { padding: 120px 24px; position: relative; }
   top: 0;
   height: 100vh;
   width: 100%;
-  /* Colonne centrée verticalement : content-block + continuation + dots + scroll
-     forment un bloc centré ensemble dans les 100vh sticky.
+  overflow: hidden;       /* contient les éléments position:absolute (dots, scroll) */
+  /* Colonne centrée verticalement : header + content-block + continuation.
+     Dots + scroll sont en position:absolute bottom:100px/32px (même pattern
+     que .sticky-inner de "L'app en images").
      Sur mobile (<768px) : justify-content:flex-start, padding restaurés (MQ). */
   display: flex;
   flex-direction: column;
@@ -2296,39 +2298,13 @@ footer {
 
 /* iPad landscape : centrage géré par la règle ≥768px ci-dessous. */
 
-/* ── "La solution" ≥768px : tout en flux normal, centré verticalement ──
-   continuation + dots + scroll sortent de position:absolute et rejoignent
-   le flux de .features-sticky-inner (flex-column, justify:center).
-   Ordre DOM : content-block / dots / continuation / scroll.
-   Ordre visuel voulu : content-block(0) → continuation(1) → dots(2) → scroll(3). */
-@keyframes scrollBounceFeed {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(8px); }
-}
+/* ── "La solution" ≥768px : continuation en flux normal sous le bloc phone ──
+   dots + scroll restent en position:absolute (même pattern que "L'app en images") :
+   bottom:100px et bottom:32px, centrés via left:50%+translateX(-50%). */
 @media (min-width: 768px) {
   .section-features .control-continuation {
     position: static;
-    order: 1;
     margin: 32px auto 0;
-  }
-  .section-features .sticky-dots {
-    position: static;
-    order: 2;
-    left: auto;
-    transform: none;
-    justify-content: center;
-    align-items: center; /* dots 7px centrés dans la hauteur fixe */
-    height: 10px;        /* = dot actif max → pas de changement de hauteur → pas de saut */
-    flex-shrink: 0;
-    margin: 16px auto 0;
-  }
-  .section-features .sticky-scroll {
-    position: static;
-    order: 3;
-    left: auto;
-    bottom: auto;
-    margin: 12px auto 0;
-    animation: scrollBounceFeed 1.5s ease-in-out infinite;
   }
 }
 
