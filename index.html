@@ -2355,6 +2355,17 @@ footer {
      hérité de la règle générale ci-dessus (188px du bas, au-dessus des dots à 100px). */
 }
 
+/* Desktop (>1024px) : même position que iPad — top:calc(100vh-188px)
+   au-dessus des dots (bottom:100px) sur toutes les sections. */
+@media (min-width: 1025px) {
+  .section-scroll,
+  .sticky-scroll,
+  .hero-scroll {
+    top: calc(100vh - 188px);
+    bottom: auto;
+  }
+}
+
 /* iPad landscape : centrage géré par la règle ≥768px ci-dessous. */
 
 /* ── "La solution" ≥768px : continuation en flux normal sous le bloc phone ──
