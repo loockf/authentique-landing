@@ -2206,9 +2206,8 @@ footer {
   padding: 20px 16px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   flex-wrap: nowrap;
-  gap: 12px;
   max-width: 1100px;
   margin: 0 auto;
 }
@@ -2218,9 +2217,8 @@ footer {
   font-size: 14px;
   color: var(--green);
 }
-.footer-links { display: flex; gap: 12px; font-size: 12px; color: var(--text-mute); flex-shrink: 0; }
-.footer-links a { white-space: nowrap; }
-.footer-links a:hover { color: var(--green); }
+.footer-link { font-size: 12px; color: var(--text-mute); white-space: nowrap; flex-shrink: 0; }
+.footer-link:hover { color: var(--green); }
 .footer-copy { font-size: 11px; color: var(--text-mute); flex-shrink: 0; white-space: nowrap; }
 
 /* FAQ */
@@ -2334,9 +2332,9 @@ footer {
     padding: 4px;
   }
   .iphone--featured { transform: none; }
-  footer { flex-wrap: nowrap; gap: 8px; padding: 16px 12px; }
+  footer { padding: 14px 8px; }
   .footer-name { display: none; }
-  .footer-links { font-size: 10px; gap: 8px; }
+  .footer-link { font-size: 10px; }
   .footer-copy { font-size: 10px; }
 }
 
@@ -3646,10 +3644,8 @@ footer {
     </span>
     <span class="footer-name">Authentique</span>
   </a>
-  <div class="footer-links">
-    <a href="mailto:hello@get-authentique.com" data-i18n="footer_contact">Contact</a>
-    <a href="/mentions-legales.html" data-i18n="footer_legal">Mentions légales</a>
-  </div>
+  <a href="mailto:hello@get-authentique.com" class="footer-link" data-i18n="footer_contact">Contact</a>
+  <a href="/mentions-legales.html" class="footer-link" data-i18n="footer_legal">Mentions légales</a>
   <p class="footer-copy">© 2026 Authentique</p>
 </footer>
 
