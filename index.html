@@ -2741,6 +2741,21 @@ footer {
     font-size: min(1.46vw, 6.3px);
   }
 }
+
+/* ── Scroll reveal ──────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
 </style>
 </head>
 <body>
@@ -3439,12 +3454,12 @@ footer {
   <div class="lim-sticky-outer">
     <div class="lim-sticky-inner">
       <div class="lim-content-block">
-        <div class="lim-header">
+        <div class="lim-header reveal">
           <p class="section-label" data-i18n="limits_label">Transparence</p>
           <h2 data-i18n="limits_title">Ce qu'Authentique ne peut pas faire</h2>
           <p data-i18n="limits_subtitle">Authentique utilise la version web d'Instagram. C'est ce qui nous permet<br>de filtrer ce que tu vois — mais certaines fonctions de l'app native ne sont pas disponibles.</p>
         </div>
-        <div class="lim-group">
+        <div class="lim-group reveal" style="transition-delay: 0.15s">
           <!-- Gauche : iPhone avec logo Instagram + barre diagonale dégradé -->
           <div class="lim-phone-col">
             <div class="iphone lim-iphone">
@@ -3589,8 +3604,8 @@ footer {
 <!-- FAQ -->
 <section class="section-faq" id="faq">
   <div class="faq-inner">
-    <p class="section-label" data-i18n="faq_label">FAQ</p>
-    <h2 class="reveal" data-i18n="faq_title">Questions fréquentes</h2>
+    <p class="section-label reveal" data-i18n="faq_label">FAQ</p>
+    <h2 class="reveal" style="transition-delay: 0.1s" data-i18n="faq_title">Questions fréquentes</h2>
     <div class="faq-list">
       <details class="faq-item reveal">
         <summary data-i18n="faq_q1">Comment fonctionne Authentique ?</summary>
@@ -5869,6 +5884,24 @@ function pickDifferent(arr, lastIdx) {
   } else {
     start();
   }
+})();
+
+/* ── Scroll reveal ──────────────────────────────────────────── */
+(function () {
+  var els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(function (el) { el.classList.add('in-view'); });
+    return;
+  }
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(function (el) { obs.observe(el); });
 })();
 
 </script>
