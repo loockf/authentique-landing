@@ -538,13 +538,9 @@ section { padding: 120px 24px; position: relative; }
   background: #1c1c1a;
   border-radius: 3em;
   padding: 6px;
+  overflow: hidden; /* clips le contenu au rayon extérieur → coins intérieurs parfaits */
   box-shadow: 0 30px 60px rgba(20,20,20,0.18), 0 12px 24px rgba(20,20,20,0.08);
   position: relative;
-  /* Base font-size proportionnelle a la largeur du telephone : ratio
-     constant width/23 (reference: 280px / 12px ≈ 23.3).
-     18vw / 23 = 0.783vw ; min = 160/23 ≈ 7px ; max = 280/23 ≈ 12px.
-     Tous les enfants en em scaleront proportionnellement quelle que
-     soit la taille du phone. */
   font-size: clamp(7px, 0.78vw, 12px);
 }
 .phone-notch {
@@ -559,7 +555,6 @@ section { padding: 120px 24px; position: relative; }
 .phone-screen {
   width: 100%; height: 100%;
   background: #1a1a1a;
-  border-radius: 2.33em;
   overflow: hidden;
   position: relative;
 }
