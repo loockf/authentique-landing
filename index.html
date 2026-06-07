@@ -1887,9 +1887,7 @@ section { padding: 120px 24px; position: relative; }
 /* Gauche — iPhone */
 .lim-phone-col { flex-shrink: 0; }
 .lim-iphone {
-  width: clamp(150px, 18vw, 210px);
-  /* font-size proportionnel : 18vw/23=0.783vw ; min=150/23≈6.5px ; max=210/23≈9.1px */
-  font-size: clamp(6.5px, 0.78vw, 9.1px);
+  /* width et font-size hérités de .iphone : clamp(220px,28vw,280px) / clamp(9.5px,1.22vw,12px) */
 }
 .lim-iphone-screen {
   background: #fff;
@@ -1925,6 +1923,9 @@ section { padding: 120px 24px; position: relative; }
   flex: 1;
   min-width: 0;
   max-width: 400px;
+  /* Hauteur = téléphone : 2×clamp(220px,28vw,280px) + 12px (padding 6px×2) */
+  height: calc(clamp(220px, 28vw, 280px) * 2 + 12px);
+  overflow: hidden;
   /* Empile la caption au-dessus du mockup, alignement horizontal
      identique (meme largeur de colonne → meme largeur d'affichage). */
   display: flex;
@@ -1944,6 +1945,8 @@ section { padding: 120px 24px; position: relative; }
   line-height: 1.5;
 }
 .lim-safari {
+  flex: 1;
+  min-height: 0;
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 8px 32px rgba(20,20,20,0.12);
