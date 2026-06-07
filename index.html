@@ -2007,21 +2007,23 @@ section { padding: 120px 24px; position: relative; }
     box-sizing: border-box;
     align-items: flex-start;
   }
-  /* Téléphone : aspect-ratio content-box → hauteur contenu = min(60vw,260px),
-     hauteur totale = min(60vw,260px) + 12px (6px padding × 2). */
+  /* Téléphone : padding proportionnel à la taille réduite.
+     "La solution" : 6px pour ~210px → ratio ~0.56 → 3px pour ~117px.
+     Hauteur totale = min(60vw,260px) + 6px (3px padding × 2). */
   .lim-iphone {
     width: min(30vw, 130px);
     font-size: min(1.304vw, 5.65px);
+    padding: 3px;
   }
   /* Icône APP doublée (overrides les em du composant iphone) */
   .lim-ig-logo { gap: 6px !important; }
   .lim-ig-logo svg { width: 44px !important; height: 44px !important; }
   .lim-ig-app-label { font-size: 11px !important; letter-spacing: 1.5px; }
   /* Séparateur → conteneur centré pour l'icône ≠,
-     hauteur = hauteur totale du téléphone (min(60vw,260px) + 12px). */
+     hauteur = hauteur totale du téléphone (min(60vw,260px) + 6px). */
   .lim-separator {
     width: auto;
-    height: calc(min(60vw, 260px) + 12px);
+    height: calc(min(60vw, 260px) + 6px);
     background: none;
     transform: none;
     border-radius: 0;
@@ -2034,7 +2036,7 @@ section { padding: 120px 24px; position: relative; }
   /* Fenêtre web : même hauteur que le téléphone */
   .lim-safari-col {
     max-width: none;
-    height: calc(min(60vw, 260px) + 12px);
+    height: calc(min(60vw, 260px) + 6px);
     overflow: hidden;
   }
   .lim-safari { flex: 1; height: 100%; overflow: hidden; }
