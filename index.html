@@ -4750,16 +4750,18 @@ const observer = new IntersectionObserver((entries) => {
       e.target.classList.remove('visible');
     }
   });
-}, { threshold: 0.1 });
+// rootMargin : -120px haut (disparaît quand ~120px encore visibles)
+//              -180px bas  (apparaît quand bien centré dans le viewport)
+}, { threshold: 0, rootMargin: '-120px 0px -180px 0px' });
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
 setTimeout(() => {
   revealReady = true;
-  // Révéler les éléments déjà dans le viewport
+  // Révéler les éléments déjà dans le viewport au chargement
   document.querySelectorAll('.reveal').forEach(el => {
     const r = el.getBoundingClientRect();
-    if (r.top < window.innerHeight * 0.95 && r.bottom > 0) {
+    if (r.top < window.innerHeight * 0.8 && r.bottom > 120) {
       el.classList.add('visible');
     }
   });
