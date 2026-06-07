@@ -2280,8 +2280,8 @@ footer {
 .reveal {
   opacity: 0;
   transform: translateY(40px);
-  transition: opacity 1.9s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 1.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .reveal.visible { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
@@ -4751,8 +4751,8 @@ const observer = new IntersectionObserver((entries) => {
     }
   });
 // rootMargin : -150px haut (disparaît quand ~150px encore visibles)
-//              -360px bas  (apparaît seulement dans le tiers supérieur du viewport)
-}, { threshold: 0, rootMargin: '-150px 0px -360px 0px' });
+//              -280px bas  (apparaît seulement au milieu du viewport)
+}, { threshold: 0, rootMargin: '-150px 0px -280px 0px' });
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
@@ -4761,7 +4761,7 @@ setTimeout(() => {
   // Révéler les éléments déjà dans le viewport au chargement
   document.querySelectorAll('.reveal').forEach(el => {
     const r = el.getBoundingClientRect();
-    if (r.top < window.innerHeight * 0.6 && r.bottom > 150) {
+    if (r.top < window.innerHeight * 0.7 && r.bottom > 150) {
       el.classList.add('visible');
     }
   });
