@@ -2352,9 +2352,8 @@ footer {
      sur le .iphone de "La solution" (clamp(9.5px,1.22vw,12px)→12px à 1024px). */
   .phone-frame { width: 280px; font-size: 12px; }
 
-  /* "La solution" : annule le top:calc(100vh-188px) de la règle iPad générale
-     pour la section uniquement. bottom:32px positionne le bouton sous le phone. */
-  .section-features .sticky-scroll { top: auto; bottom: 32px; }
+  /* "La solution" : même position que "L'app en images" — top:calc(100vh-188px)
+     hérité de la règle générale ci-dessus (188px du bas, au-dessus des dots à 100px). */
 }
 
 /* iPad landscape : centrage géré par la règle ≥768px ci-dessous. */
