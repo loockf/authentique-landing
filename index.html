@@ -1996,34 +1996,40 @@ section { padding: 120px 24px; position: relative; }
   /* Maintenu pour iPad mini (768px exact) — desktop 3-col inchangé. */
   .lim-sticky-outer { height: 100vh; }
 }
-/* LIMITATIONS mobile — layout 3 colonnes adapté (téléphone | barre | fenêtre). */
+/* LIMITATIONS mobile — 3 éléments alignés, même hauteur. */
 @media (max-width: 767px) {
-  /* Flex row, padding de bords, gap compact */
+  /* Flex row, padding de bords, top-aligné pour que les hauteurs collent */
   .lim-group {
     gap: 8px;
     padding: 0 16px;
     box-sizing: border-box;
+    align-items: flex-start;
   }
-  /* Téléphone : même taille que les iPhones de "L'app en images" */
+  /* Téléphone réduit : width=30vw max 130px → height=60vw max 260px */
   .lim-iphone {
-    width: min(42vw, 180px);
-    /* font-size proportionnel : 42vw/23 ≈ 1.826vw ; max = 180/23 ≈ 7.83px */
-    font-size: min(1.826vw, 7.83px);
+    width: min(30vw, 130px);
+    /* font-size proportionnel : 30vw/23 ≈ 1.304vw ; max = 130/23 ≈ 5.65px */
+    font-size: min(1.304vw, 5.65px);
   }
-  /* Barre diagonale : hauteur calée sur le téléphone mobile */
+  /* Barre diagonale : exactement la hauteur du téléphone (2× sa largeur) */
   .lim-separator {
-    height: min(84vw, 360px);
+    height: min(60vw, 260px);
   }
-  /* Fenêtre web : espace restant à droite */
-  .lim-safari-col { max-width: none; }
+  /* Fenêtre web : même hauteur que le téléphone, contenu clipé au bord */
+  .lim-safari-col {
+    max-width: none;
+    height: min(60vw, 260px);
+    overflow: hidden;
+  }
+  .lim-safari { flex: 1; height: 100%; overflow: hidden; }
   /* Contenu compact */
-  .lim-safari-chrome { padding: 7px 10px; }
-  .lim-safari-dots { gap: 5px; }
-  .lim-dot { width: 8px; height: 8px; }
-  .lim-safari-url { font-size: 10px; }
-  .lim-safari-body { padding: 8px 12px 10px; }
-  .lim-item { padding: 5px 0; font-size: 10px; }
-  .lim-cross { font-size: 9px; }
+  .lim-safari-chrome { padding: 5px 8px; gap: 5px; }
+  .lim-safari-dots { gap: 4px; }
+  .lim-dot { width: 7px; height: 7px; }
+  .lim-safari-url { font-size: 9px; padding: 2px 6px; }
+  .lim-safari-body { padding: 6px 10px 8px; overflow: hidden; }
+  .lim-item { padding: 4px 0; font-size: 9px; }
+  .lim-cross { font-size: 8px; }
 }
 
 .section-cta {
