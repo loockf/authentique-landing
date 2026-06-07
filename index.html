@@ -2218,9 +2218,10 @@ footer {
   font-size: 14px;
   color: var(--green);
 }
-.footer-links { display: flex; gap: 12px; font-size: 12px; color: var(--text-mute); }
+.footer-links { display: flex; gap: 12px; font-size: 12px; color: var(--text-mute); flex-shrink: 0; }
+.footer-links a { white-space: nowrap; }
 .footer-links a:hover { color: var(--green); }
-.footer-copy { font-size: 11px; color: var(--text-mute); flex-shrink: 0; }
+.footer-copy { font-size: 11px; color: var(--text-mute); flex-shrink: 0; white-space: nowrap; }
 
 /* FAQ */
 .section-faq {
@@ -2334,6 +2335,9 @@ footer {
   }
   .iphone--featured { transform: none; }
   footer { flex-wrap: nowrap; gap: 8px; padding: 16px 12px; }
+  .footer-name { display: none; }
+  .footer-links { font-size: 10px; gap: 8px; }
+  .footer-copy { font-size: 10px; }
 }
 
 /* iPad : ancre le bouton au viewport plutot qu'au bas de la section.
