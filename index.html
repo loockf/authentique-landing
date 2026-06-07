@@ -2814,14 +2814,14 @@ footer {
 
 <!-- HERO -->
 <section class="hero">
-  <span class="arch-icon hero-arch">
+  <span class="arch-icon hero-arch reveal">
     <svg viewBox="0 0 200 200" fill="none">
       <path d="M 28,178 L 52,88 Q 66,38 100,38 Q 134,38 148,88 L 172,178"
         stroke="#ffffff" stroke-width="30" stroke-linecap="round" fill="none"/>
     </svg>
   </span>
-  <h1 class="hero-title" data-i18n="hero_title"><span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Instagram, sans les <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">pubs</span><span style="color:#141414">.</span></span></h1>
-  <div class="hero-platforms-wrap">
+  <h1 class="hero-title reveal" style="transition-delay:0.12s" data-i18n="hero_title"><span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Instagram, sans les <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">pubs</span><span style="color:#141414">.</span></span></h1>
+  <div class="hero-platforms-wrap reveal" style="transition-delay:0.25s">
     <span class="hero-platforms-caption" data-i18n="platforms_caption">Bientôt disponible sur :</span>
     <div class="hero-platforms">
       <span class="platform-pill">
@@ -2859,7 +2859,7 @@ footer {
       </span>
     </div>
   </div>
-  <div class="hero-actions">
+  <div class="hero-actions reveal" style="transition-delay:0.38s">
     <a href="#" class="btn-primary">
       <!-- Mini K Kickstarter (stylise simple) — sortir du data-i18n
            pour que setLang() ne wipe pas les SVG en remplacant
@@ -2873,7 +2873,7 @@ footer {
       </svg>
     </a>
   </div>
-  <p class="hero-tagline" data-i18n="hero_tagline">
+  <p class="hero-tagline reveal" style="transition-delay:0.5s" data-i18n="hero_tagline">
     Sois parmi les premiers à découvrir Authentique.
   </p>
   <button class="hero-scroll" aria-label="Faire défiler" type="button">
@@ -4737,20 +4737,33 @@ if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
 }
 window.addEventListener('resize', fitHeroTitle);
 
+// Reveal : page "vide" 400ms au chargement, puis contenu apparaît progressivement
+let revealReady = false;
+
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => {
+    if (!revealReady) return;
     if (e.isIntersecting) {
       e.target.classList.add('visible');
     } else if (e.boundingClientRect.top < 0) {
-      // Element a quitté le viewport par le haut (scrollé au-delà) → fade out
+      // Element quitté par le haut → fade out
       e.target.classList.remove('visible');
     }
   });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('.reveal').forEach(el => {
-  observer.observe(el);
-});
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+setTimeout(() => {
+  revealReady = true;
+  // Révéler les éléments déjà dans le viewport
+  document.querySelectorAll('.reveal').forEach(el => {
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight * 0.95 && r.bottom > 0) {
+      el.classList.add('visible');
+    }
+  });
+}, 400);
 
 // === Animation des compteurs CTA (publicite / transparent / gratuit) ===
 // Quand la section #cta entre dans le viewport, les 3 compteurs
