@@ -1993,7 +1993,20 @@ section { padding: 120px 24px; position: relative; }
 .lim-item:last-child { border-bottom: none; }
 .lim-cross { color: var(--text-mute); font-size: 11px; font-weight: 700; flex-shrink: 0; line-height: 1; }
 @media (max-width: 768px) {
-  .lim-phone-col, .lim-separator { display: none; }
+  /* Séparateur masqué, iPhone visible */
+  .lim-separator { display: none; }
+  /* Layout : row avec padding pour éviter les bords */
+  .lim-group {
+    gap: 12px;
+    padding: 0 16px;
+    box-sizing: border-box;
+  }
+  /* iPhone compact sur mobile */
+  .lim-iphone {
+    width: 90px;
+    font-size: 3.91px; /* 90/23 */
+  }
+  /* Fenêtre web : prend l'espace restant sans déborder */
   .lim-safari-col { max-width: 100%; }
   .lim-sticky-outer { height: 100vh; }
 }
