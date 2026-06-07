@@ -3622,10 +3622,11 @@ footer {
 <footer>
   <a href="#" class="footer-logo">
     <span class="arch-icon">
-      <!-- Path décalé de -8 en Y : centre visuel de l'arche (y≈108→100)
-           aligné sur le centre du cercle vert. ViewBox identique aux autres logos. -->
-      <svg viewBox="0 0 200 200" fill="none">
-        <path d="M 28,170 L 52,80 Q 66,30 100,30 Q 134,30 148,80 L 172,170"
+      <!-- Path identique au logo principal. ViewBox "5 13 190 190" :
+           carré de 190 centré sur le centre visuel de l'arche (x=100, y=108)
+           → arche centrée dans le cercle quel que soit le diamètre. -->
+      <svg viewBox="5 13 190 190" fill="none">
+        <path d="M 28,178 L 52,88 Q 66,38 100,38 Q 134,38 148,88 L 172,178"
           stroke="#ffffff" stroke-width="30" stroke-linecap="round" fill="none"/>
       </svg>
     </span>
