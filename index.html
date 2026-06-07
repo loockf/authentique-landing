@@ -1924,7 +1924,6 @@ section { padding: 120px 24px; position: relative; }
 .lim-safari-col {
   flex: 1;
   min-width: 0;
-  max-width: 400px;
   /* Hauteur = téléphone : 2×clamp(220px,28vw,280px) + 12px (padding 6px×2) */
   height: calc(clamp(220px, 28vw, 280px) * 2 + 12px);
   overflow: hidden;
@@ -2699,6 +2698,10 @@ footer {
   .section-cta { text-align: left; }
   .cta-inner h2 { text-align: left; width: 100%; }
   .cta-email-line a { display: block; }
+
+  /* FAQ mobile : titres alignés à gauche comme les autres sections */
+  .faq-inner .section-label { text-align: left; }
+  .faq-inner h2 { text-align: left; }
 }
 
 /* ── MOBILE LANDSCAPE : section "Le problème" réduite de 20% ──
@@ -3608,7 +3611,9 @@ footer {
 <footer>
   <a href="#" class="footer-logo">
     <span class="arch-icon">
-      <svg viewBox="0 0 200 200" fill="none">
+      <!-- viewBox décalé de 8px vers le bas : centre visuel de l'arche (y≈108)
+           aligné sur le centre du cercle vert (y=100 dans le repère 0 0 200 200). -->
+      <svg viewBox="0 8 200 200" fill="none">
         <path d="M 28,178 L 52,88 Q 66,38 100,38 Q 134,38 148,88 L 172,178"
           stroke="#ffffff" stroke-width="30" stroke-linecap="round" fill="none"/>
       </svg>
