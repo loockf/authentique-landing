@@ -1912,17 +1912,14 @@ section { padding: 120px 24px; position: relative; }
   text-transform: uppercase;
   color: var(--text-mute);
 }
-/* Milieu — séparateur oblique ~15° */
+/* Milieu — icône ≠ (desktop, iPad, mobile) */
 .lim-separator {
-  width: 2px;
-  height: clamp(300px, 36vw, 420px);
-  background: linear-gradient(to bottom, #adf5d8, #19d382, #0aaa8e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
-  border-radius: 1px;
-  transform: rotate(15deg);
 }
-/* Icône ≠ mobile — masquée sur desktop et iPad */
-.lim-neq { display: none; }
+.lim-neq { display: block; }
 /* Droite — mockup Safari (avec caption au-dessus) */
 .lim-safari-col {
   flex: 1;
@@ -2031,8 +2028,8 @@ section { padding: 120px 24px; position: relative; }
     align-items: center;
     justify-content: center;
   }
-  /* Icône ≠ : visible sur mobile */
-  .lim-neq { display: block; }
+  /* Icône ≠ : taille réduite sur mobile */
+  .lim-neq { display: block; width: 24px; height: 24px; }
   /* Fenêtre web : même hauteur que le téléphone */
   .lim-safari-col {
     max-width: none;
@@ -3438,9 +3435,9 @@ footer {
           </div>
           <!-- Milieu : séparateur vertical (desktop) / icône ≠ (mobile) -->
           <div class="lim-separator" aria-hidden="true">
-            <!-- Icône ≠ : visible uniquement sur mobile via .lim-neq { display:none } base -->
+            <!-- Icône ≠ : desktop/iPad 48px, mobile 24px (via override 767px) -->
             <!-- Path unique = bounding-box non-dégénéré → gradient authGrad visible -->
-            <svg class="lim-neq" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" aria-hidden="true">
+            <svg class="lim-neq" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="48" height="48" aria-hidden="true">
               <path d="M5 9h14M5 15h14M16 5L8 19"/>
             </svg>
           </div>
