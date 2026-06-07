@@ -2007,17 +2007,21 @@ section { padding: 120px 24px; position: relative; }
     box-sizing: border-box;
     align-items: flex-start;
   }
-  /* Téléphone : box-sizing border-box → aspect-ratio 1/2 s'applique au
-     border-box entier, donc hauteur totale = exactement 2×largeur. */
+  /* Téléphone : aspect-ratio content-box → hauteur contenu = min(60vw,260px),
+     hauteur totale = min(60vw,260px) + 12px (6px padding × 2). */
   .lim-iphone {
     width: min(30vw, 130px);
     font-size: min(1.304vw, 5.65px);
-    box-sizing: border-box;
   }
-  /* Séparateur → conteneur centré pour l'icône ≠ */
+  /* Icône APP doublée (overrides les em du composant iphone) */
+  .lim-ig-logo { gap: 6px !important; }
+  .lim-ig-logo svg { width: 44px !important; height: 44px !important; }
+  .lim-ig-app-label { font-size: 11px !important; letter-spacing: 1.5px; }
+  /* Séparateur → conteneur centré pour l'icône ≠,
+     hauteur = hauteur totale du téléphone (min(60vw,260px) + 12px). */
   .lim-separator {
     width: auto;
-    height: min(60vw, 260px);
+    height: calc(min(60vw, 260px) + 12px);
     background: none;
     transform: none;
     border-radius: 0;
@@ -2030,7 +2034,7 @@ section { padding: 120px 24px; position: relative; }
   /* Fenêtre web : même hauteur que le téléphone */
   .lim-safari-col {
     max-width: none;
-    height: min(60vw, 260px);
+    height: calc(min(60vw, 260px) + 12px);
     overflow: hidden;
   }
   .lim-safari { flex: 1; height: 100%; overflow: hidden; }
@@ -3433,10 +3437,9 @@ footer {
           <!-- Milieu : séparateur vertical (desktop) / icône ≠ (mobile) -->
           <div class="lim-separator" aria-hidden="true">
             <!-- Icône ≠ : visible uniquement sur mobile via .lim-neq { display:none } base -->
-            <svg class="lim-neq" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" width="24" height="24" aria-hidden="true">
-              <line x1="5" y1="9" x2="19" y2="9"/>
-              <line x1="5" y1="15" x2="19" y2="15"/>
-              <line x1="16" y1="5" x2="8" y2="19"/>
+            <!-- Path unique = bounding-box non-dégénéré → gradient authGrad visible -->
+            <svg class="lim-neq" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" aria-hidden="true">
+              <path d="M5 9h14M5 15h14M16 5L8 19"/>
             </svg>
           </div>
           <!-- Droite : mockup navigateur Safari -->
