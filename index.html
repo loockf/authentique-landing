@@ -1993,22 +1993,95 @@ section { padding: 120px 24px; position: relative; }
 .lim-item:last-child { border-bottom: none; }
 .lim-cross { color: var(--text-mute); font-size: 11px; font-weight: 700; flex-shrink: 0; line-height: 1; }
 @media (max-width: 768px) {
-  /* Séparateur masqué, iPhone visible */
-  .lim-separator { display: none; }
-  /* Layout : row avec padding pour éviter les bords */
+  /* Maintenu pour iPad mini (768px exact) — desktop 3-col inchangé. */
+  .lim-sticky-outer { height: 100vh; }
+}
+/* LIMITATIONS mobile — refonte :
+   .lim-group devient la coque du téléphone, ses trois enfants
+   s'empilent à l'intérieur : icône APP / séparateur / fenêtre web. */
+@media (max-width: 767px) {
+  /* === COQUE TÉLÉPHONE ================================================= */
   .lim-group {
-    gap: 12px;
-    padding: 0 16px;
+    flex-direction: column;
+    gap: 0;
+    align-items: stretch;
+    justify-content: flex-start;
+    /* Mêmes proportions que "La solution" mobile (budget 180px). */
+    width: calc(((100vh - 180px) / 2) * 0.80);
+    min-width: 130px;
+    aspect-ratio: 1 / 2;
+    background: #1c1c1a;
+    border-radius: 24px;
+    padding: 6px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(20, 20, 20, 0.15);
     box-sizing: border-box;
   }
-  /* iPhone compact sur mobile */
-  .lim-iphone {
-    width: 90px;
-    font-size: 3.91px; /* 90/23 */
+  /* === ZONE HAUTE : icône APP ========================================== */
+  .lim-phone-col {
+    flex: 1;
+    min-height: 0;
   }
-  /* Fenêtre web : prend l'espace restant sans déborder */
-  .lim-safari-col { max-width: 100%; }
-  .lim-sticky-outer { height: 100vh; }
+  /* Masquer la coque iPhone interne — seul le contenu (icône) reste. */
+  .lim-iphone {
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: unset !important;
+    font-size: inherit !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+  .lim-iphone .iphone-frame {
+    border-radius: 0;
+    background: transparent;
+  }
+  .lim-iphone .iphone-dynamic-island { display: none; }
+  .lim-iphone-screen {
+    background: transparent !important;
+    border-radius: 0 !important;
+  }
+  .lim-ig-logo { gap: 4px; }
+  .lim-ig-logo svg { width: 32px !important; height: 32px !important; }
+  .lim-ig-app-label { font-size: 8px !important; letter-spacing: 1px; color: rgba(255,255,255,0.5); }
+  /* === SÉPARATEUR : horizontal, dégradé ================================ */
+  .lim-separator {
+    display: block !important;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, #adf5d8, #19d382, #0aaa8e);
+    transform: none !important;
+    flex-shrink: 0;
+    border-radius: 0;
+  }
+  /* === ZONE BASSE : fenêtre web ======================================== */
+  .lim-safari-col {
+    flex: 1.5;
+    max-width: 100%;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .lim-safari {
+    flex: 1;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  /* Contenu compact pour tenir dans le téléphone */
+  .lim-safari-chrome { padding: 5px 8px; gap: 6px; }
+  .lim-safari-dots { gap: 4px; }
+  .lim-dot { width: 7px; height: 7px; }
+  .lim-safari-url { font-size: 8px !important; padding: 2px 6px; gap: 4px; }
+  .lim-safari-body { padding: 6px 8px; flex: 1; overflow: hidden; }
+  .lim-item { padding: 3px 0; font-size: 9px !important; gap: 5px; }
+  .lim-cross { font-size: 8px; }
 }
 
 .section-cta {
