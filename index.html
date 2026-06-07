@@ -2315,6 +2315,7 @@ footer {
     width: min(42vw, 180px);
     /* font-size proportionnel : 42vw/23=1.826vw ; 180/23≈7.8px */
     font-size: min(1.83vw, 7.8px);
+    padding: 4px;
   }
   .iphone--featured { transform: none; }
   footer { flex-wrap: nowrap; gap: 8px; padding: 16px 12px; }
@@ -2453,7 +2454,7 @@ footer {
   .section-problem .pain-card { flex: 1; min-height: 0; max-height: calc((100% - 5 * 8px) / 6); flex-direction: row; justify-content: flex-start; padding: 0 8px; }
   /* Telephone : meme taille et meme finesse de bord que "L'app en images" sur mobile */
   .phone-frame { width: min(42vw, 180px); }
-  .section-problem .phone-frame { padding: 6px; border-radius: 3em; }
+  .section-problem .phone-frame { padding: 4px; border-radius: 3em; }
   .section-problem .phone-screen { border-radius: 2.33em; }
   .section-problem .phone-notch { width: 6.67em; border-radius: 1em; }
 
@@ -2536,7 +2537,7 @@ footer {
      Font-size = width/23 (ratio em constant, tout l'intérieur scale proportionnellement). */
   .features-sticky-phone .iphone {
     width: calc(((100vh - 320px) / 2) * 0.80);
-    padding: 6px;
+    padding: 4px;
     border-radius: 2.67em;
     font-size: calc((100vh - 320px) / 46 * 0.80);
   }
