@@ -1921,6 +1921,8 @@ section { padding: 120px 24px; position: relative; }
   border-radius: 1px;
   transform: rotate(15deg);
 }
+/* Icône ≠ mobile — masquée sur desktop et iPad */
+.lim-neq { display: none; }
 /* Droite — mockup Safari (avec caption au-dessus) */
 .lim-safari-col {
   flex: 1;
@@ -1996,26 +1998,36 @@ section { padding: 120px 24px; position: relative; }
   /* Maintenu pour iPad mini (768px exact) — desktop 3-col inchangé. */
   .lim-sticky-outer { height: 100vh; }
 }
-/* LIMITATIONS mobile — 3 éléments alignés, même hauteur. */
+/* LIMITATIONS mobile — téléphone | icône ≠ | fenêtre, même hauteur. */
 @media (max-width: 767px) {
-  /* Flex row, padding de bords, top-aligné pour que les hauteurs collent */
+  /* Flex row, padding de bords, top-aligné */
   .lim-group {
-    gap: 8px;
+    gap: 10px;
     padding: 0 16px;
     box-sizing: border-box;
     align-items: flex-start;
   }
-  /* Téléphone réduit : width=30vw max 130px → height=60vw max 260px */
+  /* Téléphone : box-sizing border-box → aspect-ratio 1/2 s'applique au
+     border-box entier, donc hauteur totale = exactement 2×largeur. */
   .lim-iphone {
     width: min(30vw, 130px);
-    /* font-size proportionnel : 30vw/23 ≈ 1.304vw ; max = 130/23 ≈ 5.65px */
     font-size: min(1.304vw, 5.65px);
+    box-sizing: border-box;
   }
-  /* Barre diagonale : exactement la hauteur du téléphone (2× sa largeur) */
+  /* Séparateur → conteneur centré pour l'icône ≠ */
   .lim-separator {
+    width: auto;
     height: min(60vw, 260px);
+    background: none;
+    transform: none;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  /* Fenêtre web : même hauteur que le téléphone, contenu clipé au bord */
+  /* Icône ≠ : visible sur mobile */
+  .lim-neq { display: block; }
+  /* Fenêtre web : même hauteur que le téléphone */
   .lim-safari-col {
     max-width: none;
     height: min(60vw, 260px);
@@ -3418,8 +3430,15 @@ footer {
               </div>
             </div>
           </div>
-          <!-- Milieu : séparateur vertical en dégradé vert -->
-          <div class="lim-separator" aria-hidden="true"></div>
+          <!-- Milieu : séparateur vertical (desktop) / icône ≠ (mobile) -->
+          <div class="lim-separator" aria-hidden="true">
+            <!-- Icône ≠ : visible uniquement sur mobile via .lim-neq { display:none } base -->
+            <svg class="lim-neq" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" width="24" height="24" aria-hidden="true">
+              <line x1="5" y1="9" x2="19" y2="9"/>
+              <line x1="5" y1="15" x2="19" y2="15"/>
+              <line x1="16" y1="5" x2="8" y2="19"/>
+            </svg>
+          </div>
           <!-- Droite : mockup navigateur Safari -->
           <div class="lim-safari-col">
             <div class="lim-safari">
