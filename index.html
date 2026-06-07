@@ -2279,10 +2279,14 @@ footer {
 /* REVEAL */
 .reveal {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(40px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .reveal.visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { transform: none; }
+}
 
 /* phone-frame: clamp unifié (160→280px sur toute la plage, sans saut à 1440px) */
 
@@ -2742,20 +2746,6 @@ footer {
   }
 }
 
-/* ── Scroll reveal ──────────────────────────────────────────── */
-.reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.reveal.in-view {
-  opacity: 1;
-  transform: none;
-}
-@media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
-}
 </style>
 </head>
 <body>
@@ -4751,15 +4741,15 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) {
       e.target.classList.add('visible');
-      observer.unobserve(e.target);
+    } else if (e.boundingClientRect.top < 0) {
+      // Element a quitté le viewport par le haut (scrollé au-delà) → fade out
+      e.target.classList.remove('visible');
     }
   });
-}, { threshold: 0, rootMargin: '0px 0px -50px 0px' });
+}, { threshold: 0.1 });
 
 document.querySelectorAll('.reveal').forEach(el => {
   observer.observe(el);
-  const rect = el.getBoundingClientRect();
-  if (rect.top < window.innerHeight) el.classList.add('visible');
 });
 
 // === Animation des compteurs CTA (publicite / transparent / gratuit) ===
@@ -5886,23 +5876,6 @@ function pickDifferent(arr, lastIdx) {
   }
 })();
 
-/* ── Scroll reveal ──────────────────────────────────────────── */
-(function () {
-  var els = document.querySelectorAll('.reveal');
-  if (!('IntersectionObserver' in window)) {
-    els.forEach(function (el) { el.classList.add('in-view'); });
-    return;
-  }
-  var obs = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in-view');
-        obs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  els.forEach(function (el) { obs.observe(el); });
-})();
 
 </script>
 </body>
