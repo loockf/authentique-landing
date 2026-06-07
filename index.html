@@ -2207,7 +2207,6 @@ footer {
 }
 .footer-logo { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 .footer-logo .arch-icon { width: 22px; height: 22px; }
-.footer-logo .arch-icon svg { width: 13px; height: 13px; }
 .footer-name {
   font-size: 14px;
   color: var(--green);
@@ -3629,12 +3628,8 @@ footer {
 <footer>
   <a href="#" class="footer-logo">
     <span class="arch-icon">
-      <!-- Path décalé de -8 unités en Y pour que le centre visuel
-           de l'arche (stroke inclus) soit exactement à (100,100)
-           = centre du viewBox "0 0 200 200". Évite les bugs Safari mobile
-           avec les viewBox à origine non nulle. -->
       <svg viewBox="0 0 200 200" fill="none">
-        <path d="M 28,170 L 52,80 Q 66,30 100,30 Q 134,30 148,80 L 172,170"
+        <path d="M 28,178 L 52,88 Q 66,38 100,38 Q 134,38 148,88 L 172,178"
           stroke="#ffffff" stroke-width="30" stroke-linecap="round" fill="none"/>
       </svg>
     </span>
