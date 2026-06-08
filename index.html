@@ -2896,10 +2896,10 @@ footer {
   <div class="problem-grid">
     <div class="problem-text">
       <p class="section-label reveal" data-i18n="problem_label">Le problème</p>
-      <h2 class="reveal" style="transition-delay:0.1s" data-i18n="problem_title">Instagram décide<span class="problem-title-break"></span>ce&nbsp;que&nbsp;tu&nbsp;<span class="problem-gradient-text">vois</span>.</h2>
+      <h2 class="reveal" style="transition-delay:0.1s" data-i18n="problem_title">Instagram décide <span class="problem-title-break"></span>ce&nbsp;que&nbsp;tu&nbsp;<span class="problem-gradient-text">vois</span>.</h2>
       <p class="reveal" style="transition-delay:0.2s" data-i18n="problem_p2">Ce n'est pas un manque de volonté. Instagram est conçu pour être addictif — ton attention est leur produit.</p>
-      <div class="problem-pains reveal" style="transition-delay:0.3s">
-        <div class="pain-card">
+      <div class="problem-pains">
+        <div class="pain-card reveal">
           <div class="pain-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="url(#problemGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M3 11l18-5v12L3 13z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>
@@ -2907,7 +2907,7 @@ footer {
           </div>
           <span class="pain-label" data-i18n="pain1">Posts sponsorisés</span>
         </div>
-        <div class="pain-card">
+        <div class="pain-card reveal" style="transition-delay:0.08s">
           <div class="pain-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="url(#problemGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <rect x="4" y="6" width="16" height="14" rx="2"/><circle cx="9" cy="11" r="1.2"/><circle cx="15" cy="11" r="1.2"/>
@@ -2916,7 +2916,7 @@ footer {
           </div>
           <span class="pain-label" data-i18n="pain2">Contenus suggérés</span>
         </div>
-        <div class="pain-card">
+        <div class="pain-card reveal" style="transition-delay:0.16s">
           <div class="pain-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="url(#problemGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>
@@ -2924,7 +2924,7 @@ footer {
           </div>
           <span class="pain-label" data-i18n="pain3">Stories sponsorisées</span>
         </div>
-        <div class="pain-card">
+        <div class="pain-card reveal" style="transition-delay:0.24s">
           <div class="pain-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="url(#problemGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 6h4"/><path d="M12 18v.01"/>
@@ -2932,7 +2932,7 @@ footer {
           </div>
           <span class="pain-label" data-i18n="pain4">Doom-scrolling</span>
         </div>
-        <div class="pain-card">
+        <div class="pain-card reveal" style="transition-delay:0.32s">
           <div class="pain-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="url(#problemGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/>
@@ -2941,7 +2941,7 @@ footer {
           </div>
           <span class="pain-label" data-i18n="pain5">Addiction digitale</span>
         </div>
-        <div class="pain-card">
+        <div class="pain-card reveal" style="transition-delay:0.40s">
           <div class="pain-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="url(#problemGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/>
@@ -3457,9 +3457,9 @@ footer {
           <h2 data-i18n="limits_title">Ce qu'Authentique ne peut pas faire</h2>
           <p data-i18n="limits_subtitle">Authentique utilise la version web d'Instagram. C'est ce qui nous permet<br>de filtrer ce que tu vois — mais certaines fonctions de l'app native ne sont pas disponibles.</p>
         </div>
-        <div class="lim-group reveal" style="transition-delay: 0.15s">
+        <div class="lim-group">
           <!-- Gauche : iPhone avec logo Instagram + barre diagonale dégradé -->
-          <div class="lim-phone-col">
+          <div class="lim-phone-col reveal">
             <div class="iphone lim-iphone">
               <div class="iphone-frame">
                 <div class="iphone-dynamic-island"></div>
@@ -3482,7 +3482,7 @@ footer {
             </div>
           </div>
           <!-- Milieu : séparateur vertical (desktop) / icône ≠ (mobile) -->
-          <div class="lim-separator" aria-hidden="true">
+          <div class="lim-separator reveal" style="transition-delay:0.12s" aria-hidden="true">
             <!-- Icône ≠ : desktop/iPad 48px, mobile 24px (via override 767px) -->
             <!-- Path unique = bounding-box non-dégénéré → gradient authGrad visible -->
             <svg class="lim-neq" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="40" height="40" aria-hidden="true">
@@ -3490,7 +3490,7 @@ footer {
             </svg>
           </div>
           <!-- Droite : mockup navigateur Safari -->
-          <div class="lim-safari-col">
+          <div class="lim-safari-col reveal" style="transition-delay:0.24s">
             <div class="lim-safari">
               <div class="lim-safari-chrome">
                 <div class="lim-safari-dots" aria-hidden="true">
@@ -3541,8 +3541,8 @@ footer {
          classe .is-gradient quand la valeur atteint data-gradient-at
          (5 pour le 1er qui descend vers 0, 95 pour les 2 autres qui
          montent vers 100). Cross-fade opacity 0.8s en CSS. -->
-    <div class="cta-stats reveal">
-      <div class="cta-stat">
+    <div class="cta-stats">
+      <div class="cta-stat reveal">
         <div class="cta-counter" data-from="100" data-to="0" data-suffix="" data-gradient-at="5" aria-hidden="true">
           <span class="cta-counter-layer cta-counter-solid">100</span>
           <span class="cta-counter-layer cta-counter-gradient">100</span>
@@ -3550,7 +3550,7 @@ footer {
         <h3 data-i18n="cta_card1_title">publicité</h3>
         <p data-i18n="cta_card1_desc">Authentique ne se financera jamais par la pub. Pas question de reproduire le modèle qu'on combat.</p>
       </div>
-      <div class="cta-stat">
+      <div class="cta-stat reveal" style="transition-delay:0.12s">
         <div class="cta-counter" data-from="0" data-to="100" data-suffix="%" data-gradient-at="95" aria-hidden="true">
           <span class="cta-counter-layer cta-counter-solid">0%</span>
           <span class="cta-counter-layer cta-counter-gradient">0%</span>
@@ -3558,7 +3558,7 @@ footer {
         <h3 data-i18n="cta_card2_title">transparent</h3>
         <p data-i18n="cta_card2_desc">Authentique ne collecte aucune donnée. Aucun serveur. Aucun tracking.</p>
       </div>
-      <div class="cta-stat">
+      <div class="cta-stat reveal" style="transition-delay:0.24s">
         <div class="cta-counter" data-from="0" data-to="100" data-suffix="%" data-gradient-at="95" aria-hidden="true">
           <span class="cta-counter-layer cta-counter-solid">0%</span>
           <span class="cta-counter-layer cta-counter-gradient">0%</span>
@@ -3807,7 +3807,7 @@ const translations = {
     hero_cta: "Back on Kickstarter",
     hero_tagline: "Be among the first to discover Authentique.",
     problem_label: "The problem",
-    problem_title: 'Instagram decides<span class="problem-title-break"></span>what&nbsp;you&nbsp;<span class="problem-gradient-text">see</span>.',
+    problem_title: 'Instagram decides <span class="problem-title-break"></span>what&nbsp;you&nbsp;<span class="problem-gradient-text">see</span>.',
     problem_p2: "It's not a lack of willpower. Instagram is designed to be addictive — your attention is their product.",
     pain1: "Sponsored posts",
     pain2: "Suggested content",
@@ -3948,7 +3948,7 @@ const translations = {
     hero_cta: "Apoyar en Kickstarter",
     hero_tagline: "Sé de los primeros en descubrir Authentique.",
     problem_label: "El problema",
-    problem_title: 'Instagram decide<span class="problem-title-break"></span>lo&nbsp;que&nbsp;<span class="problem-gradient-text">ves</span>.',
+    problem_title: 'Instagram decide <span class="problem-title-break"></span>lo&nbsp;que&nbsp;<span class="problem-gradient-text">ves</span>.',
     problem_p2: "No es falta de voluntad. Instagram está diseñado para ser adictivo — tu atención es su producto.",
     pain1: "Posts patrocinados",
     pain2: "Contenido sugerido",
@@ -4089,7 +4089,7 @@ const translations = {
     hero_cta: "Sostieni su Kickstarter",
     hero_tagline: "Sii tra i primi a scoprire Authentique.",
     problem_label: "Il problema",
-    problem_title: 'Instagram decide<span class="problem-title-break"></span>cosa&nbsp;<span class="problem-gradient-text">vedi</span>.',
+    problem_title: 'Instagram decide <span class="problem-title-break"></span>cosa&nbsp;<span class="problem-gradient-text">vedi</span>.',
     problem_p2: "Non è una mancanza di volontà. Instagram è progettato per creare dipendenza — la tua attenzione è il loro prodotto.",
     pain1: "Post sponsorizzati",
     pain2: "Contenuti suggeriti",
@@ -4230,7 +4230,7 @@ const translations = {
     hero_cta: "Apoiar no Kickstarter",
     hero_tagline: "Sê dos primeiros a descobrir Authentique.",
     problem_label: "O problema",
-    problem_title: 'O Instagram decide<span class="problem-title-break"></span>o&nbsp;que&nbsp;<span class="problem-gradient-text">vês</span>.',
+    problem_title: 'O Instagram decide <span class="problem-title-break"></span>o&nbsp;que&nbsp;<span class="problem-gradient-text">vês</span>.',
     problem_p2: "Não é falta de vontade. O Instagram foi concebido para ser viciante — a tua atenção é o produto deles.",
     pain1: "Posts patrocinados",
     pain2: "Conteúdos sugeridos",
@@ -4371,7 +4371,7 @@ const translations = {
     hero_cta: "Поддержать на Kickstarter",
     hero_tagline: "Будь среди первых, кто откроет Authentique.",
     problem_label: "Проблема",
-    problem_title: 'Instagram решает,<span class="problem-title-break"></span>что&nbsp;ты&nbsp;<span class="problem-gradient-text">видишь</span>.',
+    problem_title: 'Instagram решает, <span class="problem-title-break"></span>что&nbsp;ты&nbsp;<span class="problem-gradient-text">видишь</span>.',
     problem_p2: "Это не недостаток воли. Instagram создан, чтобы вызывать зависимость — твоё внимание — их продукт.",
     pain1: "Спонсированные посты",
     pain2: "Рекомендации",
