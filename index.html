@@ -5309,12 +5309,22 @@ function pickDifferent(arr, lastIdx) {
   function triggerFeaturesCascade() {
     featuresEnterFired = true;
     inner.classList.remove('features-entering-blocked');
-    // Recalculer les positions des steps avec le phone à sa position finale
-    // (transform:none via .reveal.visible) pour éviter le décalage pendant l'animation.
-    alignStepsToToggles();
-    // Forcer .visible sur le phone pour qu'il reste visible après la fin de l'animation.
     var phoneDiv = outer.querySelector('.features-sticky-phone');
-    if (phoneDiv) phoneDiv.classList.add('visible');
+    if (phoneDiv) {
+      phoneDiv.classList.add('visible');
+      // Fixer le phone à transform:none inline AVANT de mesurer les toggle rows.
+      // Sans ça, retirer features-entering-blocked déclenche une transition CSS
+      // (translateY(40px)→none) et getBoundingClientRect() mesure pendant la transition
+      // → steps calculés 40px trop bas.
+      phoneDiv.style.transform = 'none';
+      phoneDiv.style.transition = 'none';
+    }
+    alignStepsToToggles();
+    if (phoneDiv) {
+      // Effacer l'inline style : .reveal.visible donne déjà transform:none, pas de re-transition.
+      phoneDiv.style.transform = '';
+      phoneDiv.style.transition = '';
+    }
     if (featuresEnterTimer) clearTimeout(featuresEnterTimer);
     inner.classList.add('features-entering-up');
     featuresEnterTimer = setTimeout(function() {
