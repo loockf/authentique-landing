@@ -5199,6 +5199,7 @@ function pickDifferent(arr, lastIdx) {
   var featuresLastScrollY = window.scrollY;
   var featuresSectionActive = false;
   var featuresEnterTimer = null;
+  var featuresEnterFired = false; // évite de relancer le cascade dans la même re-entrée
 
   // Aligne chaque step (a droite) verticalement sur son toggle row
   // (a gauche) dans le phone. Step.top calcule pour que le centre de
@@ -5298,6 +5299,18 @@ function pickDifferent(arr, lastIdx) {
   }
   // Détecte la re-entrée par le bas (scroll UP) pour déclencher l'animation
   // features-entering-up sur le step actif et le phone.
+  // Lance le cascade (phone + step texte) une seule fois par re-entrée.
+  function triggerFeaturesCascade() {
+    featuresEnterFired = true;
+    inner.classList.remove('features-entering-blocked');
+    if (featuresEnterTimer) clearTimeout(featuresEnterTimer);
+    inner.classList.add('features-entering-up');
+    featuresEnterTimer = setTimeout(function() {
+      inner.classList.remove('features-entering-up');
+      featuresEnterTimer = null;
+    }, 1400);
+  }
+
   function updateWithDirection() {
     var scrollY = window.scrollY;
     var scrollingUp = scrollY < featuresLastScrollY;
@@ -5305,23 +5318,34 @@ function pickDifferent(arr, lastIdx) {
     update();
     if (!inner) return;
     var or = outer.getBoundingClientRect();
-    var stickyH = inner.offsetHeight || window.innerHeight;
+    var vh = window.innerHeight;
+    var stickyH = inner.offsetHeight || vh;
     var scrollable = outer.offsetHeight - stickyH;
     var nowActive = or.top < 0 && or.top >= -scrollable;
-    // Approche depuis le bas (scroll UP) : section visible mais inner encore
-    // au-dessus de la zone active. On bloque phone + step pour éviter
-    // qu'ils apparaissent via checkReveal/update avant le cascade.
-    var aboveActive = scrollingUp && or.top < -scrollable && or.bottom > 0;
-    inner.classList.toggle('features-entering-blocked', aboveActive);
-    if (scrollingUp && nowActive && !featuresSectionActive) {
-      // Zone active atteinte : retirer le blocage, lancer le cascade.
+    // Section visible au-dessus de la zone active (inner.top < 0)
+    var aboveActive = or.top < -scrollable && or.bottom > 0;
+
+    if (!scrollingUp) {
+      // Scroll bas : retirer le blocage; réinitialiser quand section hors vue
       inner.classList.remove('features-entering-blocked');
-      if (featuresEnterTimer) clearTimeout(featuresEnterTimer);
-      inner.classList.add('features-entering-up');
-      featuresEnterTimer = setTimeout(function() {
-        inner.classList.remove('features-entering-up');
-        featuresEnterTimer = null;
-      }, 1400);
+      if (!aboveActive && !nowActive) featuresEnterFired = false;
+    } else {
+      if (aboveActive && !featuresEnterFired) {
+        // Bloquer phone + step pendant l'approche
+        inner.classList.add('features-entering-blocked');
+        // Déclencher le cascade dès que le phone entre dans le viewport
+        // (même timing que les autres éléments .reveal du site)
+        var phoneDiv = outer.querySelector('.features-sticky-phone');
+        if (phoneDiv) {
+          var pr = phoneDiv.getBoundingClientRect();
+          if (pr.bottom > 20 && pr.top < vh - 20) {
+            triggerFeaturesCascade();
+          }
+        }
+      } else if (nowActive && !featuresSectionActive && !featuresEnterFired) {
+        // Fallback : déclencher à la zone active si le cascade n'a pas encore eu lieu
+        triggerFeaturesCascade();
+      }
     }
     featuresSectionActive = nowActive;
   }
