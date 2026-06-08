@@ -1526,19 +1526,11 @@ section { padding: 120px 24px; position: relative; }
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5px;
 }
-.search-row--A,
-.search-row--B,
-.search-row--D {
-  grid-template-rows: repeat(2, 6.25em);
-}
-.search-row--C {
-  grid-template-rows: 6.25em;
-}
 .search-tile {
   position: relative;
   overflow: hidden;
+  aspect-ratio: 9 / 16;
 }
-.search-tile--big { grid-row: span 2; }
 .search-tile-play {
   position: absolute;
   top: 50%;
@@ -5887,10 +5879,10 @@ function pickDifferent(arr, lastIdx) {
   // Specifications par layout : tableau d'opts pour chaque tuile.
   // ~33% des tuiles ont play, jamais 2 cases adjacentes.
   const LAYOUT_SPECS = {
-    A: [{ big: true, play: true }, {}, {}, { play: true }, {}],
-    B: [{}, {}, { big: true, play: true }, { play: true }, {}],
+    A: [{ play: true }, {}, {}, {}, { play: true }, {}],
+    B: [{}, { play: true }, {}, {}, {}, { play: true }],
     C: [{ play: true }, {}, {}],
-    D: [{ big: true, play: true }, {}, { big: true, play: true }, {}],
+    D: [{}, {}, { play: true }, { play: true }, {}, {}],
   };
 
   function buildRow(type, state) {
