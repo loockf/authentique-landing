@@ -2292,8 +2292,11 @@ footer {
 .hero-tagline.reveal {
   transition-duration: 0.65s;
 }
-/* Screens sticky : overflow:hidden couperait le translateY → fade seul */
-.sticky-inner .reveal { transform: none; }
+/* Stickies : overflow:hidden couperait le translateY + alignStepsToToggles
+   calculerait les positions avec un décalage → fade seul pour les 3 stickies */
+.sticky-inner .reveal,
+.features-sticky-inner .reveal,
+.lim-sticky-inner .reveal { transform: none; }
 @media (prefers-reduced-motion: reduce) {
   .reveal { transform: none; }
 }
