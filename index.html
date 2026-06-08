@@ -2292,8 +2292,9 @@ footer {
 .hero-tagline.reveal {
   transition-duration: 0.65s;
 }
-/* features sticky uniquement : overflow:hidden + alignStepsToToggles requiert fade seul */
-.features-sticky-inner .reveal { transform: none; }
+/* features phone uniquement : alignStepsToToggles calcule les positions sur le DOM réel →
+   le translateY fausserait les calculs ; header + continuation gardent le slide normal */
+.features-sticky-phone.reveal { transform: none; }
 /* Slides inactifs : reset immédiat sans transition → la cascade se re-déclenche
    à chaque activation de slide (entrée normale ET retour par le bas) */
 .sticky-slide:not(.is-active) .reveal.visible {
