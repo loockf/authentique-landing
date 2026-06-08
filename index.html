@@ -2292,6 +2292,8 @@ footer {
 .hero-tagline.reveal {
   transition-duration: 0.65s;
 }
+/* Screens sticky : overflow:hidden couperait le translateY → fade seul */
+.sticky-inner .reveal { transform: none; }
 @media (prefers-reduced-motion: reduce) {
   .reveal { transform: none; }
 }
@@ -3202,7 +3204,7 @@ footer {
        Sur desktop : le header est dans chaque slide. Sur mobile : hors du sticky. -->
   <div class="sticky-outer">
     <div class="sticky-inner">
-      <div class="sticky-slides-area">
+      <div class="sticky-slides-area reveal">
       <!-- Slide 1 : Zéro publicité — 2 mockups (chaos + calm + counter) -->
       <div class="sticky-slide is-active" data-slide="0">
         <div class="screens-header">
