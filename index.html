@@ -4792,11 +4792,8 @@ function isObscuredBySticky(el) {
   var vh = window.innerHeight;
   return getStickyCovers().some(function(si) {
     var sr = si.getBoundingClientRect();
-    var active = Math.abs(sr.top) <= 10 && sr.height > vh * 0.5;
-    // Sticky actif : masque tout élément extérieur
-    if (active) return !si.contains(el);
-    // Sticky inactif (pas encore pinnté) : éléments intérieurs pas encore visibles
-    return si.contains(el);
+    // Sticky actif (≈ top:0) et grand : tout élément hors du sticky est masqué
+    return !si.contains(el) && Math.abs(sr.top) <= 10 && sr.height > vh * 0.5;
   });
 }
 
@@ -5338,7 +5335,6 @@ function pickDifferent(arr, lastIdx) {
   var inner = outer.querySelector('.sticky-inner');
   var screensEnterTimeout = null;
   var screensSectionVisible = false;
-  var screensNeedsEnterAnimation = false; // true après que la section soit sortie du viewport
   var screensLastScrollY = window.scrollY;
 
   function getCurrentIndex() {
@@ -5376,12 +5372,8 @@ function pickDifferent(arr, lastIdx) {
       var or = outer.getBoundingClientRect();
       var vh = window.innerHeight;
       var nowVisible = or.bottom > 0 && or.top < vh;
-      // Section entièrement sortie → marquer pour l'animation de re-entrée
-      if (!nowVisible) { screensNeedsEnterAnimation = true; }
-      // Déclencher la cascade quand l'inner est RÉELLEMENT visible (outer.bottom ≥ vh → inner.top ≥ 0)
-      var contentVisible = or.bottom >= vh;
-      if (scrollingUp && contentVisible && screensNeedsEnterAnimation) {
-        screensNeedsEnterAnimation = false;
+      if (scrollingUp && nowVisible && !screensSectionVisible) {
+        // Re-entrée par le bas : cascade inversée
         inner.classList.add('screens-entering-up');
         if (screensEnterTimeout) clearTimeout(screensEnterTimeout);
         screensEnterTimeout = setTimeout(function () {
