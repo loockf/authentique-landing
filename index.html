@@ -4785,8 +4785,13 @@ function isObscuredBySticky(el) {
   var vh = window.innerHeight;
   return getStickyCovers().some(function(si) {
     var sr = si.getBoundingClientRect();
-    // Sticky actif (≈ top:0) et grand : tout élément hors du sticky est masqué
-    return !si.contains(el) && Math.abs(sr.top) <= 10 && sr.height > vh * 0.5;
+    var active = Math.abs(sr.top) <= 10 && sr.height > vh * 0.5;
+    // Sticky actif : masque tout élément extérieur
+    if (active) return !si.contains(el);
+    // Sticky pas encore pinnté (sr.top > 10) : ses éléments intérieurs
+    // ne sont pas encore en vue dans leur contexte sticky
+    if (si.contains(el) && sr.top > 10) return true;
+    return false;
   });
 }
 
