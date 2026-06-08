@@ -2318,9 +2318,15 @@ footer {
   animation: screen-enter-up 1s cubic-bezier(0.16,1,0.3,1) 0.75s both;
 }
 /* Re-entrée "La solution" par le bas : phone puis bloc step. Classe ajoutée par JS.
-   fill-mode:both = opacity:0 appliqué dès l'ajout de la classe (avant le délai). */
+   fill-mode:both = opacity:0 appliqué dès l'ajout de la classe (avant le délai).
+   Phone : fade seul (sans translateY) → les toggle rows ne bougent pas pendant
+   l'animation du step, évitant le décalage de positionnement. */
+@keyframes features-phone-appear {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
 .features-entering-up .features-sticky-phone {
-  animation: screen-enter-up 1s cubic-bezier(0.16,1,0.3,1) 0s both;
+  animation: features-phone-appear 1s cubic-bezier(0.16,1,0.3,1) 0s both;
 }
 .features-entering-up .features-step.is-active {
   animation: screen-enter-up 1s cubic-bezier(0.16,1,0.3,1) 0.15s both;
@@ -5303,6 +5309,12 @@ function pickDifferent(arr, lastIdx) {
   function triggerFeaturesCascade() {
     featuresEnterFired = true;
     inner.classList.remove('features-entering-blocked');
+    // Recalculer les positions des steps avec le phone à sa position finale
+    // (transform:none via .reveal.visible) pour éviter le décalage pendant l'animation.
+    alignStepsToToggles();
+    // Forcer .visible sur le phone pour qu'il reste visible après la fin de l'animation.
+    var phoneDiv = outer.querySelector('.features-sticky-phone');
+    if (phoneDiv) phoneDiv.classList.add('visible');
     if (featuresEnterTimer) clearTimeout(featuresEnterTimer);
     inner.classList.add('features-entering-up');
     featuresEnterTimer = setTimeout(function() {
