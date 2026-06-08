@@ -2292,10 +2292,15 @@ footer {
 .hero-tagline.reveal {
   transition-duration: 0.65s;
 }
-/* features + lim stickies : overflow:hidden + alignStepsToToggles requiert
-   fade seul (le translateY décalerait les calculs de positions des steps) */
-.features-sticky-inner .reveal,
-.lim-sticky-inner .reveal { transform: none; }
+/* features sticky uniquement : overflow:hidden + alignStepsToToggles requiert fade seul */
+.features-sticky-inner .reveal { transform: none; }
+/* Slides inactifs : reset immédiat sans transition → la cascade se re-déclenche
+   à chaque activation de slide (entrée normale ET retour par le bas) */
+.sticky-slide:not(.is-active) .reveal.visible {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: none;
+}
 @media (prefers-reduced-motion: reduce) {
   .reveal { transform: none; }
 }
@@ -3247,22 +3252,22 @@ footer {
       <!-- Slide 2 : Fini les stories publicitaires. -->
       <div class="sticky-slide" data-slide="1">
         <div class="screens-header">
-          <p class="section-label" data-i18n="screens_label">L'app en images</p>
-          <h2 data-i18n="screens_title">Vois la différence<br><em>par toi-même</em>.</h2>
+          <p class="section-label reveal" data-i18n="screens_label">L'app en images</p>
+          <h2 class="reveal" style="transition-delay:0.1s" data-i18n="screens_title">Vois la différence<br><em>par toi-même</em>.</h2>
         </div>
         <div class="sticky-slide-content">
           <div class="screen-col screen-col--text">
-            <h3 data-i18n="s_stories_title">Fini les stories publicitaires.</h3>
-            <p data-i18n="s_stories_desc">Ce que tu t'es abonné à voir. Rien de plus.</p>
+            <h3 class="reveal" style="transition-delay:0.35s" data-i18n="s_stories_title">Fini les stories publicitaires.</h3>
+            <p class="reveal" style="transition-delay:0.45s" data-i18n="s_stories_desc">Ce que tu t'es abonné à voir. Rien de plus.</p>
           </div>
           <div class="screen-col screen-col--phones">
-            <div class="iphone">
+            <div class="iphone reveal" style="transition-delay:0.2s">
               <div class="iphone-frame">
                 <div class="iphone-dynamic-island"></div>
                 <div class="iphone-screen iphone-screen--stories" data-stories-mode="chaos"></div>
               </div>
             </div>
-            <div class="iphone iphone--featured">
+            <div class="iphone iphone--featured reveal" style="transition-delay:0.3s">
               <div class="iphone-frame">
                 <div class="iphone-dynamic-island"></div>
                 <div class="iphone-screen iphone-screen--stories" data-stories-mode="overlay"></div>
@@ -3275,22 +3280,22 @@ footer {
       <!-- Slide 3 : Les Reels, à ta façon. -->
       <div class="sticky-slide" data-slide="2">
         <div class="screens-header">
-          <p class="section-label" data-i18n="screens_label">L'app en images</p>
-          <h2 data-i18n="screens_title">Vois la différence<br><em>par toi-même</em>.</h2>
+          <p class="section-label reveal" data-i18n="screens_label">L'app en images</p>
+          <h2 class="reveal" style="transition-delay:0.1s" data-i18n="screens_title">Vois la différence<br><em>par toi-même</em>.</h2>
         </div>
         <div class="sticky-slide-content">
           <div class="screen-col screen-col--text">
-            <h3 data-i18n="s_reels_title">Finis les Reels.</h3>
-            <p data-i18n="s_reels_desc">Un message <span style="color: #19d382; font-family: GrosVentre, sans-serif;">Authentique</span> à la place.</p>
+            <h3 class="reveal" style="transition-delay:0.35s" data-i18n="s_reels_title">Finis les Reels.</h3>
+            <p class="reveal" style="transition-delay:0.45s" data-i18n="s_reels_desc">Un message <span style="color: #19d382; font-family: GrosVentre, sans-serif;">Authentique</span> à la place.</p>
           </div>
           <div class="screen-col screen-col--phones">
-            <div class="iphone">
+            <div class="iphone reveal" style="transition-delay:0.2s">
               <div class="iphone-frame">
                 <div class="iphone-dynamic-island"></div>
                 <div class="iphone-screen iphone-screen--reels" data-reels-mode="chaos"></div>
               </div>
             </div>
-            <div class="iphone iphone--featured">
+            <div class="iphone iphone--featured reveal" style="transition-delay:0.3s">
               <div class="iphone-frame">
                 <div class="iphone-dynamic-island"></div>
                 <div class="iphone-screen iphone-screen--reels-overlay">
@@ -3314,16 +3319,16 @@ footer {
       <!-- Slide 4 : L'onglet Recherche épuré. -->
       <div class="sticky-slide" data-slide="3">
         <div class="screens-header">
-          <p class="section-label" data-i18n="screens_label">L'app en images</p>
-          <h2 data-i18n="screens_title">Vois la différence<br><em>par toi-même</em>.</h2>
+          <p class="section-label reveal" data-i18n="screens_label">L'app en images</p>
+          <h2 class="reveal" style="transition-delay:0.1s" data-i18n="screens_title">Vois la différence<br><em>par toi-même</em>.</h2>
         </div>
         <div class="sticky-slide-content">
           <div class="screen-col screen-col--text">
-            <h3 data-i18n="s2_title">L'onglet Recherche épuré.</h3>
-            <p data-i18n="s2_desc">Fini le scroll sans fin dans l'onglet Recherche.</p>
+            <h3 class="reveal" style="transition-delay:0.35s" data-i18n="s2_title">L'onglet Recherche épuré.</h3>
+            <p class="reveal" style="transition-delay:0.45s" data-i18n="s2_desc">Fini le scroll sans fin dans l'onglet Recherche.</p>
           </div>
           <div class="screen-col screen-col--phones">
-            <div class="iphone">
+            <div class="iphone reveal" style="transition-delay:0.2s">
               <div class="iphone-frame">
                 <div class="iphone-dynamic-island"></div>
                 <div class="iphone-screen iphone-screen--search">
@@ -3340,7 +3345,7 @@ footer {
                 </div>
               </div>
             </div>
-            <div class="iphone iphone--featured">
+            <div class="iphone iphone--featured reveal" style="transition-delay:0.3s">
               <div class="iphone-frame">
                 <div class="iphone-dynamic-island"></div>
                 <div class="iphone-screen iphone-screen--search-empty">
