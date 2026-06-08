@@ -2317,6 +2317,19 @@ footer {
 .screens-entering-up .sticky-slide.is-active .screens-header .section-label {
   animation: screen-enter-up 1s cubic-bezier(0.16,1,0.3,1) 0.75s both;
 }
+/* Re-entrée "La solution" par le bas : phone + step actif. Classe ajoutée par JS. */
+.features-entering-up .features-sticky-phone {
+  animation: screen-enter-up 1s cubic-bezier(0.16,1,0.3,1) 0s both;
+}
+.features-entering-up .features-step.is-active .features-step-head {
+  animation: screen-enter-up 0.9s cubic-bezier(0.16,1,0.3,1) 0.12s both;
+}
+.features-entering-up .features-step.is-active p {
+  animation: screen-enter-up 0.9s cubic-bezier(0.16,1,0.3,1) 0.28s both;
+}
+.features-entering-up .features-step.is-active .feature-step-on {
+  animation: screen-enter-up 0.9s cubic-bezier(0.16,1,0.3,1) 0.38s both;
+}
 
 /* phone-frame: clamp unifié (160→280px sur toute la plage, sans saut à 1440px) */
 
@@ -5179,6 +5192,9 @@ function pickDifferent(arr, lastIdx) {
   if (steps.length === 0 || !phone) return;
   var nbSteps = steps.length;
   var lastIndex = -1;
+  var featuresLastScrollY = window.scrollY;
+  var featuresSectionActive = false;
+  var featuresEnterTimer = null;
 
   // Aligne chaque step (a droite) verticalement sur son toggle row
   // (a gauche) dans le phone. Step.top calcule pour que le centre de
@@ -5276,7 +5292,30 @@ function pickDifferent(arr, lastIdx) {
       d.classList.toggle('is-active', i === index);
     });
   }
-  window.addEventListener('scroll', update, { passive: true });
+  // Détecte la re-entrée par le bas (scroll UP) pour déclencher l'animation
+  // features-entering-up sur le step actif et le phone.
+  function updateWithDirection() {
+    var scrollY = window.scrollY;
+    var scrollingUp = scrollY < featuresLastScrollY;
+    featuresLastScrollY = scrollY;
+    update();
+    if (!inner) return;
+    var or = outer.getBoundingClientRect();
+    var stickyH = inner.offsetHeight || window.innerHeight;
+    var scrollable = outer.offsetHeight - stickyH;
+    // "Active" = section pincée (outer.top ∈ [-scrollable, 0])
+    var nowActive = or.top < 0 && or.top >= -scrollable;
+    if (scrollingUp && nowActive && !featuresSectionActive) {
+      if (featuresEnterTimer) clearTimeout(featuresEnterTimer);
+      inner.classList.add('features-entering-up');
+      featuresEnterTimer = setTimeout(function() {
+        inner.classList.remove('features-entering-up');
+        featuresEnterTimer = null;
+      }, 1200);
+    }
+    featuresSectionActive = nowActive;
+  }
+  window.addEventListener('scroll', updateWithDirection, { passive: true });
   // IMPORTANT : pas d'update() dans le resize.
   // Sur iOS, la barre d'adresse déclenche un resize au premier scroll UP.
   // Appeler update() ici forçait un -1 prématuré (tous les toggles off d'un coup)
