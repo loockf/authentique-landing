@@ -2285,9 +2285,8 @@ footer {
 .hero-tagline.reveal {
   transition-duration: 0.65s;
 }
-/* features phone uniquement : alignStepsToToggles calcule les positions sur le DOM réel →
-   le translateY fausserait les calculs ; header + continuation gardent le slide normal */
-.features-sticky-phone.reveal { transform: none; }
+/* Le téléphone features utilise maintenant transitionend pour re-aligner
+   les steps après la transition reveal (cf. features IIFE) */
 /* Slides 2-4 : pas de translateY au reveal (les éléments sont déjà
    en position quand leur slide s'active — seule l'opacité change) */
 .sticky-slide:not([data-slide="0"]) .reveal { transform: none; }
@@ -4785,13 +4784,8 @@ function isObscuredBySticky(el) {
   var vh = window.innerHeight;
   return getStickyCovers().some(function(si) {
     var sr = si.getBoundingClientRect();
-    var active = Math.abs(sr.top) <= 10 && sr.height > vh * 0.5;
-    // Sticky actif : masque tout élément extérieur
-    if (active) return !si.contains(el);
-    // Sticky pas encore pinnté (sr.top > 10) : ses éléments intérieurs
-    // ne sont pas encore en vue dans leur contexte sticky
-    if (si.contains(el) && sr.top > 10) return true;
-    return false;
+    // Sticky actif (≈ top:0) et grand : tout élément hors du sticky est masqué
+    return !si.contains(el) && Math.abs(sr.top) <= 10 && sr.height > vh * 0.5;
   });
 }
 
@@ -5288,6 +5282,16 @@ function pickDifferent(arr, lastIdx) {
   // Appeler update() ici forçait un -1 prématuré (tous les toggles off d'un coup)
   // avant même que le premier scroll event ne soit traité.
   window.addEventListener('resize', function () { alignStepsToToggles(); });
+  // Après la transition reveal du phone (translateY → none), re-aligner les
+  // steps pour corriger les positions calculées sur le DOM pré-transition.
+  var featuresPhoneEl = outer.querySelector('.features-sticky-phone');
+  if (featuresPhoneEl) {
+    featuresPhoneEl.addEventListener('transitionend', function(e) {
+      if (e.propertyName === 'transform' || e.propertyName === 'opacity') {
+        alignStepsToToggles();
+      }
+    });
+  }
   if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
     document.fonts.ready.then(function () { alignStepsToToggles(); update(); });
   } else {
