@@ -2292,9 +2292,8 @@ footer {
 .hero-tagline.reveal {
   transition-duration: 0.65s;
 }
-/* Stickies : overflow:hidden couperait le translateY + alignStepsToToggles
-   calculerait les positions avec un décalage → fade seul pour les 3 stickies */
-.sticky-inner .reveal,
+/* features + lim stickies : overflow:hidden + alignStepsToToggles requiert
+   fade seul (le translateY décalerait les calculs de positions des steps) */
 .features-sticky-inner .reveal,
 .lim-sticky-inner .reveal { transform: none; }
 @media (prefers-reduced-motion: reduce) {
