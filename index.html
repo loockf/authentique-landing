@@ -2896,9 +2896,9 @@ footer {
   <div class="problem-grid">
     <div class="problem-text">
       <p class="section-label reveal" data-i18n="problem_label">Le problème</p>
-      <h2 class="reveal" style="transition-delay:0.3s" data-i18n="problem_title">Instagram décide<span class="problem-title-break"></span>ce&nbsp;que&nbsp;tu&nbsp;<span class="problem-gradient-text">vois</span>.</h2>
-      <p class="reveal" style="transition-delay:0.6s" data-i18n="problem_p2">Ce n'est pas un manque de volonté. Instagram est conçu pour être addictif — ton attention est leur produit.</p>
-      <div class="problem-pains reveal" style="transition-delay:0.9s">
+      <h2 class="reveal" style="transition-delay:0.2s" data-i18n="problem_title">Instagram décide<span class="problem-title-break"></span>ce&nbsp;que&nbsp;tu&nbsp;<span class="problem-gradient-text">vois</span>.</h2>
+      <p class="reveal" style="transition-delay:0.4s" data-i18n="problem_p2">Ce n'est pas un manque de volonté. Instagram est conçu pour être addictif — ton attention est leur produit.</p>
+      <div class="problem-pains reveal" style="transition-delay:0.6s">
         <div class="pain-card">
           <div class="pain-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="url(#problemGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -2952,7 +2952,7 @@ footer {
         </div>
       </div>
     </div>
-    <div class="problem-phone-col reveal" style="transition-delay: 1.3s">
+    <div class="problem-phone-col reveal" style="transition-delay: 0.85s">
       <div class="phone-mockup">
         <div class="phone-frame">
           <div class="phone-notch"></div>
@@ -4775,7 +4775,7 @@ function checkReveal() {
   document.querySelectorAll('.reveal').forEach(function(el) {
     var r = el.getBoundingClientRect();
     // Éléments dans un sticky : seuil 95% (position variable) ; hors sticky : 72%
-    var topLimit = covers.some(function(si) { return si.contains(el); }) ? vh * 0.95 : vh * 0.62;
+    var topLimit = covers.some(function(si) { return si.contains(el); }) ? vh * 0.95 : vh * 0.65;
     if (r.top >= 0 && r.top < topLimit && !isObscuredBySticky(el, r)) {
       el.classList.add('visible');
     } else if (r.bottom < vh * 0.15) {
