@@ -4774,11 +4774,12 @@ function checkReveal() {
   var margin = 10;
   document.querySelectorAll('.reveal').forEach(function(el) {
     var r = el.getBoundingClientRect();
-    // inView : l'élément est visible (au moins margin px de chaque côté)
     var inView = r.bottom > margin && r.top < vh - margin;
-    if (inView && !isObscuredBySticky(el, r)) {
+    var obscured = isObscuredBySticky(el, r);
+    if (inView && !obscured) {
       el.classList.add('visible');
-    } else if (!inView) {
+    } else if (!inView || obscured) {
+      // Hors viewport OU caché derrière un sticky → fade out
       el.classList.remove('visible');
     }
   });
