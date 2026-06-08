@@ -2284,6 +2284,14 @@ footer {
               transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .reveal.visible { opacity: 1; transform: none; }
+/* Hero : animation plus rapide pour tout afficher dès l'ouverture */
+.hero-arch.reveal,
+.hero-title.reveal,
+.hero-platforms-wrap.reveal,
+.hero-actions.reveal,
+.hero-tagline.reveal {
+  transition-duration: 0.65s;
+}
 @media (prefers-reduced-motion: reduce) {
   .reveal { transform: none; }
 }
@@ -4777,12 +4785,22 @@ function checkReveal() {
   });
 }
 
-window.addEventListener('scroll', checkReveal, { passive: true });
+window.addEventListener('scroll', function() { checkReveal(); }, { passive: true });
 
 setTimeout(function() {
   revealReady = true;
-  checkReveal(); // Révéler les éléments déjà dans le viewport au chargement
-}, 400);
+  // Chargement initial : seuil généreux (95%) pour couvrir tout le hero
+  // même si translateY(40px) gonfle artificiellement r.top sur petits écrans
+  var vh = window.innerHeight;
+  var covers = getStickyCovers();
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    var r = el.getBoundingClientRect();
+    var topLimit = covers.some(function(si) { return si.contains(el); }) ? vh : vh * 0.95;
+    if (r.top >= 0 && r.top < topLimit && !isObscuredBySticky(el, r)) {
+      el.classList.add('visible');
+    }
+  });
+}, 300);
 
 // === Animation des compteurs CTA (publicite / transparent / gratuit) ===
 // Quand la section #cta entre dans le viewport, les 3 compteurs
