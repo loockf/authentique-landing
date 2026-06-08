@@ -2981,7 +2981,7 @@ footer {
       </div>
       <div class="features-content-block">
       <div class="features-sticky-group">
-        <div class="features-sticky-phone">
+        <div class="features-sticky-phone reveal">
           <div class="iphone">
             <div class="iphone-frame">
               <div class="iphone-dynamic-island"></div>
@@ -4737,34 +4737,51 @@ if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
 }
 window.addEventListener('resize', fitHeroTitle);
 
-// Reveal : page "vide" 400ms au chargement, puis contenu apparaît progressivement
+// Reveal : page vide 400ms → scroll handler + détection d'occlusion sticky
+// IntersectionObserver ignoré ici car il ne détecte pas les éléments masqués
+// visuellement derrière un sticky (il utilise la position document, pas la visibilité réelle).
 let revealReady = false;
+let _stickyCovers = null;
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (!revealReady) return;
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-    } else if (e.boundingClientRect.top < 0) {
-      // Element quitté par le haut → fade out
-      e.target.classList.remove('visible');
-    }
+function getStickyCovers() {
+  if (!_stickyCovers) _stickyCovers = Array.from(document.querySelectorAll(
+    '.sticky-inner, .features-sticky-inner, .lim-sticky-inner'
+  ));
+  return _stickyCovers;
+}
+
+function isObscuredBySticky(el, r) {
+  var vh = window.innerHeight;
+  return getStickyCovers().some(function(si) {
+    var sr = si.getBoundingClientRect();
+    // Sticky actif (≈ top:0), grand, couvre la position de l'élément, et l'élément n'est pas dedans
+    return !si.contains(el) && Math.abs(sr.top) <= 10 &&
+           sr.bottom > r.top + 50 && sr.height > vh * 0.5;
   });
-// rootMargin : -150px haut (disparaît quand ~150px encore visibles)
-//              -280px bas  (apparaît seulement au milieu du viewport)
-}, { threshold: 0, rootMargin: '-150px 0px -280px 0px' });
+}
 
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-setTimeout(() => {
-  revealReady = true;
-  // Révéler les éléments déjà dans le viewport au chargement
-  document.querySelectorAll('.reveal').forEach(el => {
-    const r = el.getBoundingClientRect();
-    if (r.top < window.innerHeight * 0.7 && r.bottom > 150) {
+function checkReveal() {
+  if (!revealReady) return;
+  var vh = window.innerHeight;
+  var covers = getStickyCovers();
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    var r = el.getBoundingClientRect();
+    // Éléments dans un sticky : seuil 95% (position variable) ; hors sticky : 72%
+    var topLimit = covers.some(function(si) { return si.contains(el); }) ? vh * 0.95 : vh * 0.72;
+    if (r.top >= 0 && r.top < topLimit && !isObscuredBySticky(el, r)) {
       el.classList.add('visible');
+    } else if (r.bottom < vh * 0.15) {
+      // Élément presque entièrement sorti par le haut → fade out
+      el.classList.remove('visible');
     }
   });
+}
+
+window.addEventListener('scroll', checkReveal, { passive: true });
+
+setTimeout(function() {
+  revealReady = true;
+  checkReveal(); // Révéler les éléments déjà dans le viewport au chargement
 }, 400);
 
 // === Animation des compteurs CTA (publicite / transparent / gratuit) ===
