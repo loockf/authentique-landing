@@ -4773,7 +4773,7 @@ function isObscuredBySticky(el, r) {
 function checkReveal() {
   if (!revealReady) return;
   var vh = window.innerHeight;
-  var margin = 10;
+  var margin = 20;
   document.querySelectorAll('.reveal').forEach(function(el) {
     var r = el.getBoundingClientRect();
     var inView = r.bottom > margin && r.top < vh - margin;
@@ -4785,6 +4785,17 @@ function checkReveal() {
       el.classList.remove('visible');
     }
   });
+  // Re-déclenche les compteurs CTA dès que le premier cadre devient visible
+  var firstStat = document.querySelector('.cta-stat.reveal');
+  if (firstStat) {
+    var ctaNowVis = firstStat.classList.contains('visible');
+    if (ctaNowVis && !checkReveal._ctaWas) {
+      checkReveal._ctaWas = true;
+      if (typeof window.startCtaCounters === 'function') window.startCtaCounters();
+    } else if (!ctaNowVis) {
+      checkReveal._ctaWas = false;
+    }
+  }
 }
 
 window.addEventListener('scroll', function() { checkReveal(); }, { passive: true });
@@ -4792,7 +4803,7 @@ window.addEventListener('scroll', function() { checkReveal(); }, { passive: true
 setTimeout(function() {
   revealReady = true;
   var vh = window.innerHeight;
-  var margin = 10;
+  var margin = 20;
   document.querySelectorAll('.reveal').forEach(function(el) {
     var r = el.getBoundingClientRect();
     var inView = r.bottom > margin && r.top < vh - margin;
@@ -4812,12 +4823,17 @@ setTimeout(function() {
 (function () {
   var counters = document.querySelectorAll('.cta-counter');
   if (!counters.length) return;
-  var section = document.getElementById('cta');
-  if (!section) return;
-  var started = false;
   function startAll() {
-    if (started) return;
-    started = true;
+    // Remet les compteurs à leur valeur initiale avant chaque animation
+    counters.forEach(function (el) {
+      el.classList.remove('is-gradient');
+      var from = parseFloat(el.dataset.from);
+      var suffix = el.dataset.suffix || '';
+      var solid = el.querySelector('.cta-counter-solid');
+      var gradient = el.querySelector('.cta-counter-gradient');
+      if (solid) solid.textContent = from + suffix;
+      if (gradient) gradient.textContent = from + suffix;
+    });
     var startTime = performance.now();
     var duration = 1600;
     counters.forEach(function (el) {
@@ -4831,7 +4847,6 @@ setTimeout(function() {
       function tick(now) {
         var elapsed = now - startTime;
         var t = Math.min(1, elapsed / duration);
-        // Ease-out cubic : demarre vite, ralentit a la fin.
         var eased = 1 - Math.pow(1 - t, 3);
         var current = Math.round(from + (to - from) * eased);
         var txt = current + suffix;
@@ -4846,20 +4861,8 @@ setTimeout(function() {
       requestAnimationFrame(tick);
     });
   }
-  if (typeof IntersectionObserver === 'function') {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          startAll();
-          io.disconnect();
-        }
-      });
-    }, { threshold: 0.3 });
-    io.observe(section);
-  } else {
-    // Fallback : pas d'IntersectionObserver -> demarre immediatement.
-    startAll();
-  }
+  // Exposé globalement pour être appelé par checkReveal à chaque apparition
+  window.startCtaCounters = startAll;
 })();
 
 // === Helpers globaux partages par les IIFE de mockups ===
