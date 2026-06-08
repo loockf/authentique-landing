@@ -4760,13 +4760,12 @@ function getStickyCovers() {
   return _stickyCovers;
 }
 
-function isObscuredBySticky(el, r) {
+function isObscuredBySticky(el) {
   var vh = window.innerHeight;
   return getStickyCovers().some(function(si) {
     var sr = si.getBoundingClientRect();
-    // Sticky actif (≈ top:0), grand, couvre la position de l'élément, et l'élément n'est pas dedans
-    return !si.contains(el) && Math.abs(sr.top) <= 10 &&
-           sr.bottom > r.top + 50 && sr.height > vh * 0.5;
+    // Sticky actif (≈ top:0) et grand : tout élément hors du sticky est masqué
+    return !si.contains(el) && Math.abs(sr.top) <= 10 && sr.height > vh * 0.5;
   });
 }
 
@@ -4777,7 +4776,7 @@ function checkReveal() {
   document.querySelectorAll('.reveal').forEach(function(el) {
     var r = el.getBoundingClientRect();
     var inView = r.bottom > margin && r.top < vh - margin;
-    var obscured = isObscuredBySticky(el, r);
+    var obscured = isObscuredBySticky(el);
     if (inView && !obscured) {
       el.classList.add('visible');
     } else if (!inView || obscured) {
@@ -4807,7 +4806,7 @@ setTimeout(function() {
   document.querySelectorAll('.reveal').forEach(function(el) {
     var r = el.getBoundingClientRect();
     var inView = r.bottom > margin && r.top < vh - margin;
-    if (inView && !isObscuredBySticky(el, r)) {
+    if (inView && !isObscuredBySticky(el)) {
       el.classList.add('visible');
     }
   });
