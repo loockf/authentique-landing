@@ -2287,7 +2287,7 @@ footer {
 /* Hero : animation plus rapide pour tout afficher dès l'ouverture */
 .hero-arch.reveal,
 .hero-title.reveal,
-.hero-platforms-wrap.reveal,
+.platform-pill.reveal,
 .hero-actions.reveal,
 .hero-tagline.reveal {
   transition-duration: 0.65s;
@@ -2295,6 +2295,9 @@ footer {
 /* features phone uniquement : alignStepsToToggles calcule les positions sur le DOM réel →
    le translateY fausserait les calculs ; header + continuation gardent le slide normal */
 .features-sticky-phone.reveal { transform: none; }
+/* Slides 2-4 : pas de translateY au reveal (les éléments sont déjà
+   en position quand leur slide s'active — seule l'opacité change) */
+.sticky-slide:not([data-slide="0"]) .reveal { transform: none; }
 @media (prefers-reduced-motion: reduce) {
   .reveal { transform: none; }
 }
@@ -2305,22 +2308,22 @@ footer {
   to   { opacity: 1; transform: none; }
 }
 .screens-entering-up .sticky-slide.is-active .iphone:not(.iphone--featured) {
-  animation: screen-enter-up 0.7s cubic-bezier(0.16,1,0.3,1) 0s both;
+  animation: screen-enter-up 1s cubic-bezier(0.16,1,0.3,1) 0s both;
 }
 .screens-entering-up .sticky-slide.is-active .iphone.iphone--featured {
-  animation: screen-enter-up 0.7s cubic-bezier(0.16,1,0.3,1) 0.08s both;
+  animation: screen-enter-up 1s cubic-bezier(0.16,1,0.3,1) 0.15s both;
 }
 .screens-entering-up .sticky-slide.is-active .screen-col--text p {
-  animation: screen-enter-up 0.7s cubic-bezier(0.16,1,0.3,1) 0.16s both;
+  animation: screen-enter-up 1s cubic-bezier(0.16,1,0.3,1) 0.30s both;
 }
 .screens-entering-up .sticky-slide.is-active .screen-col--text h3 {
-  animation: screen-enter-up 0.7s cubic-bezier(0.16,1,0.3,1) 0.24s both;
+  animation: screen-enter-up 1s cubic-bezier(0.16,1,0.3,1) 0.45s both;
 }
 .screens-entering-up .sticky-slide.is-active .screens-header h2 {
-  animation: screen-enter-up 0.7s cubic-bezier(0.16,1,0.3,1) 0.32s both;
+  animation: screen-enter-up 1s cubic-bezier(0.16,1,0.3,1) 0.60s both;
 }
 .screens-entering-up .sticky-slide.is-active .screens-header .section-label {
-  animation: screen-enter-up 0.7s cubic-bezier(0.16,1,0.3,1) 0.40s both;
+  animation: screen-enter-up 1s cubic-bezier(0.16,1,0.3,1) 0.75s both;
 }
 
 /* phone-frame: clamp unifié (160→280px sur toute la plage, sans saut à 1440px) */
@@ -2856,10 +2859,10 @@ footer {
     </svg>
   </span>
   <h1 class="hero-title reveal" style="transition-delay:0.12s" data-i18n="hero_title"><span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Instagram, sans les <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">pubs</span><span style="color:#141414">.</span></span></h1>
-  <div class="hero-platforms-wrap reveal" style="transition-delay:0.25s">
+  <div class="hero-platforms-wrap">
     <span class="hero-platforms-caption" data-i18n="platforms_caption">Bientôt disponible sur :</span>
     <div class="hero-platforms">
-      <span class="platform-pill">
+      <span class="platform-pill reveal" style="transition-delay:0.25s">
         <!-- margin-top:-2px : compense l'offset optique du glyphe
              Apple (la pomme + feuille remontent visuellement plus
              haut que le centre geometrique du viewBox 24x24). -->
@@ -2868,7 +2871,7 @@ footer {
         </svg>
         iOS
       </span>
-      <span class="platform-pill">
+      <span class="platform-pill reveal" style="transition-delay:0.35s">
         <!-- Bugdroid : antennes + tete demi-cercle + yeux + corps rectangle + bras + jambes
              viewBox shifte de 1 unite en y pour recentrer optiquement
              le glyphe (bbox y centre = 13, viewport y centre = 13). -->
@@ -3009,10 +3012,10 @@ footer {
       <!-- Header dans le sticky-inner : centré verticalement avec le téléphone
            et le reste du contenu (flex-column, justify:center). Visible pendant
            tout le parallax (360vh). -->
-      <div class="features-header reveal">
-        <p class="section-label" data-i18n="features_label">La solution</p>
-        <h2 data-i18n="features_title">Choisir quoi <span class="authentique-gradient-text">masquer</span>.</h2>
-        <p data-i18n="features_sub">Chaque fonctionnalité a été pensée pour te redonner le contrôle de ton expérience Instagram.</p>
+      <div class="features-header">
+        <p class="section-label reveal" data-i18n="features_label">La solution</p>
+        <h2 class="reveal" style="transition-delay:0.12s" data-i18n="features_title">Choisir quoi <span class="authentique-gradient-text">masquer</span>.</h2>
+        <p class="reveal" style="transition-delay:0.24s" data-i18n="features_sub">Chaque fonctionnalité a été pensée pour te redonner le contrôle de ton expérience Instagram.</p>
       </div>
       <div class="features-content-block">
       <div class="features-sticky-group">
@@ -3242,7 +3245,7 @@ footer {
             <p class="reveal" style="transition-delay:0.45s" data-i18n="s1_desc">Décide de ce que tu veux voir sur ton fil.</p>
           </div>
           <div class="screen-col screen-col--phones">
-            <div class="iphone reveal" style="transition-delay:0.2s">
+            <div class="iphone reveal" style="transition-delay:0.4s">
               <div class="iphone-frame">
                 <div class="iphone-dynamic-island"></div>
                 <div class="iphone-screen iphone-screen--demo">
@@ -3252,7 +3255,7 @@ footer {
                 </div>
               </div>
             </div>
-            <div class="iphone iphone--featured reveal" style="transition-delay:0.3s">
+            <div class="iphone iphone--featured reveal" style="transition-delay:0.55s">
               <div class="iphone-frame">
                 <div class="iphone-dynamic-island"></div>
                 <div class="iphone-screen iphone-screen--demo iphone-screen--counter">
@@ -3486,7 +3489,7 @@ footer {
         </div>
         <div class="lim-group">
           <!-- Gauche : iPhone avec logo Instagram + barre diagonale dégradé -->
-          <div class="lim-phone-col reveal">
+          <div class="lim-phone-col reveal" style="transition-delay:0.3s">
             <div class="iphone lim-iphone">
               <div class="iphone-frame">
                 <div class="iphone-dynamic-island"></div>
@@ -5376,7 +5379,7 @@ function pickDifferent(arr, lastIdx) {
         screensEnterTimeout = setTimeout(function () {
           inner.classList.remove('screens-entering-up');
           screensEnterTimeout = null;
-        }, 1200);
+        }, 2000);
       }
       screensSectionVisible = nowVisible;
     }
