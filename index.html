@@ -4775,7 +4775,7 @@ function checkReveal() {
   document.querySelectorAll('.reveal').forEach(function(el) {
     var r = el.getBoundingClientRect();
     // Éléments dans un sticky : seuil 95% (position variable) ; hors sticky : 72%
-    var topLimit = covers.some(function(si) { return si.contains(el); }) ? vh * 0.95 : vh * 0.50;
+    var topLimit = covers.some(function(si) { return si.contains(el); }) ? vh * 0.95 : vh * 0.62;
     if (r.top >= 0 && r.top < topLimit && !isObscuredBySticky(el, r)) {
       el.classList.add('visible');
     } else if (r.bottom < vh * 0.15) {
