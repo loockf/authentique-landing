@@ -2317,18 +2317,22 @@ footer {
 .screens-entering-up .sticky-slide.is-active .screens-header .section-label {
   animation: screen-enter-up 1s cubic-bezier(0.16,1,0.3,1) 0.75s both;
 }
-/* Re-entrée "La solution" par le bas : phone + step actif. Classe ajoutée par JS. */
+/* Re-entrée "La solution" par le bas : phone puis bloc step. Classe ajoutée par JS.
+   fill-mode:both = opacity:0 appliqué dès l'ajout de la classe (avant le délai). */
 .features-entering-up .features-sticky-phone {
   animation: screen-enter-up 1s cubic-bezier(0.16,1,0.3,1) 0s both;
 }
-.features-entering-up .features-step.is-active .features-step-head {
-  animation: screen-enter-up 0.9s cubic-bezier(0.16,1,0.3,1) 0.12s both;
+.features-entering-up .features-step.is-active {
+  animation: screen-enter-up 1s cubic-bezier(0.16,1,0.3,1) 0.15s both;
 }
-.features-entering-up .features-step.is-active p {
-  animation: screen-enter-up 0.9s cubic-bezier(0.16,1,0.3,1) 0.28s both;
-}
-.features-entering-up .features-step.is-active .feature-step-on {
-  animation: screen-enter-up 0.9s cubic-bezier(0.16,1,0.3,1) 0.38s both;
+/* Approche re-entrée (scroll UP, inner.top < 0, avant zone active) :
+   bloque phone + step pour éviter l'apparition prématurée via checkReveal /
+   update(). Spécificité 0,3,0 > .reveal.visible (0,2,0) et .features-step.is-active (0,2,0). */
+.features-sticky-inner.features-entering-blocked .features-sticky-phone,
+.features-sticky-inner.features-entering-blocked .features-step {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: none;
 }
 
 /* phone-frame: clamp unifié (160→280px sur toute la plage, sans saut à 1440px) */
@@ -5303,15 +5307,21 @@ function pickDifferent(arr, lastIdx) {
     var or = outer.getBoundingClientRect();
     var stickyH = inner.offsetHeight || window.innerHeight;
     var scrollable = outer.offsetHeight - stickyH;
-    // "Active" = section pincée (outer.top ∈ [-scrollable, 0])
     var nowActive = or.top < 0 && or.top >= -scrollable;
+    // Approche depuis le bas (scroll UP) : section visible mais inner encore
+    // au-dessus de la zone active. On bloque phone + step pour éviter
+    // qu'ils apparaissent via checkReveal/update avant le cascade.
+    var aboveActive = scrollingUp && or.top < -scrollable && or.bottom > 0;
+    inner.classList.toggle('features-entering-blocked', aboveActive);
     if (scrollingUp && nowActive && !featuresSectionActive) {
+      // Zone active atteinte : retirer le blocage, lancer le cascade.
+      inner.classList.remove('features-entering-blocked');
       if (featuresEnterTimer) clearTimeout(featuresEnterTimer);
       inner.classList.add('features-entering-up');
       featuresEnterTimer = setTimeout(function() {
         inner.classList.remove('features-entering-up');
         featuresEnterTimer = null;
-      }, 1200);
+      }, 1400);
     }
     featuresSectionActive = nowActive;
   }
