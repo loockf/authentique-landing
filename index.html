@@ -869,8 +869,11 @@ section { padding: 120px 24px; position: relative; }
 }
 .sticky-inner {
   position: sticky;
-  top: 0;
-  height: 100vh;
+  /* Calé SOUS le header fixe (69px) : avec top:0/100vh, les ~69 premiers
+     px du contenu (titre de section) passaient sous la nav dès que la
+     hauteur de viewport diminuait (zoom navigateur desktop). */
+  top: 69px;
+  height: calc(100vh - 69px);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -933,8 +936,12 @@ section { padding: 120px 24px; position: relative; }
 }
 .features-sticky-inner {
   position: sticky;       /* PRESERVE sticky (sinon JS animation cassee) */
-  top: 0;
-  height: 100vh;
+  /* Calé SOUS le header fixe (69px) — même fix que .sticky-inner : le
+     label "LA SOLUTION" + titre passaient sous la nav à hauteur réduite
+     (zoom). Le JS lit inner.offsetHeight dynamiquement, pas de 100vh
+     codé en dur côté animation. */
+  top: 69px;
+  height: calc(100vh - 69px);
   width: 100%;
   overflow: hidden;       /* contient les éléments position:absolute (dots, scroll) */
   /* Colonne centrée verticalement : header + content-block + continuation.
@@ -1838,8 +1845,10 @@ section { padding: 120px 24px; position: relative; }
 .lim-sticky-outer { position: relative; height: 100vh; }
 .lim-sticky-inner {
   position: sticky;
-  top: 0;
-  height: 100vh;
+  /* Calé SOUS le header fixe (69px) — même fix que .sticky-inner : le
+     1er item "≠" était coupé en haut à hauteur réduite (zoom). */
+  top: 69px;
+  height: calc(100vh - 69px);
   width: 100%;
   display: flex;
   justify-content: center;
@@ -2780,6 +2789,59 @@ footer {
   /* FAQ mobile : titres alignés à gauche comme les autres sections */
   .faq-inner .section-label { text-align: left; }
   .faq-inner h2 { text-align: left; }
+}
+
+/* ── HAUTEUR RÉDUITE (zoom navigateur desktop) ──
+   Le zoom réduit la largeur ET la hauteur effectives du viewport. Les
+   breakpoints largeur ci-dessus ne couvraient pas ce cas : un desktop
+   zoomé (ex. 1097×617 à 175%) garde le layout desktop mais les sections
+   sticky calées sur 100vh débordent (contenus en px fixes). Mesuré :
+   features 745px de contenu pour 548 disponibles, limitations 717/548.
+   Symétrique des media queries largeur. Seuil 820px : couvre AUSSI les
+   laptops 1366×768 (zoom 140% et même sans zoom, les sections sticky
+   y débordaient déjà de ~140px) ; les écrans >=900px de haut gardent
+   le rendu actuel intact. */
+@media (max-height: 980px) {
+  /* ANCRAGE HAUT des sections sticky : avec le calage sous le header
+     (top:69px), le contenu conçu pour ~100vh peut dépasser de quelques
+     px dès <=980px de haut. Centré, le clip mange le TITRE ; ancré en
+     haut, il mange le bas (pieds de mockup) — bien moins grave.
+     NE PAS rétrécir les mockups : leur contenu interne est du DOM en px
+     fixes (sm-row 56px, etc.) — réduire le cadre fait déborder le menu
+     sous le phone et fausse alignStepsToToggles. */
+  .sticky-inner,
+  .features-sticky-inner { justify-content: flex-start; padding-top: clamp(8px, 2vh, 24px); }
+  /* lim-sticky-inner est un flex ROW : l'axe vertical est align-items. */
+  .lim-sticky-inner { align-items: flex-start; padding-top: clamp(8px, 2vh, 24px); }
+  /* Le titre de "L'app en images" vit DANS les slides (.sticky-slide,
+     absolute inset:0, centré) : ancrer aussi le contenu des slides en
+     haut. La réserve basse (100px, zone dots/scroll) est conservée ici
+     puisque les décoratifs restent visibles jusqu'à 820px. */
+  .sticky-slide { justify-content: flex-start; padding: 12px 0 100px; }
+}
+@media (max-height: 820px) {
+  /* Décoratifs absolus (chevron de scroll + dots de carrousel) : calés
+     en bottom px, à hauteur réduite ils remontent DANS le texte (dots
+     sur "Reels.", chevron dans "70% de contenu…"). aria-hidden,
+     purement décoratifs : on les retire. */
+  .sticky-dots,
+  .sticky-scroll,
+  .section-scroll { display: none; }
+  /* La réserve basse des slides ne sert plus (dots/scroll masqués). */
+  .sticky-slide { padding: 12px 0 24px; }
+  /* Typo & espacements verticaux resserrés pour les sections sticky. */
+  h2 { font-size: clamp(26px, 4.5vh, 44px); }
+  .section-label { font-size: clamp(14px, 2.4vh, 20px); }
+  .problem-text h2 { margin-bottom: clamp(12px, 3vh, 32px); }
+  /* Gaps et marges verticales des blocs sticky resserrés. */
+  .features-content-block { gap: clamp(8px, 2vh, 32px); }
+  .lim-content-block { gap: clamp(8px, 2vh, 32px); }
+  .features-header { padding: 8px 24px; }
+  .features-header h2 { margin-bottom: 8px; }
+  .control-continuation { margin-top: clamp(12px, 3vh, 32px); }
+}
+@media (max-height: 550px) {
+  h2 { font-size: clamp(22px, 4vh, 34px); }
 }
 
 /* ── MOBILE LANDSCAPE : section "Le problème" réduite de 20% ──
