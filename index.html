@@ -299,6 +299,28 @@ nav {
   transition: opacity 0.3s ease;
 }
 .section-scroll svg, .sticky-scroll svg { display: block; }
+/* Mode FLUX conditionnel (classe posée par placeScrollCues, cf. JS) :
+   RÈGLE — le bouton scroll garde la même position bottom-center absolue
+   sur chaque section (clic en chaîne possible sans bouger la souris) ;
+   SI le contenu de la section entre en collision avec cette position,
+   il bascule en flux, sous le contenu. Bounce translateY-only en flux
+   (les keyframes absolute embarquent translateX(-50%)). */
+.hero-scroll.scroll-btn--flow,
+.section-scroll.scroll-btn--flow,
+.sticky-scroll.scroll-btn--flow {
+  position: static;
+  margin: clamp(16px, 3.5vh, 40px) auto 0;
+  animation: heroBounceInline 1.5s ease-in-out infinite;
+}
+/* lim-sticky-inner est un flex ROW : le flux y mettrait le bouton en
+   colonne à côté du contenu. On le resserre en bas à la place. */
+.lim-sticky-inner .sticky-scroll.scroll-btn--flow {
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  margin: 0;
+  animation: scrollBounce 1.5s ease-in-out infinite;
+}
 @keyframes scrollBounce {
   0%, 100% { transform: translateX(-50%) translateY(0); }
   50%      { transform: translateX(-50%) translateY(8px); }
@@ -1081,16 +1103,20 @@ section { padding: 120px 24px; position: relative; }
   z-index: 5;
 }
 .sticky-dot {
-  width: 7px;
-  height: 7px;
+  /* Boîte FIXE 10x10 : l'état actif passe par transform:scale, pas par
+     width/height — sinon la rangée de dots change de taille pendant la
+     transition et tout le texte en dessous bouge (vu sur "Et ce n'est
+     que le début" au passage d'un step). */
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: #ccc;
   cursor: pointer;
-  transition: background 0.3s ease, width 0.3s ease, height 0.3s ease;
+  transform: scale(0.7);
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 .sticky-dot.is-active {
-  width: 10px;
-  height: 10px;
+  transform: scale(1);
   background: #19d382;
 }
 
@@ -2816,40 +2842,18 @@ footer {
      haut. La réserve basse (100px, zone dots/scroll) est conservée ici
      puisque les décoratifs restent visibles jusqu'à 820px. */
   .sticky-slide { justify-content: flex-start; padding: 12px 0 100px; }
-  /* CHEVRONS & DOTS EN FLUX : en absolute bottom:px, leur position
-     variait selon la section (conteneurs différents) et ils entraient en
-     collision avec le contenu (CTA hero, cadre 70%, cartes bien-être,
-     formulaire CTA). Dans le flux, ils se placent TOUJOURS juste sous le
-     contenu de leur section — cohérents partout, zéro collision. */
-  .hero-scroll,
-  .section-scroll,
-  .sticky-scroll {
-    position: static;
-    transform: none;
-    margin: clamp(16px, 3.5vh, 40px) auto 0;
-    /* L'animation bounce embarque translateX(-50%) dans ses keyframes
-       (pensée pour le positionnement absolute) : elle écrase transform
-       et décale le bouton de ~28px en flux. On la coupe ici. */
-    animation: none;
-  }
-  /* Hero : un peu plus d'air sous la tagline (sinon collé au texte). */
-  .hero-scroll { margin-top: clamp(32px, 8vh, 90px); }
+  /* Chevrons : placement CONDITIONNEL par JS (cf. placeScrollCues) —
+     position absolue identique partout par défaut, flux si collision.
+     Ici on ne gère plus que les DOTS, en flux sous le contenu. */
   .sticky-dots {
     position: static;
     transform: none;
     margin: clamp(12px, 2.5vh, 28px) auto 0;
     justify-content: center;
   }
-  /* lim-sticky-inner est un flex ROW : un chevron statique deviendrait
-     une colonne à côté du contenu. On le garde en absolute, recentré
-     bas — le zoom 0.7 du group libère la zone. */
-  .lim-sticky-inner .sticky-scroll {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 10px;
-    margin: 0;
-  }
+  /* Safari mockup (limitations) : flex:1 prenait toute la largeur
+     restante — ~1/4 de trop (retour UX). */
+  .lim-safari-col { flex: 0 1 auto; width: min(46vw, 700px); }
   /* MOCKUPS : zoom CSS par paliers. Contrairement à transform, zoom
      scale AUSSI le layout et le DOM interne (sm-row, etc.) — le menu ne
      déborde plus du cadre. alignStepsToToggles reste juste : il mesure
@@ -2864,15 +2868,8 @@ footer {
   .lim-group { zoom: 0.7; }
 }
 @media (max-height: 820px) {
-  /* Décoratifs absolus (chevrons de scroll + dots de carrousel) : calés
-     en bottom px, à hauteur réduite ils remontent DANS le texte (dots
-     sur "Reels.", chevron dans "70% de contenu…", chevron hero dans le
-     CTA Kickstarter). aria-hidden / décoratifs : on les retire. */
-  .sticky-dots,
-  .sticky-scroll,
-  .section-scroll,
-  .hero-scroll { display: none; }
-  /* La réserve basse des slides ne sert plus (dots/scroll masqués). */
+  /* Chevrons et dots : plus de masquage — le placement conditionnel
+     (flux si collision) les garde utilisables à toute hauteur. */
   .sticky-slide { padding: 12px 0 24px; }
   /* Typo & espacements verticaux resserrés pour les sections sticky. */
   h2 { font-size: clamp(26px, 4.5vh, 44px); }
@@ -5631,6 +5628,49 @@ function pickDifferent(arr, lastIdx) {
       window.scrollTo({ top: targetY, behavior: 'smooth' });
     });
   });
+})();
+
+// Placement conditionnel des boutons scroll (règle UX) : position
+// bottom-center absolue IDENTIQUE sur chaque section par défaut (le clic
+// en chaîne retombe sur le bouton suivant sans bouger la souris) ; si le
+// contenu de la section chevauche cette position, bascule en flux (classe
+// scroll-btn--flow), sous le contenu.
+(function () {
+  var btns = document.querySelectorAll('.hero-scroll, .section-scroll, .sticky-scroll');
+  function overlapsContent(btn, sec) {
+    var r = btn.getBoundingClientRect();
+    var nodes = sec.querySelectorAll(
+      'p, h2, h3, .problem-stat, [class*="card"], input, textarea, ' +
+      'a.btn-primary, .iphone, .lim-safari, .control-continuation, .sticky-dots'
+    );
+    for (var i = 0; i < nodes.length; i++) {
+      var t = nodes[i];
+      if (btn.contains(t) || t.contains(btn)) continue;
+      var tr = t.getBoundingClientRect();
+      if (!tr.width || !tr.height) continue;
+      var ox = Math.min(r.right, tr.right) - Math.max(r.left, tr.left);
+      var oy = Math.min(r.bottom, tr.bottom) - Math.max(r.top, tr.top);
+      if (ox > 4 && oy > 4) return true;
+    }
+    return false;
+  }
+  function place() {
+    btns.forEach(function (btn) {
+      var sec = btn.closest('section');
+      if (!sec) return;
+      btn.classList.remove('scroll-btn--flow');   // re-mesure en mode absolu
+      if (overlapsContent(btn, sec)) btn.classList.add('scroll-btn--flow');
+    });
+  }
+  var debounce;
+  window.addEventListener('resize', function () {
+    clearTimeout(debounce); debounce = setTimeout(place, 150);
+  });
+  window.addEventListener('load', place);
+  // GrosVentre charge apres le 1er layout : les hauteurs de titres
+  // changent -> re-mesurer (sinon faux positifs de collision au boot).
+  try { document.fonts.ready.then(place); } catch (e) {}
+  place();
 })();
 
 // Boutons de scroll inter-sections (.section-scroll + .sticky-scroll).
