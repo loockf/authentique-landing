@@ -2805,10 +2805,8 @@ footer {
   /* ANCRAGE HAUT des sections sticky : avec le calage sous le header
      (top:69px), le contenu conçu pour ~100vh peut dépasser de quelques
      px dès <=980px de haut. Centré, le clip mange le TITRE ; ancré en
-     haut, il mange le bas (pieds de mockup) — bien moins grave.
-     NE PAS rétrécir les mockups : leur contenu interne est du DOM en px
-     fixes (sm-row 56px, etc.) — réduire le cadre fait déborder le menu
-     sous le phone et fausse alignStepsToToggles. */
+     haut, il mange le bas — et les paliers de zoom ci-dessous font
+     rentrer les mockups. */
   .sticky-inner,
   .features-sticky-inner { justify-content: flex-start; padding-top: clamp(8px, 2vh, 24px); }
   /* lim-sticky-inner est un flex ROW : l'axe vertical est align-items. */
@@ -2818,15 +2816,32 @@ footer {
      haut. La réserve basse (100px, zone dots/scroll) est conservée ici
      puisque les décoratifs restent visibles jusqu'à 820px. */
   .sticky-slide { justify-content: flex-start; padding: 12px 0 100px; }
+  /* Hero : réserve l'espace du chevron de scroll (absolute bottom:28px).
+     Sans ça, le contenu centré (CTA + tagline) descend jusqu'à lui et
+     le chevron se superpose au bouton Kickstarter. */
+  .hero { padding-bottom: 110px; box-sizing: border-box; }
+  /* MOCKUPS : zoom CSS par paliers. Contrairement à transform, zoom
+     scale AUSSI le layout et le DOM interne (sm-row, etc.) — le menu ne
+     déborde plus du cadre. alignStepsToToggles reste juste : il mesure
+     des rects écran (zoomés) et positionne les steps NON zoomés dans le
+     même repère. La colonne steps suit la hauteur zoomée du phone via
+     align-self:stretch (min-height de base neutralisée). */
+  .features-sticky-phone { zoom: 0.94; }
+  .features-sticky-steps { min-height: 0; align-self: stretch; }
+  .screen-col--phones { zoom: 0.94; }
+  /* lim : le header (190px) au-dessus du group laisse moins de place
+     -> palier plus bas que les autres mockups (mesuré : +54px à 900). */
+  .lim-group { zoom: 0.86; }
 }
 @media (max-height: 820px) {
-  /* Décoratifs absolus (chevron de scroll + dots de carrousel) : calés
+  /* Décoratifs absolus (chevrons de scroll + dots de carrousel) : calés
      en bottom px, à hauteur réduite ils remontent DANS le texte (dots
-     sur "Reels.", chevron dans "70% de contenu…"). aria-hidden,
-     purement décoratifs : on les retire. */
+     sur "Reels.", chevron dans "70% de contenu…", chevron hero dans le
+     CTA Kickstarter). aria-hidden / décoratifs : on les retire. */
   .sticky-dots,
   .sticky-scroll,
-  .section-scroll { display: none; }
+  .section-scroll,
+  .hero-scroll { display: none; }
   /* La réserve basse des slides ne sert plus (dots/scroll masqués). */
   .sticky-slide { padding: 12px 0 24px; }
   /* Typo & espacements verticaux resserrés pour les sections sticky. */
@@ -2839,9 +2854,31 @@ footer {
   .features-header { padding: 8px 24px; }
   .features-header h2 { margin-bottom: 8px; }
   .control-continuation { margin-top: clamp(12px, 3vh, 32px); }
+  /* Paliers de zoom mockups (cf. bloc 980). */
+  .features-sticky-phone { zoom: 0.8; }
+  .screen-col--phones { zoom: 0.8; }
+  .lim-group { zoom: 0.7; }
+}
+@media (max-height: 720px) {
+  .features-sticky-phone { zoom: 0.68; }
+  .screen-col--phones { zoom: 0.68; }
+  .lim-group { zoom: 0.58; }
+}
+@media (max-height: 620px) {
+  .features-sticky-phone { zoom: 0.56; }
+  .screen-col--phones { zoom: 0.56; }
+  .lim-group { zoom: 0.48; }
+  /* À cette hauteur, le bloc continuation sous le mockup n'a plus la
+     place : on rend ses ~76px au phone. */
+  .control-continuation { display: none; }
 }
 @media (max-height: 550px) {
   h2 { font-size: clamp(22px, 4vh, 34px); }
+}
+@media (max-height: 520px) {
+  .features-sticky-phone { zoom: 0.38; }
+  .screen-col--phones { zoom: 0.45; }
+  .lim-group { zoom: 0.38; }
 }
 
 /* ── MOBILE LANDSCAPE : section "Le problème" réduite de 20% ──
