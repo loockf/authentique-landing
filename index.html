@@ -2816,22 +2816,52 @@ footer {
      haut. La réserve basse (100px, zone dots/scroll) est conservée ici
      puisque les décoratifs restent visibles jusqu'à 820px. */
   .sticky-slide { justify-content: flex-start; padding: 12px 0 100px; }
-  /* Hero : réserve l'espace du chevron de scroll (absolute bottom:28px).
-     Sans ça, le contenu centré (CTA + tagline) descend jusqu'à lui et
-     le chevron se superpose au bouton Kickstarter. */
-  .hero { padding-bottom: 110px; box-sizing: border-box; }
+  /* CHEVRONS & DOTS EN FLUX : en absolute bottom:px, leur position
+     variait selon la section (conteneurs différents) et ils entraient en
+     collision avec le contenu (CTA hero, cadre 70%, cartes bien-être,
+     formulaire CTA). Dans le flux, ils se placent TOUJOURS juste sous le
+     contenu de leur section — cohérents partout, zéro collision. */
+  .hero-scroll,
+  .section-scroll,
+  .sticky-scroll {
+    position: static;
+    transform: none;
+    margin: clamp(16px, 3.5vh, 40px) auto 0;
+    /* L'animation bounce embarque translateX(-50%) dans ses keyframes
+       (pensée pour le positionnement absolute) : elle écrase transform
+       et décale le bouton de ~28px en flux. On la coupe ici. */
+    animation: none;
+  }
+  /* Hero : un peu plus d'air sous la tagline (sinon collé au texte). */
+  .hero-scroll { margin-top: clamp(32px, 8vh, 90px); }
+  .sticky-dots {
+    position: static;
+    transform: none;
+    margin: clamp(12px, 2.5vh, 28px) auto 0;
+    justify-content: center;
+  }
+  /* lim-sticky-inner est un flex ROW : un chevron statique deviendrait
+     une colonne à côté du contenu. On le garde en absolute, recentré
+     bas — le zoom 0.7 du group libère la zone. */
+  .lim-sticky-inner .sticky-scroll {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10px;
+    margin: 0;
+  }
   /* MOCKUPS : zoom CSS par paliers. Contrairement à transform, zoom
      scale AUSSI le layout et le DOM interne (sm-row, etc.) — le menu ne
      déborde plus du cadre. alignStepsToToggles reste juste : il mesure
      des rects écran (zoomés) et positionne les steps NON zoomés dans le
      même repère. La colonne steps suit la hauteur zoomée du phone via
      align-self:stretch (min-height de base neutralisée). */
-  .features-sticky-phone { zoom: 0.94; }
+  .features-sticky-phone { zoom: 0.8; }
   .features-sticky-steps { min-height: 0; align-self: stretch; }
-  .screen-col--phones { zoom: 0.94; }
+  .screen-col--phones { zoom: 0.8; }
   /* lim : le header (190px) au-dessus du group laisse moins de place
-     -> palier plus bas que les autres mockups (mesuré : +54px à 900). */
-  .lim-group { zoom: 0.86; }
+     -> palier plus bas que les autres mockups. */
+  .lim-group { zoom: 0.7; }
 }
 @media (max-height: 820px) {
   /* Décoratifs absolus (chevrons de scroll + dots de carrousel) : calés
@@ -5536,7 +5566,10 @@ function pickDifferent(arr, lastIdx) {
   function getCurrentIndex() {
     var rect = outer.getBoundingClientRect();
     var scrolled = -rect.top;
-    var scrollable = outer.offsetHeight - window.innerHeight;
+    // inner.offsetHeight (pas window.innerHeight) : depuis le calage sous
+    // le header, l'inner fait 100vh-69px — la formule doit suivre (meme
+    // contrat que la version features).
+    var scrollable = outer.offsetHeight - (inner ? inner.offsetHeight : window.innerHeight);
     if (scrollable <= 0) return 0;
     var progress = Math.max(0, Math.min(0.999, scrolled / scrollable));
     return Math.min(nbSlides - 1, Math.floor(progress * nbSlides));
@@ -5593,7 +5626,7 @@ function pickDifferent(arr, lastIdx) {
   dots.forEach(function (d, i) {
     d.addEventListener('click', function () {
       var outerTop = outer.getBoundingClientRect().top + window.scrollY;
-      var scrollable = outer.offsetHeight - window.innerHeight;
+      var scrollable = outer.offsetHeight - (inner ? inner.offsetHeight : window.innerHeight);
       var targetY = outerTop + (i / nbSlides) * scrollable + 10;
       window.scrollTo({ top: targetY, behavior: 'smooth' });
     });
@@ -5631,7 +5664,12 @@ function pickDifferent(arr, lastIdx) {
             : outer.__getStickyIndex();
           if (currentIdx < nbItems - 1) {
             var outerTop = outer.getBoundingClientRect().top + window.scrollY;
-            var scrollable = outer.offsetHeight - window.innerHeight;
+            // scrollable réel = outer - INNER (100vh-69px depuis le calage
+            // sous le header). Avec window.innerHeight, la cible atterrissait
+            // ~2px avant le seuil floor(progress*nbItems) -> le clic ne
+            // changeait jamais de step sur "La solution".
+            var innerEl = outer.querySelector('.features-sticky-inner, .sticky-inner');
+            var scrollable = outer.offsetHeight - (innerEl ? innerEl.offsetHeight : window.innerHeight);
             // +10 pour franchir le seuil floor(progress * nbItems).
             // currentIdx = -1 (aucun dot actif) → cible step 0 (outerTop+10).
             var targetY = outerTop + ((currentIdx + 1) / nbItems) * scrollable + 10;
