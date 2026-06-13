@@ -2851,6 +2851,33 @@ footer {
     margin: clamp(12px, 2.5vh, 28px) auto 0;
     justify-content: center;
   }
+  /* Sections sticky (panneau épinglé = le bas du panneau EST la position
+     constante) : bloc [dots -> (continuation) -> chevron] plaqué au bas
+     via margin-top:auto, dots AU-DESSUS du chevron, chevron toujours en
+     flux ici — sinon il finissait clippé par overflow:hidden (features)
+     ou au-dessus des dots (screens). Ces règles (0,2,0 + plus tard dans
+     la feuille) priment sur les deux modes du conditionnel JS. */
+  .features-sticky-inner .sticky-dots,
+  #screens .sticky-inner .sticky-dots { margin-top: auto; }
+  .features-sticky-inner .sticky-scroll,
+  #screens .sticky-inner .sticky-scroll {
+    position: static;
+    margin: 4px auto 14px;
+    animation: heroBounceInline 1.5s ease-in-out infinite;
+  }
+  /* La continuation s'intercale entre dots et chevron : marge réduite
+     pour que le chevron tienne dans le panneau (dépassait de 9px). */
+  .section-features .control-continuation { margin-top: 8px; }
+  /* Hero (flex column) : chevron plaqué en BAS de la section via
+     margin-top:auto — même hauteur visuelle que celui de "Le problème" —
+     au lieu de coller sous la tagline (flux) ou de flotter à
+     calc(100vh-188px) (fixe). */
+  .hero .hero-scroll {
+    position: static;
+    margin: auto auto 24px;
+    animation: heroBounceInline 1.5s ease-in-out infinite;
+  }
+  .hero { padding-bottom: 32px; }
   /* Safari mockup (limitations) : flex:1 prenait toute la largeur
      restante — ~1/4 de trop (retour UX). */
   .lim-safari-col { flex: 0 1 auto; width: min(46vw, 700px); }
@@ -2881,8 +2908,10 @@ footer {
   .features-header { padding: 8px 24px; }
   .features-header h2 { margin-bottom: 8px; }
   .control-continuation { margin-top: clamp(12px, 3vh, 32px); }
-  /* Paliers de zoom mockups (cf. bloc 980). */
-  .features-sticky-phone { zoom: 0.8; }
+  /* Paliers de zoom mockups (cf. bloc 980). features plus bas : le bloc
+     dots+continuation+chevron en flux a besoin de ~150px sous le phone
+     (mesuré : -44px à 768 avec .7). */
+  .features-sticky-phone { zoom: 0.6; }
   .screen-col--phones { zoom: 0.8; }
   .lim-group { zoom: 0.7; }
 }
