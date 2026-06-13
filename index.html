@@ -2954,6 +2954,36 @@ footer {
   }
 }
 
+/* MOBILE PAYSAGE (tres court : iPhone landscape ~390-430px de haut).
+   Trop large pour le layout mobile portrait (max-width:768) mais trop
+   court pour le sticky-scroll desktop. On GARDE le sticky (releaser en
+   flux casse la section screens : slides absolute inset:0). On comprime :
+   sous-titres masques, titres reduits, mockups tres reduits -> titre +
+   mockup + dots + chevron tiennent dans ~321px. */
+@media (max-width: 932px) and (orientation: landscape) and (max-height: 500px) {
+  /* Headers compacts : on masque les sous-titres descriptifs (gain ~40px)
+     et on reduit les titres. Le label + h2 suffisent en paysage court. */
+  .features-header p:not(.section-label),
+  .screens-header p:not(.section-label),
+  .lim-content-block .lim-header p:not(.section-label) { display: none; }
+  h2 { font-size: clamp(18px, 5vh, 30px); }
+  .section-label { font-size: clamp(12px, 2.6vh, 16px); }
+  .features-header { padding: 2px 16px; }
+  .features-header h2 { margin-bottom: 4px; }
+  /* Mockups tres reduits (panel ~321px : budget mockup ~150px). */
+  .features-sticky-phone { zoom: 0.24; }
+  .screen-col--phones { zoom: 0.29; }
+  .lim-group { zoom: 0.27; }
+  /* "Et ce n'est que le debut" + sous-texte : masque en paysage court
+     (libere ~55px -> le chevron features rentre dans le panneau). */
+  .section-features .control-continuation { display: none; }
+  /* Chevrons sticky : marges resserrees (le bloc dots+chevron doit tenir
+     dans le peu d'espace sous le mockup). */
+  .features-sticky-inner .sticky-scroll,
+  #screens .sticky-inner .sticky-scroll { margin: 2px auto 12px; }
+  .features-sticky-inner .sticky-dots,
+  #screens .sticky-inner .sticky-dots { margin-top: auto; margin-bottom: 0; }
+}
 </style>
 </head>
 <body>
