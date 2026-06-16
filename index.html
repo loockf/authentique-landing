@@ -87,7 +87,11 @@ em {
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+/* overflow-x:hidden AUSSI sur html : sur iOS Safari le conteneur de
+   scroll est documentElement (html), pas body — un debordement transitoire
+   (ex. animation cube .story-card translateX(100%)) creait un scroll
+   horizontal que body{overflow-x:hidden} seul ne bloquait pas. */
+html { scroll-behavior: smooth; overflow-x: hidden; }
 
 body {
   background: var(--bg);
@@ -2706,7 +2710,11 @@ footer {
     bottom: auto;
     left: auto;
     right: auto;
-    margin: 40px auto 0;
+    /* order:5 -> passe APRES le chevron (tous les autres enfants order:0) :
+       le 1er ecran de l'etape montre titre + sous-titre + mockup + toggles
+       + bouton ; "Et ce n'est que le debut" devient visible en scrollant. */
+    order: 5;
+    margin: 24px auto 0;
     padding: 0 16px;
     text-align: left;
   }
@@ -2827,7 +2835,7 @@ footer {
    laptops 1366×768 (zoom 140% et même sans zoom, les sections sticky
    y débordaient déjà de ~140px) ; les écrans >=900px de haut gardent
    le rendu actuel intact. */
-@media (max-height: 980px) {
+@media (min-width: 769px) and (max-height: 980px) {
   /* ANCRAGE HAUT des sections sticky : avec le calage sous le header
      (top:69px), le contenu conçu pour ~100vh peut dépasser de quelques
      px dès <=980px de haut. Centré, le clip mange le TITRE ; ancré en
@@ -2894,7 +2902,7 @@ footer {
      -> palier plus bas que les autres mockups. */
   .lim-group { zoom: 0.7; }
 }
-@media (max-height: 820px) {
+@media (min-width: 769px) and (max-height: 820px) {
   /* Chevrons et dots : plus de masquage — le placement conditionnel
      (flux si collision) les garde utilisables à toute hauteur. */
   .sticky-slide { padding: 12px 0 24px; }
@@ -2915,12 +2923,12 @@ footer {
   .screen-col--phones { zoom: 0.8; }
   .lim-group { zoom: 0.7; }
 }
-@media (max-height: 720px) {
+@media (min-width: 769px) and (max-height: 720px) {
   .features-sticky-phone { zoom: 0.68; }
   .screen-col--phones { zoom: 0.68; }
   .lim-group { zoom: 0.58; }
 }
-@media (max-height: 620px) {
+@media (min-width: 769px) and (max-height: 620px) {
   .features-sticky-phone { zoom: 0.56; }
   .screen-col--phones { zoom: 0.56; }
   .lim-group { zoom: 0.48; }
@@ -2928,10 +2936,10 @@ footer {
      place : on rend ses ~76px au phone. */
   .control-continuation { display: none; }
 }
-@media (max-height: 550px) {
+@media (min-width: 769px) and (max-height: 550px) {
   h2 { font-size: clamp(22px, 4vh, 34px); }
 }
-@media (max-height: 520px) {
+@media (min-width: 769px) and (max-height: 520px) {
   .features-sticky-phone { zoom: 0.38; }
   .screen-col--phones { zoom: 0.45; }
   .lim-group { zoom: 0.38; }
