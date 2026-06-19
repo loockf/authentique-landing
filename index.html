@@ -87,11 +87,12 @@ em {
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-/* overflow-x:hidden AUSSI sur html : sur iOS Safari le conteneur de
-   scroll est documentElement (html), pas body — un debordement transitoire
-   (ex. animation cube .story-card translateX(100%)) creait un scroll
-   horizontal que body{overflow-x:hidden} seul ne bloquait pas. */
-html { scroll-behavior: smooth; overflow-x: hidden; }
+/* NE PAS mettre overflow-x sur html : ça force overflow-y:auto (calculé),
+   html devient un conteneur de défilement et CASSE position:sticky sur
+   tous les descendants (panneaux *-sticky-inner). Mesuré : innerTop
+   [-150,-500,-900] = défile au lieu de s'épingler. Le confinement
+   anti-scroll-H reste sur body seul (état historique, sticky OK). */
+html { scroll-behavior: smooth; }
 
 body {
   background: var(--bg);
