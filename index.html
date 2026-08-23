@@ -2836,6 +2836,41 @@ footer {
    laptops 1366×768 (zoom 140% et même sans zoom, les sections sticky
    y débordaient déjà de ~140px) ; les écrans >=900px de haut gardent
    le rendu actuel intact. */
+
+/* ── "La solution" : bas de panneau TOUJOURS en flux (>=981px de haut) ──
+   Mesuré à 1728x1000 : le contenu du panneau fait 948px pour 931
+   disponibles. Centré, le débordement rognait le TITRE en haut, et la
+   phrase de continuation (en flux) remontait sur les points restés en
+   absolu (bottom:100px) -> point vert posé sur le texte. On applique
+   ici, au-dessus du seuil 980, le meme traitement que le bloc hauteur
+   reduite ci-dessous : ancrage haut + points/chevron en flux, donc
+   ordre garanti points -> phrase -> chevron. Section "La solution"
+   uniquement : "L'app en images" et les autres gardent leur rendu. */
+@media (min-width: 769px) and (min-height: 981px) {
+  .features-sticky-inner .sticky-dots {
+    position: static;
+    transform: none;
+    justify-content: center;
+    margin: clamp(12px, 2.5vh, 28px) auto 0;
+  }
+  .features-sticky-inner .sticky-scroll {
+    position: static;
+    margin: 4px auto 14px;
+    animation: heroBounceInline 1.5s ease-in-out infinite;
+  }
+  .section-features .control-continuation { margin-top: 8px; }
+}
+/* 981 -> 1080px de haut : c'est juste. Le panneau s'ancre en haut, le bloc
+   [points -> phrase -> chevron] se plaque en bas (margin-top:auto) et le
+   mockup reprend le palier de zoom du bloc hauteur reduite. Au-dessus de
+   1080px, tout tient largement : la colonne reste centree (justify-content
+   center de la regle de base). */
+@media (min-width: 769px) and (min-height: 981px) and (max-height: 1080px) {
+  .features-sticky-inner { justify-content: flex-start; padding-top: clamp(8px, 2vh, 24px); }
+  .features-sticky-inner .sticky-dots { margin-top: auto; }
+  .features-sticky-phone { zoom: 0.8; }
+  .features-sticky-steps { min-height: 0; align-self: stretch; }
+}
 @media (min-width: 769px) and (max-height: 980px) {
   /* ANCRAGE HAUT des sections sticky : avec le calage sous le header
      (top:69px), le contenu conçu pour ~100vh peut dépasser de quelques
