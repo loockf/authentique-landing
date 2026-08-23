@@ -2871,6 +2871,19 @@ footer {
   .features-sticky-phone { zoom: 0.8; }
   .features-sticky-steps { min-height: 0; align-self: stretch; }
 }
+
+/* ── "L'app en images" : meme debordement, meme cause ──
+   Mesure a 1728x1000 : contenu de slide 815px + reserve dots/chevron
+   124px = 939 pour 840 disponibles (le chevron passe en flux et prend
+   91px sur la zone des slides). Centre, le debordement rognait le
+   titre en haut ET faisait mordre les telephones sur les points.
+   Le palier de zoom du bloc hauteur reduite ci-dessous ramene le
+   contenu a 815 : ca rentre jusqu'a 1120px de haut, au-dessus tout
+   tient en taille pleine. */
+@media (min-width: 769px) and (min-height: 981px) and (max-height: 1120px) {
+  #screens .sticky-slide { padding: 12px 0 100px; }
+  #screens .screen-col--phones { zoom: 0.8; }
+}
 @media (min-width: 769px) and (max-height: 980px) {
   /* ANCRAGE HAUT des sections sticky : avec le calage sous le header
      (top:69px), le contenu conçu pour ~100vh peut dépasser de quelques
