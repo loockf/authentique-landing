@@ -3065,6 +3065,12 @@ footer {
   .section-features .control-continuation { margin-top: 20px; }
   /* Remonte le chevron, plus proche du sous-texte (etait 4px, puis 0). */
   .features-sticky-inner .sticky-scroll { margin-top: -6px; }
+  /* Rapproche les points du telephone. margin-top:auto (regle 769px)
+     pousse les points tout en bas de features-sticky-inner ; ce
+     margin-bottom mange une partie de cet espace pour les remonter.
+     0 sous 720px de haut (paliers courts deja tres compacts, cf.
+     zoom:1 + marges reduites plus bas) -> 24px max au-dela de 840px. */
+  .section-features .sticky-dots { margin-bottom: clamp(0px, calc((100vh - 720px) * 0.2), 24px); }
   /* Rapproche le sous-titre ("Chaque fonctionnalite...") du titre
      "Choisir quoi masquer." (etait 16px). */
   .features-header h2 { margin-bottom: 4px; }
