@@ -3179,6 +3179,13 @@ footer {
   #screens .sticky-slides-area { height: calc(275px + clamp(440px, 56vw, 560px)); }
 }
 
+/* "Transparence" (desktop) : remonte le bloc [telephone + tableau] vers
+   le titre. Le gap de 48px (aligne sur .features-content-block) laissait
+   trop d'air une fois le panneau centre sur un grand ecran. */
+@media (min-width: 1025px) {
+  .lim-content-block { gap: 16px; }
+}
+
 /* ── MOBILE LANDSCAPE : section "Le problème" réduite de 20% ──
    max-width:932px couvre tous les phones en landscape (iPhone SE=667px,
    iPhone 14=844px, iPhone 14 Pro Max=932px) et exclut les iPad (≥1024px).
