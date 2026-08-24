@@ -6005,12 +6005,25 @@ function pickDifferent(arr, lastIdx) {
     return false;
   }
   function place() {
+    // Le mode flux (position:static) rallonge sa section : basculer TOUS les
+    // boutons en absolu le temps de la mesure raccourcit le document de ~196px.
+    // Tout en bas de page, le navigateur ecrete alors scrollY sur la nouvelle
+    // hauteur — et comme la hauteur revient juste apres, on se retrouve remonte
+    // d'autant : effet elastique qui empeche d'atteindre le footer, rejoue a
+    // chaque scroll. On memorise donc la position avant la mesure et on la
+    // restitue si l'ecretage l'a bougee (jamais pendant un scroll actif : place()
+    // est debounce, il ne tourne qu'une fois le scroll arrete).
+    var savedY = window.scrollY;
     btns.forEach(function (btn) {
       var sec = btn.closest('section');
       if (!sec) return;
       btn.classList.remove('scroll-btn--flow');   // re-mesure en mode absolu
       if (overlapsContent(btn, sec)) btn.classList.add('scroll-btn--flow');
     });
+    if (window.scrollY !== savedY) {
+      // 'instant' : html a scroll-behavior:smooth, un scrollTo nu s'animerait.
+      window.scrollTo({ top: savedY, behavior: 'instant' });
+    }
   }
   var debounce;
   window.addEventListener('resize', function () {
