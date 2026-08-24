@@ -2919,6 +2919,7 @@ footer {
      utile en bas, sous le mockup. */
   .features-sticky-inner { justify-content: flex-start; padding-top: clamp(0px, 0.5vh, 8px); }
   .features-sticky-inner .sticky-dots { margin-top: auto; }
+  .section-features .features-header { padding-top: 4px; }
   /* PAS de zoom sur .features-sticky-phone ici : le telephone doit garder
      la meme taille que celui de "Le probleme" (.phone-frame), qui ne
      retrecit jamais sur ecran court. La place est liberee cote titre
@@ -2956,6 +2957,10 @@ footer {
      plus bas) : il faut recuperer la place ailleurs. Ecart titre -> phone
      resserre au lieu des 48px par defaut. */
   .features-header { margin-bottom: clamp(0px, 1vh, 20px); }
+  /* Padding-top du header (16px par defaut) : c'etait le reste de l'espace
+     visible entre la barre du haut et le titre, une fois le padding-top de
+     features-sticky-inner deja resserre juste au-dessus. */
+  .section-features .features-header { padding-top: 4px; }
   /* Le titre de "L'app en images" vit DANS les slides (.sticky-slide,
      absolute inset:0, centré) : ancrer aussi le contenu des slides en
      haut. La réserve basse (100px, zone dots/scroll) est conservée ici
