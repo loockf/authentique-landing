@@ -2913,7 +2913,11 @@ footer {
    1080px, tout tient largement : la colonne reste centree (justify-content
    center de la regle de base). */
 @media (min-width: 769px) and (min-height: 981px) and (max-height: 1080px) {
-  .features-sticky-inner { justify-content: flex-start; padding-top: clamp(8px, 2vh, 24px); }
+  /* Espace au-dessus du titre resserre : il servait a rien (le panneau
+     est deja ancre en haut, justify-content:flex-start), et le telephone
+     "La solution" ne retrecit plus (cf. plus bas) — la place est plus
+     utile en bas, sous le mockup. */
+  .features-sticky-inner { justify-content: flex-start; padding-top: clamp(0px, 0.5vh, 8px); }
   .features-sticky-inner .sticky-dots { margin-top: auto; }
   /* PAS de zoom sur .features-sticky-phone ici : le telephone doit garder
      la meme taille que celui de "Le probleme" (.phone-frame), qui ne
@@ -2940,8 +2944,12 @@ footer {
      px dès <=980px de haut. Centré, le clip mange le TITRE ; ancré en
      haut, il mange le bas — et les paliers de zoom ci-dessous font
      rentrer les mockups. */
-  .sticky-inner,
-  .features-sticky-inner { justify-content: flex-start; padding-top: clamp(8px, 2vh, 24px); }
+  .sticky-inner { justify-content: flex-start; padding-top: clamp(8px, 2vh, 24px); }
+  /* "La solution" seule, en plus resserre que les autres sections sticky :
+     le telephone n'y retrecit plus (cf. plus bas), il faut recuperer un
+     maximum de place. L'espace au-dessus du titre ne servait a rien une
+     fois le panneau ancre en haut (justify-content:flex-start). */
+  .features-sticky-inner { justify-content: flex-start; padding-top: clamp(0px, 0.5vh, 8px); }
   /* lim-sticky-inner est un flex ROW : l'axe vertical est align-items. */
   .lim-sticky-inner { align-items: flex-start; padding-top: clamp(8px, 2vh, 24px); }
   /* Le telephone "La solution" ne retrecit plus (cf. .features-sticky-phone
