@@ -3195,7 +3195,11 @@ footer {
     </a>
     <p class="cta-soon-note" data-i18n="cta_soon">La campagne est presque prête.</p>
   </div>
-  <p class="hero-tagline reveal" style="transition-delay:0.5s" data-i18n="hero_tagline">
+  <!-- Masquee le temps que la campagne Kickstarter ouvre : l'invitation
+       n'a pas de sens tant que le bouton ne mene nulle part. La note
+       "campagne presque prete" la remplace. Retirer le style pour la
+       remettre en place le jour du lancement. -->
+  <p class="hero-tagline reveal" style="transition-delay:0.5s; display:none" data-i18n="hero_tagline">
     Sois parmi les premiers à découvrir Authentique.
   </p>
   <button class="hero-scroll" aria-label="Faire défiler" type="button">
