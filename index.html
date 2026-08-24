@@ -3109,6 +3109,29 @@ footer {
   .features-sticky-phone { zoom: 1; }
 }
 
+/* ── "L'app en images" (desktop, hauteur reduite) : meme fuite que
+   "La solution" ci-dessus, MAIS avec un bug supplementaire — zoom sur
+   #screens .screen-col--phones ne s'applique pas de la meme facon sur
+   Safari/Firefox que sur Chrome (zoom + aspect-ratio), les telephones
+   restaient pleine taille et debordaient (coupes en bas). Remplace le
+   zoom par une largeur + font-size explicites sur .iphone (equivalent
+   exact des paliers zoom 0.8/0.68/0.56), independant du navigateur. */
+@media (min-width: 1025px) and (max-height: 1120px) {
+  #screens .screen-col--phones { zoom: 1; gap: 16px; }
+  #screens .screen-col--phones .iphone { width: clamp(176px, 22.4vw, 224px); font-size: clamp(7.6px, 0.976vw, 9.6px); }
+}
+@media (min-width: 1025px) and (max-height: 720px) {
+  #screens .screen-col--phones { zoom: 1; gap: 13.6px; }
+  #screens .screen-col--phones .iphone { width: clamp(149.6px, 19.04vw, 190.4px); font-size: clamp(6.46px, 0.8296vw, 8.16px); }
+}
+@media (min-width: 1025px) and (max-height: 670px) {
+  /* Seuil releve a 670 (au lieu de 620, valeur d'origine partagee avec
+     la tablette) : mesure, le palier 0.68 juste au-dessus ne suffit plus
+     en dessous de ~662px de haut (deborde de 35px a 621px). */
+  #screens .screen-col--phones { zoom: 1; gap: 11.2px; }
+  #screens .screen-col--phones .iphone { width: clamp(123.2px, 15.68vw, 156.8px); font-size: clamp(5.32px, 0.6832vw, 6.72px); }
+}
+
 /* ── MOBILE LANDSCAPE : section "Le problème" réduite de 20% ──
    max-width:932px couvre tous les phones en landscape (iPhone SE=667px,
    iPhone 14=844px, iPhone 14 Pro Max=932px) et exclut les iPad (≥1024px).
@@ -6564,16 +6587,6 @@ function pickDifferent(arr, lastIdx) {
   } else {
     start();
   }
-})();
-
-// DEBUG TEMPORAIRE — badge de taille viewport (a retirer apres diagnostic).
-(function () {
-  var b = document.createElement('div');
-  b.style.cssText = 'position:fixed;bottom:8px;right:8px;background:#000;color:#0f0;font:12px monospace;padding:4px 8px;z-index:99999;border-radius:4px;opacity:0.85;';
-  function upd() { b.textContent = window.innerWidth + ' x ' + window.innerHeight; }
-  upd();
-  window.addEventListener('resize', upd);
-  document.body.appendChild(b);
 })();
 
 </script>
