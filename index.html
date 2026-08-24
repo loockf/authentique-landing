@@ -2894,7 +2894,9 @@ footer {
 @media (min-width: 769px) and (min-height: 981px) and (max-height: 1080px) {
   .features-sticky-inner { justify-content: flex-start; padding-top: clamp(8px, 2vh, 24px); }
   .features-sticky-inner .sticky-dots { margin-top: auto; }
-  .features-sticky-phone { zoom: 0.8; }
+  /* Meme raison que le palier <=980 juste en dessous : a 981px de haut,
+     mesure a seulement 4px sous la fleche avec zoom 0.8. */
+  .features-sticky-phone { zoom: 0.7; }
   .features-sticky-steps { min-height: 0; align-self: stretch; }
 }
 
@@ -2970,7 +2972,13 @@ footer {
      des rects écran (zoomés) et positionne les steps NON zoomés dans le
      même repère. La colonne steps suit la hauteur zoomée du phone via
      align-self:stretch (min-height de base neutralisée). */
-  .features-sticky-phone { zoom: 0.8; }
+  /* "La solution" seule : 0.8 laissait juste 4-6px sous la fleche sur les
+     hauteurs 13" MacBook (mesure : gap continuation->fleche a 4px a 981px
+     de haut, fleche carrement rognee en dessous de 920px). Le phone est le
+     plus gros poste de hauteur du panneau -> le reduire un peu degage la
+     place necessaire aux points/texte/fleche sans toucher aux autres
+     sections (L'app en images, Limitations), qui n'ont pas ce probleme. */
+  .features-sticky-phone { zoom: 0.6; }
   .features-sticky-steps { min-height: 0; align-self: stretch; }
   .screen-col--phones { zoom: 0.8; }
   /* lim : le header (190px) au-dessus du group laisse moins de place
@@ -2999,7 +3007,11 @@ footer {
   .lim-group { zoom: 0.7; }
 }
 @media (min-width: 769px) and (max-height: 720px) {
-  .features-sticky-phone { zoom: 0.68; }
+  /* 0.68 etait PLUS GRAND que le palier <=820px (0.6) juste au-dessus —
+     la progression s'inversait a un ecran plus court, exactement l'endroit
+     ou moins de place est disponible. Corrige a 0.58, coherent avec la
+     suite (0.56 a <=620px). */
+  .features-sticky-phone { zoom: 0.58; }
   .screen-col--phones { zoom: 0.68; }
   .lim-group { zoom: 0.58; }
 }
