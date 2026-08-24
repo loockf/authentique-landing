@@ -3120,7 +3120,10 @@ footer {
   #screens .screen-col--phones { zoom: 1; gap: 16px; }
   #screens .screen-col--phones .iphone { width: clamp(176px, 22.4vw, 224px); font-size: clamp(7.6px, 0.976vw, 9.6px); }
   /* Remonte le bloc [texte + telephones] plus pres du titre (etait 48px). */
-  #screens .screens-header { margin-bottom: 8px; }
+  #screens .screens-header { margin-bottom: 8px; padding-top: 0; }
+  /* Remonte aussi le titre lui-meme (etait clamp(8px,2vh,24px), regle
+     769px partagee avec la tablette). */
+  #screens .sticky-inner { padding-top: 0; }
 }
 @media (min-width: 1025px) and (max-height: 720px) {
   #screens .screen-col--phones { zoom: 1; gap: 13.6px; }
