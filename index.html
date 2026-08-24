@@ -5940,6 +5940,30 @@ function pickDifferent(arr, lastIdx) {
   window.addEventListener('resize', function () {
     clearTimeout(debounce); debounce = setTimeout(place, 150);
   });
+  // Meme debounce sur le scroll. Necessaire : au chargement, les sections
+  // sous le pli ne sont pas encore "reveal" (l'apparition au scroll n'a pas
+  // encore joue), donc leur contenu est mesure dans un etat transitoire —
+  // parfois assez proche du bouton pour declencher une fausse collision.
+  // Le bouton bascule alors en mode flow et y RESTE pour toujours, rien ne
+  // re-verifiant apres coup. Mesure : au chargement, le bouton de "Le
+  // probleme" passait en flow (donc plus bas que celui du Hero, cf. capture)
+  // alors qu'une fois la section reellement visible, il n'y a aucune
+  // collision. Re-verifier au scroll laisse chaque section se corriger une
+  // fois realite atteinte.
+  window.addEventListener('scroll', function () {
+    clearTimeout(debounce); debounce = setTimeout(place, 150);
+  }, { passive: true });
+  // La transition .reveal (transform translateY(40px) -> none, 1.4s) dure
+  // plus longtemps que le debounce scroll ci-dessus : au moment ou place()
+  // se relance (150ms apres le dernier scroll), le contenu revele est
+  // souvent encore en cours d'animation -> fausse collision figee, jamais
+  // corrigee ensuite (plus de scroll une fois arrive a destination).
+  // On re-verifie donc aussi a la fin de chaque transition .reveal.
+  document.addEventListener('transitionend', function (e) {
+    if (e.propertyName === 'transform' && e.target.classList && e.target.classList.contains('reveal')) {
+      clearTimeout(debounce); debounce = setTimeout(place, 50);
+    }
+  }, true);
   window.addEventListener('load', place);
   // GrosVentre charge apres le 1er layout : les hauteurs de titres
   // changent -> re-mesurer (sinon faux positifs de collision au boot).
