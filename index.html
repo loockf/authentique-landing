@@ -859,25 +859,24 @@ section { padding: 120px 24px; position: relative; }
 
 /* FEATURES */
 /* padding:0 + display:block (default) sur la section : meme pattern
-   que .section-screens. Header + group + continuation sont DANS le
-   sticky-inner (flex column) — l'utilisateur voit tout figer pendant
-   l'animation des steps. */
+   que .section-screens. Header HORS du sticky-outer (flux normal, defile
+   avec la page) ; group + dots + continuation + chevron restent DANS le
+   sticky-inner — seul ce bloc-la fige pendant l'animation des steps. */
 .section-features {
   background: var(--bg);
   padding: 0;
 }
 /* Pattern identique a .screens-header : width 100%, padding interne,
-   max-width sur les enfants via > *. Pas de margin-bottom : c'est
-   le gap:32px de .features-content-block qui gere l'espacement avec
-   le group. */
+   max-width sur les enfants via > *. */
 .features-header {
   text-align: center;
   width: 100%;
   padding: 16px 24px;
   flex-shrink: 0;
   box-sizing: border-box;
-  /* Flux normal (static) : défile avec la page avant que le sticky-inner
-     prenne le relais. Même comportement que les autres headers de section. */
+  /* Flux normal (static, valeur par defaut) : defile avec la page avant que
+     le sticky-inner prenne le relais. Meme comportement que les autres
+     headers de section. */
   /* Même gap que .screens-header → phones dans "L'app en images" (48px).
      Sur mobile : surchargé par .section-features .features-header { margin-bottom:32px }. */
   margin-bottom: 48px;
@@ -2679,15 +2678,16 @@ footer {
     gap: 20px;
     width: 100%;
   }
-  /* Telephone : budget 320px = nav(50) + pad(20) + header(~150) + steps(90) + marges(10).
-     Le header est maintenant DANS le sticky-inner → budget réel ~320px (était 180px
-     quand le header était hors du sticky). Largeur = (100vh-320)/2 × 0.80.
+  /* Telephone : budget 180px = nav(50) + pad(20) + steps(90) + marges(20).
+     Header a nouveau HORS du sticky-inner (defile avant) -> il ne mord plus
+     sur ce budget, contrairement a la version avec header dedans (320px).
+     Largeur = (100vh-180)/2 × 0.80.
      Font-size = width/23 (ratio em constant, tout l'intérieur scale proportionnellement). */
   .features-sticky-phone .iphone {
-    width: calc(((100vh - 320px) / 2) * 0.80);
+    width: calc(((100vh - 180px) / 2) * 0.80);
     padding: 4px;
     border-radius: 2.67em;
-    font-size: calc((100vh - 320px) / 46 * 0.80);
+    font-size: calc((100vh - 180px) / 46 * 0.80);
   }
   /* Bords internes alignes sur padding+border-radius ci-dessus. */
   .features-sticky-phone .iphone-frame { border-radius: 2.17em; }
@@ -3295,16 +3295,20 @@ footer {
 
 <!-- FEATURES -->
 <section class="section-features" id="section-features">
+  <!-- Header HORS du sticky-outer (retour a l'intention initiale) : il defile
+       normalement avec la page, comme n'importe quel titre de section. Le
+       panneau sticky ne pese plus que [phone+steps, dots, continuation,
+       chevron] -> beaucoup moins de hauteur a caser dans le panneau pin sur
+       petit ecran (13" MacBook), sans reduire le telephone. Consequence
+       assumee : sur un ecran court, le titre peut sortir du cadre une fois le
+       sticky engage ; il suffit de remonter pour le revoir. -->
+  <div class="features-header">
+    <p class="section-label reveal" data-i18n="features_label">La solution</p>
+    <h2 class="reveal" style="transition-delay:0.12s" data-i18n="features_title">Choisir quoi <span class="authentique-gradient-text">masquer</span>.</h2>
+    <p class="reveal" style="transition-delay:0.24s" data-i18n="features_sub">Chaque fonctionnalité a été pensée pour te redonner le contrôle de ton expérience Instagram.</p>
+  </div>
   <div class="features-sticky-outer">
     <div class="features-sticky-inner">
-      <!-- Header dans le sticky-inner : centré verticalement avec le téléphone
-           et le reste du contenu (flex-column, justify:center). Visible pendant
-           tout le parallax (360vh). -->
-      <div class="features-header">
-        <p class="section-label reveal" data-i18n="features_label">La solution</p>
-        <h2 class="reveal" style="transition-delay:0.12s" data-i18n="features_title">Choisir quoi <span class="authentique-gradient-text">masquer</span>.</h2>
-        <p class="reveal" style="transition-delay:0.24s" data-i18n="features_sub">Chaque fonctionnalité a été pensée pour te redonner le contrôle de ton expérience Instagram.</p>
-      </div>
       <div class="features-content-block">
       <div class="features-sticky-group">
         <div class="features-sticky-phone reveal">
