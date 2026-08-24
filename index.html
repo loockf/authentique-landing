@@ -1043,9 +1043,15 @@ section { padding: 120px 24px; position: relative; }
 }
 /* Override : dans la section "La solution", l'iphone reprend les
    dimensions de .phone-frame (section "Le probleme") pour rester
-   coherent visuellement avec le mockup principal du dessus. */
+   coherent visuellement avec le mockup principal du dessus.
+   Les valeurs (220,28vw,280) ne correspondaient PLUS a .phone-frame
+   (160,18vw,280) — le commentaire disait une chose, le CSS en faisait
+   une autre. A 1440px de large : 259px la-haut contre 280px ici.
+   Corrige pour etre identique, width ET font-size (qui pilote tout le
+   reste en em : notch, textes, border-radius interieurs). */
 .features-sticky-phone .iphone {
-  width: clamp(220px, 28vw, 280px);
+  width: clamp(160px, 18vw, 280px);
+  font-size: clamp(7px, 0.78vw, 12px);
   border-radius: 3em;
   padding: 6px;
 }
@@ -2909,7 +2915,10 @@ footer {
 @media (min-width: 769px) and (min-height: 981px) and (max-height: 1080px) {
   .features-sticky-inner { justify-content: flex-start; padding-top: clamp(8px, 2vh, 24px); }
   .features-sticky-inner .sticky-dots { margin-top: auto; }
-  .features-sticky-phone { zoom: 0.8; }
+  /* PAS de zoom sur .features-sticky-phone ici : le telephone doit garder
+     la meme taille que celui de "Le probleme" (.phone-frame), qui ne
+     retrecit jamais sur ecran court. La place est liberee cote titre
+     (features-header margin-bottom), pas cote telephone. */
   .features-sticky-steps { min-height: 0; align-self: stretch; }
 }
 
@@ -2935,6 +2944,10 @@ footer {
   .features-sticky-inner { justify-content: flex-start; padding-top: clamp(8px, 2vh, 24px); }
   /* lim-sticky-inner est un flex ROW : l'axe vertical est align-items. */
   .lim-sticky-inner { align-items: flex-start; padding-top: clamp(8px, 2vh, 24px); }
+  /* Le telephone "La solution" ne retrecit plus (cf. .features-sticky-phone
+     plus bas) : il faut recuperer la place ailleurs. Ecart titre -> phone
+     resserre au lieu des 48px par defaut. */
+  .features-header { margin-bottom: clamp(0px, 1vh, 20px); }
   /* Le titre de "L'app en images" vit DANS les slides (.sticky-slide,
      absolute inset:0, centré) : ancrer aussi le contenu des slides en
      haut. La réserve basse (100px, zone dots/scroll) est conservée ici
@@ -2981,11 +2994,9 @@ footer {
   .lim-safari-col { flex: 0 1 auto; width: min(46vw, 700px); }
   /* MOCKUPS : zoom CSS par paliers. Contrairement à transform, zoom
      scale AUSSI le layout et le DOM interne (sm-row, etc.) — le menu ne
-     déborde plus du cadre. alignStepsToToggles reste juste : il mesure
-     des rects écran (zoomés) et positionne les steps NON zoomés dans le
-     même repère. La colonne steps suit la hauteur zoomée du phone via
-     align-self:stretch (min-height de base neutralisée). */
-  .features-sticky-phone { zoom: 0.8; }
+     déborde plus du cadre. */
+  /* Le telephone "La solution" ne zoome plus jamais (cf. bloc 981-1080
+     ci-dessus) : il garde la taille de .phone-frame ("Le probleme"). */
   .features-sticky-steps { min-height: 0; align-self: stretch; }
   .screen-col--phones { zoom: 0.8; }
   /* lim : le header (190px) au-dessus du group laisse moins de place
@@ -3008,18 +3019,16 @@ footer {
   .control-continuation { margin-top: clamp(12px, 3vh, 32px); }
   /* Paliers de zoom mockups (cf. bloc 980). features plus bas : le bloc
      dots+continuation+chevron en flux a besoin de ~150px sous le phone
-     (mesuré : -44px à 768 avec .7). */
-  .features-sticky-phone { zoom: 0.6; }
+     (mesuré : -44px à 768 avec .7). "La solution" ne fait plus partie de
+     cette liste : son telephone garde la taille de .phone-frame. */
   .screen-col--phones { zoom: 0.8; }
   .lim-group { zoom: 0.7; }
 }
 @media (min-width: 769px) and (max-height: 720px) {
-  .features-sticky-phone { zoom: 0.68; }
   .screen-col--phones { zoom: 0.68; }
   .lim-group { zoom: 0.58; }
 }
 @media (min-width: 769px) and (max-height: 620px) {
-  .features-sticky-phone { zoom: 0.56; }
   .screen-col--phones { zoom: 0.56; }
   .lim-group { zoom: 0.48; }
   /* À cette hauteur, le bloc continuation sous le mockup n'a plus la
@@ -3030,7 +3039,6 @@ footer {
   h2 { font-size: clamp(22px, 4vh, 34px); }
 }
 @media (min-width: 769px) and (max-height: 520px) {
-  .features-sticky-phone { zoom: 0.38; }
   .screen-col--phones { zoom: 0.45; }
   .lim-group { zoom: 0.38; }
 }
