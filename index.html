@@ -3137,6 +3137,48 @@ footer {
   #screens .screen-col--phones .iphone { width: clamp(123.2px, 15.68vw, 156.8px); font-size: clamp(5.32px, 0.6832vw, 6.72px); }
 }
 
+/* ── "L'app en images" — TABLETTE PORTRAIT uniquement ──
+   Le panneau epingle fait toute la hauteur (~1110px sur iPad 820x1180)
+   alors que le contenu n'en occupe que ~636. Points (absolute bottom)
+   et chevron (top:calc(100vh-188px), regle tablette) restaient colles
+   au bas du panneau : ~290px de vide sous les telephones, et le chevron
+   passait en flux par-dessus les points (mesure : chevron 1131-1187,
+   points 1146-1156, panneau finissant a 1180 -> chevron rogne).
+   Correctif : hauteur explicite pour la zone des slides (elles sont en
+   absolute inset:0, donc sans hauteur elle s'effondrerait), puis points
+   et chevron en flux juste en dessous. justify-content:center du panneau
+   recentre l'ensemble [contenu + points + chevron] d'un bloc.
+   Le prefixe #screens (specificite ID) prime sur .scroll-btn--flow pose
+   par le JS de collision : la position reste stable dans les deux modes. */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+  #screens .sticky-slide { padding: 24px 0; }
+  /* Hauteur de la zone : le telephone change de regime a 820px
+     (min(42vw,180px) en dessous, clamp(220px,28vw,280px) au-dessus),
+     d'ou deux paliers. Trop court = contenu rogne par overflow:hidden ;
+     trop haut = le vide qu'on cherche justement a supprimer. */
+  #screens .sticky-slides-area { flex: 0 0 auto; height: 700px; }
+  #screens .sticky-dots {
+    position: static;
+    transform: none;
+    justify-content: center;
+    margin: 24px auto 0;
+  }
+  #screens .sticky-scroll {
+    position: static;
+    top: auto;
+    bottom: auto;
+    margin: 10px auto 0;
+    animation: heroBounceInline 1.5s ease-in-out infinite;
+  }
+}
+/* Palier haut : au-dela de 820px le telephone suit clamp(220,28vw,280),
+   soit une hauteur de clamp(440,56vw,560). 275px couvre le header (146
+   a 821px -> 169 a 1024px, le h2 grossissant en 4vw), le gap de 48 et
+   les paddings de 48. */
+@media (min-width: 821px) and (max-width: 1024px) and (orientation: portrait) {
+  #screens .sticky-slides-area { height: calc(275px + clamp(440px, 56vw, 560px)); }
+}
+
 /* ── MOBILE LANDSCAPE : section "Le problème" réduite de 20% ──
    max-width:932px couvre tous les phones en landscape (iPhone SE=667px,
    iPhone 14=844px, iPhone 14 Pro Max=932px) et exclut les iPad (≥1024px).
