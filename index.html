@@ -883,6 +883,17 @@ section { padding: 120px 24px; position: relative; }
   margin-bottom: 48px;
 }
 .features-header > * { max-width: 760px; margin-left: auto; margin-right: auto; }
+/* Étiquette "La solution" seule, HORS du sticky-outer (cf. HTML) : replique
+   le centrage que lui donnait .features-header (text-align + padding), pour
+   un rendu identique a avant malgre le changement de parent. */
+.features-label-outside {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 16px 24px 0;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+}
 .features-header h2 { margin-bottom: 16px; }
 /* :not(.section-label) sinon cette regle ecrase la couleur green
    et la taille clamp(16px, 2vw, 24px) du label "La solution"
@@ -2636,6 +2647,10 @@ footer {
      de !important ici aussi (meme specificite, regle ulterieure gagne). */
   .features-header { text-align: left; position: static; }
   .features-header > * { margin-left: 0; }
+  /* Étiquette sortie du header (cf. HTML) : même alignement gauche que le
+     reste des titres de section sur mobile, même padding que le header
+     compact ci-dessous (8px 16px). */
+  .features-label-outside { text-align: left; padding: 8px 16px 0; }
   /* lim-sticky-inner : supprime le padding 8% desktop (sinon ~31px s'ajoutent au 16px du header). */
   .lim-sticky-inner { padding-left: 0; padding-right: 0; }
   /* lim-header : aligné à gauche + padding identique à features-header sur mobile. */
@@ -3295,13 +3310,19 @@ footer {
 
 <!-- FEATURES -->
 <section class="section-features" id="section-features">
+  <!-- Etiquette "La solution" seule, HORS du sticky-outer : elle defile
+       normalement avant lui. Le titre h2 + sous-titre, eux, restent DANS
+       features-header ci-dessous (visibles tout le temps que le panneau est
+       fige) — seule cette petite etiquette peut sortir du cadre sur un
+       ecran court, pour liberer un peu de hauteur sans toucher au telephone
+       ni au titre lui-meme. -->
+  <p class="section-label features-label-outside reveal" data-i18n="features_label">La solution</p>
   <div class="features-sticky-outer">
     <div class="features-sticky-inner">
-      <!-- Header dans le sticky-inner : centré verticalement avec le téléphone
-           et le reste du contenu (flex-column, justify:center). Visible pendant
-           tout le parallax (360vh). -->
+      <!-- Titre + sous-titre dans le sticky-inner : centrés verticalement avec
+           le téléphone et le reste du contenu (flex-column, justify:center).
+           Visibles pendant tout le parallax (360vh). -->
       <div class="features-header">
-        <p class="section-label reveal" data-i18n="features_label">La solution</p>
         <h2 class="reveal" style="transition-delay:0.12s" data-i18n="features_title">Choisir quoi <span class="authentique-gradient-text">masquer</span>.</h2>
         <p class="reveal" style="transition-delay:0.24s" data-i18n="features_sub">Chaque fonctionnalité a été pensée pour te redonner le contrôle de ton expérience Instagram.</p>
       </div>
