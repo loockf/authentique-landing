@@ -3069,14 +3069,35 @@ footer {
 @media (min-width: 1025px) and (min-height: 981px) and (max-height: 1080px) {
   .features-sticky-inner { padding-top: clamp(0px, 0.5vh, 8px); }
   .section-features .features-header { padding-top: 4px; }
-  /* PAS de .features-sticky-phone{zoom} ici : contrairement au bloc
-     769px equivalent plus haut, le telephone ne retrecit jamais. */
+  /* Le bloc 769px equivalent plus haut pose zoom:0.8 sur cette meme
+     hauteur — et 769px n'a PAS de max-width, donc il matche aussi le
+     desktop. Sans ce reset explicite, le zoom "fuit" silencieusement :
+     mesure a 1440px, phone rendu a 207px au lieu de 259 (Le Probleme). */
+  .features-sticky-phone { zoom: 1; }
 }
 @media (min-width: 1025px) and (max-height: 980px) {
   .features-sticky-inner { padding-top: clamp(0px, 0.5vh, 8px); }
   .features-header { margin-bottom: clamp(0px, 1vh, 20px); }
   .section-features .features-header { padding-top: 4px; }
-  /* PAS de .features-sticky-phone{zoom} ici non plus. */
+  /* Meme fuite que ci-dessus, meme reset necessaire. */
+  .features-sticky-phone { zoom: 1; }
+}
+@media (min-width: 1025px) and (max-height: 820px) {
+  .features-sticky-phone { zoom: 1; }
+  /* Le telephone plein format (non zoome) a bien plus de hauteur a caser
+     ici que sur les paliers au-dessus : le confort du "20px vers les
+     dots" (bloc desktop general plus haut) cede la place au fit. */
+  .section-features .control-continuation { margin-top: 4px; }
+  .features-sticky-inner .sticky-scroll { margin-bottom: 4px; }
+}
+@media (min-width: 1025px) and (max-height: 720px) {
+  .features-sticky-phone { zoom: 1; }
+}
+@media (min-width: 1025px) and (max-height: 620px) {
+  .features-sticky-phone { zoom: 1; }
+}
+@media (min-width: 1025px) and (max-height: 520px) {
+  .features-sticky-phone { zoom: 1; }
 }
 
 /* ── MOBILE LANDSCAPE : section "Le problème" réduite de 20% ──
