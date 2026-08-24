@@ -3564,12 +3564,31 @@ footer {
             </div>
             <p data-i18n="f6_desc">Empêche de passer au contenu suivant lors de l'ouverture d'un Post/Reels.</p>
           </div>
+          <!-- Step 6 : epilogue "Et ce n'est que le debut", devenu une etape
+               comme les autres au lieu d'un bloc separe sous le telephone —
+               elle ne consomme donc plus AUCUNE hauteur propre au panneau
+               (meme boite fixe de 90px/440-560px que les 6 toggles). Pas de
+               data-toggle : aucun switch a activer pour cette etape. Le
+               data-align-to (cf. JS alignStepsToToggles) la positionne quand
+               meme a la hauteur du dernier toggle (Doom-scrolling) sur
+               desktop, pour un enchainement naturel plutot qu'un saut en
+               haut du panneau. Textes repris tels quels (suggest_title/
+               suggest_sub), memes traductions dans les 6 langues. -->
+          <div class="features-step" data-step="6" data-align-to="settings_label_scroll">
+            <div class="features-step-head">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 22h14M5 2h14M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/>
+              </svg>
+              <h3 data-i18n="suggest_title">Et ce n'est que le <em>début</em>.</h3>
+            </div>
+            <p data-i18n="suggest_sub">De nouvelles fonctionnalités sont en cours de développement.</p>
+          </div>
         </div>
       </div>
       </div><!-- /.features-content-block -->
-      <!-- Dots : 1 par step (6). Reutilise .sticky-dots de "L'app en
-           images" (position:absolute bottom:100px). is-active toggle
-           via l'IIFE features ci-dessous, en miroir du step actif. -->
+      <!-- Dots : 1 par step (7, dont l'epilogue). Reutilise .sticky-dots de
+           "L'app en images" (position:absolute bottom:100px). is-active
+           toggle via l'IIFE features ci-dessous, en miroir du step actif. -->
       <div class="sticky-dots" aria-hidden="true">
         <span class="sticky-dot" data-dot="0"></span>
         <span class="sticky-dot" data-dot="1"></span>
@@ -3577,13 +3596,7 @@ footer {
         <span class="sticky-dot" data-dot="3"></span>
         <span class="sticky-dot" data-dot="4"></span>
         <span class="sticky-dot" data-dot="5"></span>
-      </div>
-      <!-- Continuation : position:absolute dans sticky-inner (cf. CSS mobile).
-           Sur desktop : hors du flux flex-row (position:absolute bottom:160px
-           ajoute via regle globale si necessaire — sinon flux normal). -->
-      <div class="control-continuation reveal">
-        <h3 data-i18n="suggest_title">Et ce n'est que le <em>début</em>.</h3>
-        <p data-i18n="suggest_sub">De nouvelles fonctionnalités sont en cours de développement.</p>
+        <span class="sticky-dot" data-dot="6"></span>
       </div>
       <!-- Bouton scroll : position:absolute bottom:32px sur desktop (regle
            globale .sticky-scroll), bottom:66px sur mobile (override ci-dessus).
@@ -5592,7 +5605,12 @@ function pickDifferent(arr, lastIdx) {
     if (!stepsContainer) return;
     var stepsRect = stepsContainer.getBoundingClientRect();
     steps.forEach(function (s) {
-      var key = s.getAttribute('data-toggle');
+      // data-align-to : position UNIQUEMENT (pas de switch a activer),
+      // pour l'etape epilogue qui n'a pas de data-toggle propre. La
+      // reutiliser comme data-toggle casserait le switch du dernier
+      // toggle reel (les deux ecriraient sur le meme switch dans update(),
+      // la derniere gagnant — cf. commentaire HTML de l'etape 6).
+      var key = s.getAttribute('data-toggle') || s.getAttribute('data-align-to');
       if (!key) return;
       var label = phone.querySelector('[data-i18n="' + key + '"]');
       if (!label) return;
