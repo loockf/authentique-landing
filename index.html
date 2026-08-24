@@ -2009,8 +2009,11 @@ section { padding: 120px 24px; position: relative; }
 .lim-safari-col {
   flex: 1;
   min-width: 0;
-  /* Hauteur = téléphone : 2×clamp(220px,28vw,280px) + 12px (padding 6px×2) */
-  height: calc(clamp(220px, 28vw, 280px) * 2 + 12px);
+  /* Hauteur = telephone : .iphone est en box-sizing:border-box avec
+     aspect-ratio 1/2, donc sa hauteur vaut exactement 2×largeur, padding
+     de 6px inclus. Le "+12px" d'avant (cense compenser ce padding) le
+     comptait donc en double et faisait depasser le tableau par le bas. */
+  height: calc(clamp(220px, 28vw, 280px) * 2);
   overflow: hidden;
   border-radius: 12px;
   /* Fond blanc = les coins transparents du .lim-safari (border-radius)
