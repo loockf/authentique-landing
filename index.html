@@ -3568,13 +3568,15 @@ footer {
                comme les autres au lieu d'un bloc separe sous le telephone —
                elle ne consomme donc plus AUCUNE hauteur propre au panneau
                (meme boite fixe de 90px/440-560px que les 6 toggles). Pas de
-               data-toggle : aucun switch a activer pour cette etape. Le
-               data-align-to (cf. JS alignStepsToToggles) la positionne quand
-               meme a la hauteur du dernier toggle (Doom-scrolling) sur
-               desktop, pour un enchainement naturel plutot qu'un saut en
-               haut du panneau. Textes repris tels quels (suggest_title/
+               data-toggle : aucun switch a activer pour cette etape.
+               data-align-to="center" (cf. JS alignStepsToToggles) la centre
+               sur la hauteur du telephone, desktop ET tablette (la fonction
+               ne distingue les deux qu'a partir de 768px de large). Sur
+               mobile (<=768px), alignStepsToToggles ne s'applique pas du
+               tout : l'etape reste sous le telephone, comportement mobile
+               par defaut, inchange. Textes repris tels quels (suggest_title/
                suggest_sub), memes traductions dans les 6 langues. -->
-          <div class="features-step" data-step="6" data-align-to="settings_label_scroll">
+          <div class="features-step" data-step="6" data-align-to="center">
             <div class="features-step-head">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#authGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M5 22h14M5 2h14M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/>
@@ -5605,12 +5607,20 @@ function pickDifferent(arr, lastIdx) {
     if (!stepsContainer) return;
     var stepsRect = stepsContainer.getBoundingClientRect();
     steps.forEach(function (s) {
-      // data-align-to : position UNIQUEMENT (pas de switch a activer),
-      // pour l'etape epilogue qui n'a pas de data-toggle propre. La
-      // reutiliser comme data-toggle casserait le switch du dernier
-      // toggle reel (les deux ecriraient sur le meme switch dans update(),
-      // la derniere gagnant — cf. commentaire HTML de l'etape 6).
-      var key = s.getAttribute('data-toggle') || s.getAttribute('data-align-to');
+      // data-align-to="center" : centre le step sur la hauteur du
+      // conteneur (donc sur le telephone, cf. .features-sticky-group
+      // align-items:center) au lieu de s'aligner sur un toggle. Sert a
+      // l'etape epilogue, qui n'a pas de data-toggle propre — la lui
+      // donner casserait le switch du dernier toggle reel (les deux
+      // ecriraient sur le meme switch dans update(), cf. commentaire
+      // HTML de l'etape 6).
+      if (s.getAttribute('data-align-to') === 'center') {
+        var headC = s.querySelector('.features-step-head');
+        var headHeightC = headC ? headC.offsetHeight : 24;
+        s.style.top = (stepsRect.height / 2 - headHeightC / 2) + 'px';
+        return;
+      }
+      var key = s.getAttribute('data-toggle');
       if (!key) return;
       var label = phone.querySelector('[data-i18n="' + key + '"]');
       if (!label) return;
