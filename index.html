@@ -413,6 +413,32 @@ nav {
   transition: filter 0.2s, transform 0.2s;
 }
 .btn-primary:hover { filter: brightness(0.94); transform: translateY(-1px); }
+
+/* Etat desactive des CTA Kickstarter, le temps que la campagne ouvre.
+   Le degrade de marque cede la place a un gris neutre : le bouton reste
+   lisible et reconnaissable, mais n'appelle plus le clic. pointer-events
+   coupe le survol et le tap, y compris au clavier via tabindex="-1" pose
+   sur les liens. */
+.cta-soon-btn {
+  background: #d8d8d6 !important;
+  color: #8a8a86 !important;
+  pointer-events: none;
+  cursor: default;
+  box-shadow: none !important;
+}
+.cta-soon-btn svg { opacity: 0.55; }
+/* Message sous le bouton. Meme registre que .hero-tagline pour ne pas
+   introduire un troisieme style de note. */
+.cta-soon-note {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #8a8a86;
+  text-align: center;
+  /* .hero-actions est un flex row wrap : sans cette base a 100%, la note
+     se rangeait A COTE du bouton au lieu de passer dessous. Sans effet
+     dans .cta-action, qui est un simple block. */
+  flex-basis: 100%;
+}
 .hero-tagline {
   margin-top: 8px;
   font-size: 13px;
@@ -3095,7 +3121,7 @@ footer {
         <button class="lang-btn" data-lang="ru" onclick="setLang('ru')">Русский</button>
       </div>
     </div>
-    <a href="#" class="nav-cta">
+    <a href="#" class="nav-cta cta-soon-btn" tabindex="-1" aria-disabled="true">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M5 4h3.5v6.5L13 4h4.2l-5.4 8 5.7 8h-4.4L8.5 13.4V20H5z"/>
       </svg>
@@ -3155,7 +3181,7 @@ footer {
     </div>
   </div>
   <div class="hero-actions reveal" style="transition-delay:0.38s">
-    <a href="#" class="btn-primary">
+    <a href="#" class="btn-primary cta-soon-btn" tabindex="-1" aria-disabled="true">
       <!-- Mini K Kickstarter (stylise simple) — sortir du data-i18n
            pour que setLang() ne wipe pas les SVG en remplacant
            l'innerHTML. -->
@@ -3167,6 +3193,7 @@ footer {
         <path d="M5 12h14M12 5l7 7-7 7"/>
       </svg>
     </a>
+    <p class="cta-soon-note" data-i18n="cta_soon">La campagne est presque prête.</p>
   </div>
   <p class="hero-tagline reveal" style="transition-delay:0.5s" data-i18n="hero_tagline">
     Sois parmi les premiers à découvrir Authentique.
@@ -3855,7 +3882,7 @@ footer {
       </div>
     </div>
     <div class="cta-action reveal">
-      <a href="#" class="btn-primary">
+      <a href="#" class="btn-primary cta-soon-btn" tabindex="-1" aria-disabled="true">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M5 4h3.5v6.5L13 4h4.2l-5.4 8 5.7 8h-4.4L8.5 13.4V20H5z"/>
         </svg>
@@ -3864,6 +3891,7 @@ footer {
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
       </a>
+      <p class="cta-soon-note" data-i18n="cta_soon">La campagne est presque prête.</p>
     </div>
     <p class="cta-prompt reveal" data-i18n="cta_prompt">Tu as une idée, une question ou une suggestion ? On veut l'entendre.</p>
     <form class="suggest-form reveal" id="suggestForm" onsubmit="return submitSuggestion(event)">
@@ -3952,6 +3980,7 @@ const translations = {
     hero_sub: '',
     hero_cta: "Soutenir sur Kickstarter",
     hero_tagline: "Sois parmi les premiers à découvrir Authentique.",
+    cta_soon: "La campagne est presque prête.",
     problem_label: "Le problème",
     problem_title: 'Instagram décide<span class="problem-title-break"></span>ce&nbsp;que&nbsp;tu&nbsp;<span class="problem-gradient-text">vois</span>.',
     problem_p2: "Ce n'est pas un manque de volonté. Instagram est conçu pour être addictif - ton attention est leur produit.",
@@ -4093,6 +4122,7 @@ const translations = {
     hero_sub: '',
     hero_cta: "Back on Kickstarter",
     hero_tagline: "Be among the first to discover Authentique.",
+    cta_soon: "The campaign is almost ready.",
     problem_label: "The problem",
     problem_title: 'Instagram decides <span class="problem-title-break"></span>what&nbsp;you&nbsp;<span class="problem-gradient-text">see</span>.',
     problem_p2: "It's not a lack of willpower. Instagram is designed to be addictive - your attention is their product.",
@@ -4234,6 +4264,7 @@ const translations = {
     hero_sub: '',
     hero_cta: "Apoyar en Kickstarter",
     hero_tagline: "Sé de los primeros en descubrir Authentique.",
+    cta_soon: "La campaña está casi lista.",
     problem_label: "El problema",
     problem_title: 'Instagram decide <span class="problem-title-break"></span>lo&nbsp;que&nbsp;<span class="problem-gradient-text">ves</span>.',
     problem_p2: "No es falta de voluntad. Instagram está diseñado para ser adictivo - tu atención es su producto.",
@@ -4375,6 +4406,7 @@ const translations = {
     hero_sub: '',
     hero_cta: "Sostieni su Kickstarter",
     hero_tagline: "Sii tra i primi a scoprire Authentique.",
+    cta_soon: "La campagna è quasi pronta.",
     problem_label: "Il problema",
     problem_title: 'Instagram decide <span class="problem-title-break"></span>cosa&nbsp;<span class="problem-gradient-text">vedi</span>.',
     problem_p2: "Non è una mancanza di volontà. Instagram è progettato per creare dipendenza - la tua attenzione è il loro prodotto.",
@@ -4516,6 +4548,7 @@ const translations = {
     hero_sub: '',
     hero_cta: "Apoiar no Kickstarter",
     hero_tagline: "Sê dos primeiros a descobrir Authentique.",
+    cta_soon: "A campanha está quase pronta.",
     problem_label: "O problema",
     problem_title: 'O Instagram decide <span class="problem-title-break"></span>o&nbsp;que&nbsp;<span class="problem-gradient-text">vês</span>.',
     problem_p2: "Não é falta de vontade. O Instagram foi concebido para ser viciante - a tua atenção é o produto deles.",
@@ -4657,6 +4690,7 @@ const translations = {
     hero_sub: '',
     hero_cta: "Поддержать на Kickstarter",
     hero_tagline: "Будь среди первых, кто откроет Authentique.",
+    cta_soon: "Кампания почти готова.",
     problem_label: "Проблема",
     problem_title: 'Instagram решает, <span class="problem-title-break"></span>что&nbsp;ты&nbsp;<span class="problem-gradient-text">видишь</span>.',
     problem_p2: "Это не недостаток воли. Instagram создан, чтобы вызывать зависимость - твоё внимание - их продукт.",
