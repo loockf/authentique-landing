@@ -4072,6 +4072,7 @@ html.authentique-mesure .reveal { transform: none !important; }
                   <li class="lim-item" data-lim="4"><span class="lim-cross" aria-hidden="true">✕</span><span data-i18n="limits_item5">Lancer un Live</span></li>
                   <li class="lim-item" data-lim="5"><span class="lim-cross" aria-hidden="true">✕</span><span data-i18n="limits_item6">Appels vidéo / audio</span></li>
                   <li class="lim-item" data-lim="6"><span class="lim-cross" aria-hidden="true">✕</span><span data-i18n="limits_item7">Les Instantanées dans les DM</span></li>
+                  <li class="lim-item" data-lim="9"><span class="lim-cross" aria-hidden="true">✕</span><span data-i18n="limits_item10">Les notifications sur ton téléphone</span></li>
                 </ul>
               </div>
             </div>
@@ -4192,6 +4193,10 @@ html.authentique-mesure .reveal { transform: none !important; }
         <p data-i18n="faq_a7">Authentique fonctionne via la version web d'Instagram. L'expérience est <b>similaire à celle d'instagram.com</b> dans un navigateur.<br><br>Ce que la version web ne permet pas :<br>• publier une vidéo<br>• envoyer une vidéo en DM<br>• partager un post/reel dans une story<br>• poster une vidéo dans une story<br>• pas de Stickers / GIF / Musique / ... dans une story<br>• filtres dans une story<br>• lancer un Live<br>• appels vidéo / audio<br>• les Instantanées dans les DM</p>
       </details>
       <details class="faq-item reveal">
+        <summary data-i18n="faq_q9">Est-ce que je reçois des notifications ?</summary>
+        <p data-i18n="faq_a9"><b>Non</b>, et c'est volontaire. Authentique n'envoie aucune notification sur ton téléphone : rien ne tourne en arrière-plan, et l'app ne se connecte jamais à ton compte pour aller voir si quelque chose est arrivé.<br><br>En revanche, <b>les compteurs d'Instagram sont là quand tu ouvres l'app</b> : messages non lus, likes, demandes. Tu vois ce qui t'attend au moment où tu décides de regarder — pas l'inverse.<br><br>Si tu tiens aux notifications immédiates, garde l'application Instagram installée à côté. Authentique est l'endroit où tu lis, pas celui qui te rappelle.</p>
+      </details>
+      <details class="faq-item reveal">
         <summary data-i18n="faq_q8">Authentique peut-il m'aider à moins dépendre d'Instagram ?</summary>
         <p data-i18n="faq_a8"><b>Oui</b>. En supprimant le contenu conçu pour te garder - publicités, suggestions algorithmiques, scroll infini - Authentique <b>réduit les mécanismes d'addiction</b> intégrés par Meta. <b>Tu restes maître</b> de ce que tu consommes et du temps que tu y passes.</p>
       </details>
@@ -4254,6 +4259,9 @@ const translations = {
     limits_item7: "Les Instantanées dans les DM",
     limits_item8: "Publier une vidéo",
     limits_item9: "Envoyer une vidéo en DM",
+    limits_item10: "Les notifications sur ton téléphone",
+    faq_q9: "Est-ce que je reçois des notifications ?",
+    faq_a9: "<b>Non</b>, et c'est volontaire. Authentique n'envoie aucune notification sur ton téléphone : rien ne tourne en arrière-plan, et l'app ne se connecte jamais à ton compte pour aller voir si quelque chose est arrivé.<br><br>En revanche, <b>les compteurs d'Instagram sont là quand tu ouvres l'app</b> : messages non lus, likes, demandes. Tu vois ce qui t'attend au moment où tu décides de regarder — pas l'inverse.<br><br>Si tu tiens aux notifications immédiates, garde l'application Instagram installée à côté. Authentique est l'endroit où tu lis, pas celui qui te rappelle.",
     platforms_caption: "Bientôt disponible sur :",
     features_label: "La solution",
     features_title: 'Choisir quoi <span class="authentique-gradient-text">masquer</span>.',
@@ -4331,7 +4339,7 @@ const translations = {
     faq_q6: "Est-ce que ça respecte les conditions d'utilisation d'Instagram ?",
     faq_a6: "Authentique fonctionne comme un <b>navigateur web</b> (comme Safari ou Chrome). <b>Nous n'accédons pas à l'API privée d'Instagram</b> ni ne modifions l'application. Notre approche est similaire à celle d'autres navigateurs spécialisés disponibles sur l'App Store.",
     faq_q7: "L'expérience est-elle identique à l'app Instagram ?",
-    faq_a7: "Authentique fonctionne via la version web d'Instagram. L'expérience est <b>similaire à celle d'instagram.com</b> dans un navigateur.<br><br>Ce que la version web ne permet pas :<br>• publier une vidéo<br>• envoyer une vidéo en DM<br>• partager un post/reel dans une story<br>• poster une vidéo dans une story<br>• pas de Stickers / GIF / Musique / ... dans une story<br>• filtres dans une story<br>• lancer un Live<br>• appels vidéo / audio<br>• les Instantanées dans les DM",
+    faq_a7: "Authentique fonctionne via la version web d'Instagram. L'expérience est <b>similaire à celle d'instagram.com</b> dans un navigateur.<br><br>Ce que la version web ne permet pas :<br>• publier une vidéo<br>• envoyer une vidéo en DM<br>• partager un post/reel dans une story<br>• poster une vidéo dans une story<br>• pas de Stickers / GIF / Musique / ... dans une story<br>• filtres dans une story<br>• lancer un Live<br>• appels vidéo / audio<br>• les Instantanées dans les DM<br>• les notifications sur ton téléphone",
     faq_q8: "Authentique peut-il m'aider à moins dépendre d'Instagram ?",
     faq_a8: "<b>Oui</b>. En supprimant le contenu conçu pour te garder - publicités, suggestions algorithmiques, scroll infini - Authentique <b>réduit les mécanismes d'addiction</b> intégrés par Meta. <b>Tu restes maître</b> de ce que tu consommes et du temps que tu y passes.",
     suggest_title: "Et ce n'est que le <em>début</em>.",
@@ -4398,6 +4406,9 @@ const translations = {
     limits_item7: "Vanish Mode in DMs",
     limits_item8: "Post a video",
     limits_item9: "Send a video in DMs",
+    limits_item10: "Notifications on your phone",
+    faq_q9: "Do I get notifications?",
+    faq_a9: "<b>No</b>, and that is deliberate. Authentique sends no notification to your phone: nothing runs in the background, and the app never connects to your account to check whether something arrived.<br><br>What you do get: <b>Instagram's own counters are there when you open the app</b> — unread messages, likes, requests. You see what is waiting at the moment you choose to look, not the other way round.<br><br>If you want instant notifications, keep the Instagram app installed alongside. Authentique is where you read, not what reminds you.",
     platforms_caption: "Coming soon on:",
     features_label: "The solution",
     features_title: 'Choose what to <span class="authentique-gradient-text">hide</span>.',
@@ -4475,7 +4486,7 @@ const translations = {
     faq_q6: "Does it respect Instagram's terms of service?",
     faq_a6: "Authentique works like a <b>web browser</b> (like Safari or Chrome). <b>We don't access Instagram's private API</b> nor modify the application. Our approach is similar to that of other specialized browsers available on the App Store.",
     faq_q7: "Is the experience identical to the Instagram app?",
-    faq_a7: "Authentique works via Instagram's web version. The experience is <b>similar to instagram.com</b> in a browser.<br><br>What the web version cannot do:<br>• post a video<br>• send a video in DMs<br>• share a post/reel in a story<br>• post a video in a story<br>• no Stickers / GIFs / Music / ... in a story<br>• filters in a story<br>• start a Live<br>• video / audio calls<br>• vanish Mode in DMs",
+    faq_a7: "Authentique works via Instagram's web version. The experience is <b>similar to instagram.com</b> in a browser.<br><br>What the web version cannot do:<br>• post a video<br>• send a video in DMs<br>• share a post/reel in a story<br>• post a video in a story<br>• no Stickers / GIFs / Music / ... in a story<br>• filters in a story<br>• start a Live<br>• video / audio calls<br>• vanish Mode in DMs<br>• notifications on your phone",
     faq_q8: "Can Authentique help me depend less on Instagram?",
     faq_a8: "<b>Yes</b>. By removing the content designed to keep you hooked - ads, algorithmic suggestions, infinite scroll - Authentique <b>reduces the addiction mechanisms</b> built in by Meta. <b>You stay in control</b> of what you consume and the time you spend on it.",
     suggest_title: "And this is just the <em>beginning</em>.",
@@ -4542,6 +4553,9 @@ const translations = {
     limits_item7: "Mensajes que desaparecen en los DM",
     limits_item8: "Publicar un vídeo",
     limits_item9: "Enviar un vídeo por DM",
+    limits_item10: "Las notificaciones en tu teléfono",
+    faq_q9: "¿Recibo notificaciones?",
+    faq_a9: "<b>No</b>, y es a propósito. Authentique no envía ninguna notificación a tu teléfono: nada funciona en segundo plano, y la app nunca se conecta a tu cuenta para comprobar si ha llegado algo.<br><br>En cambio, <b>los contadores de Instagram están ahí cuando abres la app</b>: mensajes sin leer, likes, solicitudes. Ves lo que te espera en el momento en que decides mirar, no al revés.<br><br>Si quieres notificaciones inmediatas, mantén la app de Instagram instalada al lado. Authentique es donde lees, no lo que te reclama.",
     platforms_caption: "Próximamente en:",
     features_label: "La solución",
     features_title: 'Elige qué <span class="authentique-gradient-text">ocultar</span>.',
@@ -4619,7 +4633,7 @@ const translations = {
     faq_q6: "¿Respeta las condiciones de uso de Instagram?",
     faq_a6: "Authentique funciona como un <b>navegador web</b> (como Safari o Chrome). <b>No accedemos a la API privada de Instagram</b> ni modificamos la aplicación. Nuestro enfoque es similar al de otros navegadores especializados disponibles en la App Store.",
     faq_q7: "¿La experiencia es idéntica a la app de Instagram?",
-    faq_a7: "Authentique funciona a través de la versión web de Instagram. La experiencia es <b>similar a la de instagram.com</b> en un navegador.<br><br>Lo que la versión web no permite:<br>• publicar un vídeo<br>• enviar un vídeo por DM<br>• compartir un post/reel en una story<br>• publicar un vídeo en una story<br>• sin Stickers / GIF / Música / ... en una story<br>• filtros en una story<br>• lanzar un Live<br>• videollamadas / llamadas de audio<br>• mensajes que desaparecen en los DM",
+    faq_a7: "Authentique funciona a través de la versión web de Instagram. La experiencia es <b>similar a la de instagram.com</b> en un navegador.<br><br>Lo que la versión web no permite:<br>• publicar un vídeo<br>• enviar un vídeo por DM<br>• compartir un post/reel en una story<br>• publicar un vídeo en una story<br>• sin Stickers / GIF / Música / ... en una story<br>• filtros en una story<br>• lanzar un Live<br>• videollamadas / llamadas de audio<br>• mensajes que desaparecen en los DM<br>• las notificaciones en tu teléfono",
     faq_q8: "¿Puede Authentique ayudarme a depender menos de Instagram?",
     faq_a8: "<b>Sí</b>. Al eliminar el contenido diseñado para mantenerte enganchado - anuncios, sugerencias algorítmicas, scroll infinito - Authentique <b>reduce los mecanismos de adicción</b> incorporados por Meta. <b>Sigues siendo dueño</b> de lo que consumes y del tiempo que dedicas.",
     suggest_title: "Y esto es solo el <em>comienzo</em>.",
@@ -4686,6 +4700,9 @@ const translations = {
     limits_item7: "Messaggi che scompaiono nelle DM",
     limits_item8: "Pubblicare un video",
     limits_item9: "Inviare un video nei DM",
+    limits_item10: "Le notifiche sul telefono",
+    faq_q9: "Ricevo notifiche?",
+    faq_a9: "<b>No</b>, ed è voluto. Authentique non manda alcuna notifica sul tuo telefono: niente gira in background, e l'app non si collega mai al tuo account per andare a vedere se è arrivato qualcosa.<br><br>In compenso, <b>i contatori di Instagram ci sono quando apri l'app</b>: messaggi non letti, like, richieste. Vedi ciò che ti aspetta nel momento in cui decidi di guardare, non il contrario.<br><br>Se tieni alle notifiche immediate, tieni installata anche l'app di Instagram. Authentique è il posto dove leggi, non quello che ti richiama.",
     platforms_caption: "Presto disponibile su:",
     features_label: "La soluzione",
     features_title: 'Scegli cosa <span class="authentique-gradient-text">nascondere</span>.',
@@ -4763,7 +4780,7 @@ const translations = {
     faq_q6: "Rispetta i termini di servizio di Instagram?",
     faq_a6: "Authentique funziona come un <b>browser web</b> (come Safari o Chrome). <b>Non accediamo all'API privata di Instagram</b> né modifichiamo l'applicazione. Il nostro approccio è simile a quello di altri browser specializzati disponibili sull'App Store.",
     faq_q7: "L'esperienza è identica all'app Instagram?",
-    faq_a7: "Authentique funziona tramite la versione web di Instagram. L'esperienza è <b>simile a quella di instagram.com</b> in un browser.<br><br>Ciò che la versione web non permette:<br>• pubblicare un video<br>• inviare un video nei DM<br>• condividere un post/reel in una storia<br>• pubblicare un video in una storia<br>• nessun Sticker / GIF / Musica / ... in una storia<br>• filtri in una storia<br>• avviare un Live<br>• videochiamate / chiamate audio<br>• messaggi che scompaiono nelle DM",
+    faq_a7: "Authentique funziona tramite la versione web di Instagram. L'esperienza è <b>simile a quella di instagram.com</b> in un browser.<br><br>Ciò che la versione web non permette:<br>• pubblicare un video<br>• inviare un video nei DM<br>• condividere un post/reel in una storia<br>• pubblicare un video in una storia<br>• nessun Sticker / GIF / Musica / ... in una storia<br>• filtri in una storia<br>• avviare un Live<br>• videochiamate / chiamate audio<br>• messaggi che scompaiono nelle DM<br>• le notifiche sul telefono",
     faq_q8: "Authentique può aiutarmi a dipendere meno da Instagram?",
     faq_a8: "<b>Sì</b>. Eliminando i contenuti pensati per tenerti agganciato - pubblicità, suggerimenti algoritmici, scroll infinito - Authentique <b>riduce i meccanismi di dipendenza</b> integrati da Meta. <b>Tu resti padrone</b> di ciò che consumi e del tempo che vi dedichi.",
     suggest_title: "Ed è solo l'<em>inizio</em>.",
@@ -4830,6 +4847,9 @@ const translations = {
     limits_item7: "Modo Desaparecer nas DMs",
     limits_item8: "Publicar um vídeo",
     limits_item9: "Enviar um vídeo por DM",
+    limits_item10: "As notificações no teu telemóvel",
+    faq_q9: "Recebo notificações?",
+    faq_a9: "<b>Não</b>, e é de propósito. O Authentique não envia qualquer notificação para o teu telemóvel: nada corre em segundo plano, e a app nunca se liga à tua conta para ir ver se chegou alguma coisa.<br><br>Em contrapartida, <b>os contadores do Instagram estão lá quando abres a app</b>: mensagens por ler, gostos, pedidos. Vês o que te espera no momento em que decides olhar, não ao contrário.<br><br>Se queres notificações imediatas, mantém a app do Instagram instalada ao lado. O Authentique é onde lês, não o que te chama.",
     platforms_caption: "Em breve em:",
     features_label: "A solução",
     features_title: 'Escolhe o que <span class="authentique-gradient-text">esconder</span>.',
@@ -4907,7 +4927,7 @@ const translations = {
     faq_q6: "Respeita os termos de utilização do Instagram?",
     faq_a6: "O Authentique funciona como um <b>navegador web</b> (como o Safari ou Chrome). <b>Não acedemos à API privada do Instagram</b> nem modificamos a aplicação. A nossa abordagem é semelhante à de outros navegadores especializados disponíveis na App Store.",
     faq_q7: "A experiência é idêntica à app do Instagram?",
-    faq_a7: "O Authentique funciona através da versão web do Instagram. A experiência é <b>semelhante à do instagram.com</b> num navegador.<br><br>O que a versão web não permite:<br>• publicar um vídeo<br>• enviar um vídeo por DM<br>• partilhar um post/reel numa story<br>• publicar um vídeo numa story<br>• sem Stickers / GIFs / Música / ... numa story<br>• filtros numa story<br>• lançar um Live<br>• videochamadas / chamadas de áudio<br>• modo Desaparecer nas DMs",
+    faq_a7: "O Authentique funciona através da versão web do Instagram. A experiência é <b>semelhante à do instagram.com</b> num navegador.<br><br>O que a versão web não permite:<br>• publicar um vídeo<br>• enviar um vídeo por DM<br>• partilhar um post/reel numa story<br>• publicar um vídeo numa story<br>• sem Stickers / GIFs / Música / ... numa story<br>• filtros numa story<br>• lançar um Live<br>• videochamadas / chamadas de áudio<br>• modo Desaparecer nas DMs<br>• as notificações no teu telemóvel",
     faq_q8: "O Authentique pode ajudar-me a depender menos do Instagram?",
     faq_a8: "<b>Sim</b>. Ao remover o conteúdo concebido para te prender - anúncios, sugestões algorítmicas, scroll infinito - o Authentique <b>reduz os mecanismos de dependência</b> integrados pela Meta. <b>Permaneces dono</b> do que consomes e do tempo que dedicas.",
     suggest_title: "E isto é só o <em>começo</em>.",
@@ -4974,6 +4994,9 @@ const translations = {
     limits_item7: "Исчезающие сообщения в DM",
     limits_item8: "Опубликовать видео",
     limits_item9: "Отправить видео в DM",
+    limits_item10: "Уведомления на телефоне",
+    faq_q9: "Приходят ли уведомления?",
+    faq_a9: "<b>Нет</b>, и это сделано намеренно. Authentique не отправляет уведомлений на ваш телефон: ничего не работает в фоне, и приложение никогда не подключается к вашему аккаунту, чтобы проверить, не пришло ли что-нибудь.<br><br>Зато <b>счётчики самого Instagram на месте, когда вы открываете приложение</b>: непрочитанные сообщения, лайки, запросы. Вы видите, что вас ждёт, в тот момент, когда сами решили посмотреть, а не наоборот.<br><br>Если вам важны мгновенные уведомления, оставьте рядом приложение Instagram. Authentique — это место, где вы читаете, а не то, что вас окликает.",
     platforms_caption: "Скоро на:",
     features_label: "Решение",
     features_title: 'Выбери, что <span class="authentique-gradient-text">скрыть</span>.',
@@ -5051,7 +5074,7 @@ const translations = {
     faq_q6: "Соответствует ли это условиям использования Instagram?",
     faq_a6: "Authentique работает как <b>веб-браузер</b> (как Safari или Chrome). <b>Мы не получаем доступ к приватному API Instagram</b> и не модифицируем приложение. Наш подход аналогичен другим специализированным браузерам, доступным в App Store.",
     faq_q7: "Идентичен ли опыт приложению Instagram?",
-    faq_a7: "Authentique работает через веб-версию Instagram. Опыт <b>похож на использование instagram.com</b> в браузере.<br><br>Чего не позволяет веб-версия:<br>• опубликовать видео<br>• отправить видео в DM<br>• поделиться постом/рилсом в истории<br>• опубликовать видео в истории<br>• нет стикеров / GIF / музыки / ... в истории<br>• фильтры в истории<br>• запустить прямой эфир<br>• видеозвонки / аудиозвонки<br>• исчезающие сообщения в DM",
+    faq_a7: "Authentique работает через веб-версию Instagram. Опыт <b>похож на использование instagram.com</b> в браузере.<br><br>Чего не позволяет веб-версия:<br>• опубликовать видео<br>• отправить видео в DM<br>• поделиться постом/рилсом в истории<br>• опубликовать видео в истории<br>• нет стикеров / GIF / музыки / ... в истории<br>• фильтры в истории<br>• запустить прямой эфир<br>• видеозвонки / аудиозвонки<br>• исчезающие сообщения в DM<br>• уведомления на телефоне",
     faq_q8: "Может ли Authentique помочь мне меньше зависеть от Instagram?",
     faq_a8: "<b>Да</b>. Удаляя контент, созданный чтобы держать тебя на крючке - рекламу, алгоритмические рекомендации, бесконечную прокрутку - Authentique <b>снижает механизмы зависимости</b>, встроенные Meta. <b>Ты остаёшься хозяином</b> того, что потребляешь и сколько времени на это тратишь.",
     suggest_title: "И это только <em>начало</em>.",
@@ -5118,6 +5141,9 @@ const translations = {
     limits_item7: "Der Vanish-Modus in den DMs",
     limits_item8: "Ein Video posten",
     limits_item9: "Ein Video per DM senden",
+    limits_item10: "Benachrichtigungen auf deinem Telefon",
+    faq_q9: "Bekomme ich Benachrichtigungen?",
+    faq_a9: "<b>Nein</b>, und das ist Absicht. Authentique schickt keine Benachrichtigung auf dein Telefon: nichts läuft im Hintergrund, und die App verbindet sich nie mit deinem Konto, um nachzusehen, ob etwas angekommen ist.<br><br>Dafür sind <b>die Zähler von Instagram da, wenn du die App öffnest</b>: ungelesene Nachrichten, Likes, Anfragen. Du siehst, was wartet, in dem Moment, in dem du hinschauen willst — nicht umgekehrt.<br><br>Wenn dir sofortige Benachrichtigungen wichtig sind, behalte die Instagram-App daneben. Authentique ist der Ort, an dem du liest, nicht das, was dich ruft.",
     platforms_caption: "Demnächst auf:",
     features_label: "Die Lösung",
     features_title: 'Wähle, was <span class="authentique-gradient-text">verschwindet</span>.',
@@ -5195,7 +5221,7 @@ const translations = {
     faq_q6: "Verstößt das gegen die Nutzungsbedingungen von Instagram?",
     faq_a6: "Authentique arbeitet wie ein <b>Web-Browser</b> (wie Safari oder Chrome). <b>Wir greifen nicht auf die private API von Instagram zu</b> und verändern die Anwendung nicht. Unser Ansatz gleicht dem anderer spezialisierter Browser im App Store.",
     faq_q7: "Ist das Erlebnis identisch mit der Instagram-App?",
-    faq_a7: "Authentique funktioniert über die Web-Version von Instagram. Das Erlebnis ist <b>dem von instagram.com</b> in einem Browser ähnlich.<br><br>Das kann die Web-Version nicht:<br>• ein Video posten<br>• ein Video per DM senden<br>• einen Beitrag/Reel in einer Story teilen<br>• ein Video in einer Story posten<br>• keine Sticker / GIFs / Musik / ... in einer Story<br>• Filter in einer Story<br>• einen Live starten<br>• Video- / Audioanrufe<br>• der Vanish-Modus in den DMs",
+    faq_a7: "Authentique funktioniert über die Web-Version von Instagram. Das Erlebnis ist <b>dem von instagram.com</b> in einem Browser ähnlich.<br><br>Das kann die Web-Version nicht:<br>• ein Video posten<br>• ein Video per DM senden<br>• einen Beitrag/Reel in einer Story teilen<br>• ein Video in einer Story posten<br>• keine Sticker / GIFs / Musik / ... in einer Story<br>• Filter in einer Story<br>• einen Live starten<br>• Video- / Audioanrufe<br>• der Vanish-Modus in den DMs<br>• Benachrichtigungen auf deinem Telefon",
     faq_q8: "Kann Authentique mir helfen, weniger von Instagram abzuhängen?",
     faq_a8: "<b>Ja</b>. Indem die Inhalte verschwinden, die dich halten sollen - Werbung, algorithmische Vorschläge, endloses Scrollen -, <b>schwächt Authentique die Suchtmechanismen</b>, die Meta eingebaut hat. <b>Du behältst die Kontrolle</b> darüber, was du konsumierst und wie viel Zeit du dafür aufwendest.",
     suggest_title: "Und das ist erst der <em>Anfang</em>.",
