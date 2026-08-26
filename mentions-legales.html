@@ -321,6 +321,11 @@ footer {
 .footer-link { font-size: 12px; color: var(--text-mute); white-space: nowrap; flex-shrink: 0; }
 .footer-link:hover { color: var(--green); }
 .footer-copy { font-size: 11px; color: var(--text-mute); flex-shrink: 0; white-space: nowrap; }
+/* Compensation propre a cette page : elle donne `margin-bottom: 14px`
+   a tous les paragraphes, ce que l accueil ne fait pas. Le copyright
+   etant un <p> dans un pied de page centre verticalement, cette marge
+   basse le remontait de 7px au-dessus des autres liens. */
+.footer-copy { margin: 0; }
 @media (max-width: 820px) {
   nav { padding: 14px 20px; }
   .nav-right { gap: 12px; }
