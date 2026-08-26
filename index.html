@@ -2384,6 +2384,13 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   .reveal { transform: none; }
 }
+/* Pose une fraction de seconde par place() (cf. JS) pendant qu il mesure.
+   Sans elle, il mesure le contenu ENCORE DECALE de 40px par l animation
+   d entree, conclut a une collision qui n existera pas, et rebascule le
+   bouton une fois l animation finie — d ou le saut du contenu a
+   l ouverture. Aucun repaint entre la pose et le retrait : lire une
+   position force un calcul de mise en page, pas un affichage. */
+html.authentique-mesure .reveal { transform: none !important; }
 /* Re-entrée "L'app en images" par le bas : cascade inversée
    (téléphones d'abord, titre en dernier). Classe ajoutée par JS. */
 @keyframes screen-enter-up {
@@ -6183,12 +6190,18 @@ function pickDifferent(arr, lastIdx) {
     // restitue si l'ecretage l'a bougee (jamais pendant un scroll actif : place()
     // est debounce, il ne tourne qu'une fois le scroll arrete).
     var savedY = window.scrollY;
+    // On mesure la mise en page FINALE, pas celle de l instant : les
+    // elements en cours d apparition sont encore 40px plus bas que leur
+    // place definitive.
+    var racine = document.documentElement;
+    racine.classList.add('authentique-mesure');
     btns.forEach(function (btn) {
       var sec = btn.closest('section');
       if (!sec) return;
       btn.classList.remove('scroll-btn--flow');   // re-mesure en mode absolu
       if (overlapsContent(btn, sec)) btn.classList.add('scroll-btn--flow');
     });
+    racine.classList.remove('authentique-mesure');
     if (window.scrollY !== savedY) {
       // 'instant' : html a scroll-behavior:smooth, un scrollTo nu s'animerait.
       window.scrollTo({ top: savedY, behavior: 'instant' });
