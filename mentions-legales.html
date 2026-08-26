@@ -64,6 +64,8 @@ main {
   max-width: 760px;
   margin: 0 auto;
   padding: 60px 24px 100px;
+  display: flex;
+  flex-direction: column;
 }
 h1 {
   font-size: clamp(32px, 5vw, 48px);
@@ -130,22 +132,56 @@ footer a { margin: 0 12px; }
   pointer-events: none; cursor: default; box-shadow: none !important;
 }
 .cta-soon-btn svg { opacity: 0.55; }
-/* Lien maison : en tete a gauche, et repris en pied de page. */
-.nav-home {
-  display: inline-flex; align-items: center; gap: 7px;
-  color: var(--text-soft); text-decoration: none;
+/* Fil d Ariane, au-dessus du titre — la maison a quitte la barre pour
+   venir ici, comme sur la reference fournie. */
+.fil-ariane {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 28px;
   font: 500 14px/1 -apple-system, sans-serif;
-  transition: color 0.15s;
 }
-.nav-home, .foot-home, .nav-logo, .nav-cta { text-decoration: none; }
-.nav-home:hover { color: var(--green); }
-.foot-home:hover { text-decoration: underline; }
-.nav-home svg { width: 16px; height: 16px; }
-.foot-home {
+.fil-ariane a {
   display: inline-flex; align-items: center; gap: 7px;
   color: var(--green); text-decoration: none;
 }
-.foot-home svg { width: 16px; height: 16px; }
+.fil-ariane a:hover { text-decoration: underline; }
+.fil-ariane svg { width: 16px; height: 16px; }
+.fil-sep { color: var(--text-mute); }
+.fil-ici { color: var(--text-mute); }
+
+/* Retour a l accueil, isole entre la derniere section et le pied de page. */
+.retour-accueil {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin: 72px auto 0;
+  color: var(--green); text-decoration: none;
+  font: 500 16px/1 -apple-system, sans-serif;
+}
+.retour-accueil:hover { text-decoration: underline; }
+.retour-accueil svg { width: 18px; height: 18px; }
+
+/* Pied de page — repris a l identique de index.html. */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 20px 16px;
+  display: flex; align-items: center; justify-content: space-evenly;
+  flex-wrap: nowrap; max-width: 1100px; margin: 0 auto;
+}
+.footer-logo {
+  display: flex; align-items: center; gap: 8px;
+  flex-shrink: 0; text-decoration: none;
+}
+.footer-logo .arch-icon { width: 22px; height: 22px; }
+.footer-name { font-size: 14px; color: var(--green); }
+.footer-link {
+  font-size: 12px; color: var(--text-mute);
+  white-space: nowrap; flex-shrink: 0; text-decoration: none;
+}
+.footer-link:hover { color: var(--green); }
+.footer-copy { font-size: 11px; color: var(--text-mute); flex-shrink: 0; white-space: nowrap; }
+@media (max-width: 767px) {
+  .footer-name { display: none; }
+  .footer-link { font-size: 10px; }
+  .footer-copy { font-size: 10px; }
+}
 
 /* Selecteur de langue — copie de index.html pour que les deux pages
    se comportent pareil (memes variables CSS, meme dropdown). */
@@ -191,7 +227,6 @@ footer a { margin: 0 12px; }
         </svg>
       </span>
     </a>
-    <a href="/" class="nav-home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V21h13V9.5"/></svg><span data-i18n="nav_home">Accueil</span></a>
     <div class="nav-right">
       <div class="lang-selector">
         <button class="lang-current" type="button" aria-haspopup="true" aria-expanded="false" onclick="toggleLangDropdown(event)">
@@ -223,6 +258,11 @@ footer a { margin: 0 12px; }
 </nav>
 
 <main>
+  <nav class="fil-ariane" aria-label="Fil d'Ariane">
+    <a href="/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V21h13V9.5"/></svg><span data-i18n="nav_home">Accueil</span></a>
+    <span class="fil-sep" aria-hidden="true">/</span>
+    <span class="fil-ici" data-i18n="ml_1">Mentions légales</span>
+  </nav>
   <h1 data-i18n="ml_1">Mentions légales</h1>
   <p class="subtitle" data-i18n="ml_2">Dernière mise à jour : 27 août 2026</p>
 
@@ -312,12 +352,23 @@ footer a { margin: 0 12px; }
   <p data-i18n="ml_38">
     Les présentes mentions légales sont régies par le droit belge. Tout litige relatif à leur interprétation ou à leur exécution sera soumis aux tribunaux compétents de Belgique.
   </p>
+
+  <a href="/" class="retour-accueil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V21h13V9.5"/></svg><span data-i18n="nav_home">Accueil</span></a>
 </main>
 
 <footer>
-  <a href="/" class="foot-home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V21h13V9.5"/></svg><span data-i18n="nav_home">Accueil</span></a>
-  <a href="mailto:hello@get-authentique.com" data-i18n="foot_contact">Contact</a>
-  <p style="margin-top: 12px;">© 2026 Authentique</p>
+  <a href="/" class="footer-logo">
+    <span class="arch-icon">
+      <svg viewBox="0 0 200 200" fill="none">
+        <path d="M 28,178 L 52,88 Q 66,38 100,38 Q 134,38 148,88 L 172,178"
+          stroke="#ffffff" stroke-width="30" stroke-linecap="round" fill="none"/>
+      </svg>
+    </span>
+    <span class="footer-name">Authentique</span>
+  </a>
+  <a href="mailto:hello@get-authentique.com" class="footer-link" data-i18n="footer_contact">Contact</a>
+  <a href="/mentions-legales.html" class="footer-link" data-i18n="footer_legal">Mentions légales</a>
+  <p class="footer-copy">© 2026 Authentique</p>
 </footer>
 
 <script>
@@ -364,8 +415,9 @@ const translations = {
   "ml_37": "7. Droit applicable",
   "ml_38": "Les présentes mentions légales sont régies par le droit belge. Tout litige relatif à leur interprétation ou à leur exécution sera soumis aux tribunaux compétents de Belgique.",
   "nav_home": "Accueil",
-  "foot_contact": "Contact",
-  "nav_cta": "Soutenir sur Kickstarter"
+  "nav_cta": "Soutenir sur Kickstarter",
+  "footer_contact": "Contact",
+  "footer_legal": "Mentions légales"
  },
  "en": {
   "ml_1": "Legal notice",
@@ -407,8 +459,9 @@ const translations = {
   "ml_11": "<a href=\"https://vercel.com\" target=\"_blank\" rel=\"noopener\">vercel.com</a>",
   "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>",
   "nav_home": "Home",
-  "foot_contact": "Contact",
-  "nav_cta": "Back on Kickstarter"
+  "nav_cta": "Back on Kickstarter",
+  "footer_contact": "Contact",
+  "footer_legal": "Legal notice"
  },
  "es": {
   "ml_1": "Aviso legal",
@@ -450,8 +503,9 @@ const translations = {
   "ml_11": "<a href=\"https://vercel.com\" target=\"_blank\" rel=\"noopener\">vercel.com</a>",
   "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>",
   "nav_home": "Inicio",
-  "foot_contact": "Contacto",
-  "nav_cta": "Apoyar en Kickstarter"
+  "nav_cta": "Apoyar en Kickstarter",
+  "footer_contact": "Contacto",
+  "footer_legal": "Aviso legal"
  },
  "it": {
   "ml_1": "Note legali",
@@ -493,8 +547,9 @@ const translations = {
   "ml_11": "<a href=\"https://vercel.com\" target=\"_blank\" rel=\"noopener\">vercel.com</a>",
   "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>",
   "nav_home": "Home",
-  "foot_contact": "Contatti",
-  "nav_cta": "Sostieni su Kickstarter"
+  "nav_cta": "Sostieni su Kickstarter",
+  "footer_contact": "Contatti",
+  "footer_legal": "Note legali"
  },
  "pt": {
   "ml_1": "Aviso legal",
@@ -536,8 +591,9 @@ const translations = {
   "ml_11": "<a href=\"https://vercel.com\" target=\"_blank\" rel=\"noopener\">vercel.com</a>",
   "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>",
   "nav_home": "Início",
-  "foot_contact": "Contacto",
-  "nav_cta": "Apoiar no Kickstarter"
+  "nav_cta": "Apoiar no Kickstarter",
+  "footer_contact": "Contacto",
+  "footer_legal": "Aviso legal"
  },
  "ru": {
   "ml_1": "Правовая информация",
@@ -579,8 +635,9 @@ const translations = {
   "ml_11": "<a href=\"https://vercel.com\" target=\"_blank\" rel=\"noopener\">vercel.com</a>",
   "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>",
   "nav_home": "Главная",
-  "foot_contact": "Контакты",
-  "nav_cta": "Поддержать на Kickstarter"
+  "nav_cta": "Поддержать на Kickstarter",
+  "footer_contact": "Контакты",
+  "footer_legal": "Правовая информация"
  }
 };
 
