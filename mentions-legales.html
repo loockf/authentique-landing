@@ -14,6 +14,7 @@
   --text-mute: #888;
   --border: rgba(20,20,20,0.08);
   --green: #19d382;
+  --auth-grad: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%);
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
@@ -40,21 +41,12 @@ nav {
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 18px;
 }
-.nav-back {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--text-soft);
-  text-decoration: none;
-  font-size: 14px;
-}
-.nav-back:hover { color: var(--green); }
-.nav-back svg {
-  width: 14px;
-  height: 14px;
-}
+/* Logo et lien maison a gauche, langue + Kickstarter pousses a droite.
+   Sans ceci, space-between etalerait les trois blocs et la maison se
+   retrouverait au centre. */
+.nav-right { margin-left: auto; }
 .nav-logo {
   display: inline-flex;
   align-items: center;
@@ -112,9 +104,52 @@ footer {
 }
 footer a { margin: 0 12px; }
 
+/* Barre de navigation — reprise a l identique de index.html pour que les
+   deux pages du site se ressemblent. Seul ajout : le lien maison, qu une
+   page legale doit offrir explicitement plutot que de compter sur le logo. */
+.arch-icon {
+  display: inline-block; position: relative; background: var(--auth-grad);
+  border-radius: 50%; flex-shrink: 0; overflow: hidden;
+}
+.arch-icon svg {
+  position: absolute; top: 50%; left: 50%;
+  width: 60%; height: 60%; transform: translate(-50%, -54%);
+}
+.nav-logo .arch-icon { width: 32px; height: 32px; }
+.nav-right { display: flex; align-items: center; gap: 20px; }
+.nav-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--auth-grad); color: var(--white);
+  padding: 9px 16px; border-radius: 50px;
+  font: 500 13px/1 -apple-system, sans-serif;
+  text-decoration: none; transition: filter 0.2s, transform 0.2s;
+}
+.nav-cta:hover { filter: brightness(0.94); transform: translateY(-1px); }
+.cta-soon-btn {
+  background: #d8d8d6 !important; color: #8a8a86 !important;
+  pointer-events: none; cursor: default; box-shadow: none !important;
+}
+.cta-soon-btn svg { opacity: 0.55; }
+/* Lien maison : en tete a gauche, et repris en pied de page. */
+.nav-home {
+  display: inline-flex; align-items: center; gap: 7px;
+  color: var(--text-soft); text-decoration: none;
+  font: 500 14px/1 -apple-system, sans-serif;
+  transition: color 0.15s;
+}
+.nav-home, .foot-home, .nav-logo, .nav-cta { text-decoration: none; }
+.nav-home:hover { color: var(--green); }
+.foot-home:hover { text-decoration: underline; }
+.nav-home svg { width: 16px; height: 16px; }
+.foot-home {
+  display: inline-flex; align-items: center; gap: 7px;
+  color: var(--green); text-decoration: none;
+}
+.foot-home svg { width: 16px; height: 16px; }
+
 /* Selecteur de langue — copie de index.html pour que les deux pages
    se comportent pareil (memes variables CSS, meme dropdown). */
-.lang-selector { position: relative; margin-left: auto; }
+.lang-selector { position: relative; }
 .lang-current {
   background: transparent; border: none; color: var(--text);
   font: 500 12px/1 -apple-system, sans-serif; letter-spacing: 0.5px;
@@ -148,34 +183,41 @@ footer a { margin: 0 12px; }
 
 <nav>
   <div class="nav-inner">
-    <a href="/" class="nav-back" aria-label="Retour à l'accueil">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M19 12H5M12 19l-7-7 7-7"/>
-      </svg>
-      Retour
-    </a>
-    <a href="/" class="nav-logo">
-      <svg viewBox="0 0 200 200" fill="none">
-        <path d="M 28,178 L 52,88 Q 66,38 100,38 Q 134,38 148,88 L 172,178"
-          stroke="#19d382" stroke-width="30" stroke-linecap="round" fill="none"/>
-      </svg>
-      <span>Authentique</span>
-    </a>
-    <div class="lang-selector">
-      <button class="lang-current" type="button" aria-haspopup="true" aria-expanded="false" onclick="toggleLangDropdown(event)">
-        <span data-lang-current>FR</span>
-        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M3 5l3 3 3-3"/>
+    <a href="/" class="nav-logo" aria-label="Authentique">
+      <span class="arch-icon">
+        <svg viewBox="0 0 200 200" fill="none">
+          <path d="M 28,178 L 52,88 Q 66,38 100,38 Q 134,38 148,88 L 172,178"
+            stroke="#ffffff" stroke-width="30" stroke-linecap="round" fill="none"/>
         </svg>
-      </button>
-      <div class="lang-dropdown">
-        <button class="lang-btn active" data-lang="fr" onclick="setLang('fr')">Français</button>
-        <button class="lang-btn" data-lang="en" onclick="setLang('en')">English</button>
-        <button class="lang-btn" data-lang="es" onclick="setLang('es')">Español</button>
-        <button class="lang-btn" data-lang="it" onclick="setLang('it')">Italiano</button>
-        <button class="lang-btn" data-lang="pt" onclick="setLang('pt')">Português</button>
-        <button class="lang-btn" data-lang="ru" onclick="setLang('ru')">Русский</button>
+      </span>
+    </a>
+    <a href="/" class="nav-home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V21h13V9.5"/></svg><span data-i18n="nav_home">Accueil</span></a>
+    <div class="nav-right">
+      <div class="lang-selector">
+        <button class="lang-current" type="button" aria-haspopup="true" aria-expanded="false" onclick="toggleLangDropdown(event)">
+          <span data-lang-current>FR</span>
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 5l3 3 3-3"/>
+          </svg>
+        </button>
+        <div class="lang-dropdown">
+          <button class="lang-btn active" data-lang="fr" onclick="setLang('fr')">Français</button>
+          <button class="lang-btn" data-lang="en" onclick="setLang('en')">English</button>
+          <button class="lang-btn" data-lang="es" onclick="setLang('es')">Español</button>
+          <button class="lang-btn" data-lang="it" onclick="setLang('it')">Italiano</button>
+          <button class="lang-btn" data-lang="pt" onclick="setLang('pt')">Português</button>
+          <button class="lang-btn" data-lang="ru" onclick="setLang('ru')">Русский</button>
+        </div>
       </div>
+      <a href="#" class="nav-cta cta-soon-btn" tabindex="-1" aria-disabled="true">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M5 4h3.5v6.5L13 4h4.2l-5.4 8 5.7 8h-4.4L8.5 13.4V20H5z"/>
+        </svg>
+        <span data-i18n="nav_cta">Soutenir sur Kickstarter</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
     </div>
   </div>
 </nav>
@@ -273,8 +315,8 @@ footer a { margin: 0 12px; }
 </main>
 
 <footer>
-  <a href="/">Accueil</a>
-  <a href="mailto:hello@get-authentique.com">Contact</a>
+  <a href="/" class="foot-home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V21h13V9.5"/></svg><span data-i18n="nav_home">Accueil</span></a>
+  <a href="mailto:hello@get-authentique.com" data-i18n="foot_contact">Contact</a>
   <p style="margin-top: 12px;">© 2026 Authentique</p>
 </footer>
 
@@ -320,7 +362,10 @@ const translations = {
   "ml_35": "Pour toute question relative aux présentes mentions légales, à la protection des données ou au fonctionnement du service :",
   "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>",
   "ml_37": "7. Droit applicable",
-  "ml_38": "Les présentes mentions légales sont régies par le droit belge. Tout litige relatif à leur interprétation ou à leur exécution sera soumis aux tribunaux compétents de Belgique."
+  "ml_38": "Les présentes mentions légales sont régies par le droit belge. Tout litige relatif à leur interprétation ou à leur exécution sera soumis aux tribunaux compétents de Belgique.",
+  "nav_home": "Accueil",
+  "foot_contact": "Contact",
+  "nav_cta": "Soutenir sur Kickstarter"
  },
  "en": {
   "ml_1": "Legal notice",
@@ -360,7 +405,10 @@ const translations = {
   "ml_9": "<strong>Vercel Inc.</strong>",
   "ml_10": "440 N Barranca Ave #4133, Covina, CA 91723, États-Unis",
   "ml_11": "<a href=\"https://vercel.com\" target=\"_blank\" rel=\"noopener\">vercel.com</a>",
-  "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>"
+  "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>",
+  "nav_home": "Home",
+  "foot_contact": "Contact",
+  "nav_cta": "Back on Kickstarter"
  },
  "es": {
   "ml_1": "Aviso legal",
@@ -400,7 +448,10 @@ const translations = {
   "ml_9": "<strong>Vercel Inc.</strong>",
   "ml_10": "440 N Barranca Ave #4133, Covina, CA 91723, États-Unis",
   "ml_11": "<a href=\"https://vercel.com\" target=\"_blank\" rel=\"noopener\">vercel.com</a>",
-  "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>"
+  "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>",
+  "nav_home": "Inicio",
+  "foot_contact": "Contacto",
+  "nav_cta": "Apoyar en Kickstarter"
  },
  "it": {
   "ml_1": "Note legali",
@@ -440,7 +491,10 @@ const translations = {
   "ml_9": "<strong>Vercel Inc.</strong>",
   "ml_10": "440 N Barranca Ave #4133, Covina, CA 91723, États-Unis",
   "ml_11": "<a href=\"https://vercel.com\" target=\"_blank\" rel=\"noopener\">vercel.com</a>",
-  "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>"
+  "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>",
+  "nav_home": "Home",
+  "foot_contact": "Contatti",
+  "nav_cta": "Sostieni su Kickstarter"
  },
  "pt": {
   "ml_1": "Aviso legal",
@@ -480,7 +534,10 @@ const translations = {
   "ml_9": "<strong>Vercel Inc.</strong>",
   "ml_10": "440 N Barranca Ave #4133, Covina, CA 91723, États-Unis",
   "ml_11": "<a href=\"https://vercel.com\" target=\"_blank\" rel=\"noopener\">vercel.com</a>",
-  "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>"
+  "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>",
+  "nav_home": "Início",
+  "foot_contact": "Contacto",
+  "nav_cta": "Apoiar no Kickstarter"
  },
  "ru": {
   "ml_1": "Правовая информация",
@@ -520,7 +577,10 @@ const translations = {
   "ml_9": "<strong>Vercel Inc.</strong>",
   "ml_10": "440 N Barranca Ave #4133, Covina, CA 91723, États-Unis",
   "ml_11": "<a href=\"https://vercel.com\" target=\"_blank\" rel=\"noopener\">vercel.com</a>",
-  "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>"
+  "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>",
+  "nav_home": "Главная",
+  "foot_contact": "Контакты",
+  "nav_cta": "Поддержать на Kickstarter"
  }
 };
 
