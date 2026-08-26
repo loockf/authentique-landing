@@ -2129,12 +2129,15 @@ section { padding: 120px 24px; position: relative; }
 }
 /* LIMITATIONS mobile — téléphone | icône ≠ | fenêtre, même hauteur. */
 @media (max-width: 767px) {
-  /* Flex row, padding de bords, top-aligné */
+  /* Flex row, padding de bords. CENTRE verticalement : la fenêtre web
+     est désormais plus haute que le téléphone (elle porte dix lignes),
+     et c'est elle qui donne sa hauteur au groupe. Le téléphone se pose
+     donc à mi-hauteur du tableau, plutôt qu'aligné sur son bord haut. */
   .lim-group {
     gap: 10px;
     padding: 0 16px;
     box-sizing: border-box;
-    align-items: flex-start;
+    align-items: center;
   }
   /* Téléphone : padding proportionnel à la taille réduite.
      "La solution" : 6px pour ~210px → ratio ~0.56 → 3px pour ~117px.
@@ -2152,7 +2155,9 @@ section { padding: 120px 24px; position: relative; }
      hauteur = hauteur totale du téléphone (min(60vw,260px) + 6px). */
   .lim-separator {
     width: auto;
-    height: calc(min(60vw, 260px) + 6px);
+    /* Hauteur libre : le groupe est centré, le ≠ se place donc de
+       lui-même au milieu, sans avoir à copier la hauteur d'un voisin. */
+    height: auto;
     background: none;
     transform: none;
     border-radius: 0;
@@ -2162,23 +2167,50 @@ section { padding: 120px 24px; position: relative; }
   }
   /* Icône ≠ : taille réduite sur mobile */
   .lim-neq { display: block; width: 24px; height: 24px; }
-  /* Fenêtre web : même hauteur que le téléphone */
+  /* Fenêtre web : hauteur LIBRE, dictée par ses lignes.
+     Elle était auparavant calée sur la hauteur du téléphone, avec
+     overflow:hidden — les dernières limites étaient donc coupées, et
+     ajouter une ligne en faisait disparaître une autre en silence.
+     Mesure (iPhone, 815px de haut) : le bloc collant en offre 743, dont
+     231 pour le titre et 48 de gouttière — il reste 464 pour le groupe,
+     là où le tableau complet en demande ~350. La place existait. */
   .lim-safari-col {
     max-width: none;
-    height: calc(min(60vw, 260px) + 6px);
-    overflow: hidden;
+    height: auto;
+    overflow: visible;
     border-radius: 8px;
     background: #fff;
   }
-  .lim-safari { flex: 1; height: 100%; overflow: hidden; }
-  /* Contenu compact */
-  .lim-safari-chrome { padding: 5px 8px; gap: 5px; }
+  .lim-safari { flex: 1; height: auto; overflow: hidden; }
+  /* Contenu compact — mais lisible : la place regagnée sert d'abord au
+     texte, passé de 9 à 11px. */
+  .lim-safari-chrome { padding: 6px 9px; gap: 5px; }
   .lim-safari-dots { gap: 4px; }
   .lim-dot { width: 7px; height: 7px; }
-  .lim-safari-url { font-size: 9px; padding: 2px 6px; }
-  .lim-safari-body { padding: 6px 10px 8px; overflow: hidden; }
-  .lim-item { padding: 4px 0; font-size: 9px; }
-  .lim-cross { font-size: 8px; }
+  .lim-safari-url { font-size: 10px; padding: 2px 7px; }
+  .lim-safari-body { padding: 8px 12px 10px; overflow: visible; }
+  .lim-item { padding: 5px 0; font-size: 11px; }
+  .lim-cross { font-size: 10px; }
+}
+
+/* Ecrans courts (iPhone SE, 8, mini). Le tableau complet demande 425px
+   et le bloc collant n'en offre que 319 une fois le titre pose : il
+   deborderait de 106px, et les dernieres limites repasseraient sous la
+   ligne de flottaison — le defaut qu'on vient de corriger, revenu par la
+   petite porte.
+   On reduit donc l'ENSEMBLE du groupe plutot que ses reglages un par un :
+   c'est le procede deja employe pour les mockups en hauteur reduite
+   (paliers zoom plus haut dans ce fichier), et il garde les proportions.
+   Mesure : 425 x 0,72 = 306, contre 319 disponibles a 667px de haut. */
+@media (max-width: 767px) and (max-height: 780px) {
+  .lim-group { zoom: 0.82; }
+}
+@media (max-width: 767px) and (max-height: 700px) {
+  .lim-group { zoom: 0.72; }
+  .lim-header h2 { font-size: clamp(26px, 7vw, 34px); }
+}
+@media (max-width: 767px) and (max-height: 620px) {
+  .lim-group { zoom: 0.6; }
 }
 
 .section-cta {
