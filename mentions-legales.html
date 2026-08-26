@@ -111,6 +111,37 @@ footer {
   color: var(--text-mute);
 }
 footer a { margin: 0 12px; }
+
+/* Selecteur de langue — copie de index.html pour que les deux pages
+   se comportent pareil (memes variables CSS, meme dropdown). */
+.lang-selector { position: relative; margin-left: auto; }
+.lang-current {
+  background: transparent; border: none; color: var(--text);
+  font: 500 12px/1 -apple-system, sans-serif; letter-spacing: 0.5px;
+  padding: 6px 8px; cursor: pointer; border-radius: 6px;
+  display: inline-flex; align-items: center; gap: 5px; transition: color 0.15s;
+}
+.lang-current:hover { color: var(--green); }
+.lang-current svg { width: 9px; height: 9px; transition: transform 0.2s ease; }
+.lang-current[aria-expanded="true"] svg { transform: rotate(180deg); }
+.lang-dropdown {
+  position: absolute; top: 100%; right: 0; background: #ffffff;
+  border: 1px solid #e0e0e0; border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1); display: none;
+  min-width: 80px; z-index: 100; margin-top: 6px; padding: 4px;
+}
+.lang-dropdown.open { display: block; }
+.lang-btn {
+  background: transparent; border: none; color: var(--text-mute);
+  font: 500 12px/1 -apple-system, sans-serif; letter-spacing: 0.5px;
+  padding: 6px 8px; cursor: pointer; border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+.lang-btn.active { color: var(--text); }
+.lang-btn:hover { color: var(--green); }
+.lang-dropdown .lang-btn { display: block; width: 100%; text-align: left; }
+.lang-dropdown .lang-btn.active { display: none; }
+.lang-dropdown .lang-btn:hover { background: rgba(25,211,130,0.08); }
 </style>
 </head>
 <body>
@@ -130,93 +161,114 @@ footer a { margin: 0 12px; }
       </svg>
       <span>Authentique</span>
     </a>
+    <div class="lang-selector">
+      <button class="lang-current" type="button" aria-haspopup="true" aria-expanded="false" onclick="toggleLangDropdown(event)">
+        <span data-lang-current>FR</span>
+        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 5l3 3 3-3"/>
+        </svg>
+      </button>
+      <div class="lang-dropdown">
+        <button class="lang-btn active" data-lang="fr" onclick="setLang('fr')">Français</button>
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">English</button>
+        <button class="lang-btn" data-lang="es" onclick="setLang('es')">Español</button>
+        <button class="lang-btn" data-lang="it" onclick="setLang('it')">Italiano</button>
+        <button class="lang-btn" data-lang="pt" onclick="setLang('pt')">Português</button>
+        <button class="lang-btn" data-lang="ru" onclick="setLang('ru')">Русский</button>
+      </div>
+    </div>
   </div>
 </nav>
 
 <main>
-  <h1>Mentions légales</h1>
-  <p class="subtitle">Dernière mise à jour : 30 avril 2026</p>
+  <h1 data-i18n="ml_1">Mentions légales</h1>
+  <p class="subtitle" data-i18n="ml_2">Dernière mise à jour : 27 août 2026</p>
 
-  <h2>1. Éditeur du site</h2>
-  <p>
+  <h2 data-i18n="ml_3">1. Éditeur du site</h2>
+  <p data-i18n="ml_4">
     Le site <strong>get-authentique.com</strong> et l'application <strong>Authentique</strong> sont édités par :
   </p>
   <ul>
-    <li><strong>Authentique</strong> - projet indépendant</li>
-    <li>Contact : <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a></li>
+    <li data-i18n="ml_5"><strong>Authentique</strong> - projet indépendant</li>
+    <li data-i18n="ml_6">Contact : <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a></li>
   </ul>
 
-  <h2>2. Hébergement</h2>
-  <p>
+  <h2 data-i18n="ml_7">2. Hébergement</h2>
+  <p data-i18n="ml_8">
     Le site est hébergé par :
   </p>
   <ul>
-    <li><strong>Vercel Inc.</strong></li>
-    <li>440 N Barranca Ave #4133, Covina, CA 91723, États-Unis</li>
-    <li><a href="https://vercel.com" target="_blank" rel="noopener">vercel.com</a></li>
+    <li data-i18n="ml_9"><strong>Vercel Inc.</strong></li>
+    <li data-i18n="ml_10">440 N Barranca Ave #4133, Covina, CA 91723, États-Unis</li>
+    <li data-i18n="ml_11"><a href="https://vercel.com" target="_blank" rel="noopener">vercel.com</a></li>
   </ul>
 
-  <h2>3. Propriété intellectuelle</h2>
-  <p>
+  <h2 data-i18n="ml_12">3. Propriété intellectuelle</h2>
+  <p data-i18n="ml_13">
     L'ensemble du contenu présent sur ce site (textes, images, logos, code, design) est la propriété exclusive d'Authentique, sauf mention contraire. Toute reproduction, distribution ou exploitation sans autorisation écrite préalable est interdite.
   </p>
-  <p>
+  <p data-i18n="ml_14">
     Les marques <em>Instagram</em>, <em>Meta</em> et autres marques tierces citées sur ce site appartiennent à leurs propriétaires respectifs. Authentique n'est ni affilié ni sponsorisé par ces entités.
   </p>
 
-  <h2>4. Conditions générales d'utilisation</h2>
+  <h2 data-i18n="ml_15">4. Conditions générales d'utilisation</h2>
 
-  <h3>4.1 Nature du service</h3>
-  <p>
+  <h3 data-i18n="ml_16">4.1 Nature du service</h3>
+  <p data-i18n="ml_17">
     Authentique est une application de navigation web qui affiche les sites <em>Instagram.com</em> et <em>Facebook.com</em> tout en filtrant côté client le contenu choisi par l'utilisateur (publicités, suggestions algorithmiques, stories sponsorisées, etc.).
   </p>
-  <p>
+  <p data-i18n="ml_18">
     Authentique <strong>ne se connecte pas</strong> à votre compte Instagram. L'authentification s'effectue directement entre vous et Meta via leur interface web officielle, dans une WebView fournie par votre système d'exploitation.
   </p>
 
-  <h3>4.2 Utilisation acceptable</h3>
-  <p>
+  <h3 data-i18n="ml_19">4.2 Utilisation acceptable</h3>
+  <p data-i18n="ml_20">
     Vous vous engagez à utiliser Authentique conformément aux conditions d'utilisation d'Instagram et de Meta. Authentique ne contourne aucune mesure de sécurité ni n'accède à des API privées.
   </p>
 
-  <h3>4.3 Limitation de responsabilité</h3>
-  <p>
+  <h3 data-i18n="ml_21">4.3 Limitation de responsabilité</h3>
+  <p data-i18n="ml_22">
     Authentique est fourni « tel quel », sans garantie d'aucune sorte. L'éditeur ne peut être tenu responsable de tout dysfonctionnement résultant de modifications apportées par Meta à ses interfaces web, ni d'éventuelles pertes liées à l'utilisation de l'application.
   </p>
 
-  <h2>5. Politique de confidentialité</h2>
+  <h2 data-i18n="ml_23">5. Politique de confidentialité</h2>
 
-  <h3>5.1 Aucune collecte de données</h3>
-  <p>
-    Authentique <strong>ne collecte aucune donnée personnelle</strong>. L'application ne dispose d'aucun serveur, d'aucune base de données et n'utilise aucun outil d'analytique ou de tracking.
+  <h3 data-i18n="ml_24">5.1 Aucune collecte de données par l'application</h3>
+  <p data-i18n="ml_25">
+    L'application Authentique <strong>ne collecte aucune donnée personnelle</strong>. Elle ne dispose d'aucun serveur, d'aucune base de données, et n'utilise aucun outil d'analytique ou de tracking. Le site get-authentique.com n'utilise ni cookie, ni traceur, ni outil de mesure d'audience.
   </p>
 
-  <h3>5.2 Stockage local</h3>
-  <p>
+  <h3 data-i18n="ml_26">5.2 Stockage local</h3>
+  <p data-i18n="ml_27">
     Vos préférences de filtrage et la position du bouton flottant sont stockées <strong>localement</strong> sur votre appareil via les mécanismes de stockage natifs (AsyncStorage). Aucune de ces données ne quitte votre téléphone.
   </p>
 
-  <h3>5.3 Cookies et données Instagram</h3>
-  <p>
+  <h3 data-i18n="ml_28">5.3 Cookies et données Instagram</h3>
+  <p data-i18n="ml_29">
     Les cookies, sessions et données de navigation Instagram sont gérés directement par la WebView de votre système d'exploitation, comme pour n'importe quel navigateur. Authentique n'a pas accès à ces données.
   </p>
 
-  <h3>5.4 Vos droits</h3>
-  <p>
-    Comme aucune donnée personnelle n'est collectée, les droits RGPD (accès, rectification, suppression, portabilité) ne s'appliquent pas à Authentique. Pour les données détenues par Meta concernant votre compte Instagram, veuillez vous référer à la <a href="https://privacycenter.instagram.com" target="_blank" rel="noopener">politique de confidentialité d'Instagram</a>.
+  <h3 data-i18n="ml_30">5.4 Vos droits</h3>
+  <p data-i18n="ml_31">
+    L'application ne collectant aucune donnée personnelle, aucun traitement n'y est associé. Pour les données que vous nous transmettez volontairement via le formulaire de contact, vous disposez des droits prévus par le RGPD (accès, rectification, suppression, opposition) : écrivez à <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>. Pour les données détenues par Meta concernant votre compte Instagram, référez-vous à la <a href="https://privacycenter.instagram.com" target="_blank" rel="noopener">politique de confidentialité d'Instagram</a>.
   </p>
 
-  <h2>6. Contact</h2>
-  <p>
+  <h3 data-i18n="ml_32">5.5 Formulaire de contact</h3>
+  <p data-i18n="ml_33">
+    Si vous utilisez le formulaire de contact du site, les informations que vous y saisissez (adresse email si vous la renseignez, et contenu de votre message) nous sont transmises par email à l'adresse <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>. Ces informations sont utilisées uniquement pour répondre à votre demande, ne sont jamais transmises à des tiers à des fins commerciales, et sont conservées le temps nécessaire au traitement de votre demande. Vous pouvez demander leur suppression à tout moment en écrivant à <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>.
+  </p>
+
+  <h2 data-i18n="ml_34">6. Contact</h2>
+  <p data-i18n="ml_35">
     Pour toute question relative aux présentes mentions légales, à la protection des données ou au fonctionnement du service :
   </p>
-  <p>
+  <p data-i18n="ml_36">
     <a href="mailto:hello@get-authentique.com">hello@get-authentique.com</a>
   </p>
 
-  <h2>7. Droit applicable</h2>
-  <p>
-    Les présentes mentions légales sont régies par le droit français. Tout litige relatif à leur interprétation ou à leur exécution sera soumis aux tribunaux français compétents.
+  <h2 data-i18n="ml_37">7. Droit applicable</h2>
+  <p data-i18n="ml_38">
+    Les présentes mentions légales sont régies par le droit belge. Tout litige relatif à leur interprétation ou à leur exécution sera soumis aux tribunaux compétents de Belgique.
   </p>
 </main>
 
@@ -225,6 +277,309 @@ footer a { margin: 0 12px; }
   <a href="mailto:hello@get-authentique.com">Contact</a>
   <p style="margin-top: 12px;">© 2026 Authentique</p>
 </footer>
+
+<script>
+// i18n de la page — meme mecanique que index.html, et surtout MEME cle de
+// stockage (auth_lang) : la langue choisie sur l accueil vaut ici aussi.
+const translations = {
+ "fr": {
+  "ml_1": "Mentions légales",
+  "ml_2": "Dernière mise à jour : 27 août 2026",
+  "ml_3": "1. Éditeur du site",
+  "ml_4": "Le site <strong>get-authentique.com</strong> et l'application <strong>Authentique</strong> sont édités par :",
+  "ml_5": "<strong>Authentique</strong> - projet indépendant",
+  "ml_6": "Contact : <a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>",
+  "ml_7": "2. Hébergement",
+  "ml_8": "Le site est hébergé par :",
+  "ml_9": "<strong>Vercel Inc.</strong>",
+  "ml_10": "440 N Barranca Ave #4133, Covina, CA 91723, États-Unis",
+  "ml_11": "<a href=\"https://vercel.com\" target=\"_blank\" rel=\"noopener\">vercel.com</a>",
+  "ml_12": "3. Propriété intellectuelle",
+  "ml_13": "L'ensemble du contenu présent sur ce site (textes, images, logos, code, design) est la propriété exclusive d'Authentique, sauf mention contraire. Toute reproduction, distribution ou exploitation sans autorisation écrite préalable est interdite.",
+  "ml_14": "Les marques <em>Instagram</em>, <em>Meta</em> et autres marques tierces citées sur ce site appartiennent à leurs propriétaires respectifs. Authentique n'est ni affilié ni sponsorisé par ces entités.",
+  "ml_15": "4. Conditions générales d'utilisation",
+  "ml_16": "4.1 Nature du service",
+  "ml_17": "Authentique est une application de navigation web qui affiche les sites <em>Instagram.com</em> et <em>Facebook.com</em> tout en filtrant côté client le contenu choisi par l'utilisateur (publicités, suggestions algorithmiques, stories sponsorisées, etc.).",
+  "ml_18": "Authentique <strong>ne se connecte pas</strong> à votre compte Instagram. L'authentification s'effectue directement entre vous et Meta via leur interface web officielle, dans une WebView fournie par votre système d'exploitation.",
+  "ml_19": "4.2 Utilisation acceptable",
+  "ml_20": "Vous vous engagez à utiliser Authentique conformément aux conditions d'utilisation d'Instagram et de Meta. Authentique ne contourne aucune mesure de sécurité ni n'accède à des API privées.",
+  "ml_21": "4.3 Limitation de responsabilité",
+  "ml_22": "Authentique est fourni « tel quel », sans garantie d'aucune sorte. L'éditeur ne peut être tenu responsable de tout dysfonctionnement résultant de modifications apportées par Meta à ses interfaces web, ni d'éventuelles pertes liées à l'utilisation de l'application.",
+  "ml_23": "5. Politique de confidentialité",
+  "ml_24": "5.1 Aucune collecte de données par l'application",
+  "ml_25": "L'application Authentique <strong>ne collecte aucune donnée personnelle</strong>. Elle ne dispose d'aucun serveur, d'aucune base de données, et n'utilise aucun outil d'analytique ou de tracking. Le site get-authentique.com n'utilise ni cookie, ni traceur, ni outil de mesure d'audience.",
+  "ml_26": "5.2 Stockage local",
+  "ml_27": "Vos préférences de filtrage et la position du bouton flottant sont stockées <strong>localement</strong> sur votre appareil via les mécanismes de stockage natifs (AsyncStorage). Aucune de ces données ne quitte votre téléphone.",
+  "ml_28": "5.3 Cookies et données Instagram",
+  "ml_29": "Les cookies, sessions et données de navigation Instagram sont gérés directement par la WebView de votre système d'exploitation, comme pour n'importe quel navigateur. Authentique n'a pas accès à ces données.",
+  "ml_30": "5.4 Vos droits",
+  "ml_31": "L'application ne collectant aucune donnée personnelle, aucun traitement n'y est associé. Pour les données que vous nous transmettez volontairement via le formulaire de contact, vous disposez des droits prévus par le RGPD (accès, rectification, suppression, opposition) : écrivez à <a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>. Pour les données détenues par Meta concernant votre compte Instagram, référez-vous à la <a href=\"https://privacycenter.instagram.com\" target=\"_blank\" rel=\"noopener\">politique de confidentialité d'Instagram</a>.",
+  "ml_32": "5.5 Formulaire de contact",
+  "ml_33": "Si vous utilisez le formulaire de contact du site, les informations que vous y saisissez (adresse email si vous la renseignez, et contenu de votre message) nous sont transmises par email à l'adresse <a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>. Ces informations sont utilisées uniquement pour répondre à votre demande, ne sont jamais transmises à des tiers à des fins commerciales, et sont conservées le temps nécessaire au traitement de votre demande. Vous pouvez demander leur suppression à tout moment en écrivant à <a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>.",
+  "ml_34": "6. Contact",
+  "ml_35": "Pour toute question relative aux présentes mentions légales, à la protection des données ou au fonctionnement du service :",
+  "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>",
+  "ml_37": "7. Droit applicable",
+  "ml_38": "Les présentes mentions légales sont régies par le droit belge. Tout litige relatif à leur interprétation ou à leur exécution sera soumis aux tribunaux compétents de Belgique."
+ },
+ "en": {
+  "ml_1": "Legal notice",
+  "ml_2": "Last updated: 27 August 2026",
+  "ml_3": "1. Site publisher",
+  "ml_4": "The <strong>get-authentique.com</strong> website and the <strong>Authentique</strong> app are published by:",
+  "ml_5": "<strong>Authentique</strong> - independent project",
+  "ml_6": "Contact: <a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>",
+  "ml_7": "2. Hosting",
+  "ml_8": "The site is hosted by:",
+  "ml_12": "3. Intellectual property",
+  "ml_13": "All content on this site (text, images, logos, code, design) is the exclusive property of Authentique unless stated otherwise. Any reproduction, distribution or use without prior written permission is prohibited.",
+  "ml_14": "The <em>Instagram</em> and <em>Meta</em> trademarks, and other third-party trademarks mentioned on this site, belong to their respective owners. Authentique is neither affiliated with nor sponsored by these entities.",
+  "ml_15": "4. Terms of use",
+  "ml_16": "4.1 Nature of the service",
+  "ml_17": "Authentique is a web browsing app that displays the <em>Instagram.com</em> and <em>Facebook.com</em> websites while filtering, on the device, the content chosen by the user (ads, algorithmic suggestions, sponsored stories, and so on).",
+  "ml_18": "Authentique <strong>does not connect</strong> to your Instagram account. Authentication happens directly between you and Meta through their official web interface, in a WebView provided by your operating system.",
+  "ml_19": "4.2 Acceptable use",
+  "ml_20": "You agree to use Authentique in accordance with the terms of use of Instagram and Meta. Authentique circumvents no security measure and accesses no private API.",
+  "ml_21": "4.3 Limitation of liability",
+  "ml_22": "Authentique is provided \"as is\", without warranty of any kind. The publisher cannot be held liable for any malfunction resulting from changes made by Meta to its web interfaces, nor for any loss arising from use of the app.",
+  "ml_23": "5. Privacy policy",
+  "ml_24": "5.1 No data collected by the app",
+  "ml_25": "The Authentique app <strong>collects no personal data</strong>. It has no server, no database, and uses no analytics or tracking tool. The get-authentique.com website uses no cookie, no tracker and no audience measurement tool.",
+  "ml_26": "5.2 Local storage",
+  "ml_27": "Your filtering preferences and the position of the floating button are stored <strong>locally</strong> on your device through native storage (AsyncStorage). None of this data leaves your phone.",
+  "ml_28": "5.3 Cookies and Instagram data",
+  "ml_29": "Instagram cookies, sessions and browsing data are handled directly by your operating system’s WebView, as with any browser. Authentique has no access to this data.",
+  "ml_30": "5.4 Your rights",
+  "ml_31": "Since the app collects no personal data, no processing is associated with it. For the data you send us voluntarily through the contact form, you have the rights provided by the GDPR (access, rectification, erasure, objection): write to <a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>. For data held by Meta about your Instagram account, please refer to <a href=\"https://privacycenter.instagram.com\" target=\"_blank\" rel=\"noopener\">Instagram’s privacy policy</a>.",
+  "ml_32": "5.5 Contact form",
+  "ml_33": "If you use the site’s contact form, the information you enter (your email address if you provide it, and the content of your message) is sent to us by email at <a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>. This information is used solely to answer your request, is never passed to third parties for commercial purposes, and is kept only as long as needed to handle your request. You may ask for its deletion at any time by writing to <a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>.",
+  "ml_34": "6. Contact",
+  "ml_35": "For any question about this legal notice, data protection or how the service works:",
+  "ml_37": "7. Governing law",
+  "ml_38": "This legal notice is governed by Belgian law. Any dispute relating to its interpretation or performance shall be submitted to the competent courts of Belgium.",
+  "ml_9": "<strong>Vercel Inc.</strong>",
+  "ml_10": "440 N Barranca Ave #4133, Covina, CA 91723, États-Unis",
+  "ml_11": "<a href=\"https://vercel.com\" target=\"_blank\" rel=\"noopener\">vercel.com</a>",
+  "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>"
+ },
+ "es": {
+  "ml_1": "Aviso legal",
+  "ml_2": "Última actualización: 27 de agosto de 2026",
+  "ml_3": "1. Editor del sitio",
+  "ml_4": "El sitio <strong>get-authentique.com</strong> y la aplicación <strong>Authentique</strong> son editados por:",
+  "ml_5": "<strong>Authentique</strong> - proyecto independiente",
+  "ml_6": "Contacto: <a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>",
+  "ml_7": "2. Alojamiento",
+  "ml_8": "El sitio está alojado por:",
+  "ml_12": "3. Propiedad intelectual",
+  "ml_13": "Todo el contenido de este sitio (textos, imágenes, logotipos, código, diseño) es propiedad exclusiva de Authentique, salvo indicación contraria. Queda prohibida cualquier reproducción, distribución o explotación sin autorización escrita previa.",
+  "ml_14": "Las marcas <em>Instagram</em>, <em>Meta</em> y otras marcas de terceros citadas en este sitio pertenecen a sus respectivos propietarios. Authentique no está afiliado ni patrocinado por estas entidades.",
+  "ml_15": "4. Condiciones generales de uso",
+  "ml_16": "4.1 Naturaleza del servicio",
+  "ml_17": "Authentique es una aplicación de navegación web que muestra los sitios <em>Instagram.com</em> y <em>Facebook.com</em> filtrando en el dispositivo el contenido elegido por el usuario (publicidad, sugerencias algorítmicas, historias patrocinadas, etc.).",
+  "ml_18": "Authentique <strong>no se conecta</strong> a tu cuenta de Instagram. La autenticación se realiza directamente entre tú y Meta a través de su interfaz web oficial, en una WebView proporcionada por tu sistema operativo.",
+  "ml_19": "4.2 Uso aceptable",
+  "ml_20": "Te comprometes a utilizar Authentique conforme a las condiciones de uso de Instagram y de Meta. Authentique no elude ninguna medida de seguridad ni accede a ninguna API privada.",
+  "ml_21": "4.3 Limitación de responsabilidad",
+  "ml_22": "Authentique se proporciona «tal cual», sin garantía de ningún tipo. El editor no puede ser considerado responsable de ningún fallo derivado de modificaciones realizadas por Meta en sus interfaces web, ni de posibles pérdidas relacionadas con el uso de la aplicación.",
+  "ml_23": "5. Política de privacidad",
+  "ml_24": "5.1 Ninguna recopilación de datos por la aplicación",
+  "ml_25": "La aplicación Authentique <strong>no recopila ningún dato personal</strong>. No dispone de servidor, ni de base de datos, y no utiliza ninguna herramienta de analítica o de seguimiento. El sitio get-authentique.com no utiliza cookies, ni rastreadores, ni herramientas de medición de audiencia.",
+  "ml_26": "5.2 Almacenamiento local",
+  "ml_27": "Tus preferencias de filtrado y la posición del botón flotante se almacenan <strong>localmente</strong> en tu dispositivo mediante los mecanismos de almacenamiento nativos (AsyncStorage). Ninguno de estos datos sale de tu teléfono.",
+  "ml_28": "5.3 Cookies y datos de Instagram",
+  "ml_29": "Las cookies, sesiones y datos de navegación de Instagram son gestionados directamente por la WebView de tu sistema operativo, como en cualquier navegador. Authentique no tiene acceso a estos datos.",
+  "ml_30": "5.4 Tus derechos",
+  "ml_31": "Al no recopilar la aplicación ningún dato personal, no hay tratamiento asociado. Para los datos que nos envías voluntariamente a través del formulario de contacto, dispones de los derechos previstos por el RGPD (acceso, rectificación, supresión, oposición): escribe a <a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>. Para los datos que Meta posee sobre tu cuenta de Instagram, consulta la <a href=\"https://privacycenter.instagram.com\" target=\"_blank\" rel=\"noopener\">política de privacidad de Instagram</a>.",
+  "ml_32": "5.5 Formulario de contacto",
+  "ml_33": "Si utilizas el formulario de contacto del sitio, la información que introduces (dirección de email si la indicas y contenido de tu mensaje) nos llega por correo electrónico a <a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>. Esta información se utiliza únicamente para responder a tu solicitud, nunca se transmite a terceros con fines comerciales y se conserva el tiempo necesario para tramitar tu solicitud. Puedes solicitar su supresión en cualquier momento escribiendo a <a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>.",
+  "ml_34": "6. Contacto",
+  "ml_35": "Para cualquier consulta relativa al presente aviso legal, a la protección de datos o al funcionamiento del servicio:",
+  "ml_37": "7. Derecho aplicable",
+  "ml_38": "El presente aviso legal se rige por el derecho belga. Cualquier litigio relativo a su interpretación o ejecución se someterá a los tribunales competentes de Bélgica.",
+  "ml_9": "<strong>Vercel Inc.</strong>",
+  "ml_10": "440 N Barranca Ave #4133, Covina, CA 91723, États-Unis",
+  "ml_11": "<a href=\"https://vercel.com\" target=\"_blank\" rel=\"noopener\">vercel.com</a>",
+  "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>"
+ },
+ "it": {
+  "ml_1": "Note legali",
+  "ml_2": "Ultimo aggiornamento: 27 agosto 2026",
+  "ml_3": "1. Editore del sito",
+  "ml_4": "Il sito <strong>get-authentique.com</strong> e l’applicazione <strong>Authentique</strong> sono editi da:",
+  "ml_5": "<strong>Authentique</strong> - progetto indipendente",
+  "ml_6": "Contatto: <a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>",
+  "ml_7": "2. Hosting",
+  "ml_8": "Il sito è ospitato da:",
+  "ml_12": "3. Proprietà intellettuale",
+  "ml_13": "Tutti i contenuti presenti su questo sito (testi, immagini, loghi, codice, design) sono di proprietà esclusiva di Authentique, salvo diversa indicazione. Qualsiasi riproduzione, distribuzione o sfruttamento senza previa autorizzazione scritta è vietato.",
+  "ml_14": "I marchi <em>Instagram</em>, <em>Meta</em> e gli altri marchi di terzi citati su questo sito appartengono ai rispettivi proprietari. Authentique non è né affiliata né sponsorizzata da queste entità.",
+  "ml_15": "4. Condizioni generali di utilizzo",
+  "ml_16": "4.1 Natura del servizio",
+  "ml_17": "Authentique è un’applicazione di navigazione web che mostra i siti <em>Instagram.com</em> e <em>Facebook.com</em> filtrando sul dispositivo i contenuti scelti dall’utente (pubblicità, suggerimenti algoritmici, storie sponsorizzate, ecc.).",
+  "ml_18": "Authentique <strong>non si connette</strong> al tuo account Instagram. L’autenticazione avviene direttamente tra te e Meta tramite la loro interfaccia web ufficiale, in una WebView fornita dal tuo sistema operativo.",
+  "ml_19": "4.2 Uso accettabile",
+  "ml_20": "Ti impegni a utilizzare Authentique nel rispetto delle condizioni d’uso di Instagram e di Meta. Authentique non aggira alcuna misura di sicurezza né accede ad alcuna API privata.",
+  "ml_21": "4.3 Limitazione di responsabilità",
+  "ml_22": "Authentique è fornita «così com’è», senza garanzia di alcun tipo. L’editore non può essere ritenuto responsabile di malfunzionamenti derivanti da modifiche apportate da Meta alle proprie interfacce web, né di eventuali perdite legate all’uso dell’applicazione.",
+  "ml_23": "5. Informativa sulla privacy",
+  "ml_24": "5.1 Nessuna raccolta di dati da parte dell’applicazione",
+  "ml_25": "L’applicazione Authentique <strong>non raccoglie alcun dato personale</strong>. Non dispone di alcun server, di alcun database, e non utilizza alcuno strumento di analisi o di tracciamento. Il sito get-authentique.com non utilizza cookie, tracker né strumenti di misurazione del pubblico.",
+  "ml_26": "5.2 Archiviazione locale",
+  "ml_27": "Le tue preferenze di filtraggio e la posizione del pulsante flottante sono memorizzate <strong>localmente</strong> sul tuo dispositivo tramite i meccanismi di archiviazione nativi (AsyncStorage). Nessuno di questi dati lascia il tuo telefono.",
+  "ml_28": "5.3 Cookie e dati Instagram",
+  "ml_29": "I cookie, le sessioni e i dati di navigazione di Instagram sono gestiti direttamente dalla WebView del tuo sistema operativo, come per qualsiasi browser. Authentique non ha accesso a questi dati.",
+  "ml_30": "5.4 I tuoi diritti",
+  "ml_31": "Poiché l’applicazione non raccoglie alcun dato personale, non vi è alcun trattamento associato. Per i dati che ci trasmetti volontariamente tramite il modulo di contatto, disponi dei diritti previsti dal GDPR (accesso, rettifica, cancellazione, opposizione): scrivi a <a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>. Per i dati detenuti da Meta relativi al tuo account Instagram, consulta l’<a href=\"https://privacycenter.instagram.com\" target=\"_blank\" rel=\"noopener\">informativa sulla privacy di Instagram</a>.",
+  "ml_32": "5.5 Modulo di contatto",
+  "ml_33": "Se utilizzi il modulo di contatto del sito, le informazioni che inserisci (indirizzo email se lo indichi e contenuto del tuo messaggio) ci vengono trasmesse via email all’indirizzo <a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>. Queste informazioni sono utilizzate esclusivamente per rispondere alla tua richiesta, non sono mai trasmesse a terzi per finalità commerciali e sono conservate per il tempo necessario a trattare la tua richiesta. Puoi chiederne la cancellazione in qualsiasi momento scrivendo a <a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>.",
+  "ml_34": "6. Contatti",
+  "ml_35": "Per qualsiasi domanda relativa alle presenti note legali, alla protezione dei dati o al funzionamento del servizio:",
+  "ml_37": "7. Diritto applicabile",
+  "ml_38": "Le presenti note legali sono regolate dal diritto belga. Qualsiasi controversia relativa alla loro interpretazione o esecuzione sarà sottoposta ai tribunali competenti del Belgio.",
+  "ml_9": "<strong>Vercel Inc.</strong>",
+  "ml_10": "440 N Barranca Ave #4133, Covina, CA 91723, États-Unis",
+  "ml_11": "<a href=\"https://vercel.com\" target=\"_blank\" rel=\"noopener\">vercel.com</a>",
+  "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>"
+ },
+ "pt": {
+  "ml_1": "Aviso legal",
+  "ml_2": "Última atualização: 27 de agosto de 2026",
+  "ml_3": "1. Editor do site",
+  "ml_4": "O site <strong>get-authentique.com</strong> e a aplicação <strong>Authentique</strong> são editados por:",
+  "ml_5": "<strong>Authentique</strong> - projeto independente",
+  "ml_6": "Contacto: <a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>",
+  "ml_7": "2. Alojamento",
+  "ml_8": "O site é alojado por:",
+  "ml_12": "3. Propriedade intelectual",
+  "ml_13": "Todo o conteúdo presente neste site (textos, imagens, logótipos, código, design) é propriedade exclusiva da Authentique, salvo indicação em contrário. É proibida qualquer reprodução, distribuição ou exploração sem autorização escrita prévia.",
+  "ml_14": "As marcas <em>Instagram</em>, <em>Meta</em> e outras marcas de terceiros citadas neste site pertencem aos respetivos proprietários. A Authentique não é afiliada nem patrocinada por estas entidades.",
+  "ml_15": "4. Condições gerais de utilização",
+  "ml_16": "4.1 Natureza do serviço",
+  "ml_17": "A Authentique é uma aplicação de navegação web que apresenta os sites <em>Instagram.com</em> e <em>Facebook.com</em> filtrando no dispositivo o conteúdo escolhido pelo utilizador (publicidade, sugestões algorítmicas, stories patrocinados, etc.).",
+  "ml_18": "A Authentique <strong>não se liga</strong> à tua conta Instagram. A autenticação faz-se diretamente entre ti e a Meta através da sua interface web oficial, numa WebView fornecida pelo teu sistema operativo.",
+  "ml_19": "4.2 Utilização aceitável",
+  "ml_20": "Comprometes-te a utilizar a Authentique em conformidade com as condições de utilização do Instagram e da Meta. A Authentique não contorna qualquer medida de segurança nem acede a qualquer API privada.",
+  "ml_21": "4.3 Limitação de responsabilidade",
+  "ml_22": "A Authentique é fornecida «tal como está», sem garantia de qualquer tipo. O editor não pode ser responsabilizado por qualquer falha resultante de alterações introduzidas pela Meta nas suas interfaces web, nem por eventuais perdas ligadas à utilização da aplicação.",
+  "ml_23": "5. Política de privacidade",
+  "ml_24": "5.1 Nenhuma recolha de dados pela aplicação",
+  "ml_25": "A aplicação Authentique <strong>não recolhe qualquer dado pessoal</strong>. Não dispõe de servidor, nem de base de dados, e não utiliza qualquer ferramenta de analítica ou de rastreio. O site get-authentique.com não utiliza cookies, nem rastreadores, nem ferramentas de medição de audiência.",
+  "ml_26": "5.2 Armazenamento local",
+  "ml_27": "As tuas preferências de filtragem e a posição do botão flutuante são armazenadas <strong>localmente</strong> no teu dispositivo através dos mecanismos de armazenamento nativos (AsyncStorage). Nenhum destes dados sai do teu telemóvel.",
+  "ml_28": "5.3 Cookies e dados do Instagram",
+  "ml_29": "Os cookies, sessões e dados de navegação do Instagram são geridos diretamente pela WebView do teu sistema operativo, tal como em qualquer navegador. A Authentique não tem acesso a estes dados.",
+  "ml_30": "5.4 Os teus direitos",
+  "ml_31": "Uma vez que a aplicação não recolhe qualquer dado pessoal, não lhe está associado qualquer tratamento. Para os dados que nos transmites voluntariamente através do formulário de contacto, dispões dos direitos previstos pelo RGPD (acesso, retificação, apagamento, oposição): escreve para <a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>. Para os dados detidos pela Meta relativos à tua conta Instagram, consulta a <a href=\"https://privacycenter.instagram.com\" target=\"_blank\" rel=\"noopener\">política de privacidade do Instagram</a>.",
+  "ml_32": "5.5 Formulário de contacto",
+  "ml_33": "Se utilizares o formulário de contacto do site, as informações que introduzes (endereço de email, se o indicares, e conteúdo da tua mensagem) são-nos transmitidas por email para <a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>. Estas informações são utilizadas unicamente para responder ao teu pedido, nunca são transmitidas a terceiros para fins comerciais e são conservadas pelo tempo necessário ao tratamento do teu pedido. Podes pedir o seu apagamento a qualquer momento escrevendo para <a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>.",
+  "ml_34": "6. Contacto",
+  "ml_35": "Para qualquer questão relativa ao presente aviso legal, à proteção de dados ou ao funcionamento do serviço:",
+  "ml_37": "7. Direito aplicável",
+  "ml_38": "O presente aviso legal é regido pelo direito belga. Qualquer litígio relativo à sua interpretação ou execução será submetido aos tribunais competentes da Bélgica.",
+  "ml_9": "<strong>Vercel Inc.</strong>",
+  "ml_10": "440 N Barranca Ave #4133, Covina, CA 91723, États-Unis",
+  "ml_11": "<a href=\"https://vercel.com\" target=\"_blank\" rel=\"noopener\">vercel.com</a>",
+  "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>"
+ },
+ "ru": {
+  "ml_1": "Правовая информация",
+  "ml_2": "Последнее обновление: 27 августа 2026 г.",
+  "ml_3": "1. Издатель сайта",
+  "ml_4": "Сайт <strong>get-authentique.com</strong> и приложение <strong>Authentique</strong> издаются:",
+  "ml_5": "<strong>Authentique</strong> — независимый проект",
+  "ml_6": "Контакт: <a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>",
+  "ml_7": "2. Хостинг",
+  "ml_8": "Сайт размещён у:",
+  "ml_12": "3. Интеллектуальная собственность",
+  "ml_13": "Всё содержимое этого сайта (тексты, изображения, логотипы, код, дизайн) является исключительной собственностью Authentique, если не указано иное. Любое воспроизведение, распространение или использование без предварительного письменного разрешения запрещено.",
+  "ml_14": "Товарные знаки <em>Instagram</em>, <em>Meta</em> и другие упомянутые на сайте знаки третьих лиц принадлежат их правообладателям. Authentique не аффилирована с этими компаниями и не спонсируется ими.",
+  "ml_15": "4. Общие условия использования",
+  "ml_16": "4.1 Характер сервиса",
+  "ml_17": "Authentique — приложение для веб-навигации, которое отображает сайты <em>Instagram.com</em> и <em>Facebook.com</em>, фильтруя на устройстве содержимое, выбранное пользователем (реклама, алгоритмические рекомендации, рекламные истории и так далее).",
+  "ml_18": "Authentique <strong>не подключается</strong> к вашему аккаунту Instagram. Аутентификация происходит напрямую между вами и Meta через её официальный веб-интерфейс, в WebView, предоставляемом вашей операционной системой.",
+  "ml_19": "4.2 Допустимое использование",
+  "ml_20": "Вы обязуетесь использовать Authentique в соответствии с условиями использования Instagram и Meta. Authentique не обходит никакие меры безопасности и не обращается к закрытым API.",
+  "ml_21": "4.3 Ограничение ответственности",
+  "ml_22": "Authentique предоставляется «как есть», без каких-либо гарантий. Издатель не несёт ответственности за сбои, вызванные изменениями, которые Meta вносит в свои веб-интерфейсы, а также за возможные потери, связанные с использованием приложения.",
+  "ml_23": "5. Политика конфиденциальности",
+  "ml_24": "5.1 Приложение не собирает данные",
+  "ml_25": "Приложение Authentique <strong>не собирает никаких персональных данных</strong>. У него нет ни сервера, ни базы данных, и оно не использует средства аналитики или отслеживания. Сайт get-authentique.com не использует ни файлы cookie, ни трекеры, ни инструменты измерения аудитории.",
+  "ml_26": "5.2 Локальное хранение",
+  "ml_27": "Ваши настройки фильтрации и положение плавающей кнопки хранятся <strong>локально</strong> на вашем устройстве средствами системного хранилища (AsyncStorage). Ни один из этих данных не покидает ваш телефон.",
+  "ml_28": "5.3 Файлы cookie и данные Instagram",
+  "ml_29": "Файлы cookie, сессии и данные о навигации в Instagram обрабатываются непосредственно WebView вашей операционной системы, как в любом браузере. У Authentique нет доступа к этим данным.",
+  "ml_30": "5.4 Ваши права",
+  "ml_31": "Поскольку приложение не собирает персональных данных, никакой обработки с ним не связано. В отношении данных, которые вы добровольно передаёте нам через контактную форму, вы обладаете правами, предусмотренными GDPR (доступ, исправление, удаление, возражение): напишите на <a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>. По данным, которыми располагает Meta в отношении вашего аккаунта Instagram, обратитесь к <a href=\"https://privacycenter.instagram.com\" target=\"_blank\" rel=\"noopener\">политике конфиденциальности Instagram</a>.",
+  "ml_32": "5.5 Контактная форма",
+  "ml_33": "Если вы пользуетесь контактной формой сайта, введённые вами сведения (адрес электронной почты, если вы его укажете, и текст сообщения) поступают к нам по электронной почте на адрес <a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>. Эти сведения используются исключительно для ответа на ваш запрос, никогда не передаются третьим лицам в коммерческих целях и хранятся столько, сколько необходимо для обработки запроса. Вы можете в любой момент попросить их удалить, написав на <a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>.",
+  "ml_34": "6. Контакты",
+  "ml_35": "По любым вопросам, касающимся настоящей правовой информации, защиты данных или работы сервиса:",
+  "ml_37": "7. Применимое право",
+  "ml_38": "Настоящая правовая информация регулируется правом Бельгии. Любой спор относительно её толкования или исполнения передаётся на рассмотрение компетентных судов Бельгии.",
+  "ml_9": "<strong>Vercel Inc.</strong>",
+  "ml_10": "440 N Barranca Ave #4133, Covina, CA 91723, États-Unis",
+  "ml_11": "<a href=\"https://vercel.com\" target=\"_blank\" rel=\"noopener\">vercel.com</a>",
+  "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>"
+ }
+};
+
+let currentLang = 'fr';
+
+(function detectDeviceLang() {
+  var supported = ['fr', 'en', 'es', 'it', 'pt', 'ru'];
+  var saved = localStorage.getItem('auth_lang');
+  if (saved && supported.indexOf(saved) !== -1) { currentLang = saved; return; }
+  var langs = (navigator.languages && navigator.languages.length)
+    ? Array.from(navigator.languages)
+    : [navigator.language || navigator.userLanguage || 'fr'];
+  for (var i = 0; i < langs.length; i++) {
+    var code = langs[i].split('-')[0].toLowerCase();
+    if (supported.indexOf(code) !== -1) { currentLang = code; return; }
+  }
+})();
+
+function setLang(lang) {
+  localStorage.setItem('auth_lang', lang);
+  currentLang = lang;
+  document.documentElement.setAttribute('lang', lang);
+  document.querySelectorAll('.lang-btn').forEach(function (b) {
+    b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+  });
+  var currentLabel = document.querySelector('[data-lang-current]');
+  if (currentLabel) currentLabel.textContent = lang.toUpperCase();
+  var dropdown = document.querySelector('.lang-dropdown');
+  if (dropdown) dropdown.classList.remove('open');
+  var trigger = document.querySelector('.lang-current');
+  if (trigger) trigger.setAttribute('aria-expanded', 'false');
+  var t = translations[lang];
+  if (!t) return;
+  document.querySelectorAll('[data-i18n]').forEach(function (el) {
+    var key = el.getAttribute('data-i18n');
+    if (t[key]) el.innerHTML = t[key];
+  });
+}
+
+function toggleLangDropdown(event) {
+  if (event) event.stopPropagation();
+  var dropdown = document.querySelector('.lang-dropdown');
+  var trigger = document.querySelector('.lang-current');
+  if (!dropdown || !trigger) return;
+  var isOpen = dropdown.classList.toggle('open');
+  trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+}
+
+document.addEventListener('click', function (e) {
+  var selector = document.querySelector('.lang-selector');
+  if (!selector || selector.contains(e.target)) return;
+  var dropdown = document.querySelector('.lang-dropdown');
+  var trigger = document.querySelector('.lang-current');
+  if (dropdown) dropdown.classList.remove('open');
+  if (trigger) trigger.setAttribute('aria-expanded', 'false');
+});
+
+setLang(currentLang);
+</script>
 
 </body>
 </html>
