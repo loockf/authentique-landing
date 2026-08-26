@@ -183,12 +183,14 @@ nav {
   transition: color 0.15s;
 }
 .lang-current:hover { color: var(--green); }
-.lang-current svg {
+.lang-current svg:not(.lang-flag) {
   width: 9px;
   height: 9px;
   transition: transform 0.2s ease;
 }
-.lang-current[aria-expanded="true"] svg { transform: rotate(180deg); }
+/* :not(.lang-flag) — sans quoi le drapeau pivotait avec le chevron a
+   l ouverture du menu. */
+.lang-current[aria-expanded="true"] svg:not(.lang-flag) { transform: rotate(180deg); }
 .lang-dropdown {
   position: absolute;
   top: 100%;
@@ -204,22 +206,6 @@ nav {
   padding: 4px;
 }
 .lang-dropdown.open { display: block; }
-/* Drapeaux du selecteur de langue. Taille fixe et flex-shrink a zero :
-   sans ca, un libelle long les ecraserait au lieu de passer a la ligne. */
-.lang-flag {
-  width: 18px;
-  height: 13px;
-  border-radius: 2px;
-  flex: 0 0 auto;
-  display: inline-block;
-  vertical-align: middle;
-  box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
-}
-.lang-dropdown .lang-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
 
 .lang-btn {
   background: transparent;
@@ -242,6 +228,31 @@ nav {
   text-align: left;
 }
 .lang-dropdown .lang-btn.active { display: none; }
+/* Drapeaux du selecteur de langue.
+   Selecteurs longs a dessein : `.lang-current svg` ci-dessus vise TOUS les
+   svg du bouton, chevron compris, et l emportait sur une simple classe —
+   les drapeaux se retrouvaient a 9x9 px, illisibles. Il faut donc au moins
+   autant de specificite.
+   Hauteur calee sur celle des lettres FR / EN qu ils accompagnent. */
+.lang-current svg.lang-flag,
+.lang-dropdown .lang-btn svg.lang-flag {
+  width: 21px;
+  height: 15px;
+  border-radius: 2px;
+  flex: 0 0 auto;
+  display: inline-block;
+  vertical-align: middle;
+  transform: none;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
+}
+/* Le drapeau precede le libelle : le bouton devient une ligne. Pose APRES
+   la regle d origine (display:block), sinon elle l emporterait. */
+.lang-dropdown .lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
 .lang-dropdown .lang-btn:hover { background: rgba(25,211,130,0.08); }
 .nav-cta {
   display: inline-flex;
