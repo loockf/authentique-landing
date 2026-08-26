@@ -176,7 +176,16 @@ footer {
   white-space: nowrap; flex-shrink: 0; text-decoration: none;
 }
 .footer-link:hover { color: var(--green); }
-.footer-copy { font-size: 11px; color: var(--text-mute); flex-shrink: 0; white-space: nowrap; }
+/* margin-bottom: 0 — la regle globale `p { margin-bottom: 14px }` de
+   cette page s appliquait aussi au copyright. Sur un pied de page centre
+   verticalement, une marge basse remonte le texte de la moitie : le
+   copyright flottait 7px au-dessus des autres liens. */
+.footer-copy {
+  font-size: 11px; color: var(--text-mute);
+  flex-shrink: 0; white-space: nowrap;
+  margin: 0; line-height: 1;
+}
+footer > * { line-height: 1; }
 @media (max-width: 767px) {
   .footer-name { display: none; }
   .footer-link { font-size: 10px; }
