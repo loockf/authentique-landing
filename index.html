@@ -5367,6 +5367,11 @@ function wrapAuthentiqueOccurrences() {
 document.addEventListener('DOMContentLoaded', wrapAuthentiqueOccurrences);
 // Applique la langue détectée si différente du français déjà rendu.
 document.addEventListener('DOMContentLoaded', function() {
+  // Les drapeaux, TOUJOURS — y compris en francais. setLang n est appele
+  // ci-dessous que si la langue differe du francais, la langue deja
+  // ecrite dans le HTML : s en remettre a lui laissait la moitie des
+  // visiteurs sans drapeaux.
+  posherLesDrapeaux();
   if (currentLang !== 'fr') setLang(currentLang);
 });
 
