@@ -262,6 +262,23 @@ nav {
   padding: 4px;
 }
 .lang-dropdown.open { display: block; }
+/* Drapeaux du selecteur de langue. Taille fixe et flex-shrink a zero :
+   sans ca, un libelle long les ecraserait au lieu de passer a la ligne. */
+.lang-flag {
+  width: 18px;
+  height: 13px;
+  border-radius: 2px;
+  flex: 0 0 auto;
+  display: inline-block;
+  vertical-align: middle;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
+}
+.lang-dropdown .lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .lang-btn {
   background: transparent;
   border: none;
@@ -822,6 +839,41 @@ let currentLang = 'fr';
   }
 })();
 
+// Drapeaux DESSINES, pas des emoji. Les emoji de drapeaux ne s'affichent
+// pas sous Windows : Chrome et Edge y rendent les deux lettres du pays
+// ("FR", "DE"), ce qui casserait la ligne. Ceux-ci sont des SVG en clair,
+// sans requete reseau et identiques partout.
+var LANG_FLAGS = {
+  fr: '<svg class="lang-flag" viewBox="0 0 20 14" aria-hidden="true"><rect width="20" height="14" fill="#fff"/><rect width="6.67" height="14" fill="#0055A4"/><rect x="13.33" width="6.67" height="14" fill="#EF4135"/></svg>',
+  en: '<svg class="lang-flag" viewBox="0 0 20 14" aria-hidden="true"><rect width="20" height="14" fill="#012169"/><path d="M0,0 L20,14 M20,0 L0,14" stroke="#fff" stroke-width="2.8"/><path d="M0,0 L20,14 M20,0 L0,14" stroke="#C8102E" stroke-width="1.5"/><path d="M10,0 V14 M0,7 H20" stroke="#fff" stroke-width="4.6"/><path d="M10,0 V14 M0,7 H20" stroke="#C8102E" stroke-width="2.8"/></svg>',
+  es: '<svg class="lang-flag" viewBox="0 0 20 14" aria-hidden="true"><rect width="20" height="14" fill="#AA151B"/><rect y="3.5" width="20" height="7" fill="#F1BF00"/></svg>',
+  it: '<svg class="lang-flag" viewBox="0 0 20 14" aria-hidden="true"><rect width="20" height="14" fill="#fff"/><rect width="6.67" height="14" fill="#008C45"/><rect x="13.33" width="6.67" height="14" fill="#CD212A"/></svg>',
+  pt: '<svg class="lang-flag" viewBox="0 0 20 14" aria-hidden="true"><rect width="20" height="14" fill="#DA291C"/><rect width="8" height="14" fill="#046A38"/><circle cx="8" cy="7" r="2.7" fill="#FFE900" stroke="#fff" stroke-width="0.6"/></svg>',
+  ru: '<svg class="lang-flag" viewBox="0 0 20 14" aria-hidden="true"><rect width="20" height="14" fill="#fff"/><rect y="4.67" width="20" height="4.67" fill="#0039A6"/><rect y="9.34" width="20" height="4.66" fill="#D52B1E"/></svg>',
+  de: '<svg class="lang-flag" viewBox="0 0 20 14" aria-hidden="true"><rect width="20" height="14" fill="#000"/><rect y="4.67" width="20" height="4.67" fill="#DD0000"/><rect y="9.34" width="20" height="4.66" fill="#FFCE00"/></svg>',
+};
+
+// Pose un drapeau devant chaque langue du menu, et devant le libelle du
+// bouton. Fait en JavaScript et non dans le HTML : les deux pages du site
+// partagent ce selecteur, et un drapeau recopie a la main dans quatorze
+// balises finirait par diverger de l'autre page.
+function posherLesDrapeaux() {
+  document.querySelectorAll('.lang-btn').forEach(function (b) {
+    if (b.querySelector('.lang-flag')) { return; }
+    var code = b.getAttribute('data-lang');
+    if (LANG_FLAGS[code]) { b.insertAdjacentHTML('afterbegin', LANG_FLAGS[code]); }
+  });
+  majDrapeauCourant(currentLang);
+}
+
+function majDrapeauCourant(lang) {
+  var trigger = document.querySelector('.lang-current');
+  if (!trigger || !LANG_FLAGS[lang]) { return; }
+  var ancien = trigger.querySelector('.lang-flag');
+  if (ancien) { ancien.remove(); }
+  trigger.insertAdjacentHTML('afterbegin', LANG_FLAGS[lang]);
+}
+
 function setLang(lang) {
   localStorage.setItem('auth_lang', lang);
   currentLang = lang;
@@ -831,6 +883,7 @@ function setLang(lang) {
   });
   var currentLabel = document.querySelector('[data-lang-current]');
   if (currentLabel) currentLabel.textContent = lang.toUpperCase();
+  majDrapeauCourant(lang);
   var dropdown = document.querySelector('.lang-dropdown');
   if (dropdown) dropdown.classList.remove('open');
   var trigger = document.querySelector('.lang-current');
