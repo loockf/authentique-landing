@@ -2091,6 +2091,14 @@ section { padding: 120px 24px; position: relative; }
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+/* Le cadenas ne doit ni retrecir ni se faire rogner. La barre d adresse
+   coupe ce qui depasse (pour l ellipse de l URL trop longue) et repartit
+   la place entre ses enfants : sans ces deux lignes, l icone perdait sa
+   moitie droite des que le texte reclamait de la largeur. */
+.lim-safari-url svg {
+  flex: 0 0 auto;
+  overflow: visible;
+}
 .lim-safari-body { padding: 16px 20px 20px; }
 .lim-items { list-style: none; margin: 0; padding: 0; }
 .lim-item {
@@ -5640,6 +5648,7 @@ function pickDifferent(arr, lastIdx) {
     it: ['Sponsorizzato','Suggerito per te','Acquista','Per te','Partnership pagata','Acquista ora'],
     pt: ['Patrocinado','Sugerido para ti','Comprar','Para ti','Parceria paga','Comprar agora'],
     ru: ['Реклама','Рекомендуем','Купить','Для вас','Платное партнёрство','Купить сейчас'],
+    de: ['Gesponsert','Für dich vorgeschlagen','Jetzt kaufen','Für dich','Bezahlte Partnerschaft','Jetzt kaufen'],
   };
   const SCROLL_LANG = (
     document.documentElement.getAttribute('lang') ||
@@ -6590,6 +6599,7 @@ function pickDifferent(arr, lastIdx) {
     it: ['Sponsorizzato', 'Per te', 'Suggerito per te'],
     pt: ['Patrocinado', 'Para você', 'Sugerido para você'],
     ru: ['Реклама', 'Для вас', 'Рекомендуем'],
+    de: ['Gesponsert', 'Für dich', 'Für dich vorgeschlagen'],
   };
   function getReelLabels() {
     const lang = (typeof currentLang !== 'undefined' && currentLang) ? currentLang : 'fr';
