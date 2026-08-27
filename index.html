@@ -570,7 +570,14 @@ section { padding: 120px 24px; position: relative; }
    via les media queries ci-dessous. Un span vide en display:block
    entre deux noeuds inline force le navigateur a creer des blocs
    anonymes, ce qui coupe la ligne sans texte ni contenu visible. */
-.problem-title-break { display: none; }
+/* Le titre du probleme tient sur DEUX lignes dans toutes les langues.
+   Cette coupure etait reservee au mobile et a l'iPad ; sur desktop, le
+   retour venait du hasard de la longueur — l'italien (« Instagram
+   decide cosa vedi ») et l'espagnol tenaient sur une seule ligne, les
+   cinq autres langues non. Forcee partout, elle tombe au meme endroit
+   que le retour naturel des langues longues : rien ne bouge pour
+   elles. */
+.problem-title-break { display: block; }
 .problem-text p { margin-bottom: 8px; }
 .section-problem .problem-pains { margin-top: clamp(16px, 6vh, 70px); }
 /* :not(.section-label) sinon cette regle ecrase la taille du label
@@ -2617,8 +2624,6 @@ html.authentique-mesure .reveal { transform: none !important; }
     top: calc(100vh - 188px);
     bottom: auto;
   }
-  /* Titre "Le probleme" sur 2 lignes sur iPad */
-  .problem-title-break { display: block; }
   /* Grille pain-cards : 3 colonnes → 2 colonnes sur iPad */
   .problem-pains { grid-template-columns: repeat(2, 1fr); }
   /* Telephone : conserver la taille desktop (max du clamp 28vw/280px).
@@ -2685,8 +2690,6 @@ html.authentique-mesure .reveal { transform: none !important; }
   /* L'offset de 40px est gere par le handler JS du bouton hero.
      scroll-margin-top reste a 0 pour ne pas affecter d'autres contextes. */
   .section-problem { scroll-margin-top: 0; }
-  /* Titre "Le probleme" sur 2 lignes sur mobile */
-  .problem-title-break { display: block; }
   /* 3. Icones et labels reduits pour tenir sur une ligne a 390px :
         icon 28px, font 10px, padding 8/6px, gap 8px entre cartes. */
   .pain-icon { width: 28px; height: 28px; }
