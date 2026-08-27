@@ -1340,10 +1340,16 @@ section { padding: 120px 24px; position: relative; }
   letter-spacing: -0.2px; line-height: 1.1;
 }
 .sm-app-tagline { font-size: 0.64em; color: #9c9a93; margin-top: 0.2em; }
+/* Meme calligraphie que dans l'application (Alpha 5.114) : la maquette
+   doit montrer l'ecran tel qu'il est, pas tel qu'il etait. Les
+   capitales et l'interlettrage partent avec l'ancienne typo — une
+   calligraphie ne se dessine pas en capitales, et cette police fait se
+   toucher des lettres que l'interlettrage separait. Le padding retient
+   le jambage du « q », qui deborde de sa boite. */
 .sm-group-label {
-  font-size: 0.68em; font-weight: 600; color: #19d382;
-  text-transform: uppercase; letter-spacing: 0.8px;
-  text-align: center; margin-bottom: 0.6em;
+  font-family: 'GrosVentre', -apple-system, sans-serif;
+  font-size: 1.15em; font-weight: 400; color: #19d382;
+  text-align: center; padding-bottom: 0.12em; margin-bottom: 0.6em;
 }
 .sm-section {
   background: #fff; border-radius: 0.85em;
@@ -1531,7 +1537,10 @@ section { padding: 120px 24px; position: relative; }
 .story-overlay-icon {
   width: 3.67em;
   height: 3.67em;
-  border: 1.5px solid rgba(28, 28, 26, 0.55);
+  /* Vert de marque, comme dans l'application : le pictogramme
+     « interdit » y est passe au vert, identique en mode clair et
+     sombre. La maquette doit montrer l'ecran tel qu'il est. */
+  border: 1.5px solid #19d382;
   border-radius: 50%;
   position: relative;
   margin-bottom: 1.67em;
@@ -1543,7 +1552,7 @@ section { padding: 120px 24px; position: relative; }
   top: 50%;
   width: 3.17em;
   height: 1.5px;
-  background: rgba(28, 28, 26, 0.55);
+  background: #19d382;
   transform: translate(-50%, -50%) rotate(45deg);
 }
 .story-overlay-title {
@@ -4069,8 +4078,8 @@ html.authentique-mesure .reveal { transform: none !important; }
       <div class="lim-content-block">
         <div class="lim-header reveal">
           <p class="section-label" data-i18n="limits_label">Transparence</p>
-          <h2 data-i18n="limits_title">Ce qu'Authentique ne peut pas faire</h2>
-          <p data-i18n="limits_subtitle">Authentique utilise la version web d'Instagram. C'est ce qui nous permet<br>de filtrer ce que tu vois - Instagram version web ne peut pas faire les choses suivantes :</p>
+          <h2 data-i18n="limits_title">Authentique&nbsp;=&nbsp;Instagram version web</h2>
+          <p data-i18n="limits_subtitle">C'est ce qui nous permet de filtrer ce que tu vois.<br>En contrepartie, ces fonctionnalités ne sont pas disponibles :</p>
         </div>
         <div class="lim-group">
           <!-- Gauche : iPhone avec logo Instagram + barre diagonale dégradé -->
@@ -4308,8 +4317,8 @@ const translations = {
     ally_card3_title: "Plus de clarté",
     ally_card3_desc: "Ton feed redevient un espace que tu reconnais.",
     limits_label: "Transparence",
-    limits_title: "Ce qu'Authentique ne peut pas faire",
-    limits_subtitle: "Authentique utilise la version web d'Instagram. C'est ce qui nous permet<br>de filtrer ce que tu vois - Instagram version web ne peut pas faire les choses suivantes :",
+    limits_title: "Authentique&nbsp;=&nbsp;Instagram version web",
+    limits_subtitle: "C'est ce qui nous permet de filtrer ce que tu vois.<br>En contrepartie, ces fonctionnalités ne sont pas disponibles :",
     limits_item1: "Partager un post/reel dans une story",
     limits_item2: "Poster une vidéo dans une story",
     limits_item3: "Pas de Stickers / GIF / Musique / ... dans une story ou un post",
@@ -4455,8 +4464,8 @@ const translations = {
     ally_card3_title: "More clarity",
     ally_card3_desc: "Your feed becomes a space you recognize again.",
     limits_label: "Transparency",
-    limits_title: "What Authentique can't do",
-    limits_subtitle: "Authentique uses Instagram's web version. That's what allows us to filter what you see -<br>here is what the web version cannot do:",
+    limits_title: "Authentique&nbsp;=&nbsp;Instagram on the web",
+    limits_subtitle: "That is what lets us filter what you see.<br>In exchange, these features are not available:",
     limits_item1: "Share a post/reel in a story",
     limits_item2: "Post a video in a story",
     limits_item3: "No Stickers / GIFs / Music / ... in a story or a post",
@@ -4602,8 +4611,8 @@ const translations = {
     ally_card3_title: "Más claridad",
     ally_card3_desc: "Tu feed vuelve a ser un espacio que reconoces.",
     limits_label: "Transparencia",
-    limits_title: "Lo que Authentique no puede hacer",
-    limits_subtitle: "Authentique usa la versión web de Instagram. Eso es lo que nos permite filtrar lo que ves<br>- esto es lo que la versión web no puede hacer:",
+    limits_title: "Authentique&nbsp;=&nbsp;Instagram versión web",
+    limits_subtitle: "Es lo que nos permite filtrar lo que ves.<br>A cambio, estas funciones no están disponibles:",
     limits_item1: "Compartir un post/reel en una story",
     limits_item2: "Publicar un vídeo en una story",
     limits_item3: "Sin Stickers / GIF / Música / ... en una story o un post",
@@ -4749,8 +4758,8 @@ const translations = {
     ally_card3_title: "Più chiarezza",
     ally_card3_desc: "Il tuo feed torna a essere uno spazio che riconosci.",
     limits_label: "Trasparenza",
-    limits_title: "Cosa Authentique non può fare",
-    limits_subtitle: "Authentique usa la versione web di Instagram. È questo che ci permette di filtrare ciò che vedi<br>- ecco cosa la versione web non può fare:",
+    limits_title: "Authentique&nbsp;=&nbsp;Instagram versione web",
+    limits_subtitle: "È questo che ci permette di filtrare ciò che vedi.<br>In cambio, queste funzioni non sono disponibili:",
     limits_item1: "Condividere un post/reel in una storia",
     limits_item2: "Pubblicare un video in una storia",
     limits_item3: "Nessun Sticker / GIF / Musica / ... in una storia o un post",
@@ -4896,8 +4905,8 @@ const translations = {
     ally_card3_title: "Mais clareza",
     ally_card3_desc: "O teu feed volta a ser um espaço que reconheces.",
     limits_label: "Transparência",
-    limits_title: "O que o Authentique não consegue fazer",
-    limits_subtitle: "O Authentique usa a versão web do Instagram. É isso que nos permite filtrar o que vês<br>- eis o que a versão web não consegue fazer:",
+    limits_title: "Authentique&nbsp;=&nbsp;Instagram versão web",
+    limits_subtitle: "É isso que nos permite filtrar o que vês.<br>Em troca, estas funcionalidades não estão disponíveis:",
     limits_item1: "Partilhar um post/reel numa story",
     limits_item2: "Publicar um vídeo numa story",
     limits_item3: "Sem Stickers / GIFs / Música / ... numa story ou num post",
@@ -5043,8 +5052,8 @@ const translations = {
     ally_card3_title: "Больше ясности",
     ally_card3_desc: "Твоя лента снова становится пространством, которое ты узнаёшь.",
     limits_label: "Прозрачность",
-    limits_title: "Что Authentique не может делать",
-    limits_subtitle: "Authentique использует веб-версию Instagram. Именно это позволяет нам фильтровать то, что ты видишь<br>- вот чего веб-версия не умеет:",
+    limits_title: "Authentique&nbsp;=&nbsp;Instagram в веб-версии",
+    limits_subtitle: "Именно это позволяет нам фильтровать то, что ты видишь.<br>Взамен эти функции недоступны:",
     limits_item1: "Поделиться постом/рилсом в истории",
     limits_item2: "Опубликовать видео в истории",
     limits_item3: "Нет стикеров / GIF / музыки / ... в истории или посте",
@@ -5190,8 +5199,8 @@ const translations = {
     ally_card3_title: "Mehr Klarheit",
     ally_card3_desc: "Dein Feed wird wieder ein Ort, den du erkennst.",
     limits_label: "Transparenz",
-    limits_title: "Was Authentique nicht kann",
-    limits_subtitle: "Authentique nutzt die Web-Version von Instagram. Genau das erlaubt uns, zu filtern, was du siehst -<br>das kann die Web-Version nicht:",
+    limits_title: "Authentique&nbsp;=&nbsp;Instagram im Web",
+    limits_subtitle: "Genau das erlaubt uns, zu filtern, was du siehst.<br>Dafür stehen diese Funktionen nicht zur Verfügung:",
     limits_item1: "Einen Beitrag/Reel in einer Story teilen",
     limits_item2: "Ein Video in einer Story posten",
     limits_item3: "Keine Sticker / GIFs / Musik / ... in einer Story oder einem Beitrag",
