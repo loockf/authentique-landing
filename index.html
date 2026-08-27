@@ -84,6 +84,13 @@ em {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  /* Meme bug WebKit que sur .authentique-gradient-text, et meme
+     remede : la zone peinte s'arrete a la baseline, ce qui coupe net
+     la queue des descendantes — le « y » de « yourself », le « j »
+     de « toi-meme » en italique. Manquait ici, alors que la regle
+     soeur l'avait deja. Padding sur un inline : aucun effet sur le
+     flux du texte. */
+  padding-bottom: 0.14em;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -3752,7 +3759,7 @@ html.authentique-mesure .reveal { transform: none !important; }
               </svg>
               <h3 data-i18n="f4_title">Les Reels</h3>
             </div>
-            <p data-i18n="f4_desc">L'onglet Reels est remplacé par un message clair. Les Reels de tes amis restent dans ton fil.</p>
+            <p data-i18n="f4_desc">L'onglet Reels est remplacé par un message clair.<br>Les Reels de tes amis restent dans ton fil.</p>
           </div>
           <!-- Step 5 : Bloquer le Doom-scrolling. -->
           <div class="features-step" data-step="5" data-toggle="settings_label_scroll">
@@ -4260,7 +4267,7 @@ html.authentique-mesure .reveal { transform: none !important; }
       </details>
       <details class="faq-item reveal">
         <summary data-i18n="faq_q7">L'expérience est-elle identique à l'app Instagram ?</summary>
-        <p data-i18n="faq_a7">Authentique fonctionne via la version web d'Instagram. L'expérience est <b>similaire à celle d'instagram.com</b> dans un navigateur.<br><br>Ce que la version web ne permet pas :<br>• publier une vidéo ou un carrousel (plusieurs photos)<br>• envoyer une vidéo en DM<br>• partager un post/reel dans une story<br>• poster une vidéo dans une story<br>• pas de Stickers / GIF / Musique / ... dans une story ou un post<br>• filtres dans une story ou un post<br>• lancer un Live<br>• appels vidéo / audio<br>• les Instantanées dans les DM</p>
+        <p data-i18n="faq_a7">Authentique fonctionne via la version web d'Instagram. L'expérience est <b>similaire à celle d'instagram.com</b> dans un navigateur.<br><br>Ce que la version web ne permet pas :<br>• publier une vidéo ou un carrousel (plusieurs photos)<br>• envoyer une vidéo en DM<br>• partager un post/reel dans une story<br>• poster une vidéo dans une story<br>• pas de Stickers / GIF / Musique / ... dans une story ou un post<br>• filtres dans une story ou un post<br>• lancer un Live<br>• appels vidéo / audio<br>• les Instantanées dans les DM<br>• les notifications sur ton téléphone</p>
       </details>
       <details class="faq-item reveal">
         <summary data-i18n="faq_q9">Est-ce que je reçois des notifications ?</summary>
@@ -4300,7 +4307,7 @@ const translations = {
     hero_tagline: "Sois parmi les premiers à découvrir Authentique.",
     cta_soon: "La campagne est presque prête.",
     problem_label: "Le problème",
-    problem_title: 'Instagram décide<span class="problem-title-break"></span>ce&nbsp;que&nbsp;tu&nbsp;<span class="problem-gradient-text">vois</span>.',
+    problem_title: 'Instagram décide <span class="problem-title-break"></span>ce&nbsp;que&nbsp;tu&nbsp;<span class="problem-gradient-text">vois</span>.',
     problem_p2: "Ce n'est pas un manque de volonté. Instagram est conçu pour être addictif - ton attention est leur produit.",
     pain1: "Posts sponsorisés",
     pain2: "Contenus suggérés",
@@ -4421,7 +4428,7 @@ const translations = {
     settings_title: "Paramètres",
     settings_label_sponsored: "Publications sponsorisées",
     settings_label_suggested: "Masquer les publications suggérées",
-    settings_label_accounts: "Masquer les suggestions de comptes",
+    settings_label_accounts: "Suggestions de comptes",
     settings_label_reels: "Les Reels",
     settings_label_stories: "Stories sponsorisées",
     settings_label_scroll: "Bloquer le Doom-scrolling",
@@ -4568,7 +4575,7 @@ const translations = {
     settings_title: "Settings",
     settings_label_sponsored: "Sponsored posts",
     settings_label_suggested: "Hide suggested posts",
-    settings_label_accounts: "Hide account suggestions",
+    settings_label_accounts: "Account suggestions",
     settings_label_reels: "Reels",
     settings_label_stories: "Sponsored stories",
     settings_label_scroll: "Block Doom-scrolling",
@@ -4715,7 +4722,7 @@ const translations = {
     settings_title: "Ajustes",
     settings_label_sponsored: "Publicaciones patrocinadas",
     settings_label_suggested: "Ocultar publicaciones sugeridas",
-    settings_label_accounts: "Ocultar sugerencias de cuentas",
+    settings_label_accounts: "Sugerencias de cuentas",
     settings_label_reels: "Los Reels",
     settings_label_stories: "Stories patrocinadas",
     settings_label_scroll: "Bloquear el Doom-scrolling",
@@ -4862,7 +4869,7 @@ const translations = {
     settings_title: "Impostazioni",
     settings_label_sponsored: "Pubblicazioni sponsorizzate",
     settings_label_suggested: "Nascondi post suggeriti",
-    settings_label_accounts: "Nascondi suggerimenti account",
+    settings_label_accounts: "Suggerimenti di account",
     settings_label_reels: "I Reels",
     settings_label_stories: "Storie sponsorizzate",
     settings_label_scroll: "Blocca il Doom-scrolling",
@@ -5009,7 +5016,7 @@ const translations = {
     settings_title: "Configurações",
     settings_label_sponsored: "Publicações patrocinadas",
     settings_label_suggested: "Ocultar publicações sugeridas",
-    settings_label_accounts: "Ocultar sugestões de contas",
+    settings_label_accounts: "Sugestões de contas",
     settings_label_reels: "Os Reels",
     settings_label_stories: "Stories patrocinados",
     settings_label_scroll: "Bloquear o Doom-scrolling",
@@ -5156,7 +5163,7 @@ const translations = {
     settings_title: "Настройки",
     settings_label_sponsored: "Рекламные публикации",
     settings_label_suggested: "Скрыть рекомендуемые посты",
-    settings_label_accounts: "Скрыть предложения аккаунтов",
+    settings_label_accounts: "Предложения аккаунтов",
     settings_label_reels: "Reels",
     settings_label_stories: "Рекламные истории",
     settings_label_scroll: "Блокировать Doom-scrolling",
@@ -5303,7 +5310,7 @@ const translations = {
     settings_title: "Einstellungen",
     settings_label_sponsored: "Gesponserte Beiträge",
     settings_label_suggested: "Vorgeschlagene Beiträge ausblenden",
-    settings_label_accounts: "Kontovorschläge ausblenden",
+    settings_label_accounts: "Kontovorschläge",
     settings_label_reels: "Reels",
     settings_label_stories: "Gesponserte Stories",
     settings_label_scroll: "Doom-Scrolling blockieren",
