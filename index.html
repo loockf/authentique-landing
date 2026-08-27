@@ -1534,26 +1534,27 @@ section { padding: 120px 24px; position: relative; }
   width: 95%;
   box-sizing: border-box;
 }
+/* Copie CONFORME du pictogramme de l'application (instagram.ts,
+   .authentique-sponsored-story-icon) : meme vert, meme epaisseur de
+   trait, meme barre. Deux ecarts se voyaient avant :
+
+     - le trait. L'app pose 2px sur un cercle de 44 : 4,5% du diametre.
+       Ici tout est en em, donc 0.167em pour 3.67em de cercle — la
+       proportion tient quel que soit le palier de zoom.
+     - la barre. L'app ne la dessine pas en ::before mais en degrade
+       diagonal, colore de 45% a 55% : elle fait donc 10% du diametre,
+       cinq fois plus epaisse que le trait fin d'avant, et elle va d'un
+       bord a l'autre du cercle, que le border-radius decoupe. */
 .story-overlay-icon {
   width: 3.67em;
   height: 3.67em;
-  /* Vert de marque, comme dans l'application : le pictogramme
-     « interdit » y est passe au vert, identique en mode clair et
-     sombre. La maquette doit montrer l'ecran tel qu'il est. */
-  border: 1.5px solid #19d382;
+  box-sizing: border-box;
+  border: 0.167em solid #19d382;
   border-radius: 50%;
+  background: linear-gradient(45deg,
+    transparent 45%, #19d382 45%, #19d382 55%, transparent 55%);
   position: relative;
   margin-bottom: 1.67em;
-}
-.story-overlay-icon::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 3.17em;
-  height: 1.5px;
-  background: #19d382;
-  transform: translate(-50%, -50%) rotate(45deg);
 }
 .story-overlay-title {
   color: #1c1c1a;
