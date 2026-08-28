@@ -310,6 +310,22 @@ nav {
 }
 
 .lang-dropdown .lang-btn:hover { background: rgba(25,211,130,0.08); }
+/* Bouton Instagram — l'icone seule dans la barre, qui est deja chargee.
+   Le compte se lit au survol (title) et par les technologies
+   d'assistance (aria-label) : on ne prend pas la largeur d'un pseudo
+   que personne ne relit. */
+.nav-ig {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 50%;
+  color: var(--text-mute);
+  transition: color 0.2s, background 0.2s;
+}
+.nav-ig:hover { color: var(--green); background: rgba(25, 211, 130, 0.1); }
+/* Le libelle court du bouton Kickstarter : « Soutenir sur Kickstarter »
+   ne tient pas a cote de l'icone Instagram sur un telephone. Deux
+   libelles plutot qu'un texte coupe au CSS — chacun traduit, et le K
+   reste dans les deux cas. */
+.nav-cta-court { display: none; }
 .nav-cta {
   display: inline-flex;
   align-items: center;
@@ -348,6 +364,10 @@ footer {
 }
 .footer-link { font-size: 12px; color: var(--text-mute); white-space: nowrap; flex-shrink: 0; }
 .footer-link:hover { color: var(--green); }
+.footer-ig { display: inline-flex; align-items: center; gap: 6px; }
+/* Le pseudo s'efface avant le reste quand la ligne se serre : l'icone
+   suffit a dire ou l'on va, et le pied de page tient sur une ligne. */
+@media (max-width: 560px) { .footer-ig span { display: none; } }
 .footer-copy { font-size: 11px; color: var(--text-mute); flex-shrink: 0; white-space: nowrap; }
 /* Compensation propre a cette page : elle donne `margin-bottom: 14px`
    a tous les paragraphes, ce que l accueil ne fait pas. Le copyright
@@ -359,6 +379,9 @@ footer {
   .nav-right { gap: 12px; }
   .lang-switcher { gap: 0; }
   .nav-cta { padding: 9px 16px; font-size: 13px; }
+  .nav-cta-long { display: none; }
+  .nav-cta-court { display: inline; }
+  .nav-ig { width: 30px; height: 30px; }
   footer { padding: 14px 8px; }
   .footer-name { display: none; }
   .footer-link { font-size: 10px; }
@@ -378,6 +401,11 @@ footer {
     </span>
   </a>
   <div class="nav-right">
+    <a href="https://www.instagram.com/get.authentique/" class="nav-ig"
+       target="_blank" rel="noopener noreferrer"
+       aria-label="@get.authentique sur Instagram" title="@get.authentique">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/></svg>
+    </a>
     <div class="lang-selector">
       <button class="lang-current" type="button" aria-haspopup="true" aria-expanded="false" onclick="toggleLangDropdown(event)">
         <span data-lang-current>FR</span>
@@ -399,7 +427,7 @@ footer {
       <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M5 4h3.5v6.5L13 4h4.2l-5.4 8 5.7 8h-4.4L8.5 13.4V20H5z"/>
       </svg>
-      <span data-i18n="nav_cta">Soutenir sur Kickstarter</span>
+      <span class="nav-cta-long" data-i18n="nav_cta">Soutenir sur Kickstarter</span><span class="nav-cta-court" data-i18n="nav_cta_short">Soutenir</span>
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
         <path d="M5 12h14M12 5l7 7-7 7"/>
       </svg>
@@ -518,6 +546,11 @@ footer {
   </a>
   <a href="mailto:hello@get-authentique.com" class="footer-link" data-i18n="footer_contact">Contact</a>
   <a href="/mentions-legales.html" class="footer-link" data-i18n="footer_legal">Mentions légales</a>
+  <a href="https://www.instagram.com/get.authentique/" class="footer-link footer-ig"
+     target="_blank" rel="noopener noreferrer">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/></svg>
+    <span>@get.authentique</span>
+  </a>
   <p class="footer-copy">© 2026 Authentique</p>
 </footer>
 
@@ -566,6 +599,7 @@ const translations = {
   "ml_38": "Les présentes mentions légales sont régies par le droit belge. Tout litige relatif à leur interprétation ou à leur exécution sera soumis aux tribunaux compétents de Belgique.",
   "nav_home": "Accueil",
   "nav_cta": "Soutenir sur Kickstarter",
+  "nav_cta_short": "Soutenir",
   "footer_contact": "Contact",
   "footer_legal": "Mentions légales"
  },
@@ -610,6 +644,7 @@ const translations = {
   "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>",
   "nav_home": "Home",
   "nav_cta": "Back on Kickstarter",
+  "nav_cta_short": "Back us",
   "footer_contact": "Contact",
   "footer_legal": "Legal notice"
  },
@@ -654,6 +689,7 @@ const translations = {
   "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>",
   "nav_home": "Inicio",
   "nav_cta": "Apoyar en Kickstarter",
+  "nav_cta_short": "Apoyar",
   "footer_contact": "Contacto",
   "footer_legal": "Aviso legal"
  },
@@ -698,6 +734,7 @@ const translations = {
   "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>",
   "nav_home": "Home",
   "nav_cta": "Sostieni su Kickstarter",
+  "nav_cta_short": "Sostieni",
   "footer_contact": "Contatti",
   "footer_legal": "Note legali"
  },
@@ -742,6 +779,7 @@ const translations = {
   "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>",
   "nav_home": "Início",
   "nav_cta": "Apoiar no Kickstarter",
+  "nav_cta_short": "Apoiar",
   "footer_contact": "Contacto",
   "footer_legal": "Aviso legal"
  },
@@ -786,6 +824,7 @@ const translations = {
   "ml_36": "<a href=\"mailto:hello@get-authentique.com\">hello@get-authentique.com</a>",
   "nav_home": "Главная",
   "nav_cta": "Поддержать на Kickstarter",
+  "nav_cta_short": "Поддержать",
   "footer_contact": "Контакты",
   "footer_legal": "Правовая информация"
  },
@@ -830,6 +869,7 @@ const translations = {
   "ml_38": "Dieses Impressum unterliegt belgischem Recht. Für Streitigkeiten über seine Auslegung oder Durchführung sind die zuständigen Gerichte in Belgien berufen.",
   "nav_home": "Startseite",
   "nav_cta": "Auf Kickstarter unterstützen",
+  "nav_cta_short": "Unterstützen",
   "footer_contact": "Kontakt",
   "footer_legal": "Impressum"
  }
