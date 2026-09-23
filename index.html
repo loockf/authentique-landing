@@ -3467,7 +3467,12 @@ html.authentique-mesure .reveal { transform: none !important; }
         stroke="#ffffff" stroke-width="30" stroke-linecap="round" fill="none"/>
     </svg>
   </span>
-  <h1 class="hero-title reveal" style="transition-delay:0.12s" data-i18n="hero_title"><span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Vos réseaux, à votre <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">rythme</span><span style="color:#141414">.</span></span></h1>
+  <!-- Le mot accentue porte son degradee EN LIGNE, il n'herite donc pas de
+       la regle « .hero-title-accent, em » — y compris son padding-bottom.
+       Sans lui, WebKit arrete la zone peinte a la ligne de base et coupe la
+       queue du « y » de « rythme ». Le padding est repete dans les 7
+       traductions plus bas. Padding sur un inline : aucun effet sur le flux. -->
+  <h1 class="hero-title reveal" style="transition-delay:0.12s" data-i18n="hero_title"><span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Vos réseaux, à votre <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; padding-bottom: 0.14em;">rythme</span><span style="color:#141414">.</span></span></h1>
   <div class="hero-platforms-wrap">
     <span class="hero-platforms-caption reveal" style="transition-delay:0.2s" data-i18n="platforms_caption">Bientôt disponible sur :</span>
     <div class="hero-platforms">
@@ -4342,7 +4347,7 @@ const translations = {
   fr: {
     nav_cta: "Soutenir sur Kickstarter",
     nav_cta_short: "Soutenir",
-    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Vos réseaux, à votre <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">rythme</span><span style="color:#141414">.</span></span>',
+    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Vos réseaux, à votre <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; padding-bottom: 0.14em;">rythme</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
     hero_cta: "Soutenir sur Kickstarter",
     hero_tagline: "Sois parmi les premiers à découvrir Authentique.",
@@ -4489,7 +4494,7 @@ const translations = {
   en: {
     nav_cta: "Back on Kickstarter",
     nav_cta_short: "Back us",
-    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Your feeds, at your own <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">pace</span><span style="color:#141414">.</span></span>',
+    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Your feeds, at your own <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; padding-bottom: 0.14em;">pace</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
     hero_cta: "Back on Kickstarter",
     hero_tagline: "Be among the first to discover Authentique.",
@@ -4636,7 +4641,7 @@ const translations = {
   es: {
     nav_cta: "Apoyar en Kickstarter",
     nav_cta_short: "Apoyar",
-    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Tus redes, a tu <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">ritmo</span><span style="color:#141414">.</span></span>',
+    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Tus redes, a tu <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; padding-bottom: 0.14em;">ritmo</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
     hero_cta: "Apoyar en Kickstarter",
     hero_tagline: "Sé de los primeros en descubrir Authentique.",
@@ -4783,7 +4788,7 @@ const translations = {
   it: {
     nav_cta: "Sostieni su Kickstarter",
     nav_cta_short: "Sostieni",
-    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">I tuoi social, al tuo <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">ritmo</span><span style="color:#141414">.</span></span>',
+    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">I tuoi social, al tuo <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; padding-bottom: 0.14em;">ritmo</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
     hero_cta: "Sostieni su Kickstarter",
     hero_tagline: "Sii tra i primi a scoprire Authentique.",
@@ -4930,7 +4935,7 @@ const translations = {
   pt: {
     nav_cta: "Apoiar no Kickstarter",
     nav_cta_short: "Apoiar",
-    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">As tuas redes, ao teu <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">ritmo</span><span style="color:#141414">.</span></span>',
+    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">As tuas redes, ao teu <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; padding-bottom: 0.14em;">ritmo</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
     hero_cta: "Apoiar no Kickstarter",
     hero_tagline: "Sê dos primeiros a descobrir Authentique.",
@@ -5077,7 +5082,7 @@ const translations = {
   ru: {
     nav_cta: "Поддержать на Kickstarter",
     nav_cta_short: "Поддержать",
-    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Твои ленты, в твоём <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">ритме</span><span style="color:#141414">.</span></span>',
+    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Твои ленты, в твоём <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; padding-bottom: 0.14em;">ритме</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
     hero_cta: "Поддержать на Kickstarter",
     hero_tagline: "Будь среди первых, кто откроет Authentique.",
@@ -5224,7 +5229,7 @@ const translations = {
   de: {
     nav_cta: "Auf Kickstarter unterstützen",
     nav_cta_short: "Unterstützen",
-    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Deine Feeds, in deinem <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Tempo</span><span style="color:#141414">.</span></span>',
+    hero_title: '<span class="hero-title-line" id="hero-line1">Authentique.</span><span class="hero-title-line hero-title-line--regular" id="hero-line2">Deine Feeds, in deinem <span style="background: linear-gradient(138deg, #adf5d8 0%, #38eb98 22%, #19d382 50%, #10c89e 72%, #0aaa8e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; padding-bottom: 0.14em;">Tempo</span><span style="color:#141414">.</span></span>',
     hero_sub: '',
     hero_cta: "Auf Kickstarter unterstützen",
     hero_tagline: "Entdecke Authentique als eine oder einer der Ersten.",
